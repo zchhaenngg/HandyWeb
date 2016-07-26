@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HandyWorkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuthPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedById" Type="varchar" MaxLength="40" />
+          <Property Name="LastModifiedById" Type="varchar" MaxLength="40" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="LastModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AuthRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedById" Type="varchar" MaxLength="40" />
+          <Property Name="LastModifiedById" Type="varchar" MaxLength="40" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="LastModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AuthRolePermission">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RoleId" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="PermissionId" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthUserPermission">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="PermissionId" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="RoleId" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="RealName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
+          <Property Name="IsDomain" Type="bit" Nullable="false" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+          <Property Name="LoginFailedCount" Type="int" Nullable="false" />
+          <Property Name="LastLoginFailedTime" Type="datetime" />
+          <Property Name="CreatedById" Type="varchar" MaxLength="40" />
+          <Property Name="LastModifiedById" Type="varchar" MaxLength="40" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="LastModifiedTime" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AuthRolePermission_AuthPermission">
+          <End Role="AuthPermission" Type="Self.AuthPermission" Multiplicity="1" />
+          <End Role="AuthRolePermission" Type="Self.AuthRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthPermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthRolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthRolePermission_AuthRole">
+          <End Role="AuthRole" Type="Self.AuthRole" Multiplicity="1" />
+          <End Role="AuthRolePermission" Type="Self.AuthRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthRolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthUserPermission_AuthPermission">
+          <End Role="AuthPermission" Type="Self.AuthPermission" Multiplicity="1" />
+          <End Role="AuthUserPermission" Type="Self.AuthUserPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthPermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthUserPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthUserPermission_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AuthUserPermission" Type="Self.AuthUserPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthUserPermission">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthUserRole_AuthRole">
+          <End Role="AuthRole" Type="Self.AuthRole" Multiplicity="1" />
+          <End Role="AuthUserRole" Type="Self.AuthUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthUserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthUserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AuthUserRole" Type="Self.AuthUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthUserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HandyWorkModelStoreContainer">
+          <EntitySet Name="AuthPermission" EntityType="Self.AuthPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthRole" EntityType="Self.AuthRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthRolePermission" EntityType="Self.AuthRolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthUserPermission" EntityType="Self.AuthUserPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthUserRole" EntityType="Self.AuthUserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AuthRolePermission_AuthPermission" Association="Self.FK_AuthRolePermission_AuthPermission">
+            <End Role="AuthPermission" EntitySet="AuthPermission" />
+            <End Role="AuthRolePermission" EntitySet="AuthRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthRolePermission_AuthRole" Association="Self.FK_AuthRolePermission_AuthRole">
+            <End Role="AuthRole" EntitySet="AuthRole" />
+            <End Role="AuthRolePermission" EntitySet="AuthRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthUserPermission_AuthPermission" Association="Self.FK_AuthUserPermission_AuthPermission">
+            <End Role="AuthPermission" EntitySet="AuthPermission" />
+            <End Role="AuthUserPermission" EntitySet="AuthUserPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthUserPermission_User" Association="Self.FK_AuthUserPermission_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AuthUserPermission" EntitySet="AuthUserPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthUserRole_AuthRole" Association="Self.FK_AuthUserRole_AuthRole">
+            <End Role="AuthRole" EntitySet="AuthRole" />
+            <End Role="AuthUserRole" EntitySet="AuthUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthUserRole_User" Association="Self.FK_AuthUserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AuthUserRole" EntitySet="AuthUserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HandyWorkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuthPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="LastModifiedById" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AuthRole" Relationship="Self.AuthRolePermission" FromRole="AuthPermission" ToRole="AuthRole" />
+          <NavigationProperty Name="User" Relationship="Self.AuthUserPermission" FromRole="AuthPermission" ToRole="User" />
+        </EntityType>
+        <EntityType Name="AuthRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="LastModifiedById" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AuthPermission" Relationship="Self.AuthRolePermission" FromRole="AuthRole" ToRole="AuthPermission" />
+          <NavigationProperty Name="User" Relationship="Self.AuthUserRole" FromRole="AuthRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="IsDomain" Type="Boolean" Nullable="false" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <Property Name="LoginFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="LastLoginFailedTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedById" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="LastModifiedById" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AuthPermission" Relationship="Self.AuthUserPermission" FromRole="User" ToRole="AuthPermission" />
+          <NavigationProperty Name="AuthRole" Relationship="Self.AuthUserRole" FromRole="User" ToRole="AuthRole" />
+        </EntityType>
+        <Association Name="AuthRolePermission">
+          <End Role="AuthPermission" Type="Self.AuthPermission" Multiplicity="*" />
+          <End Role="AuthRole" Type="Self.AuthRole" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthUserPermission">
+          <End Role="AuthPermission" Type="Self.AuthPermission" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthUserRole">
+          <End Role="AuthRole" Type="Self.AuthRole" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="UserEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuthPermission" EntityType="Self.AuthPermission" />
+          <EntitySet Name="AuthRole" EntityType="Self.AuthRole" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="AuthRolePermission" Association="Self.AuthRolePermission">
+            <End Role="AuthPermission" EntitySet="AuthPermission" />
+            <End Role="AuthRole" EntitySet="AuthRole" />
+          </AssociationSet>
+          <AssociationSet Name="AuthUserPermission" Association="Self.AuthUserPermission">
+            <End Role="AuthPermission" EntitySet="AuthPermission" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="AuthUserRole" Association="Self.AuthUserRole">
+            <End Role="AuthRole" EntitySet="AuthRole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HandyWorkModelStoreContainer" CdmEntityContainer="UserEntities">
+          <EntitySetMapping Name="AuthPermission">
+            <EntityTypeMapping TypeName="HandyWorkModel.AuthPermission">
+              <MappingFragment StoreEntitySet="AuthPermission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="LastModifiedById" ColumnName="LastModifiedById" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthRole">
+            <EntityTypeMapping TypeName="HandyWorkModel.AuthRole">
+              <MappingFragment StoreEntitySet="AuthRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="LastModifiedById" ColumnName="LastModifiedById" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="HandyWorkModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsDomain" ColumnName="IsDomain" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="LoginFailedCount" ColumnName="LoginFailedCount" />
+                <ScalarProperty Name="LastLoginFailedTime" ColumnName="LastLoginFailedTime" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="LastModifiedById" ColumnName="LastModifiedById" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AuthRolePermission" TypeName="HandyWorkModel.AuthRolePermission" StoreEntitySet="AuthRolePermission">
+            <EndProperty Name="AuthPermission">
+              <ScalarProperty Name="Id" ColumnName="PermissionId" />
+            </EndProperty>
+            <EndProperty Name="AuthRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthUserPermission" TypeName="HandyWorkModel.AuthUserPermission" StoreEntitySet="AuthUserPermission">
+            <EndProperty Name="AuthPermission">
+              <ScalarProperty Name="Id" ColumnName="PermissionId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AuthUserRole" TypeName="HandyWorkModel.AuthUserRole" StoreEntitySet="AuthUserRole">
+            <EndProperty Name="AuthRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

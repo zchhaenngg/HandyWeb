@@ -1,0 +1,243 @@
+﻿*{
+    margin:0px;
+    padding:0px;
+    font-family:'Microsoft YaHei'; 
+}
+
+body
+{
+    background-color:white;
+    /*font-size: 10.5pt;*/
+    font-family:Microsoft YaHei,Arial;
+    width:100%;
+    /*min-width:366px;*/
+    height:100%;
+}
+
+a
+{
+    color: #333;
+    outline: none;
+    text-decoration: underline;
+}
+a:focus {
+     outline:none;
+     -moz-outline:none;
+}
+
+a:link, a:visited, a:active, a:hover
+{
+    color: #333;
+}
+
+a:hover
+{
+    background-color: #c7d1d6;
+}
+
+ul li
+{  
+    display: inline;
+    list-style: none;
+    padding-left: 0px;
+}
+
+table.editform,.changepass,.commissionform,.invoiceform,.statustable
+{
+	padding:0; 
+	margin:0 auto;
+	border-collapse: collapse;
+	border: 1px dotted #CCC;
+    /*background: #B1CDE3;
+    margin: 8px auto;*/
+    width: 98%;
+}
+table.contracttypeform{
+margin:0 auto;
+padding-bottom:15px;
+}
+table.contracttypeform td{
+text-align: center;
+}
+table.editform tr,.changepass tr 
+{
+	background: #FFFFFF;
+}
+
+table.editform th 
+{
+	/*border: 1px solid #B1CDE3;*/
+	/*background: #fff;*/
+	/*font-size:12px;*/
+	padding: 3px 3px 3px 8px;
+	/*color: #4f6b72;*/
+	width:160px;
+    text-align: right;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+
+table.invoiceform th 
+{	
+	padding: 3px 3px 3px 8px;
+	width:120px;
+    text-align: right;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+		
+table.editform td,.invoiceform td
+{
+	/*border: 1px solid #B1CDE3;*/
+	/*background: #fff;*/
+	/*font-size:12px;*/
+	padding: 3px 3px 3px 8px;
+	/*color: #4f6b72;*/
+	text-align: left;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+
+table.commissionform th 
+{	
+	padding: 3px 3px 3px 8px;
+	width:200px;
+    text-align: center;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+table.commissionform td 
+{
+    padding: 3px 3px 3px 8px;
+    width:200px;
+	text-align: center;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+.changepass td:first-child{
+    text-align: right;
+    width:20%;
+    padding: 5px 8px;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+.changepass td:last-child{
+     width:80%;
+    padding: 5px 8px;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+#passheader{
+ padding:5px 30px;
+}
+/*table.changepass 
+{
+	padding:0; 
+	margin:0 auto;
+	border-collapse: collapse;
+	border: 1px dotted #CCC;
+    width: 98%;
+}*/
+table.edittable 
+{
+	padding:0; 
+	margin:0 auto;
+	border-collapse: collapse;
+	border: 1px dotted #CCC;
+    /*background: #B1CDE3;
+    margin: 8px auto;*/
+    width: 98%;
+}
+
+table.edittable tr 
+{
+	background: #FFFFFF;
+}
+
+table.edittable th 
+{
+	/*border: 1px solid #B1CDE3;*/
+	/*background: #fff;*/
+	/*font-size:12px;*/
+	padding: 3px 3px 3px 8px;
+	/*color: #4f6b72;*/
+    width:180px;
+    text-align: right;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+		
+table.edittable td 
+{
+	/*border: 1px solid #B1CDE3;*/
+	/*background: #fff;*/
+	/*font-size:12px;*/
+	padding: 3px 3px 3px 8px;
+	/*color: #4f6b72;*/
+    text-align: left;
+    width:130px;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+table.statustable th 
+{	
+	padding: 3px 3px 3px 8px;
+    width:180px;
+    text-align: center;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+		
+table.statustable td 
+{	
+	padding: 3px 3px 3px 8px;
+    text-align: center;
+    border-bottom: 1px dotted #CCC;
+    border-right:1px dotted #CCC;
+}
+
+textarea
+{
+    height:400px;
+    width:500px;
+    resize: none;
+    overflow:auto;
+    border: 1px solid #c8c8c8;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+    font-family: Microsoft YaHei;
+    font-size:15px;
+}
+
+input[type=text] {
+    font-family:Microsoft YaHei,Arial;
+}
+
+/* Input Button Style */
+input[type=button], input[type=submit]
+{
+    height: 26px;
+    padding: 3px;
+    border: 1px solid #c8c8c8;
+    width: 82px;
+    background-image: url('/Images/button/button_linear.png');
+    color: #000;
+    cursor: pointer;
+    outline:none;
+}
+
+input[type=button]:hover, input[type=button]:focus, input[type=button]: active, input[type=submit]:hover, input[type=submit]:focus, input[type=submit]:active
+{
+    border: 1px solid #396d71;
+    -khtml-opacity: 0.9;
+    -webkit-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
+    -moz-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
+    box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
+    cursor: pointer;
+}
+
+.hand{cursor: pointer;}
+.custom-disabled-7{ opacity:.7;}
+.custom-disabled-5{ opacity:.5;}
+.custom-disabled-3{ opacity:.3;}

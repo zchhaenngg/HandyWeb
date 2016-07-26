@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul>
+            <li>@("你好," + User.Identity.GetUserName() + "!")</li>
+            <li>|</li>
+            <li>
+                @Html.ActionLink("修改密码", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li>|</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul>
+        @*<li>&nbsp;@Html.ActionLink("注册", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+        <li>&nbsp;@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

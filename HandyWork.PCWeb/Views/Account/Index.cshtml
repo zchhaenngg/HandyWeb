@@ -1,0 +1,214 @@
+﻿@using HandyWork.Localization
+@using HandyWork.UIBusiness.Query
+@model UserQuery
+@{
+    ViewBag.Title = "用户";
+}
+<div class="easyui-panel uih-adjust-size-panel uih-collapsible" title="@LocalizedResource.QUERY" style="padding:5px;" data-options="iconCls:'icon-search',collapsible:true,collapsed:false,onCollapse:checkResize,onExpand:checkResize">
+    <div style="position: relative;">
+        <div class="search-condition-item">
+            用户名
+            @Html.TextBoxFor(model => model.UserNameLike, new { @class = "easyui-validatebox textbox", style = "width:200px;", data_options = "validType:['length[1,25]']" })
+        </div>
+        <div class="search-condition-item">
+            姓名
+            @Html.TextBoxFor(m => m.RealNameLike, new { @class = "easyui-validatebox textbox", style = "width:200px;", data_options = "validType:['length[1,25]']" })
+        </div>
+        <div class="search-condition-item">
+            是否启用
+            @Html.DropDownListFor(m => m.IsValid, ViewBag.IsSelectList as SelectList, new { @class = "easyui-combobox", editable = "false" ,style="width:242px"})
+        </div>
+        <div class="search-condition-item">
+            是否被锁
+            @Html.DropDownListFor(m => m.IsLocked, ViewBag.IsSelectList as SelectList, new { @class = "easyui-combobox", editable = "true"})
+        </div>
+        <div class="search-condition-item">
+            创建时间
+            @Html.TextBox("CreationDate", DateTime.Now, new { @class = "easyui-datetimebox", editable = "false", data_options = "showSeconds:false,showBeforeNow:false" })
+        </div>
+        <div class="search-condition-item">
+            最后修改时间
+            @Html.TextBox("CreationDate", DateTime.Now, new { @class = "easyui-datetimebox", editable = "false", data_options = "showSeconds:false,showAfterNow:false" })
+        </div>
+        <div class="search-condition-item">
+            combotree测试
+            <input id="cc_combotree"/>
+        </div>
+        <div class="search-condition-item">
+            combobox级联测试
+            <input id="cascade1" />
+            <input id="cascade2" />
+            <input id="cascade3" />
+        </div>
+        <div class="search-condition-item-separator">
+        </div>
+        <div class="search-condition-item left50px">
+            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="callbacks.onSuccess()"> @LocalizedResource.QUERY</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-reset'" onclick="callbacks.onClear()"> @LocalizedResource.RESET</a>
+        </div>
+    </div>
+</div>
+<div id="user_list" class="uih-adjust-size-grid"></div>
+<div id="div_diag"></div>
+
+<script type="text/javascript" class="uih-adjust-size-grid">
+    var callbacks = {
+        onSuccess: function () {
+            $('#user_list').datagrid('reload');
+            $('#user_list').datagrid('clearSelections');
+        },
+        onFail: function (triggerButton) {
+            if ($(triggerButton).linkbutton()) {
+                $(triggerButton).linkbutton("enable");
+            }
+        },
+        onClear: function () {
+            var container = $("#Div_User_Query");
+            container.find(':input').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected');
+            container.find(':input').not(':button, :submit, :reset, :checkbox').val('');
+
+            $('#IsValid').combobox('select', 0);
+            $("input[name='IsValid']").val('');
+
+            $('#IsLocked').combobox('select', 0);
+            $("input[name='IsLocked']").val('');
+
+            $("#cc_combotree").combotree("reset");
+
+            validate(container);
+        }
+    };
+
+    $("#cascade1").combobox('cascadeShow', {
+        id: "cascade1",
+        url: '/Test/TestLoadCascade1',
+        options: {
+            id: "cascade2",
+            url: '/Test/TestLoadCascade2',
+            selectedValue: "2aaaxx",
+            options: {
+                id: "cascade3",
+                url: '/Test/TestLoadCascade3',
+                selectedValue: "3aaaxx"
+            }
+        }
+    });
+
+    (function ($) {
+        
+        $("#cc_combotree").combotree("show", {
+            url: "/Test/TestLoadCombotree"
+        });
+
+        $(function () {
+            initDataGrid();
+        });
+
+        function initDataGrid() {
+            var toolbar = toolbarEx.allButtons([buttons.create(), buttons.edit(), buttons.permission(), buttons.role(), buttons.valid(), buttons.Unlocked()]);
+            $('#user_list').datagrid({
+                loadMsg: CommonResources.STR_LOADING,
+                url: '@Url.Content(@"~/Account/JsonGetUsers")',
+                singleSelect: true, //是否单选
+                pagination: true, //分页控件
+                pageSize: 15,
+                pageList: [10, 15, 20, 30],
+                rownumbers: true,
+                fitColumns: false,
+                columns: [
+                    [
+                        { title: '用户名', field: 'UserName', halign: 'center', align: 'center', width: fillSize(0.15), sortable: true },
+                        { title: '姓名', field: 'RealName', halign: 'center', align: 'center', width: fillSize(0.1), sortable: true },
+                        { title: '启用', field: 'IsValidStr', align: 'center', width: fillSize(0.05), sortable: true },
+                        { title: '锁定', field: 'IsLockedStr', align: 'center', width: fillSize(0.05), sortable: true },
+                        { title: '域账户', field: 'IsDomainStr', align: 'center', width: fillSize(0.05), sortable: false },
+                        { title: '邮箱', field: 'Email', halign: 'center', align: 'left', width: fillSize(0.3), sortable: true },
+                        { field: 'Id', hidden: true }
+                    ]
+                ],
+                toolbar: toolbar,
+                onLoadSuccess: function (data) {
+                    checkResize();
+                },
+                onBeforeLoad: function (param) {
+                    param.UserNameLike = $("#UserNameLike").val();
+                    param.DescriptionLike = $("#DescriptionLike").val();
+                    param.IsValid = $("input[name='IsValid']").val();
+                    param.IsLocked = $("input[name='IsLocked']").val();
+                },
+                onLoadError: function () {
+                    alert("Load Error!");
+                }
+            });
+        }
+        var buttons = {
+            create: function () {
+                function handler() {
+                    diagEx.submitClose("/Account/Create/", String.format('{0}-{1}', '@LocalizedResource.CREATE', '@LocalizedResource.USER'), 600, 400);
+                }
+                return toolbarEx.create(handler);
+            },
+            edit: function () {
+                function handler() {
+                    var row = $('#user_list').datagrid('getSelected');
+                    diagEx.submitClose("/Account/Edit/" + row.Id, String.format('{0}-{1}', '@LocalizedResource.EDIT', '@LocalizedResource.USER'), 600, 400);
+                }
+                return toolbarEx.edit(handler);
+            },
+            permission: function () {
+                function handler() {
+                    var row = $('#user_list').datagrid('getSelected');
+                    location.href = "/Account/UserPermissions/" + row.Id;
+                }
+                return toolbarEx.edit(handler, '权限', 'icon-permission', null);
+            },
+            role: function () {
+                function handler() {
+                    var row = $('#user_list').datagrid('getSelected');
+                    location.href = "/Account/UserRoles/" + row.Id;
+                }
+                return toolbarEx.edit(handler, '角色', 'icon-permission', null);
+            },
+            valid: function () {
+                
+                function ajaxExConfirmHandler() {
+                    var rowData = $('#user_list').datagrid('getSelected');
+                    var confirmMsg = String.format("是否确认将用户 {0} 设置为 {1}", rowData.RealName, rowData.IsValid ? mutexOption.InValid.text : mutexOption.Valid.text);
+                    
+                    return {
+                        confirmMsg: confirmMsg,
+                        url: '/Account/JsonSetUserValid',
+                        params: { "userId": rowData.Id },
+                        onSuccess: callbacks.onSuccess,
+                        onFail: callbacks.onFail
+                    };
+                }
+
+                var mutexOption = {
+                    Valid: { text: "启用", iconCls: "icon-activate" },
+                    InValid: { text: "失效", iconCls: "icon-inactivate" }
+                };
+
+                return toolbarEx.mutex(mutexOption, ajaxExConfirmHandler, function (rowData) {
+                    return rowData.IsValid
+                });
+            },
+            Unlocked: function () {
+                function handler() {
+                    var row = $('#user_list').datagrid('getSelected');
+                    ajaxEx.confirm('是否确认解锁用户 ' + row.RealName + '？', url, params, callbacks.onSuccess, callbacks.onFail);
+                }
+                return toolbarEx.edit(handler, "解锁", "icon-inactivate", {
+                    rowOnSelect: function (rowIndex, rowData) {
+                        if (rowData.IsLocked) {
+                            this.linkbutton('enable');
+                        } else {
+                            this.linkbutton('disable');
+                        }
+                    }
+                });
+            }
+        };
+
+    })(jQuery);
+</script>

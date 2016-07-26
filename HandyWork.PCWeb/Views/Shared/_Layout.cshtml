@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>
+        @ViewBag.Title - GATHER
+    </title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="/UserStyles/Shared/_Layout/_Common.css" rel="stylesheet" type="text/css" />
+    <link href="/UserStyles/Shared/_Layout/_Layout.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jquery-easyui-1.4.5/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-easyui-1.4.5/themes/icon.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/easyui")
+    <script src="/UserScripts/Shared/_Layout/_Common.js" type="text/javascript"></script>
+    <script src="/UserScripts/Shared/_Layout/_EasyuiExtend.js" type="text/javascript"></script>
+    @if (IsSectionDefined("styles"))
+    {
+        @RenderSection("styles", required: false)
+    }
+    @Html.Partial("_StringResources")
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    @RenderSection("featured", required: false)
+    <div data-options="region:'north'" style="height: 30px; padding: 0px;overflow:hidden;">
+        <div style="height:100%; position:relative;">
+            <div id="menu" style="font-size:10.5pt;">
+                <div class="site_name">
+                    联影运营中心
+                </div>
+                <div class="site_message">
+                    <section>
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                </div>
+                <div class="nav_bar" style="font-size:12pt;color:#000000">
+                    
+                    <a id="M_8" href="javascript:void(0)" class="easyui-menubutton uih-menu-btn" data-options="menu:'#sys_manage'">系统管理</a>
+                    <div id="sys_manage" style="width: 150px;" data-options="onClick:onMenu_clicked_Handler">
+                        <div data-options="href:'/Account/Index#MenuId=M_8'">用户管理</div>
+                        <div data-options="href:'/Account/RoleIndex#MenuId=M_8'">角色管理</div>
+                        <div data-options="href:'/Account/PermissionIndex#MenuId=M_8'">权限管理</div>
+                    </div>
+
+                    <a id="M_9" href="javascript:void(0)" class="easyui-menubutton uih-menu-btn" data-options="menu:'#sys_manage2'">系统管理</a>
+                    <div id="sys_manage2" style="width: 150px;" data-options="onClick:onMenu_clicked_Handler">
+                        <div data-options="href:'/Account/Index#MenuId=M_8'">用户管理</div>
+                        <div data-options="href:'/Account/RoleIndex#MenuId=M_8'">角色管理</div>
+                        <div data-options="href:'/Account/PermissionIndex#MenuId=M_8'">权限管理</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Header Region -->
+        </div>
+    </div>
+    <!---下面的DIV用于全屏遮罩-->
+    <div id="UIH_Service_Center_FreezeAll" style="display:none">
+        <div style="width:100%; height:100%; display: block; z-index: 13003;" class="datagrid-mask">
+        </div>
+        <div style="left:50%; height: 16px; line-height: 16px; margin-left: -47.5px; display: block;z-index: 13004;" class="datagrid-mask-msg">
+            正在操作中，请稍后...
+        </div>
+    </div>
+    <div id="body_container" data-options="region:'center',split:false, onResize:center_onResize_Handler">
+        @RenderBody()
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+<script type="text/javascript">
+    var loadFinished = false;
+    $.parser.onComplete = function (context) {
+        loadFinished = true;
+        SetUIHStyle();
+        $("#menu").fadeIn("fast");
+        makeExpandOrCollapseWithDbClick();
+    }
+
+    function center_onResize_Handler(w, h) {
+        if (loadFinished) {
+            checkResize();
+        }
+    }
+
+    function onMenu_clicked_Handler(item) {
+        if (item && item.href) {
+            window.location.href = item.href;
+        }
+    };
+
+    function SetUIHStyle() {
+        var UIHCssStyle = {
+            FontSize: {
+                Menu_Item: '18px',
+                Sub_Menu_Item: '15px'
+            },
+            Color: {
+                Normal: '#00485E'
+            },
+            BackgroundColor: {
+                Ho_over: '#6CA2B2',
+                Font_Color: 'white'
+            }
+        };
+
+        if ($('.uih-menu-btn')) {
+            var spanChild = $('.uih-menu-btn').children('span').children('span');
+            if (spanChild) {
+                spanChild.css('font-size', UIHCssStyle.FontSize.Menu_Item);
+                spanChild.css('color', UIHCssStyle.Color.Normal);
+                spanChild.css('font-weight', 'bold');
+            }
+
+            var menuItemChild = $('.uih-menu-btn').children('.menu-item').children('.menu-text');
+            if (menuItemChild) {
+                menuItemChild.css('font-size', UIHCssStyle.FontSize.Sub_Menu_Item);
+                menuItemChild.css('color', UIHCssStyle.Color.Normal);
+            }
+        }
+    };
+
+</script>

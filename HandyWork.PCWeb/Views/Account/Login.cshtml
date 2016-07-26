@@ -1,0 +1,31 @@
+﻿@using HandyWork.UIBusiness.ViewModel.PCWeb
+@model LoginViewModel
+@{
+    ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<link href="/UserStyles/Login/Login.css" rel="stylesheet" type="text/css" />
+@*<script src="/UserScripts/Account/Login/LoginMain.js" type="text/javascript"></script>*@
+<hgroup class="title"></hgroup>
+<div id="loginForm">
+    <!--<h2>Use a local account to log in.</h2-->
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+
+        <div class="login">
+            <img src="/Images/login/user.png" alt="Username" />
+            @Html.TextBoxFor(m => m.UserName)
+        </div>
+        @*@Html.ValidationMessageFor(m => m.Name)*@
+
+        <div class="login">
+            <img src="/Images/login/passwords.png" alt="Password" />
+            @Html.PasswordFor(m => m.Password)
+        </div>
+        @*@Html.ValidationMessageFor(m => m.Password)*@
+
+        <div align="center"><input id="loginBtn" type="submit" value="登录" /></div>
+    }
+</div>

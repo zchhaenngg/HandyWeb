@@ -1,0 +1,72 @@
+﻿@using HandyWork.Localization
+@using HandyWork.UIBusiness.ViewModel.PCWeb
+@{
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+    string formId = Guid.NewGuid().ToString();
+}
+@model RegisterViewModel
+@using (Html.BeginForm("Create", "Account", null, FormMethod.Post, new { id = formId }))
+{
+    @Html.AntiForgeryToken()
+    <table width="100%;" cellpadding="0" cellspacing="1" class="editform" border="0">
+       <tr>
+           <th>@Html.LabelFor(m => m.UserName)</th>
+           <td>@Html.TextBoxFor(m => m.UserName, new { @class = "easyui-validatebox textbox" })</td>
+       </tr>  
+        <tr>
+            <th>@Html.LabelFor(m => m.Password)</th>
+            <td>@Html.PasswordFor(m => m.Password, new { @class = "easyui-validatebox textbox" })</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(m => m.ConfirmPassword)</th>
+            <td>@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "easyui-validatebox textbox" })</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(m => m.RealName)</th>
+            <td>@Html.TextBoxFor(m => m.RealName, new { @class = "easyui-validatebox textbox" })</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(m => m.Phone)</th>
+            <td>@Html.TextBoxFor(m => m.Phone, new { @class = "easyui-validatebox textbox" })</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(m => m.Email)</th>
+            <td>@Html.TextBoxFor(m => m.Email, new { @class = "easyui-validatebox textbox" })</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(m => m.IsDomain)</th>
+            <td>@Html.DropDownListFor(m => m.IsDomain, ViewBag.IsSelectList as SelectList, new { @class = "easyui-combobox", editable = "false", style = "width:122px;" })</td>
+        </tr>
+    </table>
+}
+
+<script type="text/javascript">
+    function diag_submit($dialog, triggerButton) {
+        $(triggerButton).linkbutton("disable");
+        $('#@formId').form('submit', {
+            onSubmit: function () {
+                var isValid = validate($("#@formId"), true);
+                if (!isValid) {
+                    $(triggerButton).linkbutton("enable");
+                }
+
+                return isValid;
+            },
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json.IsSuccess == true) {
+                    $dialog.dialog("close");
+                    $.messager.show({
+                        title: '@LocalizedResource.SUCCEED',
+                        msg: json.Message,
+                        timeout: 3000
+                    });
+                    callbacks.onSuccess();
+                } else {
+                    $.messager.alert('@LocalizedResource.FAILED', json.Message, 'warning');
+                }
+                $(triggerButton).linkbutton("enable");
+            }
+        });
+    }
+</script>

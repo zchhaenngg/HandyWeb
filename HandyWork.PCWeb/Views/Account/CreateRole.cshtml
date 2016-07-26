@@ -1,0 +1,52 @@
+﻿@using HandyWork.Localization
+@using HandyWork.UIBusiness.ViewModel.PCWeb
+@{
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+    string formId = Guid.NewGuid().ToString();
+}
+@model RoleViewModel
+@using (Html.BeginForm("CreateRole", "Account", null, FormMethod.Post, new { id = formId }))
+{
+    @Html.AntiForgeryToken()
+    <table width="100%;" cellpadding="0" cellspacing="1" class="editform" border="0">
+        <tr>
+            <th>@Html.LabelFor(m => m.Name)</th>
+            <td>@Html.TextBoxFor(m => m.Name, new { @class = "easyui-validatebox textbox" })</td>
+        </tr>
+        <tr>
+            <th>@Html.LabelFor(m => m.Description)</th>
+            <td>@Html.TextAreaFor(m => m.Description, new { @class = "easyui-validatebox textbox", style = "height:100px;" })</td>
+        </tr>
+    </table>
+}
+
+<script type="text/javascript">
+    function diag_submit($dialog, triggerButton) {
+        $(triggerButton).linkbutton("disable");
+        $('#@formId').form('submit', {
+            onSubmit: function () {
+                var isValid = validate($("#@formId"), true);
+                if (!isValid) {
+                    $(triggerButton).linkbutton("enable");
+                }
+
+                return isValid;
+            },
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json.IsSuccess == true) {
+                    $dialog.dialog("close");
+                    $.messager.show({
+                        title: '@LocalizedResource.SUCCEED',
+                        msg: json.Message,
+                        timeout: 3000
+                    });
+                    callbacks.onSuccess();
+                } else {
+                    $.messager.alert('@LocalizedResource.FAILED', json.Message, 'warning');
+                }
+                $(triggerButton).linkbutton("enable");
+            }
+        });
+    }
+</script>

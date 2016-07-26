@@ -1,0 +1,122 @@
+﻿@using HandyWork.Localization
+@using HandyWork.UIBusiness.Query
+@model AuthPermissionQuery
+@{
+    ViewBag.Title = LocalizedResource.PERMISSION;
+}
+<div id="div_permission_query" class="easyui-panel uih-adjust-size-panel uih-collapsible" title="@LocalizedResource.QUERY" style="padding:5px;" data-options="iconCls:'icon-search',collapsible:true,collapsed:false,onCollapse:checkResize,onExpand:checkResize">
+    <div id="div-search-condition" style="position:relative;">
+        <div class="search-condition-item">
+            权限名
+            @Html.TextBoxFor(model => model.NameLike, new { @class = "easyui-validatebox textbox", style = "width:200px;" })
+        </div>
+        <div class="search-condition-item">
+            权限代码
+            @Html.TextBoxFor(model => model.CodeLike, new { @class = "easyui-validatebox textbox", style = "width:200px;" })
+        </div>
+    </div>
+    <div class="search-condition-item-separator"></div>
+    <div class="search-condition-item left50px">
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="callbacks.onSuccess()"> @LocalizedResource.QUERY</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-reset'" onclick="callbacks.onClear()"> @LocalizedResource.RESET</a>
+    </div>
+</div>
+<div id="permission_list" class="uih-adjust-size-grid"></div>
+<div id="div_diag"></div>
+
+@section scripts{
+    <script type="text/javascript" class="uih-adjust-size-grid">
+    var callbacks = {
+        onSuccess: function () {
+            $('#permission_list').datagrid('reload');
+            $('#permission_list').datagrid('clearSelections');
+        },
+        onFail: function (triggerButton) {
+            if ($(triggerButton).linkbutton()) {
+                $(triggerButton).linkbutton("enable");
+            }
+        },
+        onClear: function () {
+            var container = $("#div_permission_query");
+            container.find(':input').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected');
+            container.find(':input').not(':button, :submit, :reset, :checkbox').val('');
+
+            validate(container);
+        }
+    };
+
+    var indexButtons = {
+        Create: function () {
+            return {
+                text: '@LocalizedResource.CREATE',
+                iconCls: 'icon-add',
+                handler: function () {
+                    diagEx.submitClose("/Account/CreatePermission/", String.format('{0}-{1}', '@LocalizedResource.CREATE', '@LocalizedResource.PERMISSION'), 600, 300);
+                }
+            }
+        },
+        Edit: function () {
+            return {
+                id: 'Index_EditHandler',
+                text: '编辑',
+                iconCls: 'icon-edit',
+                handler: function () {
+                    var row = $('#permission_list').datagrid('getSelected');
+                    diagEx.submitClose("/Account/EditPermission/" + row.Id, String.format('{0}-{1}', '@LocalizedResource.EDIT', '@LocalizedResource.PERMISSION'), 600, 300);
+                },
+                rowOnSelect: function (rowIndex, rowData) {
+                    $('#Index_EditHandler').linkbutton('enable');
+                }
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        initDataGrid();
+    });
+
+    var toolbar = getToolBar([
+        indexButtons.Create(),
+        indexButtons.Edit()
+    ]);
+
+    function initDataGrid() {
+        $('#permission_list').datagrid({
+            loadMsg: CommonResources.STR_LOADING,
+            collapsible: false, 
+            url: '@Url.Content(@"~/Account/JsonGetPermissions")',
+            idField: 'Id',
+            singleSelect: true, 
+            pagination: true, 
+            pageSize: 15,
+            pageList: [15, 20, 25, 30],
+            rownumbers: true,
+            fitColumns: false,
+            columns: [
+                [
+                    { title: '权限代码', field: 'Code', halign: 'center', align: 'left', width: fillSize(0.28), sortable: true },
+                    { title: '权限名', field: 'Name', halign: 'center', align: 'left', width: fillSize(0.27), sortable: true },
+                    { title: '描述', field: 'Description', halign: 'center', align: 'left', width: fillSize(0.5), sortable: true },
+                    { field: 'Id', hidden: true },
+                ]
+            ],
+            toolbar: toolbar,
+            onLoadSuccess: function (data) {
+                checkResize();
+                $('#Index_EditHandler').linkbutton('disable');
+            },
+            onBeforeLoad: function (param) {
+                param.NameLike = $('#NameLike').val();
+                param.CodeLike = $('#CodeLike').val();
+            },
+            onLoadError: function () {
+                alert("Load Error!");
+            }
+        });
+    }
+    </script>
+}
+
+
+
+

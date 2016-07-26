@@ -1,0 +1,268 @@
+﻿@using HandyWork.Localization
+@using HandyWork.UIBusiness.ViewModel.PCWeb
+@model UpdateUserViewModel
+@{
+    ViewBag.Title = "用户配置角色";
+}
+<table id="details_table" style="width:45%" class="editform" cellpadding="0" cellspacing="1" border="0">
+    <tbody>
+        <tr>
+            <td style="text-align:right;width:20%;font-weight:bold">
+                @Html.LabelFor(model => model.RealName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RealName)
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:right;width:20%;font-weight:bold">
+                @Html.LabelFor(model => model.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:right;width:20%;font-weight:bold">
+                @Html.LabelFor(model => model.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div id="cc" style="width: 95%; height: 400px; padding: 20px">
+    <div style="width: 45%; float: left">
+        <div id="left_div">
+            <div id="left_list">
+            </div>
+        </div>
+    </div>
+    <div style="width: 10%; float: left; text-align:center; padding-top: 15%; display:block">
+        <a id="addBtn" href="javascript:void(0);" class="easyui-linkbutton" onclick="add_btn_clicked()"> << 添加 </a>
+        <br />
+        <br />
+        <a id="removeBtn" href="javascript:void(0);" class="easyui-linkbutton" onclick="remove_btn_clicked()"> 删除 >> </a>
+    </div>
+    <div style="width: 45%; float: left">
+        <div id="right_div">
+            <div id="right_list">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        initDataGrid_left();
+        initDataGrid_right();
+    });
+
+
+    var callbacks = {
+        onSuccess: function () {
+            $('#left_list').datagrid('reload');
+            $('#left_list').datagrid('clearSelections');
+            $('#right_list').datagrid('reload');
+            $('#right_list').datagrid('clearSelections');
+        },
+        onFail: function (triggerButton) {
+            if ($(triggerButton).linkbutton()) {
+                $(triggerButton).linkbutton("enable");
+            }
+        },
+        onBeforeSend: function (flag) {
+            return true;
+        }
+    };
+
+    function fillSize(percent) {
+        var bodyWidth = document.body.clientWidth;
+        return (bodyWidth - 90) * percent;
+    }
+
+    function validatePageInputs_left() {
+        var container = $("div#left_div");
+        return validate(container);
+    }
+
+    function validatePageInputs_right() {
+        var container = $("div#right_div");
+        return validate(container);
+    }
+
+    function clearQuery_left() {
+        var container = $("#div-search-condition_left");
+        container.find(':input').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected');
+        container.find(':input').not(':button, :submit, :reset, :checkbox').val('');
+    }
+
+    function clearQuery_right() {
+        var container = $("#div-search-condition_right");
+        container.find(':input').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected');
+        container.find(':input').not(':button, :submit, :reset, :checkbox').val('');
+    }
+
+    function DoAdvancedQuery_left() {
+        if (validatePageInputs_left() == false) {
+            return;
+        }
+        $('#left_list').datagrid('unselectAll');
+        $('#left_list').datagrid('load');
+    }
+
+    function DoAdvancedQuery_right() {
+        if (validatePageInputs_right() == false) {
+            return;
+        }
+        $('#right_list').datagrid('unselectAll');
+        $('#right_list').datagrid('load');
+    }
+
+    function setUI() {
+        var leftSelectedData = $("#left_list").datagrid('getSelected');
+        if (leftSelectedData != null) {
+            $('#removeBtn').linkbutton('enable');
+        }
+        else {
+            $('#removeBtn').linkbutton('disable');
+        }
+
+        var rightSelectedData = $("#right_list").datagrid('getSelected');
+        if (rightSelectedData != null) {
+            $('#addBtn').linkbutton('enable');
+        }
+        else {
+            $('#addBtn').linkbutton('disable');
+        }
+    }
+
+    function getRequestParameters_left() {
+        var requestParameters = {
+            NameLike: $('#PermissionInNameLike').val()
+        };
+        return requestParameters;
+    }
+
+    function getRequestParameters_right() {
+        var requestParameters = {
+            NameLike: $('#PermissionNotInNameLike').val()
+        };
+        return requestParameters;
+    }
+
+    function initDataGrid_left() {
+        //左边datagrid初始化
+        var width = ($(this).width() - 200) / 2;
+        $('#left_list').datagrid({
+            title: '已有权限列表',
+            iconCls: 'icon-auth_profile', //图标
+            width: width,
+            height: 'auto',
+            nowrap: false,
+            border: true,
+            loadMsg: '@LocalizedResource.LOADING',
+            url: "/Account/JsonGetRolesByUserId/?userId=@Model.Id",
+            singleSelect: true, //是否单选
+            pagination: true, //分页控件
+            pageSize: 15,
+            pageList: [10, 15, 20, 25, 30],
+            rownumbers: true, //行号
+            columns: [
+                    [
+                        { title: '名称', field: 'Name', halign: 'center', align: 'left', sortable: true, width: width * 0.2 },
+                        { title: '描述', field: 'Description', halign: 'center', align: 'left', sortable: true, width: width * 0.7 },
+                        { field: 'Id', hidden: true }
+                    ]
+            ],
+            onSelect: function (rowIndex, rowData) {
+                setUI();
+            },
+            onLoadSuccess: function (data) {
+                if (data.IsSuccess == false) {
+                    $.messager.alert(ServiceCenterResources.STR_ACTION_FAIL, data.Message, 'warning');
+                    return;
+                }
+                else {
+                    $('#left_list').datagrid('clearSelections');
+                }
+                setUI();
+            },
+            onBeforeLoad: function (param) {
+
+            },
+            onLoadError: function () {
+                $.messager.alert("error", "loadError");
+            }
+        });
+    }
+
+    function initDataGrid_right() {
+        //右边datagrid初始化
+        var width = ($(this).width() - 200) / 2;
+        $('#right_list').datagrid({
+            title: '可选权限列表',
+            iconCls: 'icon-auth_profile', //图标
+            width: width,
+            height: 'auto',
+            nowrap: false,
+            border: true,
+            loadMsg: '@LocalizedResource.LOADING',
+            url: "/Account/JsonGetRoles4AddByUserId/?userId=@Model.Id",
+            singleSelect: true, //是否单选
+            pagination: true, //分页控件
+            pageSize: 15,
+            pageList: [10, 15, 20, 25, 30],
+            rownumbers: true, //行号
+            columns: [
+                [
+                    { title: '名称', field: 'Name', halign: 'center', align: 'left', sortable: true, width: width * 0.2 },
+                    { title: '描述', field: 'Description', halign: 'center', align: 'left', sortable: true, width: width * 0.7 },
+                    { field: 'Id', hidden: true }
+                ]
+            ],
+            onSelect: function (rowIndex, rowData) {
+                setUI();
+            },
+            onLoadSuccess: function (data) {
+                if (data.IsSuccess == false) {
+                    $.messager.alert('@LocalizedResource.FAILED', data.Message, 'warning');
+                    return;
+                }
+                else {
+                    $('#right_list').datagrid('clearSelections');
+                }
+                setUI();
+            },
+            onBeforeLoad: function (param) {
+
+            },
+            onLoadError: function () {
+                $.messager.alert("error", "loadError");
+            }
+        });
+    }
+
+    function add_btn_clicked() {
+        doAddRoleItem();
+    }
+
+    function doAddRoleItem() {
+        var rightSelectedData = $("#right_list").datagrid('getSelected');
+        var curUrl = "/Account/JsonAddUserRole/?userId=@Model.Id&roleId=" + rightSelectedData.Id;
+        ajaxEx.defaults(curUrl, null, callbacks.onSuccess, callbacks.onFail);
+    }
+
+    function remove_btn_clicked() {
+        doRemoveRoleItem();
+    }
+
+    function doRemoveRoleItem() {
+        var leftSelectedData = $("#left_list").datagrid('getSelected');
+        var curUrl = "/Account/JsonRemoveUserRole/?userId=@Model.Id&roleId=" + leftSelectedData.Id;
+        ajaxEx.defaults(curUrl, null, callbacks.onSuccess, callbacks.onFail);
+    }
+    </script>
+}
