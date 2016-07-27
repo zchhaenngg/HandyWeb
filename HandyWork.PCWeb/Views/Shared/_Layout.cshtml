@@ -30,7 +30,7 @@
         <div style="height:100%; position:relative;">
             <div id="menu" style="font-size:10.5pt;">
                 <div class="site_name">
-                    联影运营中心
+                    Quick
                 </div>
                 <div class="site_message">
                     <section>
@@ -39,14 +39,14 @@
                 </div>
                 <div class="nav_bar" style="font-size:12pt;color:#000000">
                     
-                    <a id="M_8" href="javascript:void(0)" class="easyui-menubutton uih-menu-btn" data-options="menu:'#sys_manage'">系统管理</a>
+                    <a id="M_8" href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#sys_manage'">系统管理</a>
                     <div id="sys_manage" style="width: 150px;" data-options="onClick:onMenu_clicked_Handler">
                         <div data-options="href:'/Account/Index#MenuId=M_8'">用户管理</div>
                         <div data-options="href:'/Account/RoleIndex#MenuId=M_8'">角色管理</div>
                         <div data-options="href:'/Account/PermissionIndex#MenuId=M_8'">权限管理</div>
                     </div>
 
-                    <a id="M_9" href="javascript:void(0)" class="easyui-menubutton uih-menu-btn" data-options="menu:'#sys_manage2'">系统管理</a>
+                    <a id="M_9" href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#sys_manage2'">系统管理</a>
                     <div id="sys_manage2" style="width: 150px;" data-options="onClick:onMenu_clicked_Handler">
                         <div data-options="href:'/Account/Index#MenuId=M_8'">用户管理</div>
                         <div data-options="href:'/Account/RoleIndex#MenuId=M_8'">角色管理</div>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <!---下面的DIV用于全屏遮罩-->
-    <div id="UIH_Service_Center_FreezeAll" style="display:none">
+    <div id="div_freeze_all" style="display:none">
         <div style="width:100%; height:100%; display: block; z-index: 13003;" class="datagrid-mask">
         </div>
         <div style="left:50%; height: 16px; line-height: 16px; margin-left: -47.5px; display: block;z-index: 13004;" class="datagrid-mask-msg">
@@ -77,7 +77,6 @@
     var loadFinished = false;
     $.parser.onComplete = function (context) {
         loadFinished = true;
-        SetUIHStyle();
         $("#menu").fadeIn("fast");
         makeExpandOrCollapseWithDbClick();
     }
@@ -91,37 +90,6 @@
     function onMenu_clicked_Handler(item) {
         if (item && item.href) {
             window.location.href = item.href;
-        }
-    };
-
-    function SetUIHStyle() {
-        var UIHCssStyle = {
-            FontSize: {
-                Menu_Item: '18px',
-                Sub_Menu_Item: '15px'
-            },
-            Color: {
-                Normal: '#00485E'
-            },
-            BackgroundColor: {
-                Ho_over: '#6CA2B2',
-                Font_Color: 'white'
-            }
-        };
-
-        if ($('.uih-menu-btn')) {
-            var spanChild = $('.uih-menu-btn').children('span').children('span');
-            if (spanChild) {
-                spanChild.css('font-size', UIHCssStyle.FontSize.Menu_Item);
-                spanChild.css('color', UIHCssStyle.Color.Normal);
-                spanChild.css('font-weight', 'bold');
-            }
-
-            var menuItemChild = $('.uih-menu-btn').children('.menu-item').children('.menu-text');
-            if (menuItemChild) {
-                menuItemChild.css('font-size', UIHCssStyle.FontSize.Sub_Menu_Item);
-                menuItemChild.css('color', UIHCssStyle.Color.Normal);
-            }
         }
     };
 

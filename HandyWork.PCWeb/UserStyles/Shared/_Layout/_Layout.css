@@ -10,30 +10,20 @@
     text-align: center;
 
 }
-/*#header
-{
-    height:70px;
-    width: 100%;
-    min-width:1150px;  
-    background: white;
-    z-index: -1; 
-    overflow:hidden;
-}*/
 .site_name{
     /*width:25%;*/
     background-color: inherit;
-    background-image:url(/Images/header/uih_logo_p.png);
+    /*background-image:url(/Images/header/logo.png);*/
     background-repeat:no-repeat;
     background-position-x:left;
     background-position-y:center;
     font-size:14pt;
-    color: #00485e;
+    color: #5ecbde;
     font-weight:bold;
     letter-spacing:3px;
     line-height:28px;
-    margin-left:10px;
-    
-    padding-left:25px;
+    margin-left:25px;
+    padding-left:30px;
     /*padding-top:5px;*/
     float:left;
 }
@@ -60,21 +50,6 @@
    display: inline;
 }
 
-/*.site_message a
-{
-    color: #00485E;
-    outline: none;
-    text-decoration: none;
-}*/
-/* End of Index Header */
-
-/* Start of Menu  */
-.nav_bar
-{
-    text-align: center;
-   
-    /*margin:0 auto;*/
-}
 
 
 .Menu_Link_Actived
@@ -127,7 +102,6 @@
     height: 40px; 
     width: 40px; 
     border: 1px solid #A4A4A4;
-    -khtml-opacity: 0.9;
     -webkit-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
     -moz-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
     box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
@@ -240,51 +214,6 @@
 }
 /*End of Search condition*/
 
-.UploadifyButtonWrapper { 
-    position:relative; 
-}
-.UploadifyButtonWrapper a
-{
-    position:absolute;top:0; left:0; width:80px;
-    /*font:14px "Microsoft YaHei", Verdana, Geneva, sans-serif;*/
-}
-.uploadify-queue {
-	margin-bottom: 1em;
-}
-.uploadify-queue-item {
-	background-color: #F5F5F5;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	font: 11px Verdana, Geneva, sans-serif;
-	margin-top: 5px;
-	max-width: 350px;
-	padding: 10px;
-}
-.uploadify-error {
-	background-color: #FDE5DD !important;
-}
-.uploadify-queue-item .cancel a {
-    background: url('../../../Scripts/uploadify/uploadify-cancel.png') 0 0 no-repeat;
-    float: right;
-    height: 16px;
-    text-indent: -9999px;
-    width: 16px;
-}
-.uploadify-queue-item.completed {
-	background-color: #E5E5E5;
-}
-.uploadify-progress {
-	background-color: #E5E5E5;
-	margin-top: 10px;
-	width: 100%;
-}
-.uploadify-progress-bar {
-	background-color: #0099FF;
-	height: 3px;
-	width: 1px;
-}
-/*end of uploadify wrapper*/
 
 div.note
 {

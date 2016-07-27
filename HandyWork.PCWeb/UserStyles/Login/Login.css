@@ -14,6 +14,7 @@ body
     width:573px;
     height:49px;
     margin:0 auto;
+    margin-top:150px;
     background: url('/Images/login/login_title.png') no-repeat;
     padding-bottom:10%;
     z-index: 0; 
@@ -92,13 +93,12 @@ body
 	 font-size:16pt;
 	 cursor: pointer;
 	 color:white;
-	 background-color:#00485E;
+	 background-color:#75cc97;
 }
 
 #loginBtn:hover, #loginBtn:focus,#loginBtn:active
 {
     border: 1px solid #396d71;
-    -khtml-opacity: 0.9;
     -webkit-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
     -moz-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);
     box-shadow: 0 0 5px rgba(82, 168, 236, 0.5);

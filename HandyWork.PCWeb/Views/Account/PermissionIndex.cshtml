@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = LocalizedResource.PERMISSION;
 }
-<div id="div_permission_query" class="easyui-panel uih-adjust-size-panel uih-collapsible" title="@LocalizedResource.QUERY" style="padding:5px;" data-options="iconCls:'icon-search',collapsible:true,collapsed:false,onCollapse:checkResize,onExpand:checkResize">
+<div id="div_permission_query" class="easyui-panel collapsible" title="@LocalizedResource.QUERY" style="padding:5px;" data-options="iconCls:'icon-search',collapsible:true,collapsed:false,onCollapse:checkResize,onExpand:checkResize">
     <div id="div-search-condition" style="position:relative;">
         <div class="search-condition-item">
             权限名
@@ -21,11 +21,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-reset'" onclick="callbacks.onClear()"> @LocalizedResource.RESET</a>
     </div>
 </div>
-<div id="permission_list" class="uih-adjust-size-grid"></div>
+<div id="permission_list"></div>
 <div id="div_diag"></div>
 
 @section scripts{
-    <script type="text/javascript" class="uih-adjust-size-grid">
+    <script type="text/javascript">
     var callbacks = {
         onSuccess: function () {
             $('#permission_list').datagrid('reload');

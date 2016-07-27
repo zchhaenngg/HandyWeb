@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "用户";
 }
-<div class="easyui-panel uih-adjust-size-panel uih-collapsible" title="@LocalizedResource.QUERY" style="padding:5px;" data-options="iconCls:'icon-search',collapsible:true,collapsed:false,onCollapse:checkResize,onExpand:checkResize">
+<div class="easyui-panel collapsible" title="@LocalizedResource.QUERY" style="padding:5px;" data-options="iconCls:'icon-search',collapsible:true,collapsed:false,onCollapse:checkResize,onExpand:checkResize">
     <div style="position: relative;">
         <div class="search-condition-item">
             用户名
@@ -48,10 +48,10 @@
         </div>
     </div>
 </div>
-<div id="user_list" class="uih-adjust-size-grid"></div>
+<div id="user_list"></div>
 <div id="div_diag"></div>
 
-<script type="text/javascript" class="uih-adjust-size-grid">
+<script type="text/javascript">
     var callbacks = {
         onSuccess: function () {
             $('#user_list').datagrid('reload');

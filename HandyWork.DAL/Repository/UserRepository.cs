@@ -105,7 +105,6 @@ namespace HandyWork.DAL.Repository
             {
                 return null;
             }
-            //Store.SqlRepository.GetList<AuthPermission>(UIH.Gather.Model.SQL.)
             SqlRepository sqlRepository = new SqlRepository(_Context);
             return sqlRepository.GetList<AuthPermission>(SQL.Permission4RoleUser, new SqlParameter("@UserId", userId));
         }

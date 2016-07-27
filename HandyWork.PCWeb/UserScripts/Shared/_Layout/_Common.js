@@ -12,11 +12,11 @@
 
 //全屏遮罩
 function LockMainPage() {
-    $('#UIH_Service_Center_FreezeAll').show();
+    $('#div_freeze_all').show();
 }
 //全屏失去遮罩
 function UnLockMainPage() {
-    $('#UIH_Service_Center_FreezeAll').hide();
+    $('#div_freeze_all').hide();
 }
 
 function getAutoHeight(height) {
@@ -27,84 +27,13 @@ function getAutoHeight(height) {
     return height;
 }
 
-//调整页面大小.按顺序为 1.uih-adjust-size-panel  2.uih-adjust-size-tab  3.uih-adjust-size-panel  4.uih-adjust-size-grid。中间可以存在也可以不存在
 function adjustSize(body_container_id) {
-    try {
-        //1.获取窗口区域大小
-        var bodyContainer = $('div#' + body_container_id);
-        var bodyContainerHeight = bodyContainer.panel('panel').outerHeight();
-        var bodyContainerWidth = bodyContainer.panel('panel').outerWidth();
-        //2.重新设置panel的大小
-        var totalPanelHeight = 0;
-        var panles = $(".uih-adjust-size-panel");
-        panles.each(function () {
-            //获取页面区域Panel面板
-            var subPanel = $(this);
-            //重新设置此面板大小
-            subPanel.panel("resize", { width: bodyContainerWidth - 2 });
-            //获取出新面板的高度
-            var subPanelHeight = subPanel.panel('panel').outerHeight();
-            //alert("subPanelHeight:" + subPanelHeight);
-            totalPanelHeight += subPanelHeight;
-        });
-
-        //alert("totalPanelHeight:" + totalPanelHeight);
-
-        var tabContainerHeight = 0, tabContainerWidth = 0;
-
-        //3.重新设置tab的大小
-        $(".uih-adjust-size-tab").each(function () {
-            var totalTabPanelHeight = 0;
-            //3.1获取tab
-            var gCenterTab = $(this);
-            //3.2重新设置tab大小
-            gCenterTab.tabs('resize', { width: bodyContainerWidth - 2 });
-
-            //3.3获取当前tab新的大小
-            var selectedTab = gCenterTab.tabs('getSelected');
-            tabContainerHeight = selectedTab.outerHeight() - 10;
-            tabContainerWidth = selectedTab.outerWidth() - 10;
-
-            //3.4重设置tab内部panel大小
-            selectedTab.find(".uih-adjust-size-tab-panel").each(function () {
-                var idString = $(this).attr("id");
-                //获取页面区域Panel面板
-                var subTabPanel = $('div#' + idString);
-                //重新设置此面板大小
-                subTabPanel.panel('resize', { width: 'auto', height: 'auto' });
-                //获取出新面板的高度
-                var subTabPanelHeight = subTabPanel.panel('panel').outerHeight();
-                totalTabPanelHeight += subTabPanelHeight;
-                if (subTabPanelHeight > 0) {
-                    subTabPanel.panel("resize", { width: tabContainerWidth - 2 });
-                }
-            });
-
-            if (totalTabPanelHeight > 0) {
-                //3.5重设tab内grid大小
-                selectedTab.find(".uih-adjust-size-tab-grid").each(function () {
-                    $(this).datagrid("resize", { width: tabContainerWidth - 2, height: tabContainerHeight - totalTabPanelHeight - 20 });
-                    $(this).datagrid("resize", { width: tabContainerWidth - 2, height: tabContainerHeight - totalTabPanelHeight - 2 });
-                });
-            }
-        });
-
-        //4.重新设置grid的大小
-        var grids = $(".uih-adjust-size-grid");
-        grids.each(function () {
-            $(this).datagrid("resize", { width: bodyContainerWidth - 2, height: bodyContainerHeight - totalPanelHeight - 20 });
-            $(this).datagrid("resize", { width: bodyContainerWidth - 2, height: bodyContainerHeight - totalPanelHeight - 2 });
-        });
-        //bodyContainer.css("overflow", "hidden");
-        //bodyContainer.panel('maximize');
-    } catch (e) {
-
-    }
+    
 }
 
 //设置可伸缩
 function makeExpandOrCollapseWithDbClick() {
-    var panels = $(".uih-collapsible");
+    var panels = $(".easyui-panel.collapsible");
     panels.each(function (index, e) {
         var $panel = $(this);
         var opts = $panel.panel("options");
