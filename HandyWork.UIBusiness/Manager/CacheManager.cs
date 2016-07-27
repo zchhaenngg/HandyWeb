@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Services
+namespace HandyWork.UIBusiness.Manager
 {
     public class CacheManager
     {

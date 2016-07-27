@@ -1,6 +1,6 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.Localization;
-using HandyWork.UIBusiness.Services;
+using HandyWork.UIBusiness.Manager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +12,15 @@ namespace HandyWork.PCWeb.Controllers
 {
     public class BaseController : Controller
     {
-        private ServiceStore _store;
+        private ManagerStore _store;
 
-        protected ServiceStore Store
+        protected ManagerStore Store
         {
             get
             {
                 if (_store == null)
                 {
-                    _store = new ServiceStore();
+                    _store = new ManagerStore();
                 }
                 return _store;
             }
@@ -148,7 +148,7 @@ namespace HandyWork.PCWeb.Controllers
 
         protected bool HasPermission(string permissionCode, string userId = null)
         {
-            return Store.AccountService.HasPermission(permissionCode, userId);
+            return Store.AccountManager.HasPermission(permissionCode, userId);
         }
     }
 }

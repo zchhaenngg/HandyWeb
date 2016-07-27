@@ -1,7 +1,7 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.PCWeb.Controllers;
 using HandyWork.UIBusiness;
-using HandyWork.UIBusiness.Services;
+using HandyWork.UIBusiness.Manager;
 using log4net;
 using log4net.Config;
 using System;

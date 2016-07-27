@@ -1,0 +1,5 @@
+1.PCWeb中调用UIBusiness层中的各个服务以完成相应业务。
+a.所有UIBusiness中的Services重命名为Manager
+b.使用依赖注入的方式完成相应的Manager创建。
+2.Business层中调用DAL层的各个Repository
+使用依赖注入的方式完成

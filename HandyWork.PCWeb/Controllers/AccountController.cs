@@ -34,7 +34,7 @@ namespace HandyWork.PCWeb.Controllers
             {
                 return View(model);
             }
-            SignInResult result = Store.AccountService.SignIn(model.UserName, model.Password);
+            SignInResult result = Store.AccountManager.SignIn(model.UserName, model.Password);
             switch (result)
             {
                 case SignInResult.Success:
@@ -75,7 +75,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.Register(model);
+                Store.AccountManager.Register(model);
                 if (HasErrorInfo)
                 {
                     AddModelError(Store.ErrorInfos);
@@ -102,7 +102,7 @@ namespace HandyWork.PCWeb.Controllers
             {
                 return View(model);
             }
-            Store.AccountService.ResetPassword(model);
+            Store.AccountManager.ResetPassword(model);
             if (HasErrorInfo)
             {
                 AddModelError(Store.ErrorInfos);
@@ -116,13 +116,13 @@ namespace HandyWork.PCWeb.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.IsSelectList = Store.SelectListService.IsSelectList();
+            ViewBag.IsSelectList = Store.SelectListManager.IsSelectList();
             return View();
         }
 
         public ActionResult Create(string id)
         {
-            ViewBag.IsSelectList = Store.SelectListService.IsSelectList(useOptionLable: true, defaultValue: true);
+            ViewBag.IsSelectList = Store.SelectListManager.IsSelectList(useOptionLable: true, defaultValue: true);
             return View(new RegisterViewModel());
         }
 
@@ -132,7 +132,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.Register(model);
+                Store.AccountManager.Register(model);
                 return base.GetJsonResultByErrorInfos();
             }
             return base.JsonResult4ModelState;
@@ -140,8 +140,8 @@ namespace HandyWork.PCWeb.Controllers
 
         public ActionResult Edit(string id)
         {
-            ViewBag.IsSelectList = Store.SelectListService.IsSelectList(useOptionLable: true, defaultValue: true);
-            UpdateUserViewModel model = Store.AccountService.GetUpdateUserViewModel(id);
+            ViewBag.IsSelectList = Store.SelectListManager.IsSelectList(useOptionLable: true, defaultValue: true);
+            UpdateUserViewModel model = Store.AccountManager.GetUpdateUserViewModel(id);
             return View(model);
         }
 
@@ -151,7 +151,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.UpdateUser(model);
+                Store.AccountManager.UpdateUser(model);
                 return base.GetJsonResultByErrorInfos();
             }
             return base.JsonResult4ModelState;
@@ -178,7 +178,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.CreatePermission(model);
+                Store.AccountManager.CreatePermission(model);
                 return base.GetJsonResultByErrorInfos();
             }
             return base.JsonResult4ModelState;
@@ -186,7 +186,7 @@ namespace HandyWork.PCWeb.Controllers
 
         public ActionResult EditPermission(string id)
         {
-            PermissionViewModel model = Store.AccountService.GetPermissionViewModel(id);
+            PermissionViewModel model = Store.AccountManager.GetPermissionViewModel(id);
             return View(model);
         }
 
@@ -196,7 +196,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.EditPermission(model);
+                Store.AccountManager.EditPermission(model);
                 return base.GetJsonResultByErrorInfos();
             }
             return base.JsonResult4ModelState;
@@ -213,14 +213,14 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.CreateRole(model);
+                Store.AccountManager.CreateRole(model);
                 return base.GetJsonResultByErrorInfos();
             }
             return base.JsonResult4ModelState;
         }
         public ActionResult EditRole(string id)
         {
-            RoleViewModel model = Store.AccountService.GetRoleViewModel(id);
+            RoleViewModel model = Store.AccountManager.GetRoleViewModel(id);
             return View(model);
         }
 
@@ -230,7 +230,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Store.AccountService.EditRole(model);
+                Store.AccountManager.EditRole(model);
                 return base.GetJsonResultByErrorInfos();
             }
             return base.JsonResult4ModelState;
@@ -238,119 +238,119 @@ namespace HandyWork.PCWeb.Controllers
 
         public ActionResult RolePermissions(string id)
         {
-            RoleViewModel model = Store.AccountService.GetRoleViewModel(id);
+            RoleViewModel model = Store.AccountManager.GetRoleViewModel(id);
             return View(model);
         }
         public ActionResult UserPermissions(string id)
         {
-            UpdateUserViewModel model = Store.AccountService.GetUpdateUserViewModel(id);
+            UpdateUserViewModel model = Store.AccountManager.GetUpdateUserViewModel(id);
             return View(model);
         }
         public ActionResult UserRoles(string id)
         {
-            UpdateUserViewModel model = Store.AccountService.GetUpdateUserViewModel(id);
+            UpdateUserViewModel model = Store.AccountManager.GetUpdateUserViewModel(id);
             return View(model);
         }
 
         public ActionResult JsonDeleteRole(string id)
         {
-            var tuple = Store.AccountService.DeleteRole(id);
+            var tuple = Store.AccountManager.DeleteRole(id);
             return base.GetJsonResult(tuple.Item1, tuple.Item2);
         }
         public ActionResult JsonGetUsers()
         {
-            var tuple = Store.AccountService.GetPage4UserViewModel();
+            var tuple = Store.AccountManager.GetPage4UserViewModel();
             return base.GetJsonResult(tuple.Item1, tuple.Item2);
         }
         public ActionResult JsonGetPermissions()
         {
-            var tuple = Store.AccountService.GetPage4PermissionViewModel();
+            var tuple = Store.AccountManager.GetPage4PermissionViewModel();
             return base.GetJsonResult(tuple.Item1, tuple.Item2);
         }
         public ActionResult JsonGetRoles()
         {
-            var tuple = Store.AccountService.GetPage4RoleViewModel();
+            var tuple = Store.AccountManager.GetPage4RoleViewModel();
             return base.GetJsonResult(tuple.Item1, tuple.Item2);
         }
         public ActionResult JsonGetPermissionsByRoleId(string roleId)
         {
             string NameLike = (Request["NameLike"] ?? string.Empty).Trim();
-            List<PermissionViewModel> list = Store.AccountService.GetPermissionViewModelsByRoleId(roleId, NameLike);
+            List<PermissionViewModel> list = Store.AccountManager.GetPermissionViewModelsByRoleId(roleId, NameLike);
             return base.GetJsonResult(list, list.Count);
         }
         public ActionResult JsonGetPermissions4AddByRoleId(string roleId)
         {
             string NameLike = (Request["NameLike"] ?? string.Empty).Trim();
-            List<PermissionViewModel> list = Store.AccountService.GetPermissionViewModels4AddByRoleId(roleId, NameLike);
+            List<PermissionViewModel> list = Store.AccountManager.GetPermissionViewModels4AddByRoleId(roleId, NameLike);
             return base.GetJsonResult(list, list.Count);
         }
         public ActionResult JsonAddRolePermission(string roleId)
         {
             string permissionId = Request["permissionId"];
-            Store.AccountService.AddRolePermission(roleId, permissionId);
+            Store.AccountManager.AddRolePermission(roleId, permissionId);
             return base.GetJsonResultByErrorInfos();
         }
         public ActionResult JsonRemoveRolePermission(string roleId)
         {
             string permissionId = Request["permissionId"];
-            Store.AccountService.RemoveRolePermission(roleId, permissionId);
+            Store.AccountManager.RemoveRolePermission(roleId, permissionId);
             return base.GetJsonResultByErrorInfos();
         }
 
         public ActionResult JsonGetPermissionsByUserId(string userId)
         {
             string NameLike = (Request["NameLike"] ?? string.Empty).Trim();
-            List<PermissionViewModel> list = Store.AccountService.GetPermissionViewModelsByUserId(userId, NameLike);
+            List<PermissionViewModel> list = Store.AccountManager.GetPermissionViewModelsByUserId(userId, NameLike);
             return base.GetJsonResult(list, list.Count);
         }
         public ActionResult JsonGetPermissions4AddByUserId(string userId)
         {
             string NameLike = (Request["NameLike"] ?? string.Empty).Trim();
-            List<PermissionViewModel> list = Store.AccountService.GetPermissionViewModels4AddByUserId(userId, NameLike);
+            List<PermissionViewModel> list = Store.AccountManager.GetPermissionViewModels4AddByUserId(userId, NameLike);
             return base.GetJsonResult(list, list.Count);
         }
         public ActionResult JsonAddUserPermission(string userId)
         {
             string permissionId = Request["permissionId"];
-            Store.AccountService.AddUserPermission(userId, permissionId);
+            Store.AccountManager.AddUserPermission(userId, permissionId);
             return base.GetJsonResultByErrorInfos();
         }
         public ActionResult JsonRemoveUserPermission(string userId)
         {
             string permissionId = Request["permissionId"];
-            Store.AccountService.RemoveUserPermission(userId, permissionId);
+            Store.AccountManager.RemoveUserPermission(userId, permissionId);
             return base.GetJsonResultByErrorInfos();
         }
 
         public ActionResult JsonGetRolesByUserId(string userId)
         {
 
-            List<RoleViewModel> list = Store.AccountService.GetRoleViewModelsByUserId(userId);
+            List<RoleViewModel> list = Store.AccountManager.GetRoleViewModelsByUserId(userId);
             return base.GetJsonResult(list, list.Count);
         }
         public ActionResult JsonGetRoles4AddByUserId(string userId)
         {
-            List<RoleViewModel> list = Store.AccountService.GetRoleViewModels4AddByUserId(userId);
+            List<RoleViewModel> list = Store.AccountManager.GetRoleViewModels4AddByUserId(userId);
             return base.GetJsonResult(list, list.Count);
         }
         public ActionResult JsonAddUserRole(string userId, string roleId)
         {
-            Store.AccountService.AddUserRole(userId, roleId);
+            Store.AccountManager.AddUserRole(userId, roleId);
             return base.GetJsonResultByErrorInfos();
         }
         public ActionResult JsonRemoveUserRole(string userId, string roleId)
         {
-            Store.AccountService.RemoveUserRole(userId, roleId);
+            Store.AccountManager.RemoveUserRole(userId, roleId);
             return base.GetJsonResultByErrorInfos();
         }
         public ActionResult JsonSetUserValid(string userId)
         {
-            string succeedMessage = Store.AccountService.SetUserValid(userId);
+            string succeedMessage = Store.AccountManager.SetUserValid(userId);
             return base.GetJsonResultByErrorInfos(succeedMessage);
         }
         public ActionResult JsonUnlockedById(string userId)
         {
-            Store.AccountService.SetUnlocked4User(userId);
+            Store.AccountManager.SetUnlocked4User(userId);
             return base.GetJsonResultByErrorInfos();
         }
     }

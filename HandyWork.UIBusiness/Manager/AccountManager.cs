@@ -16,11 +16,11 @@ using System.Web.Security;
 using System.Web;
 using HandyWork.DAL;
 
-namespace HandyWork.UIBusiness.Services
+namespace HandyWork.UIBusiness.Manager
 {
-    public class AccountService : BaseService
+    public class AccountManager : BaseManager
     {
-        public AccountService(ServiceStore store)
+        public AccountManager(ManagerStore store)
             : base(store)
         {
         }

@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Services
+namespace HandyWork.UIBusiness.Manager
 {
     /// <summary>
     /// 访问入口，保证使用统一的上下文
     /// </summary>
-    public class ServiceStore : IDisposable
+    public class ManagerStore : IDisposable
     {
-        private AccountService _accountService;
-        private SelectListService _selectListService;
+        private AccountManager _accountManager;
+        private SelectListManager _selectListManager;
 
         #region 用户及权限
         internal UserEntities UserEntities { get; private set; } = new UserEntities();
@@ -31,7 +31,7 @@ namespace HandyWork.UIBusiness.Services
         #endregion
 
 
-        public ServiceStore()
+        public ManagerStore()
         {
 
         }
@@ -40,27 +40,27 @@ namespace HandyWork.UIBusiness.Services
 
         #region Service
 
-        public AccountService AccountService
+        public AccountManager AccountManager
         {
             get
             {
-                if (_accountService == null)
+                if (_accountManager == null)
                 {
-                    _accountService = new AccountService(this);
+                    _accountManager = new AccountManager(this);
                 }
-                return _accountService;
+                return _accountManager;
             }
         }
 
-        public SelectListService SelectListService
+        public SelectListManager SelectListManager
         {
             get
             {
-                if (_selectListService == null)
+                if (_selectListManager == null)
                 {
-                    _selectListService = new SelectListService(this);
+                    _selectListManager = new SelectListManager(this);
                 }
-                return _selectListService;
+                return _selectListManager;
             }
         }
         #endregion

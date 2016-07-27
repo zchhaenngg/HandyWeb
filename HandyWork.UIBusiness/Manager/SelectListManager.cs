@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace HandyWork.UIBusiness.Services
+namespace HandyWork.UIBusiness.Manager
 {
-    public class SelectListService : BaseService
+    public class SelectListManager : BaseManager
     {
         public const string TRUE = "True";
         public const string FALSE = "False";
 
-        public SelectListService(ServiceStore store)
+        public SelectListManager(ManagerStore store)
             : base(store)
         {
         }

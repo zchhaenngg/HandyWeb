@@ -66,11 +66,11 @@
     <Compile Include="Query\AuthPermissionQuery.cs" />
     <Compile Include="Query\AuthRoleQuery.cs" />
     <Compile Include="Query\UserQuery.cs" />
-    <Compile Include="Services\AccountService.cs" />
-    <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\CacheManager.cs" />
-    <Compile Include="Services\SelectListService.cs" />
-    <Compile Include="Services\ServiceStore.cs" />
+    <Compile Include="Manager\AccountManager.cs" />
+    <Compile Include="Manager\BaseManager.cs" />
+    <Compile Include="Manager\CacheManager.cs" />
+    <Compile Include="Manager\SelectListManager.cs" />
+    <Compile Include="Manager\ManagerStore.cs" />
     <Compile Include="Utility\Algorithm.cs" />
     <Compile Include="Utility\EasyuiUtil.cs" />
     <Compile Include="Utility\EnumHelper.cs" />

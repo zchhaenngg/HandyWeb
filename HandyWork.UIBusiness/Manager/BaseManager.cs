@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Services
+namespace HandyWork.UIBusiness.Manager
 {
     /// <summary>
     /// 包装了ServiceStore，以便共用ServiceStore的上下文
     /// </summary>
-    public abstract class BaseService : CurrentHttpContext
+    public abstract class BaseManager : CurrentHttpContext
     {
-        public ServiceStore Store { get; private set; }
+        public ManagerStore Store { get; private set; }
 
-        public BaseService(ServiceStore store)
+        public BaseManager(ManagerStore store)
         {
             Store = store;
         }
