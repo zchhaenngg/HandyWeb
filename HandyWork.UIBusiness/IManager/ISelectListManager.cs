@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace HandyWork.UIBusiness.Manager
+namespace HandyWork.UIBusiness.IManager
 {
     public interface ISelectListManager
     {

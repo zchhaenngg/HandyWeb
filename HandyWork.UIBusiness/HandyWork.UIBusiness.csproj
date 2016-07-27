@@ -61,8 +61,8 @@
     <Compile Include="Enums\SignInResult.cs" />
     <Compile Include="Ext\IPrincipalExt.cs" />
     <Compile Include="GatherPrincipal.cs" />
-    <Compile Include="Manager\IAccountManager.cs" />
-    <Compile Include="Manager\ISelectListManager.cs" />
+    <Compile Include="IManager\IAccountManager.cs" />
+    <Compile Include="IManager\ISelectListManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\AuthPermissionQuery.cs" />

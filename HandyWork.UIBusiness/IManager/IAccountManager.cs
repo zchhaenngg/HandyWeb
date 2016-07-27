@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Manager
+namespace HandyWork.UIBusiness.IManager
 {
     public interface IAccountManager
     {
