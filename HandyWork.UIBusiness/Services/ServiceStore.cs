@@ -15,7 +15,6 @@ namespace HandyWork.UIBusiness.Services
     /// </summary>
     public class ServiceStore : IDisposable
     {
-        private List<ErrorInfo> _errorInfos;
         private AccountService _accountService;
         private SelectListService _selectListService;
 

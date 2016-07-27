@@ -74,8 +74,6 @@
     <Compile Include="Utility\Algorithm.cs" />
     <Compile Include="Utility\EasyuiUtil.cs" />
     <Compile Include="Utility\EnumHelper.cs" />
-    <Compile Include="Utility\EPPlusUtil.cs" />
-    <Compile Include="Utility\VersionUtil.cs" />
     <Compile Include="ViewModel\PCWeb\AccountViewModel.cs" />
     <Compile Include="ViewModel\PCWeb\EasyuiViewModel.cs" />
   </ItemGroup>
