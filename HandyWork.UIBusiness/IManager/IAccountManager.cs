@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.UIBusiness.IManager
 {
-    public interface IAccountManager
+    public interface IAccountManager: IManager
     {
         SignInResult SignIn(string userName, string password);
         void Register(RegisterViewModel model);

@@ -9,7 +9,7 @@ namespace HandyWork.PCWeb.Controllers
 {
     public class BusinessController : BaseController
     {
-        public IAccountManager AccountManager { get; }
-        public ISelectListManager SelectListManager { get; }
+        public IAccountManager AccountManager { get; set; }
+        public ISelectListManager SelectListManager { get; set; }
     }
 }

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace HandyWork.PCWeb.Controllers
 {
     [Authorize]
-    public class AccountController : BaseController
+    public class AccountController : BusinessController
     {
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)

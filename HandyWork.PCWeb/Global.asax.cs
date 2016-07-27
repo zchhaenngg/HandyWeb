@@ -1,6 +1,9 @@
-﻿using HandyWork.Common.Model;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using HandyWork.Common.Model;
 using HandyWork.PCWeb.Controllers;
 using HandyWork.UIBusiness;
+using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Manager;
 using log4net;
 using log4net.Config;
@@ -29,6 +32,23 @@ namespace HandyWork.PCWeb
             LoadCache();
 
             LogHelper.Log.Info("****Web应用-日志正常启动****");
+
+            var builder = new ContainerBuilder();
+            //builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterAssemblyTypes(typeof(BaseManager).Assembly)
+                .AssignableTo(typeof(IManager))
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .PropertiesAutowired()
+                .InstancePerRequest();
+            
+            //builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
+            //builder.RegisterModelBinderProvider();
+            //builder.RegisterModule<AutofacWebTypesModule>();
+            //builder.RegisterSource(new ViewRegistrationSource());
+            builder.RegisterFilterProvider();
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -157,14 +177,12 @@ namespace HandyWork.PCWeb
                 app.Context.User = new GatherPrincipal(identity);
             }
         }
+
         private void LodingAssembly()
         {
             //string path = Server.MapPath("log4net.dll");
             //Assembly.LoadFile(path);
         }
-        /// <summary>
-        /// 设置服务端log配置
-        /// </summary>
         private void SetupLogConfig()
         {
             string configFile = Server.MapPath("/App_Data/log4net.config");

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace HandyWork.UIBusiness.IManager
 {
-    public interface ISelectListManager
+    public interface ISelectListManager: IManager
     {
         SelectList GetSelectList<TEnum>(bool useOptionLabel = true, object defaultValue = null, string[] specifiedValues = null);
         SelectList IsSelectList(bool useOptionLable = true, Nullable<bool> defaultValue = null, string trueValue = null, string falseValue = null);

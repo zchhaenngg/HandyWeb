@@ -15,10 +15,11 @@ using HandyWork.Common.Model;
 using System.Web.Security;
 using System.Web;
 using HandyWork.DAL;
+using HandyWork.UIBusiness.IManager;
 
 namespace HandyWork.UIBusiness.Manager
 {
-    public class AccountManager : BaseManager
+    public class AccountManager : BaseManager, IAccountManager
     {
         public AccountManager(ManagerStore store)
             : base(store)

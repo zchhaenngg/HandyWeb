@@ -62,6 +62,7 @@
     <Compile Include="Ext\IPrincipalExt.cs" />
     <Compile Include="GatherPrincipal.cs" />
     <Compile Include="IManager\IAccountManager.cs" />
+    <Compile Include="IManager\IManager.cs" />
     <Compile Include="IManager\ISelectListManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

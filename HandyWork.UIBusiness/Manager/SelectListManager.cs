@@ -1,4 +1,5 @@
 ﻿using HandyWork.Localization;
+using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Utility;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HandyWork.UIBusiness.Manager
 {
-    public class SelectListManager : BaseManager
+    public class SelectListManager : BaseManager, ISelectListManager
     {
         public const string TRUE = "True";
         public const string FALSE = "False";
