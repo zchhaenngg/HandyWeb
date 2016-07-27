@@ -20,7 +20,7 @@ namespace HandyWork.UIBusiness.Manager
         }
 
         #region 枚举
-        internal static IEnumerable<SelectListItem> GetSelectListItems<TEnum>()
+        internal IEnumerable<SelectListItem> GetSelectListItems<TEnum>()
         {
             Type resourceType = typeof(EnumResource);
             bool isEnum = EnumHelper.IsEnum<TEnum>();
@@ -39,7 +39,7 @@ namespace HandyWork.UIBusiness.Manager
             return values;
         }
 
-        public static SelectList GetSelectList<TEnum>(bool useOptionLabel = true, object defaultValue = null, string[] specifiedValues = null)
+        public SelectList GetSelectList<TEnum>(bool useOptionLabel = true, object defaultValue = null, string[] specifiedValues = null)
         {
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in GetSelectListItems<TEnum>())

@@ -454,14 +454,14 @@ namespace HandyWork.UIBusiness.Manager
         #endregion 
 
         #region Role
-        public AuthRoleQuery GetAuthRoleQuery()
+        internal AuthRoleQuery GetAuthRoleQuery()
         {
             AuthRoleQuery query = new AuthRoleQuery();
             EasyuiUtil.FillPageQueryFromRequest(Request, query);
             query.NameLike = string.IsNullOrWhiteSpace(Request["NameLike"]) ? null : Request["NameLike"].Trim();
             return query;
         }
-        public Expression<Func<AuthRole, bool>> GetExpression4AuthRole(AuthRoleQuery query)
+        internal Expression<Func<AuthRole, bool>> GetExpression4AuthRole(AuthRoleQuery query)
         {
             Expression<Func<AuthRole, bool>> expression = null;
             if (!string.IsNullOrWhiteSpace(query.NameLike))
@@ -470,7 +470,7 @@ namespace HandyWork.UIBusiness.Manager
             }
             return expression;
         }
-        public Tuple<List<AuthRole>, int> GetPage4AuthRole()
+        internal Tuple<List<AuthRole>, int> GetPage4AuthRole()
         {
             AuthRoleQuery query = GetAuthRoleQuery();
             Expression<Func<AuthRole, bool>> expression = GetExpression4AuthRole(query);
