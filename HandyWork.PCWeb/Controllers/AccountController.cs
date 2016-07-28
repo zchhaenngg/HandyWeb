@@ -12,12 +12,19 @@ using HandyWork.UIBusiness.ViewModel.PCWeb;
 using HandyWork.UIBusiness.Enums;
 using System.Web.Security;
 using System.Collections.Generic;
+using HandyWork.UIBusiness.IManager;
+using Autofac;
+using Autofac.Core.Lifetime;
 
 namespace HandyWork.PCWeb.Controllers
 {
     [Authorize]
-    public class AccountController : BusinessController
+    public class AccountController : BaseController
     {
+        public IAccountManager AccountManager { get; set; }
+
+        public ISelectListManager SelectListManager { get; set; }
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {

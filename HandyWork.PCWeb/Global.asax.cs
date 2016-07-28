@@ -34,8 +34,9 @@ namespace HandyWork.PCWeb
             LogHelper.Log.Info("****Web应用-日志正常启动****");
 
             var builder = new ContainerBuilder();
-            //builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterAssemblyTypes(typeof(BaseManager).Assembly)
+            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
+
+            builder.RegisterAssemblyTypes(typeof(IManager).Assembly)
                 .AssignableTo(typeof(IManager))
                 .AsSelf()
                 .AsImplementedInterfaces()

@@ -21,6 +21,8 @@ namespace HandyWork.UIBusiness.Manager
 {
     public class AccountManager : BaseManager, IAccountManager
     {
+        public AccountManager():base(null) { }
+
         public AccountManager(ManagerStore store)
             : base(store)
         {
