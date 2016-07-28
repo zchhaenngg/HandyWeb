@@ -1,5 +1,6 @@
 ﻿using HandyWork.Common;
 using HandyWork.Model;
+using HandyWork.UIBusiness.IManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,15 @@ namespace HandyWork.UIBusiness.Manager
     /// </summary>
     public abstract class BaseManager : CurrentHttpContext
     {
-        public ManagerStore Store { get; private set; }
-
-        public BaseManager(ManagerStore store)
-        {
-            Store = store;
-        }
-
+        internal IUnitOfWork UnitOfWork { get; set; }
+        
         public bool HasPermission(string permissionCode, string userId = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
                 userId = LoginId;
             }
-
-            AuthPermission permission = Store.AuthPermissionRepository.FindByCode(permissionCode);
+            AuthPermission permission = UnitOfWork.AuthPermissionRepository.FindByCode(permissionCode);
             if (permission == null)
             {
                 return false;

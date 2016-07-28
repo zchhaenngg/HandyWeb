@@ -59,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Errors.cs" />
+    <Compile Include="Repository\IAuthPermissionRepository.cs" />
+    <Compile Include="Repository\IAuthRoleRepository.cs" />
+    <Compile Include="Repository\IBaseRepository.cs" />
+    <Compile Include="Repository\IDataHistoryRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="SQL.cs" />
     <Compile Include="Cache\SysColumnsCache.cs" />
     <Compile Include="Program.cs" />

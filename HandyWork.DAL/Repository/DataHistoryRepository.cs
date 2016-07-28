@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository
 {
-    public class DataHistoryRepository : BaseRepository<DataHistory>
+    internal class DataHistoryRepository : BaseRepository<DataHistory>
     {
-        public DataHistoryRepository(DbContext context, List<ErrorInfo> errorInfos)
-            : base(context, errorInfos)
+        public DataHistoryRepository(DbContext context)
+            : base(context)
         {
 
         }

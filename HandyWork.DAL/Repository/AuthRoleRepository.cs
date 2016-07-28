@@ -12,9 +12,10 @@ namespace HandyWork.DAL.Repository
 {
     public class AuthRoleRepository : BaseRepository<AuthRole>
     {
-        public AuthRoleRepository(DbContext context, List<ErrorInfo> errorInfos)
-            : base(context, errorInfos)
+        public AuthRoleRepository(DbContext context)
+            : base(context)
         {
+            IsRecordHistory = false;
         }
         protected override void OnBeforeAdd(AuthRole entity)
         {
@@ -63,6 +64,11 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             return Source.Where(o => o.Name == name).FirstOrDefault();
+        }
+
+        public List<AuthRole> GetAll()
+        {
+            return Source.ToList();
         }
 
         public override void Validate(AuthRole entity)

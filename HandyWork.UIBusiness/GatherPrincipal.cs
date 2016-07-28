@@ -41,7 +41,7 @@ namespace HandyWork.UIBusiness
                 {
                     using (UserEntities userEntities = new UserEntities())
                     {
-                        UserRepository userRepository = new UserRepository(userEntities, null, null);
+                        UserRepository userRepository = new UserRepository(userEntities, null);
                         _permissions = userRepository.GetAllPermissions(LoginId);
                     }
                 }

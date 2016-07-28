@@ -1,5 +1,6 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.DAL.Cache;
+using HandyWork.DAL.Repository;
 using HandyWork.Model;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace HandyWork.DAL.Repository
 {
     public class UserRepository : BaseRepository<User>
     {
-        public UserRepository(DbContext context, List<ErrorInfo> errorInfos, DataHistoryRepository historyRepository)
-            : base(context, errorInfos, historyRepository)
+        public UserRepository(DbContext context, HistoryEntities historyContext)
+            : base(context)
         {
+            HistoryRepository = new DataHistoryRepository(historyContext);  
         }
 
         protected override void OnBeforeAdd(User entity)

@@ -19,20 +19,15 @@ namespace HandyWork.DAL.Repository
         where T : class
     {
         protected DbContext _Context;
-        private DataHistoryRepository _historyRepository;
-        public List<ErrorInfo> ErrorInfos { get; private set; }
+        
+        public bool IsRecordHistory { get; set; } = true;
+        internal DataHistoryRepository HistoryRepository { get; set; }//待注入
+        public List<ErrorInfo> ErrorInfos { get; set; }//待注入
 
-        public BaseRepository(DbContext context, List<ErrorInfo> errorInfos)
+        public BaseRepository(DbContext context)
         {
             _Context = context;
             Source = context.Set<T>();
-
-            ErrorInfos = errorInfos ?? new List<ErrorInfo>();
-        }
-        public BaseRepository(DbContext context, List<ErrorInfo> errorInfos, DataHistoryRepository historyRepository)
-            :this(context, errorInfos)
-        {
-            _historyRepository = historyRepository;
         }
 
         public DbSet<T> Source
@@ -103,12 +98,15 @@ namespace HandyWork.DAL.Repository
         {
 
         }
-
+        
         protected virtual void RecordHistory(T entity)
         {
-            if (_historyRepository == null)
+            if (IsRecordHistory)
             {
-                return;
+                if (HistoryRepository == null)
+                {
+                    throw new Exception("HistoryRepository对象为空，无法记录历史！请联系管理员！");
+                }
             }
             DataHistory history = new DataHistory()
             {
@@ -142,7 +140,7 @@ namespace HandyWork.DAL.Repository
                 }
             });
             history.Description = description;
-            _historyRepository.Add(history);
+            HistoryRepository.Add(history);
         }
 
         /// <summary>

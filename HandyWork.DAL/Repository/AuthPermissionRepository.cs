@@ -12,9 +12,10 @@ namespace HandyWork.DAL.Repository
 {
     public class AuthPermissionRepository : BaseRepository<AuthPermission>
     {
-        public AuthPermissionRepository(DbContext context, List<ErrorInfo> errorInfos)
-           : base(context, errorInfos)
+        public AuthPermissionRepository(DbContext context)
+           : base(context)
         {
+            IsRecordHistory = false;
         }
         protected override void OnBeforeAdd(AuthPermission entity)
         {
@@ -63,6 +64,11 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             return Find(entity.Id);
+        }
+
+        public List<AuthPermission> GetAll()
+        {
+            return Source.ToList();
         }
 
         public AuthPermission FindByCode(string code)

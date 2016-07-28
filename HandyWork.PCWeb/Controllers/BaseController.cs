@@ -12,31 +12,13 @@ namespace HandyWork.PCWeb.Controllers
 {
     public class BaseController : Controller
     {
-        private ManagerStore _store;
-
-        protected ManagerStore Store
-        {
-            get
-            {
-                if (_store == null)
-                {
-                    _store = new ManagerStore();
-                }
-                return _store;
-            }
-        }
-
+        public List<ErrorInfo> ErrorInfos { get; } = new List<ErrorInfo>();
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (_store != null)
-                {
-                    _store.Dispose();
-                    _store = null;
-                }
-            }
 
+            }
             base.Dispose(disposing);
         }
 
@@ -52,7 +34,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             get
             {
-                return Store.ErrorInfos.Count > 0;
+                return ErrorInfos.Count > 0;
             }
         }
 
@@ -63,7 +45,7 @@ namespace HandyWork.PCWeb.Controllers
                 if (HasErrorInfo)
                 {
                     StringBuilder builder = new StringBuilder();
-                    foreach (ErrorInfo item in Store.ErrorInfos)
+                    foreach (ErrorInfo item in ErrorInfos)
                     {
                         builder.Append(item.ToString());
                     }
@@ -148,7 +130,7 @@ namespace HandyWork.PCWeb.Controllers
 
         protected bool HasPermission(string permissionCode, string userId = null)
         {
-            return Store.AccountManager.HasPermission(permissionCode, userId);
+            return HasPermission(permissionCode, userId);
         }
     }
 }
