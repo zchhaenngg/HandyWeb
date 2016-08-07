@@ -4,11 +4,7 @@ b.使用依赖注入的方式完成相应的Manager创建。
 2.使用UnitOfWork,在Manager中
 IUnitOfWork以及IRepository接口也定义在HandyWork.DAL中
 
-a.StoreManager重命名为UnitOfWork，且删除其中的Manager.
-
 b.其他Manager的构造函数中传入UnitOfWork
-
-c.Repository接受参数UnitOfWork
 
 什么时候使用属性，什么时候使用构造函数。
 

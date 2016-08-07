@@ -14,8 +14,13 @@ namespace HandyWork.UIBusiness.Manager
     /// </summary>
     public abstract class BaseManager : CurrentHttpContext
     {
-        internal IUnitOfWork UnitOfWork { get; set; }
-        
+        internal IUnitOfWork UnitOfWork { get; }
+
+        public BaseManager(IUnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+        }
+
         public bool HasPermission(string permissionCode, string userId = null)
         {
             if (string.IsNullOrWhiteSpace(userId))

@@ -21,7 +21,11 @@ namespace HandyWork.UIBusiness.Manager
 {
     public class AccountManager : BaseManager, IAccountManager
     {
-
+        public AccountManager(IUnitOfWork unitOfWork)
+            :base(unitOfWork)
+        {
+        }
+         
         #region 业务-用户
         public SignInResult SignIn(string userName, string password)
         {

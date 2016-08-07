@@ -22,7 +22,6 @@ namespace HandyWork.PCWeb.Controllers
     public class AccountController : BaseController
     {
         public IAccountManager AccountManager { get; set; }
-
         public ISelectListManager SelectListManager { get; set; }
 
         [AllowAnonymous]

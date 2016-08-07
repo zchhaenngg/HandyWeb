@@ -13,9 +13,10 @@ using System.Threading.Tasks;
 namespace HandyWork.UIBusiness.Manager
 {
     /// <summary>
-    /// 访问入口，保证使用统一的上下文
+    /// 访问入口，保证使用统一的上下文.应对外提供，本层由外部调用，
+    /// UnitOfWork因此也应当由外部统一创建以保证唯一性，必要时由外部通过UnitOfWork做事务处理
     /// </summary>
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         IContainer Container { get; }//todo
 

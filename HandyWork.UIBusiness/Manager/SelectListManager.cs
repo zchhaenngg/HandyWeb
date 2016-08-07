@@ -14,7 +14,12 @@ namespace HandyWork.UIBusiness.Manager
     {
         public const string TRUE = "True";
         public const string FALSE = "False";
-        
+
+        public SelectListManager(IUnitOfWork unitOfWork)
+            :base(unitOfWork)
+        {
+        }
+
         #region 枚举
         internal IEnumerable<SelectListItem> GetSelectListItems<TEnum>()
         {
