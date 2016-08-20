@@ -1,6 +1,7 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.DAL;
 using HandyWork.DAL.Repository;
+using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.UIBusiness.IManager;
 using System;
 using System.Collections.Generic;

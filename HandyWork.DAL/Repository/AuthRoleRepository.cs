@@ -1,4 +1,5 @@
 ﻿using HandyWork.Common.Model;
+using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
 using System;
 using System.Collections.Generic;

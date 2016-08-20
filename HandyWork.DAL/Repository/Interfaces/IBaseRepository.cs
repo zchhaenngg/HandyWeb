@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.DAL.Repository
+namespace HandyWork.DAL.Repository.Interfaces
 {
     public interface IBaseRepository<T>
     {

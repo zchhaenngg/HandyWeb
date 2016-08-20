@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.DAL.Repository
+namespace HandyWork.DAL.Repository.Interfaces
 {
     public interface IAuthPermissionRepository: IBaseRepository<AuthPermission>
     {

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HandyWork.Model.Query;
 using System.Linq.Expressions;
+using HandyWork.DAL.Repository.Interfaces;
 
 namespace HandyWork.DAL.Repository
 {

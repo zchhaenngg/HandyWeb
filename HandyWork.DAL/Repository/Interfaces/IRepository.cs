@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.DAL.Repository
+namespace HandyWork.DAL.Repository.Interfaces
 {
     /// <summary>
     /// 此处空实现
