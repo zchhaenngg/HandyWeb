@@ -5,14 +5,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using HandyWork.UIBusiness.ViewModel.PCWeb;
 using HandyWork.UIBusiness.Enums;
 using System.Web.Security;
 using System.Collections.Generic;
-using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Manager.Utility;
 
 namespace HandyWork.PCWeb.Controllers
