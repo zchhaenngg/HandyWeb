@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentHttpContext.cs" />
     <Compile Include="Enums\SignInResult.cs" />
     <Compile Include="Ext\IPrincipalExt.cs" />
     <Compile Include="GatherPrincipal.cs" />

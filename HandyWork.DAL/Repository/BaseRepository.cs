@@ -16,7 +16,7 @@ using HandyWork.DAL.Repository.Interfaces;
 
 namespace HandyWork.DAL.Repository
 {
-    public abstract class BaseRepository<T> : CurrentHttpContext
+    public abstract class BaseRepository<T>
         where T : class
     {
         protected DbContext _Context;
@@ -36,34 +36,32 @@ namespace HandyWork.DAL.Repository
             get;
             private set;
         }
-        
-        public virtual T Add(T entity)
+
+        protected abstract void OnBeforeAdd(T entity, string operatorId);
+        public virtual T Add(T entity, string operatorId)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(typeof(T).Name);
             }
             Validate(entity);
-            OnBeforeAdd(entity);
+            OnBeforeAdd(entity, operatorId);
             T t = Source.Add(entity);
-            RecordHistory(entity);
+            RecordHistory(entity, operatorId);
             return t;
         }
-
-        protected abstract void OnBeforeAdd(T entity);
-
-        public virtual T Update(T entity)
+        
+        protected abstract void OnBeforeUpdate(T entity, string operatorId);
+        public virtual T Update(T entity, string operatorId)
         {
             Validate(entity);
             if (EntityState.Modified == _Context.Entry(entity).State)
             {
-                OnBeforeUpdate(entity);
-                RecordHistory(entity);
+                OnBeforeUpdate(entity, operatorId);
+                RecordHistory(entity, operatorId);
             }
             return entity;
         }
-
-        protected abstract void OnBeforeUpdate(T entity);
         
         public virtual T Remove(T entity)
         {
@@ -100,7 +98,7 @@ namespace HandyWork.DAL.Repository
 
         }
         
-        protected virtual void RecordHistory(T entity)
+        protected virtual void RecordHistory(T entity, string operatorId)
         {
             if (IsRecordHistory)
             {
@@ -116,8 +114,8 @@ namespace HandyWork.DAL.Repository
             DataHistory history = new DataHistory()
             {
                 Id = Guid.NewGuid().ToString(),
-                CreatedById = LoginId,
-                LastModifiedById = LoginId,
+                CreatedById = operatorId,
+                LastModifiedById = operatorId,
                 CreatedTime = DateTime.Now,
                 LastModifiedTime = DateTime.Now,
                 Category = typeof(T).Name
@@ -145,7 +143,7 @@ namespace HandyWork.DAL.Repository
                 }
             });
             history.Description = description;
-            HistoryRepository.Add(history);
+            HistoryRepository.Add(history, operatorId);
         }
 
         /// <summary>

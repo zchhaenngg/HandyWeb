@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL
 {
+    /// <summary>
+    /// 共享上下文
+    /// </summary>
     public class UnitOfWork : IDisposable
     {
         public List<ErrorInfo> ErrorInfos { get; } = new List<ErrorInfo>();

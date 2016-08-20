@@ -1,5 +1,4 @@
-﻿using HandyWork.Common;
-using HandyWork.DAL;
+﻿using HandyWork.DAL;
 using HandyWork.DAL.Repository;
 using HandyWork.Model;
 using System;
@@ -31,28 +30,28 @@ namespace HandyWork.UIBusiness
             Identity = identity;
         }
 
-        //private List<AuthPermission> _permissions;
+        private List<AuthPermission> _permissions;
 
-        //public List<AuthPermission> Permissions
-        //{
-        //    get
-        //    {
-        //        if (_permissions == null)
-        //        {
-        //            using (UserEntities userEntities = new UserEntities())
-        //            {
-        //                UserRepository userRepository = new UserRepository(userEntities, null);
-        //                _permissions = userRepository.GetAllPermissions(LoginId);
-        //            }
-        //        }
-        //        return _permissions;
-        //    }
-        //}
+        protected List<AuthPermission> Permissions
+        {
+            get
+            {
+                if (_permissions == null)
+                {
+                    using (UnitOfWork unitOfWork = new UnitOfWork())
+                    {
+                        UserRepository userRepository = new UserRepository(unitOfWork);
+                        _permissions = userRepository.GetAllPermissions(LoginId);
+                    }
+                }
+                return _permissions;
+            }
+        }
 
-        //public bool IsInPermission(string permissionCode)
-        //{
-        //    return Permissions.Exists(o => o.Code == permissionCode);
-        //}
+        public bool IsInPermission(string permissionCode)
+        {
+            return Permissions.Exists(o => o.Code == permissionCode);
+        }
 
         public bool IsInRole(string role)
         {

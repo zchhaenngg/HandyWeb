@@ -17,17 +17,17 @@ namespace HandyWork.DAL.Repository
         {
             IsRecordHistory = false;
         }
-        protected override void OnBeforeAdd(DataHistory entity)
+        protected override void OnBeforeAdd(DataHistory entity, string operatorId)
         {
-            entity.CreatedById = LoginId;
+            entity.CreatedById = operatorId;
             entity.CreatedTime = DateTime.Now;
-            entity.LastModifiedById = LoginId;
+            entity.LastModifiedById = operatorId;
             entity.LastModifiedTime = DateTime.Now;
         }
 
-        protected override void OnBeforeUpdate(DataHistory entity)
+        protected override void OnBeforeUpdate(DataHistory entity, string operatorId)
         {
-            entity.LastModifiedById = LoginId;
+            entity.LastModifiedById = operatorId;
             entity.LastModifiedTime = DateTime.Now;
         }
         
