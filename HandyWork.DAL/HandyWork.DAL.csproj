@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D29A0B16-B824-4044-B0D6-DDCEB0CF11AC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HandyWork.DAL</RootNamespace>
     <AssemblyName>HandyWork.DAL</AssemblyName>
@@ -75,6 +75,7 @@
     <Compile Include="Repository\DataHistoryRepository.cs" />
     <Compile Include="Repository\SqlRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="用户及权限\HandyWork.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

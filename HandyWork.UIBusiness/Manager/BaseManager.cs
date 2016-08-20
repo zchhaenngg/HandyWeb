@@ -1,4 +1,5 @@
 ﻿using HandyWork.Common;
+using HandyWork.DAL;
 using HandyWork.Model;
 using HandyWork.UIBusiness.IManager;
 using System;
@@ -14,11 +15,18 @@ namespace HandyWork.UIBusiness.Manager
     /// </summary>
     public abstract class BaseManager : CurrentHttpContext
     {
-        internal UnitOfWork UnitOfWork { get; }
-
-        public BaseManager(UnitOfWork unitOfWork)
+        protected UnitOfManager UnitOfManager { get; }
+        protected UnitOfWork UnitOfWork
         {
-            UnitOfWork = unitOfWork;
+            get
+            {
+                return UnitOfManager.UnitOfWork;
+            }
+        }
+
+        public BaseManager(UnitOfManager unitOfManager)
+        {
+            UnitOfManager = unitOfManager;
         }
 
         public bool HasPermission(string permissionCode, string userId = null)

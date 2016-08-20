@@ -1,4 +1,5 @@
 ﻿using HandyWork.Common.Model;
+using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository
 {
-    internal class DataHistoryRepository : BaseRepository<DataHistory>
+    internal class DataHistoryRepository : BaseRepository<DataHistory>, IDataHistoryRepository
     {
-        public DataHistoryRepository(DbContext context)
-            : base(context)
+        public DataHistoryRepository(UnitOfWork unitOfWork)
+            : base(unitOfWork.HistoryEntities)
         {
-
+            IsRecordHistory = false;
         }
         protected override void OnBeforeAdd(DataHistory entity)
         {

@@ -1,4 +1,5 @@
-﻿using HandyWork.Localization;
+﻿using HandyWork.Common.Helper;
+using HandyWork.Localization;
 using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Utility;
 using System;
@@ -8,20 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace HandyWork.UIBusiness.Manager
+namespace HandyWork.UIBusiness.Manager.Utility
 {
-    public class SelectListManager : BaseManager, ISelectListManager
+    public static class SelectListUtility
     {
         public const string TRUE = "True";
         public const string FALSE = "False";
-
-        public SelectListManager(UnitOfWork unitOfWork)
-            :base(unitOfWork)
-        {
-        }
-
+        static UnitOfManager UnitOfManager { get; } = new UnitOfManager();
+        
         #region 枚举
-        internal IEnumerable<SelectListItem> GetSelectListItems<TEnum>()
+        internal static IEnumerable<SelectListItem> GetSelectListItems<TEnum>()
         {
             Type resourceType = typeof(EnumResource);
             bool isEnum = EnumHelper.IsEnum<TEnum>();
@@ -40,7 +37,7 @@ namespace HandyWork.UIBusiness.Manager
             return values;
         }
 
-        public SelectList GetSelectList<TEnum>(bool useOptionLabel = true, object defaultValue = null, string[] specifiedValues = null)
+        public static SelectList GetSelectList<TEnum>(bool useOptionLabel = true, object defaultValue = null, string[] specifiedValues = null)
         {
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in GetSelectListItems<TEnum>())
@@ -65,7 +62,7 @@ namespace HandyWork.UIBusiness.Manager
         }
         #endregion
 
-        public SelectList IsSelectList(bool useOptionLable = true, Nullable<bool> defaultValue = null, string trueValue = null, string falseValue = null)
+        public static SelectList IsSelectList(bool useOptionLable = true, Nullable<bool> defaultValue = null, string trueValue = null, string falseValue = null)
         {
             List<SelectListItem> items = new List<SelectListItem>()
             {

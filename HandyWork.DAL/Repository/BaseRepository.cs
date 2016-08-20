@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using HandyWork.Common.Ext;
 using HandyWork.Model;
 using HandyWork.DAL.Cache;
+using HandyWork.DAL.Repository.Interfaces;
 
 namespace HandyWork.DAL.Repository
 {
@@ -21,7 +22,7 @@ namespace HandyWork.DAL.Repository
         protected DbContext _Context;
         
         public bool IsRecordHistory { get; set; } = true;
-        internal DataHistoryRepository HistoryRepository { get; set; }//待注入
+        internal IDataHistoryRepository HistoryRepository { get; set; }//待注入
         public List<ErrorInfo> ErrorInfos { get; set; }//待注入
 
         public BaseRepository(DbContext context)
@@ -107,6 +108,10 @@ namespace HandyWork.DAL.Repository
                 {
                     throw new Exception("HistoryRepository对象为空，无法记录历史！请联系管理员！");
                 }
+            }
+            else
+            {
+                return;
             }
             DataHistory history = new DataHistory()
             {

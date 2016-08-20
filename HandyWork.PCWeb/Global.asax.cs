@@ -27,7 +27,6 @@ namespace HandyWork.PCWeb
         {
             LodingAssembly();
             SetupLogConfig();
-            LoadCache();
 
             LogHelper.Log.Info("****Web应用-日志正常启动****");
             
@@ -171,10 +170,6 @@ namespace HandyWork.PCWeb
             {
                 XmlConfigurator.Configure(new FileInfo(configFile));
             }
-        }
-        private void LoadCache()
-        {
-            CacheManager.LoadCache();
         }
     }
 }

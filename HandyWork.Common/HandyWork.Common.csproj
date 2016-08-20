@@ -51,6 +51,7 @@
     <Compile Include="Ext\ExceptionEx.cs" />
     <Compile Include="Ext\ExpressionEx.cs" />
     <Compile Include="Ext\IQueryableEx.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Model\ErrorInfo.cs" />
     <Compile Include="Model\UIAjaxException.cs" />
     <Compile Include="Model\UserCookieData.cs" />

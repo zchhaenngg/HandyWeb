@@ -63,7 +63,6 @@
     <Compile Include="GatherPrincipal.cs" />
     <Compile Include="IManager\IAccountManager.cs" />
     <Compile Include="IManager\IManager.cs" />
-    <Compile Include="IManager\ISelectListManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\AuthPermissionQuery.cs" />
@@ -71,12 +70,10 @@
     <Compile Include="Query\UserQuery.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Manager\BaseManager.cs" />
-    <Compile Include="Manager\CacheManager.cs" />
-    <Compile Include="Manager\SelectListManager.cs" />
-    <Compile Include="Manager\UnitOfWork.cs" />
+    <Compile Include="Utility\SelectListUtility.cs" />
+    <Compile Include="UnitOfManager.cs" />
     <Compile Include="Utility\Algorithm.cs" />
     <Compile Include="Utility\EasyuiUtil.cs" />
-    <Compile Include="Utility\EnumHelper.cs" />
     <Compile Include="ViewModel\PCWeb\AccountViewModel.cs" />
     <Compile Include="ViewModel\PCWeb\EasyuiViewModel.cs" />
   </ItemGroup>

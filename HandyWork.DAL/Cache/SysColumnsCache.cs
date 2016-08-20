@@ -9,18 +9,11 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Cache
 {
-    public class SysColumnsCache
+    public static class SysColumnsCache
     {
         private static List<SysColumns> _sysColumns;
-        public static bool IsExist(string tableName, string columnName)
-        {
-            return _sysColumns.Exists(o => o.ColumnName == columnName && o.TableName == tableName);
-        }
-        private static string GetDescription(string tableName, string columnName)
-        {
-            return _sysColumns.First(o => o.ColumnName == columnName && o.TableName == tableName).Description;
-        }
-        public static void LoadData()
+
+        static SysColumnsCache()
         {
             using (UserEntities context = new UserEntities())
             {
@@ -33,7 +26,15 @@ namespace HandyWork.DAL.Cache
                     Description = (o.Description ?? string.Empty).Split(new char[] { '*' })[0]
                 }).ToList();
             }
+        }
 
+        private static bool IsExist(string tableName, string columnName)
+        {
+            return _sysColumns.Exists(o => o.ColumnName == columnName && o.TableName == tableName);
+        }
+        private static string GetDescription(string tableName, string columnName)
+        {
+            return _sysColumns.First(o => o.ColumnName == columnName && o.TableName == tableName).Description;
         }
 
         public static string CompareObject(string tableName, object newObj, Func<string, Tuple<string, string>> propertyOrginCurrentValue)

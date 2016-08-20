@@ -13,8 +13,8 @@ namespace HandyWork.DAL.Repository
 {
     public class AuthRoleRepository : BaseRepository<AuthRole>, IAuthRoleRepository
     {
-        public AuthRoleRepository(DbContext context)
-            : base(context)
+        public AuthRoleRepository(UnitOfWork unitOfWork)
+            : base(unitOfWork.UserEntities)
         {
             IsRecordHistory = false;
         }

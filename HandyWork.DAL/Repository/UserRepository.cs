@@ -18,10 +18,10 @@ namespace HandyWork.DAL.Repository
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(DbContext context, HistoryEntities historyContext)
-            : base(context)
+        public UserRepository(UnitOfWork unitOfWork)
+            :base(unitOfWork.UserEntities)
         {
-            HistoryRepository = new DataHistoryRepository(historyContext);  
+            HistoryRepository = unitOfWork.DataHistoryRepository;
         }
 
         protected override void OnBeforeAdd(User entity)

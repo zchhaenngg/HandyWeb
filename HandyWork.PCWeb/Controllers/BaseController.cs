@@ -1,5 +1,6 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.Localization;
+using HandyWork.UIBusiness;
 using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Manager;
 using System;
@@ -13,29 +14,34 @@ namespace HandyWork.PCWeb.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected UnitOfWork UnitOfWork { get; } = new UnitOfWork();
-        protected IAccountManager AccountManager { get; }
-        protected ISelectListManager SelectListManager { get; }
-
-        public BaseController()
+        private UnitOfManager _unitOfManager;
+        protected UnitOfManager UnitOfManager
         {
-            AccountManager = new AccountManager(UnitOfWork);
-            SelectListManager = new SelectListManager(UnitOfWork);
+            get
+            {
+                if (_unitOfManager == null)
+                {
+                    _unitOfManager = new UnitOfManager();
+                }
+                return _unitOfManager;
+            }
         }
-        
         
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                UnitOfWork.Dispose();
+                if (_unitOfManager != null)
+                {
+                    _unitOfManager.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
 
-        protected void AddModelError(List<ErrorInfo> errors)
+        protected void AddModelError()
         {
-            foreach (var item in errors)
+            foreach (var item in UnitOfManager.ErrorInfos)
             {
                 ModelState.AddModelError("", item.ToString());
             }
@@ -45,7 +51,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             get
             {
-                return UnitOfWork.ErrorInfos.Count > 0;
+                return UnitOfManager.ErrorInfos.Count > 0;
             }
         }
 
@@ -56,7 +62,7 @@ namespace HandyWork.PCWeb.Controllers
                 if (HasErrorInfo)
                 {
                     StringBuilder builder = new StringBuilder();
-                    foreach (ErrorInfo item in UnitOfWork.ErrorInfos)
+                    foreach (ErrorInfo item in UnitOfManager.ErrorInfos)
                     {
                         builder.Append(item.ToString());
                     }
