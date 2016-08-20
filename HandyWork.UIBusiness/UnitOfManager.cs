@@ -27,13 +27,8 @@ namespace HandyWork.UIBusiness
             }
         }
 
-        public List<ErrorInfo> ErrorInfos
-        {
-            get
-            {
-                return UnitOfWork.ErrorInfos;
-            }
-        }
+        //直接只返回表达式结果的属性或方法使用 => 来定义
+        public List<ErrorInfo> ErrorInfos => UnitOfWork.ErrorInfos;
 
         public void Dispose()
         {
