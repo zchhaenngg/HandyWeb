@@ -13,17 +13,12 @@ using HandyWork.UIBusiness.Enums;
 using System.Web.Security;
 using System.Collections.Generic;
 using HandyWork.UIBusiness.IManager;
-using Autofac;
-using Autofac.Core.Lifetime;
 
 namespace HandyWork.PCWeb.Controllers
 {
     [Authorize]
     public class AccountController : BaseController
     {
-        public IAccountManager AccountManager { get; set; }
-        public ISelectListManager SelectListManager { get; set; }
-
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -84,7 +79,7 @@ namespace HandyWork.PCWeb.Controllers
                 AccountManager.Register(model);
                 if (HasErrorInfo)
                 {
-                    AddModelError(ErrorInfos);
+                    AddModelError(UnitOfWork.ErrorInfos);
                     return View(model);
                 }
                 else
@@ -111,7 +106,7 @@ namespace HandyWork.PCWeb.Controllers
             AccountManager.ResetPassword(model);
             if (HasErrorInfo)
             {
-                AddModelError(ErrorInfos);
+                AddModelError(UnitOfWork.ErrorInfos);
             }
             else
             {

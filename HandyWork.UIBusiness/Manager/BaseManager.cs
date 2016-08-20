@@ -14,9 +14,9 @@ namespace HandyWork.UIBusiness.Manager
     /// </summary>
     public abstract class BaseManager : CurrentHttpContext
     {
-        internal IUnitOfWork UnitOfWork { get; }
+        internal UnitOfWork UnitOfWork { get; }
 
-        public BaseManager(IUnitOfWork unitOfWork)
+        public BaseManager(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
         }

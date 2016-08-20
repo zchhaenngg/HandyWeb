@@ -1,5 +1,6 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.Localization;
+using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Manager;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,24 @@ using System.Web.Mvc;
 
 namespace HandyWork.PCWeb.Controllers
 {
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
-        public List<ErrorInfo> ErrorInfos { get; } = new List<ErrorInfo>();
+        protected UnitOfWork UnitOfWork { get; } = new UnitOfWork();
+        protected IAccountManager AccountManager { get; }
+        protected ISelectListManager SelectListManager { get; }
+
+        public BaseController()
+        {
+            AccountManager = new AccountManager(UnitOfWork);
+            SelectListManager = new SelectListManager(UnitOfWork);
+        }
+        
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-
+                UnitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -34,7 +45,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             get
             {
-                return ErrorInfos.Count > 0;
+                return UnitOfWork.ErrorInfos.Count > 0;
             }
         }
 
@@ -45,7 +56,7 @@ namespace HandyWork.PCWeb.Controllers
                 if (HasErrorInfo)
                 {
                     StringBuilder builder = new StringBuilder();
-                    foreach (ErrorInfo item in ErrorInfos)
+                    foreach (ErrorInfo item in UnitOfWork.ErrorInfos)
                     {
                         builder.Append(item.ToString());
                     }
@@ -132,5 +143,6 @@ namespace HandyWork.PCWeb.Controllers
         {
             return HasPermission(permissionCode, userId);
         }
+        
     }
 }

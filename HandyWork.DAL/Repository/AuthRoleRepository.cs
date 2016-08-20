@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository
 {
-    public class AuthRoleRepository : BaseRepository<AuthRole>
+    public class AuthRoleRepository : BaseRepository<AuthRole>, IAuthRoleRepository
     {
         public AuthRoleRepository(DbContext context)
             : base(context)

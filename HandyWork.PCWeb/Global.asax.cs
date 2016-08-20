@@ -1,6 +1,4 @@
-﻿using Autofac;
-using Autofac.Integration.Mvc;
-using HandyWork.Common.Model;
+﻿using HandyWork.Common.Model;
 using HandyWork.PCWeb.Controllers;
 using HandyWork.UIBusiness;
 using HandyWork.UIBusiness.IManager;
@@ -32,25 +30,7 @@ namespace HandyWork.PCWeb
             LoadCache();
 
             LogHelper.Log.Info("****Web应用-日志正常启动****");
-
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
-
-            builder.RegisterAssemblyTypes(typeof(IManager).Assembly)
-                .AssignableTo(typeof(IManager))
-                .AsSelf()
-                .AsImplementedInterfaces()
-                .PropertiesAutowired()
-                .InstancePerRequest();
             
-            //builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
-            //builder.RegisterModelBinderProvider();
-            //builder.RegisterModule<AutofacWebTypesModule>();
-            //builder.RegisterSource(new ViewRegistrationSource());
-            builder.RegisterFilterProvider();
-            var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

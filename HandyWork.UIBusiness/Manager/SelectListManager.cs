@@ -15,7 +15,7 @@ namespace HandyWork.UIBusiness.Manager
         public const string TRUE = "True";
         public const string FALSE = "False";
 
-        public SelectListManager(IUnitOfWork unitOfWork)
+        public SelectListManager(UnitOfWork unitOfWork)
             :base(unitOfWork)
         {
         }

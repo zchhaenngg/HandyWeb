@@ -10,10 +10,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HandyWork.Model.Query;
+using System.Linq.Expressions;
 
 namespace HandyWork.DAL.Repository
 {
-    public class UserRepository : BaseRepository<User>
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(DbContext context, HistoryEntities historyContext)
             : base(context)
@@ -125,5 +127,6 @@ namespace HandyWork.DAL.Repository
          //   history.Keep1  = 统计数据
             return new string[] { nameof(User.Id), nameof(User.Password) };
         }
+        
     }
 }

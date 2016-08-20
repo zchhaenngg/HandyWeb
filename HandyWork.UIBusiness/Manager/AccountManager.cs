@@ -21,7 +21,7 @@ namespace HandyWork.UIBusiness.Manager
 {
     public class AccountManager : BaseManager, IAccountManager
     {
-        public AccountManager(IUnitOfWork unitOfWork)
+        public AccountManager(UnitOfWork unitOfWork)
             :base(unitOfWork)
         {
         }

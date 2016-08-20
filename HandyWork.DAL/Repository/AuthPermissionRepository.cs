@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository
 {
-    public class AuthPermissionRepository : BaseRepository<AuthPermission>
+    public class AuthPermissionRepository : BaseRepository<AuthPermission>, IAuthPermissionRepository
     {
         public AuthPermissionRepository(DbContext context)
            : base(context)
