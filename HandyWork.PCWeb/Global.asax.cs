@@ -85,13 +85,12 @@ namespace HandyWork.PCWeb
                             break;
                     }
                 }
-                else if (error is UIAjaxException)
-                {
-                    action = "AjaxGlobalError";
-                }
                 else
                 {
-                    LogHelper.ErrorLog.Error(error.Message, error);
+                    if ((error as LogException)?.ShouldWriteLog != false)
+                    {//左边表达式结果有  null,true,false.其中null和true都需要记录日志
+                        LogHelper.ErrorLog.Error(error.Message, error);
+                    }
                     if (httpContext.Request["is_ajax_call"] == "yes" || httpContext.Request.Headers["X-Requested-With"] != null && httpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                     {
                         action = "AjaxGlobalError";

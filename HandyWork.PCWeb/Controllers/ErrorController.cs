@@ -70,11 +70,7 @@ namespace HandyWork.PCWeb.Controllers
             {
                 if (model.Exception != null)
                 {
-                    if (model.Exception is UIAjaxException)
-                    {
-                        message = model.Exception.Message;
-                    }
-                    else if (model.Exception.Message.Contains("Unable to open connection to"))
+                    if (model.Exception.Message.Contains("Unable to open connection to"))
                     {
                         message = "该异常可能是由于服务器宕机等原因所致，请联系管理员";
                     }
