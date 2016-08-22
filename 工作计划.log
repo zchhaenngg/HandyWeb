@@ -1,2 +1,5 @@
-1.各层应该独立，不能互相影响。
-在DAL层中不应该可以访问到HttpContext,不能获取Request、LoginId等信息。
+1.表达式智能构建。
+a.Equal表达式
+b.Like表达式
+c.大小表达式
+注意表达式需要支持所有基本类型。int、short、float、double、bool、long、decimal、string(char应该不需要，其他object类型也不需要)
