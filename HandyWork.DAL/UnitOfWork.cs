@@ -15,62 +15,31 @@ namespace HandyWork.DAL
     /// </summary>
     public class UnitOfWork : IDisposable
     {
+        private IUserRepository _userRepository;
+        private IAuthPermissionRepository _authPermissionRepository;
+        private IAuthRoleRepository _authRoleRepository;
+        private IDataHistoryRepository _dataHistoryRepository;
+
         public List<ErrorInfo> ErrorInfos { get; } = new List<ErrorInfo>();
 
         internal UserEntities UserEntities { get; } = new UserEntities();
         internal HistoryEntities HistoryEntities { get; } = new HistoryEntities();
-
-        private IUserRepository _userRepository;
+        
         public IUserRepository UserRepository
-        {
-            get
-            {
-                if (_userRepository == null)
-                {
-                    _userRepository = new UserRepository(this);
-                }
-                return _userRepository;
-            }
-        }
+            => _userRepository
+                ?? (_userRepository = new UserRepository(this));
+        
+        public IAuthPermissionRepository AuthPermissionRepository 
+            => _authPermissionRepository  
+                ?? (_authPermissionRepository = new AuthPermissionRepository(this));
 
-        private IAuthPermissionRepository _authPermissionRepository;
-        public IAuthPermissionRepository AuthPermissionRepository
-        {
-            get
-            {
-                if (_authPermissionRepository == null)
-                {
-                    _authPermissionRepository = new AuthPermissionRepository(this);
-                }
-                return _authPermissionRepository;
-            }
-        }
-
-        private IAuthRoleRepository _authRoleRepository;
-        public IAuthRoleRepository AuthRoleRepository
-        {
-            get
-            {
-                if (_authRoleRepository == null)
-                {
-                    _authRoleRepository = new AuthRoleRepository(this);
-                }
-                return _authRoleRepository;
-            }
-        }
-
-        private IDataHistoryRepository _dataHistoryRepository;
+        public IAuthRoleRepository AuthRoleRepository 
+            => _authRoleRepository
+                ?? (_authRoleRepository = new AuthRoleRepository(this));
+        
         internal IDataHistoryRepository DataHistoryRepository
-        {
-            get
-            {
-                if (_dataHistoryRepository == null)
-                {
-                    _dataHistoryRepository = new DataHistoryRepository(this);
-                }
-                return _dataHistoryRepository;
-            }
-        }
+            => _dataHistoryRepository
+            ?? (_dataHistoryRepository = new DataHistoryRepository(this));
 
         public void SaveChanges()
         {

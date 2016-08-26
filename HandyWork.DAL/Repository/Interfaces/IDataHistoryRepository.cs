@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository.Interfaces
 {
-    internal interface IDataHistoryRepository : IBaseRepository<DataHistory>
+    public interface IDataHistoryRepository : IBaseRepository<DataHistory>
     {
         DataHistory Find(string id);
     }

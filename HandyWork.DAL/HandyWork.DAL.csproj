@@ -58,7 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\Check.cs">
+      <Link>Check.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\CodeAnnotations.cs">
+      <Link>CodeAnnotations.cs</Link>
+    </Compile>
     <Compile Include="Errors.cs" />
+    <Compile Include="Repository\Abstracts\BaseRecordDataHistory.cs" />
     <Compile Include="Repository\Interfaces\IAuthPermissionRepository.cs" />
     <Compile Include="Repository\Interfaces\IAuthRoleRepository.cs" />
     <Compile Include="Repository\Interfaces\IBaseRepository.cs" />
@@ -117,7 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="配置历史等\HandyWork.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HandyWork.Designer.cs</LastGenOutput>

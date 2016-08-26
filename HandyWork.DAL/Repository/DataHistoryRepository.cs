@@ -48,15 +48,5 @@ namespace HandyWork.DAL.Repository
             }
             return Find(entity.Id);
         }
-
-        public override void Validate(DataHistory entity)
-        {
-
-        }
-
-        protected override string[] OnBeforeRecordHistory(DataHistory entity, DataHistory history)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

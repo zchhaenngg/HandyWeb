@@ -1,7 +1,9 @@
-﻿using HandyWork.Common.Model;
+﻿using Handy.Shared;
+using HandyWork.Common.Model;
 using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -88,12 +90,13 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.Name == name).FirstOrDefault();
         }
-        public override void Validate(AuthPermission entity)
+        public override void Validate([NotNull]AuthPermission entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException();
-            }
+            //if (entity == null)
+            //{
+            //    throw new ArgumentNullException(nameof(entity));
+            //}
+            Check.NotNull(entity, nameof(entity));
             if (string.IsNullOrWhiteSpace(entity.Name))
             {
                 UnitOfWork.ErrorInfos.Add(Errors.InvalidPermission);
@@ -116,12 +119,6 @@ namespace HandyWork.DAL.Repository
                     }
                 }
             }
-            base.Validate(entity);
-        }
-
-        protected override string[] OnBeforeRecordHistory(AuthPermission entity, DataHistory history)
-        {
-            throw new NotImplementedException();
         }
     }
 }
