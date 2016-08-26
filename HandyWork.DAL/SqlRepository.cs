@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.DAL.Repository
+namespace HandyWork.DAL
 {
     public class SqlRepository
     {

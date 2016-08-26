@@ -71,9 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AuthPermissionRepository.cs" />
     <Compile Include="Repository\AuthRoleRepository.cs" />
-    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\Abstracts\BaseRepository.cs" />
     <Compile Include="Repository\DataHistoryRepository.cs" />
-    <Compile Include="Repository\SqlRepository.cs" />
+    <Compile Include="SqlRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="用户及权限\HandyWork.Context.cs">

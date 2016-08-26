@@ -1,4 +1,5 @@
 ﻿using HandyWork.Common.Model;
+using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
 using System;
@@ -53,7 +54,7 @@ namespace HandyWork.DAL.Repository
 
         }
 
-        public override string[] OnBeforeRecordData(DataHistory entity, DataHistory history)
+        protected override string[] OnBeforeRecordHistory(DataHistory entity, DataHistory history)
         {
             throw new NotImplementedException();
         }

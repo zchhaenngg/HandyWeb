@@ -14,14 +14,14 @@ using HandyWork.Model;
 using HandyWork.DAL.Cache;
 using HandyWork.DAL.Repository.Interfaces;
 
-namespace HandyWork.DAL.Repository
+namespace HandyWork.DAL.Repository.Abstracts
 {
     public abstract class BaseRepository<T>
         where T : class
     {
         protected UnitOfWork UnitOfWork { get; set; }
         private DbContext _context;
-        public DbSet<T> Source { get; }//在其他repository中做联合查询时需要
+        public DbSet<T> Source { get; }//在其他repository中做联合查询时需要,所以限定修饰符为public
         private bool _isRecordDataChange;
 
         public BaseRepository(UnitOfWork unitOfWork, DbContext context, bool isRecordDataChange)
@@ -34,6 +34,7 @@ namespace HandyWork.DAL.Repository
         
         protected abstract void OnBeforeAdd(T entity, string operatorId);
         protected abstract void OnBeforeUpdate(T entity, string operatorId);
+        
 
         public virtual T Add(T entity, string operatorId)
         {
@@ -109,7 +110,7 @@ namespace HandyWork.DAL.Repository
                 Category = typeof(T).Name
                 //Keep1 = 统计数据
             };
-            string[] ignorePropertyNames = OnBeforeRecordData(entity, history);
+            string[] ignorePropertyNames = OnBeforeRecordHistory(entity, history);
             
             DbEntityEntry<T> entry = _context.Entry(entity); 
             string description = SysColumnsCache.CompareObject(typeof(T).Name, entity, (propName) =>
@@ -137,6 +138,9 @@ namespace HandyWork.DAL.Repository
         /// <summary>
         /// 返回值为不需要记录在历史变更中的字段。同时需要对history的foreign key id和统计字段Keep1,Keep2等赋值
         /// </summary>
-        public abstract string[] OnBeforeRecordData(T entity, DataHistory history);
+        protected virtual string[] OnBeforeRecordHistory(T entity, DataHistory history)
+        {
+            return null;
+        }
     }
 }

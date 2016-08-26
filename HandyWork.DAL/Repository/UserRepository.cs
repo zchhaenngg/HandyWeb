@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using HandyWork.Model.Query;
 using System.Linq.Expressions;
 using HandyWork.DAL.Repository.Interfaces;
+using HandyWork.DAL.Repository.Abstracts;
 
 namespace HandyWork.DAL.Repository
 {
@@ -127,7 +128,7 @@ namespace HandyWork.DAL.Repository
             return userPermissions;
         }
 
-        public override string[] OnBeforeRecordData(User entity, DataHistory history)
+        protected override string[] OnBeforeRecordHistory(User entity, DataHistory history)
         {
             history.ForeignId = entity.Id;
          //   history.Keep1  = 统计数据

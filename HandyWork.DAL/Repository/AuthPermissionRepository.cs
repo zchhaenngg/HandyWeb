@@ -1,4 +1,5 @@
 ﻿using HandyWork.Common.Model;
+using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
 using System;
@@ -117,8 +118,8 @@ namespace HandyWork.DAL.Repository
             }
             base.Validate(entity);
         }
-        
-        public override string[] OnBeforeRecordData(AuthPermission entity, DataHistory history)
+
+        protected override string[] OnBeforeRecordHistory(AuthPermission entity, DataHistory history)
         {
             throw new NotImplementedException();
         }
