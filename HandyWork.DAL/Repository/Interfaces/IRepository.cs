@@ -11,5 +11,6 @@ namespace HandyWork.DAL.Repository.Interfaces
     /// </summary>
     public interface IRepository
     {
+        
     }
 }

@@ -14,9 +14,8 @@ namespace HandyWork.DAL.Repository
     public class AuthRoleRepository : BaseRepository<AuthRole>, IAuthRoleRepository
     {
         public AuthRoleRepository(UnitOfWork unitOfWork)
-            : base(unitOfWork.UserEntities)
+            : base(unitOfWork, unitOfWork.UserEntities, false)
         {
-            IsRecordHistory = false;
         }
         protected override void OnBeforeAdd(AuthRole entity, string operatorId)
         {
@@ -80,7 +79,7 @@ namespace HandyWork.DAL.Repository
             }
             if (string.IsNullOrWhiteSpace(entity.Name))
             {
-                ErrorInfos.Add(Errors.InvalidUserName);
+                UnitOfWork.ErrorInfos.Add(Errors.InvalidUserName);
             }
             else
             {
@@ -88,13 +87,13 @@ namespace HandyWork.DAL.Repository
                 if (owner != null &&
                     !string.Equals(entity.Id, owner.Id))
                 {
-                    ErrorInfos.Add(Errors.DuplicateRole);
+                    UnitOfWork.ErrorInfos.Add(Errors.DuplicateRole);
                 }
             }
             base.Validate(entity);
         }
 
-        public override string[] OnBeforeRecordHistory(AuthRole entity, DataHistory history)
+        public override string[] OnBeforeRecordData(AuthRole entity, DataHistory history)
         {
             throw new NotImplementedException();
         }

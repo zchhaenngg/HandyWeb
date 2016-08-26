@@ -14,9 +14,8 @@ namespace HandyWork.DAL.Repository
     public class AuthPermissionRepository : BaseRepository<AuthPermission>, IAuthPermissionRepository
     {
         public AuthPermissionRepository(UnitOfWork unitOfWork)
-           : base(unitOfWork.UserEntities)
+           : base(unitOfWork, unitOfWork.UserEntities, false)
         {
-            IsRecordHistory = false;
         }
         protected override void OnBeforeAdd(AuthPermission entity, string operatorId)
         {
@@ -96,7 +95,7 @@ namespace HandyWork.DAL.Repository
             }
             if (string.IsNullOrWhiteSpace(entity.Name))
             {
-                ErrorInfos.Add(Errors.InvalidPermission);
+                UnitOfWork.ErrorInfos.Add(Errors.InvalidPermission);
             }
             else
             {
@@ -104,7 +103,7 @@ namespace HandyWork.DAL.Repository
                 if (owner != null &&
                     !string.Equals(entity.Id, owner.Id))
                 {
-                    ErrorInfos.Add(Errors.DuplicatePermission);
+                    UnitOfWork.ErrorInfos.Add(Errors.DuplicatePermission);
                 }
                 else
                 {
@@ -112,14 +111,14 @@ namespace HandyWork.DAL.Repository
                     if (owner2 != null &&
                         !string.Equals(entity.Id, owner2.Id))
                     {
-                        ErrorInfos.Add(Errors.DuplicatePermission);
+                        UnitOfWork.ErrorInfos.Add(Errors.DuplicatePermission);
                     }
                 }
             }
             base.Validate(entity);
         }
         
-        public override string[] OnBeforeRecordHistory(AuthPermission entity, DataHistory history)
+        public override string[] OnBeforeRecordData(AuthPermission entity, DataHistory history)
         {
             throw new NotImplementedException();
         }

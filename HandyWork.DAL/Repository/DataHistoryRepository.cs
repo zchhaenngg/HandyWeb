@@ -13,9 +13,8 @@ namespace HandyWork.DAL.Repository
     internal class DataHistoryRepository : BaseRepository<DataHistory>, IDataHistoryRepository
     {
         public DataHistoryRepository(UnitOfWork unitOfWork)
-            : base(unitOfWork.HistoryEntities)
+            : base(unitOfWork, unitOfWork.HistoryEntities, false)
         {
-            IsRecordHistory = false;
         }
         protected override void OnBeforeAdd(DataHistory entity, string operatorId)
         {
@@ -54,7 +53,7 @@ namespace HandyWork.DAL.Repository
 
         }
 
-        public override string[] OnBeforeRecordHistory(DataHistory entity, DataHistory history)
+        public override string[] OnBeforeRecordData(DataHistory entity, DataHistory history)
         {
             throw new NotImplementedException();
         }

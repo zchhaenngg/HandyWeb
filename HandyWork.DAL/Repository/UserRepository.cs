@@ -19,9 +19,8 @@ namespace HandyWork.DAL.Repository
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(UnitOfWork unitOfWork)
-            :base(unitOfWork.UserEntities)
+            :base(unitOfWork, unitOfWork.UserEntities, true)
         {
-            HistoryRepository = unitOfWork.DataHistoryRepository;
         }
 
         protected override void OnBeforeAdd(User entity, string operatorId)
@@ -80,7 +79,7 @@ namespace HandyWork.DAL.Repository
             }
             if (string.IsNullOrWhiteSpace(entity.UserName))
             {
-                ErrorInfos.Add(Errors.InvalidUserName);
+                UnitOfWork.ErrorInfos.Add(Errors.InvalidUserName);
             }
             else
             {
@@ -88,7 +87,7 @@ namespace HandyWork.DAL.Repository
                 if (owner != null &&
                     !string.Equals(entity.Id, owner.Id))
                 {
-                    ErrorInfos.Add(Errors.DuplicateUserName);
+                    UnitOfWork.ErrorInfos.Add(Errors.DuplicateUserName);
                 }
             }
             base.Validate(entity);
@@ -110,8 +109,14 @@ namespace HandyWork.DAL.Repository
             {
                 return null;
             }
-            SqlRepository sqlRepository = new SqlRepository(_Context);
-            return sqlRepository.GetList<AuthPermission>(SQL.Permission4RoleUser, new SqlParameter("@UserId", userId));
+
+            var roles = UnitOfWork.AuthRoleRepository.Source.Where(o => o.User.Any(u => u.Id == userId)).Include(r => r.AuthPermission).ToList();
+            var list = new List<AuthPermission>();
+            roles.ForEach(r => 
+            {
+                list.AddRange(r.AuthPermission);
+            });
+            return list;
         }
 
         public List<AuthPermission> GetAllPermissions(string userId)
@@ -122,7 +127,7 @@ namespace HandyWork.DAL.Repository
             return userPermissions;
         }
 
-        public override string[] OnBeforeRecordHistory(User entity, DataHistory history)
+        public override string[] OnBeforeRecordData(User entity, DataHistory history)
         {
             history.ForeignId = entity.Id;
          //   history.Keep1  = 统计数据

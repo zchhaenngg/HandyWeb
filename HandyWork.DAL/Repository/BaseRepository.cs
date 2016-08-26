@@ -19,25 +19,22 @@ namespace HandyWork.DAL.Repository
     public abstract class BaseRepository<T>
         where T : class
     {
-        protected DbContext _Context;
+        protected UnitOfWork UnitOfWork { get; set; }
+        private DbContext _context;
+        public DbSet<T> Source { get; }//在其他repository中做联合查询时需要
+        private bool _isRecordDataChange;
+
+        public BaseRepository(UnitOfWork unitOfWork, DbContext context, bool isRecordDataChange)
+        {
+            this.Source = context.Set<T>();
+            this.UnitOfWork = unitOfWork;
+            this._context = context;
+            this._isRecordDataChange = isRecordDataChange;
+        }
         
-        public bool IsRecordHistory { get; set; } = true;
-        internal IDataHistoryRepository HistoryRepository { get; set; }//待注入
-        public List<ErrorInfo> ErrorInfos { get; set; }//待注入
-
-        public BaseRepository(DbContext context)
-        {
-            _Context = context;
-            Source = context.Set<T>();
-        }
-
-        public DbSet<T> Source
-        {
-            get;
-            private set;
-        }
-
         protected abstract void OnBeforeAdd(T entity, string operatorId);
+        protected abstract void OnBeforeUpdate(T entity, string operatorId);
+
         public virtual T Add(T entity, string operatorId)
         {
             if (entity == null)
@@ -47,18 +44,16 @@ namespace HandyWork.DAL.Repository
             Validate(entity);
             OnBeforeAdd(entity, operatorId);
             T t = Source.Add(entity);
-            RecordHistory(entity, operatorId);
+            RecordData(entity, operatorId);
             return t;
         }
-        
-        protected abstract void OnBeforeUpdate(T entity, string operatorId);
         public virtual T Update(T entity, string operatorId)
         {
             Validate(entity);
-            if (EntityState.Modified == _Context.Entry(entity).State)
+            if (EntityState.Modified == _context.Entry(entity).State)
             {
                 OnBeforeUpdate(entity, operatorId);
-                RecordHistory(entity, operatorId);
+                RecordData(entity, operatorId);
             }
             return entity;
         }
@@ -98,16 +93,9 @@ namespace HandyWork.DAL.Repository
 
         }
         
-        protected virtual void RecordHistory(T entity, string operatorId)
+        protected virtual void RecordData(T entity, string operatorId)
         {
-            if (IsRecordHistory)
-            {
-                if (HistoryRepository == null)
-                {
-                    throw new Exception("HistoryRepository对象为空，无法记录历史！请联系管理员！");
-                }
-            }
-            else
+            if (!_isRecordDataChange)
             {
                 return;
             }
@@ -121,9 +109,9 @@ namespace HandyWork.DAL.Repository
                 Category = typeof(T).Name
                 //Keep1 = 统计数据
             };
-            string[] ignorePropertyNames = OnBeforeRecordHistory(entity, history);
+            string[] ignorePropertyNames = OnBeforeRecordData(entity, history);
             
-            DbEntityEntry<T> entry = _Context.Entry(entity); 
+            DbEntityEntry<T> entry = _context.Entry(entity); 
             string description = SysColumnsCache.CompareObject(typeof(T).Name, entity, (propName) =>
             {
                 if (ignorePropertyNames != null)
@@ -143,12 +131,12 @@ namespace HandyWork.DAL.Repository
                 }
             });
             history.Description = description;
-            HistoryRepository.Add(history, operatorId);
+            UnitOfWork.DataHistoryRepository.Add(history, operatorId);
         }
 
         /// <summary>
         /// 返回值为不需要记录在历史变更中的字段。同时需要对history的foreign key id和统计字段Keep1,Keep2等赋值
         /// </summary>
-        public abstract string[] OnBeforeRecordHistory(T entity, DataHistory history);
+        public abstract string[] OnBeforeRecordData(T entity, DataHistory history);
     }
 }
