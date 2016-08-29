@@ -15,7 +15,7 @@ using HandyWork.Common.Model;
 using System.Web.Security;
 using System.Web;
 using HandyWork.DAL;
-using HandyWork.UIBusiness.IManager;
+using HandyWork.UIBusiness.Manager.Interfaces;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -50,7 +50,7 @@ namespace HandyWork.UIBusiness.Manager
                 //}
                 else
                 {
-                    string encryptPassword = Algorithm.EncryptPassword(password);
+                    string encryptPassword = AlgorithmUtility.EncryptPassword(password);
                     if (!encryptPassword.Equals(user.Password))
                     {
                         if (user.LastLoginFailedTime.IsToday())
@@ -105,7 +105,7 @@ namespace HandyWork.UIBusiness.Manager
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = model.UserName,
-                Password = Algorithm.EncryptPassword(model.Password),
+                Password = AlgorithmUtility.EncryptPassword(model.Password),
                 RealName = model.RealName,
                 Phone = model.Phone,
                 Email = model.Email,
@@ -138,7 +138,7 @@ namespace HandyWork.UIBusiness.Manager
             }
             else
             {
-                user.Password = Algorithm.EncryptPassword(model.Password);
+                user.Password = AlgorithmUtility.EncryptPassword(model.Password);
                 UnitOfWork.UserRepository.Update(user, LoginId);
                 UnitOfWork.SaveChanges();
             }
@@ -267,7 +267,7 @@ namespace HandyWork.UIBusiness.Manager
         internal UserQuery GetUserQuery()
         {
             UserQuery query = new UserQuery();
-            EasyuiUtil.FillPageQueryFromRequest(Request, query);
+            EasyuiUtility.FillPageQueryFromRequest(Request, query);
             query.UserNameLike = string.IsNullOrWhiteSpace(Request["UserNameLike"]) ? null : Request["UserNameLike"].Trim();
             query.RealNameLike = string.IsNullOrWhiteSpace(Request["RealNameLike"]) ? null : Request["RealNameLike"].Trim();
             if (!string.IsNullOrWhiteSpace(Request["IsValid"]))
@@ -293,6 +293,13 @@ namespace HandyWork.UIBusiness.Manager
             }
             if (query.IsValid != null)
             {
+                //Expression<Func<User, bool>> e2 = o => o.IsValid == bool.Parse(query.IsValid.ToString());
+                //if (e2.CanReduce)
+                //{
+
+                //}
+                //e2 = e2.ReduceAndCheck() as Expression<Func<User, bool>>;
+                //expression = expression.And(o => o.IsValid == (bool.Parse(query.IsValid.ToString())));
                 expression = expression.And(o => o.IsValid == query.IsValid);
             }
             if (query.IsLocked != null)
@@ -413,7 +420,7 @@ namespace HandyWork.UIBusiness.Manager
         internal AuthPermissionQuery GetAuthPermissionQuery()
         {
             AuthPermissionQuery query = new AuthPermissionQuery();
-            EasyuiUtil.FillPageQueryFromRequest(Request, query);
+            EasyuiUtility.FillPageQueryFromRequest(Request, query);
             query.NameLike = string.IsNullOrWhiteSpace(Request["NameLike"]) ? null : Request["NameLike"].Trim();
             query.CodeLike = string.IsNullOrWhiteSpace(Request["CodeLike"]) ? null : Request["CodeLike"].Trim();
             return query;
@@ -457,7 +464,7 @@ namespace HandyWork.UIBusiness.Manager
         internal AuthRoleQuery GetAuthRoleQuery()
         {
             AuthRoleQuery query = new AuthRoleQuery();
-            EasyuiUtil.FillPageQueryFromRequest(Request, query);
+            EasyuiUtility.FillPageQueryFromRequest(Request, query);
             query.NameLike = string.IsNullOrWhiteSpace(Request["NameLike"]) ? null : Request["NameLike"].Trim();
             return query;
         }

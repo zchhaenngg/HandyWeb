@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.UIBusiness.Utility
 {
-    internal class Algorithm
+    internal class AlgorithmUtility
     {
         public static string EncryptPassword(string param)
         {

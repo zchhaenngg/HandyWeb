@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.Ext
 {
-    public class ParameterReplacer : ExpressionVisitor
+    /// <summary>
+    /// 参考http://www.cnblogs.com/FlyEdward/archive/2010/12/06/Linq_ExpressionTree7.html
+    /// </summary>
+    public class ExpressionVisitorReplacer : ExpressionVisitor
     {
-        public ParameterReplacer(ParameterExpression paramExpr)
+        public ExpressionVisitorReplacer(ParameterExpression parameterExpression)
         {
-            ParameterExpression = paramExpr;
+            ParameterExpression = parameterExpression;
         }
 
         public ParameterExpression ParameterExpression { get; private set; }
@@ -26,47 +29,42 @@ namespace HandyWork.Common.Ext
             return ParameterExpression;
         }
     }
-
     public static class ExpressionEx
     {
         /// <summary>
-        /// expression1为null,直接返回expression2
+        /// left为null,直接返回right
         /// </summary>
-        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expression1,
-                                              Expression<Func<T, bool>> expression2)
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left,
+                                              Expression<Func<T, bool>> right)
         {
-            if (expression1 == null)
+            if (left == null)
             {
-                return expression2;
+                return right;
             }
-            ParameterExpression candidateExpr = Expression.Parameter(typeof(T), "candidate");
-            var parameterReplacer = new ParameterReplacer(candidateExpr);
-
-            Expression left = parameterReplacer.Replace(expression1.Body);
-            Expression right = parameterReplacer.Replace(expression2.Body);
-            BinaryExpression body = Expression.Or(left, right);
-
-            return Expression.Lambda<Func<T, bool>>(body, candidateExpr);
+            var parameterExpression = Expression.Parameter(typeof(T), "o");
+            var replacer = new ExpressionVisitorReplacer(parameterExpression);
+            
+            var newBody = Expression.OrElse(replacer.Replace(left.Body), replacer.Replace(right.Body));
+            return Expression.Lambda<Func<T, bool>>(newBody, parameterExpression);
         }
 
         /// <summary>
-        /// expression1为null,直接返回expression2
+        /// left为null,直接返回right
         /// </summary>
-        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> expression1,
-                                                       Expression<Func<T, bool>> expression2)
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left,
+                                                       Expression<Func<T, bool>> right)
         {
-            if (expression1 == null)
+            if (left == null)
             {
-                return expression2;
+                return right;
             }
-            ParameterExpression candidateExpr = Expression.Parameter(typeof(T), "candidate");
-            var parameterReplacer = new ParameterReplacer(candidateExpr);
-
-            Expression left = parameterReplacer.Replace(expression1.Body);
-            Expression right = parameterReplacer.Replace(expression2.Body);
-            BinaryExpression body = Expression.And(left, right);
-
-            return Expression.Lambda<Func<T, bool>>(body, candidateExpr);
+            //此参数不会与left和right表达式中自定义的参数弄混淆，所以名字任意。因为所有表达式中的参数已被正确解释
+            var parameterExpression = Expression.Parameter(typeof(T), "o");
+            var replacer = new ExpressionVisitorReplacer(parameterExpression);
+            
+            var binary = Expression.AndAlso(replacer.Replace(left.Body), replacer.Replace(right.Body));
+            return Expression.Lambda<Func<T, bool>>(binary, parameterExpression);
         }
+        
     }
 }

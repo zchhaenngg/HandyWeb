@@ -1,8 +1,6 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.Localization;
 using HandyWork.UIBusiness;
-using HandyWork.UIBusiness.IManager;
-using HandyWork.UIBusiness.Manager;
 using System;
 using System.Collections.Generic;
 using System.Linq;

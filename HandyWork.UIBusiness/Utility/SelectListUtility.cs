@@ -1,6 +1,5 @@
 ﻿using HandyWork.Common.Helper;
 using HandyWork.Localization;
-using HandyWork.UIBusiness.IManager;
 using HandyWork.UIBusiness.Utility;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,9 @@ namespace HandyWork.UIBusiness.Manager.Utility
     {
         public const string TRUE = "True";
         public const string FALSE = "False";
-        static UnitOfManager UnitOfManager { get; } = new UnitOfManager();
+        //每个Request一个
+        //static UnitOfManager UnitOfManager => new UnitOfManager();
+        //每次都 是新new出来的unitOfManager,还需释放资源，使用Using语法
         
         #region 枚举
         internal static IEnumerable<SelectListItem> GetSelectListItems<TEnum>()

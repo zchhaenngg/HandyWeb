@@ -8,7 +8,7 @@ using System.Web;
 
 namespace HandyWork.UIBusiness.Utility
 {
-    public static class EasyuiUtil
+    public static class EasyuiUtility
     {
         public static void FillPageQueryFromRequest(HttpRequest req, BaseQuery query)
         {

@@ -1,4 +1,7 @@
-1.表达式智能构建。
+任务一：
+1.ExpressionEx中And和Or的优化
+
+计划.表达式智能构建。
 a.Equal表达式
 b.Like表达式
 c.大小表达式

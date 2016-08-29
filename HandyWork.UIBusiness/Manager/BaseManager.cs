@@ -1,7 +1,6 @@
 ﻿using HandyWork.Common;
 using HandyWork.DAL;
 using HandyWork.Model;
-using HandyWork.UIBusiness.IManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +15,7 @@ namespace HandyWork.UIBusiness.Manager
     public abstract class BaseManager : CurrentHttpContext
     {
         protected UnitOfManager UnitOfManager { get; }
-        protected UnitOfWork UnitOfWork
-        {
-            get
-            {
-                return UnitOfManager.UnitOfWork;
-            }
-        }
+        protected UnitOfWork UnitOfWork => UnitOfManager.UnitOfWork;
 
         public BaseManager(UnitOfManager unitOfManager)
         {
