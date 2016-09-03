@@ -19,8 +19,14 @@ namespace HandyWork.UIBusiness
         public IAccountManager AccountManager => _accountManager ?? (_accountManager = new AccountManager(this));
         
         //直接只返回表达式结果的属性或方法使用 => 来定义
-        public List<ErrorInfo> ErrorInfos => UnitOfWork.ErrorInfos;
+        public List<ErrorInfo> Errors => _unitOfWork == null ? null : _unitOfWork.Errors;
 
-        public void Dispose()=> UnitOfWork.Dispose();
+        public void Dispose()
+        {
+            if (_unitOfWork != null)
+            {
+                _unitOfWork.Dispose();
+            }
+        } 
     }
 }

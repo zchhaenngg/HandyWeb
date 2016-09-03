@@ -39,7 +39,7 @@ namespace HandyWork.PCWeb.Controllers
 
         protected void AddModelError()
         {
-            foreach (var item in UnitOfManager.ErrorInfos)
+            foreach (var item in UnitOfManager.Errors)
             {
                 ModelState.AddModelError("", item.ToString());
             }
@@ -49,7 +49,7 @@ namespace HandyWork.PCWeb.Controllers
         {
             get
             {
-                return UnitOfManager.ErrorInfos.Count > 0;
+                return UnitOfManager.Errors.Count > 0;
             }
         }
 
@@ -60,7 +60,7 @@ namespace HandyWork.PCWeb.Controllers
                 if (HasErrorInfo)
                 {
                     StringBuilder builder = new StringBuilder();
-                    foreach (ErrorInfo item in UnitOfManager.ErrorInfos)
+                    foreach (ErrorInfo item in UnitOfManager.Errors)
                     {
                         builder.Append(item.ToString());
                     }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Ext
+namespace HandyWork.Common.Extensions
 {
-    public static class EnumEx
+    public static class EnumExtension
     {
         public static string ToLocalizedStr(this Enum value)
         {

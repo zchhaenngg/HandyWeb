@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -41,13 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consts\DateTimeFormat.cs" />
-    <Compile Include="Ext\DateTimeEx.cs" />
-    <Compile Include="Ext\EnumEx.cs" />
-    <Compile Include="Ext\ExceptionEx.cs" />
-    <Compile Include="Ext\ExpressionEx.cs" />
-    <Compile Include="Ext\IQueryableEx.cs" />
+    <Compile Include="Consts\Formats.cs" />
+    <Compile Include="Extensions\DateTimeExtension.cs" />
+    <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Extensions\ExceptionExtension.cs" />
+    <Compile Include="Extensions\ExpressionExtension.cs" />
+    <Compile Include="Extensions\IQueryableExtension.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Model\ErrorInfo.cs" />
     <Compile Include="Model\LogException.cs" />
     <Compile Include="Model\UserCookieData.cs" />
@@ -61,10 +66,9 @@
       <Project>{035c1853-1818-4e92-8257-dd18931dec22}</Project>
       <Name>HandyWork.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\log4net-1.2.15\log4net.vs2010.csproj">
-      <Project>{ba28e825-29de-4f84-81e5-9ba40c2d0ced}</Project>
-      <Name>log4net.vs2010</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

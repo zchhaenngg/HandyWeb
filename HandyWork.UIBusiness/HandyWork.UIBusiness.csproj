@@ -99,10 +99,6 @@
       <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
       <Name>HandyWork.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\log4net-1.2.15\log4net.vs2010.csproj">
-      <Project>{ba28e825-29de-4f84-81e5-9ba40c2d0ced}</Project>
-      <Name>log4net.vs2010</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

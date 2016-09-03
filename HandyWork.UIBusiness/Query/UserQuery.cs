@@ -12,7 +12,7 @@ namespace HandyWork.UIBusiness.Query
         public UserQuery()
             : base()
         {
-            _sortColumnDic.Add("IsValidStr", "IsValid");
+            PropertyWithColumnDic.Add("IsValidStr", "IsValid");
         }
 
         public string UserNameLike { get; set; }

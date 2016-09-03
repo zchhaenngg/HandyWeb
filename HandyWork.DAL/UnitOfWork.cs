@@ -15,53 +15,56 @@ namespace HandyWork.DAL
     /// </summary>
     public class UnitOfWork : IDisposable
     {
+        
+
+        private UserEntities _userEntities;
+        private HistoryEntities _historyEntities;
         private IUserRepository _userRepository;
         private IAuthPermissionRepository _authPermissionRepository;
         private IAuthRoleRepository _authRoleRepository;
         private IDataHistoryRepository _dataHistoryRepository;
-
-        public List<ErrorInfo> ErrorInfos { get; } = new List<ErrorInfo>();
-
-        internal UserEntities UserEntities { get; } = new UserEntities();
-        internal HistoryEntities HistoryEntities { get; } = new HistoryEntities();
         
-        public IUserRepository UserRepository
-            => _userRepository
-                ?? (_userRepository = new UserRepository(this));
-        
-        public IAuthPermissionRepository AuthPermissionRepository 
-            => _authPermissionRepository  
-                ?? (_authPermissionRepository = new AuthPermissionRepository(this));
+        internal UserEntities UserEntities => _userEntities ?? (_userEntities = new UserEntities());
+        internal HistoryEntities HistoryEntities => _historyEntities ?? (_historyEntities = new HistoryEntities());
+        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(this));
+        public IAuthPermissionRepository AuthPermissionRepository => _authPermissionRepository ?? (_authPermissionRepository = new AuthPermissionRepository(this));
+        public IAuthRoleRepository AuthRoleRepository => _authRoleRepository ?? (_authRoleRepository = new AuthRoleRepository(this));
+        internal IDataHistoryRepository DataHistoryRepository => _dataHistoryRepository ?? (_dataHistoryRepository = new DataHistoryRepository(this));
 
-        public IAuthRoleRepository AuthRoleRepository 
-            => _authRoleRepository
-                ?? (_authRoleRepository = new AuthRoleRepository(this));
-        
-        internal IDataHistoryRepository DataHistoryRepository
-            => _dataHistoryRepository
-            ?? (_dataHistoryRepository = new DataHistoryRepository(this));
-
+        public List<ErrorInfo> Errors { get; } = new List<ErrorInfo>();
         public void SaveChanges()
         {
-            if (ErrorInfos.Count > 0)
+            if (Errors.Count > 0)
             {
                 return;
             }
             try
             {
-                this.UserEntities.SaveChanges();
-                this.HistoryEntities.SaveChanges();
+                if (this._userEntities != null)
+                {
+                    this._userEntities.SaveChanges();
+                }
+                if (this._historyEntities != null)
+                {
+                    this._historyEntities.SaveChanges();
+                }
             }
             catch (DbEntityValidationException ex)
             {
-                ErrorInfos.Add(new ErrorInfo("", ex.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage));
+                Errors.Add(new ErrorInfo("", ex.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage));
             }
         }
 
         public void Dispose()
         {
-            this.UserEntities.Dispose();
-            this.HistoryEntities.Dispose();
+            if (this._userEntities != null)
+            {
+                this._userEntities.Dispose();
+            }
+            if (this._historyEntities != null)
+            {
+                this._historyEntities.Dispose();
+            }
         }
     }
 }

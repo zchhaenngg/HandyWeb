@@ -1,5 +1,5 @@
 ﻿using HandyWork.Model;
-using HandyWork.Common.Ext;
+using HandyWork.Common.Extensions;
 using HandyWork.UIBusiness.Enums;
 using HandyWork.UIBusiness.Query;
 using HandyWork.UIBusiness.Utility;
@@ -134,7 +134,7 @@ namespace HandyWork.UIBusiness.Manager
             User user = UnitOfWork.UserRepository.FindByUserName(model.UserName);
             if (user == null)
             {
-                UnitOfWork.ErrorInfos.Add(Errors.InvalidUserName);
+                UnitOfWork.Errors.Add(Errors.InvalidUserName);
             }
             else
             {

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using HandyWork.Common.Ext;
+using HandyWork.Common.Extensions;
 using HandyWork.Model;
 using HandyWork.DAL.Cache;
 using HandyWork.DAL.Repository.Interfaces;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.Consts
 {
-    public static class DateTimeFormat
+    public static class Formats
     {
         public const string ToDay = "yyyy-MM-dd";
         public const string ToMin = "yyyy-MM-dd HH:mm";

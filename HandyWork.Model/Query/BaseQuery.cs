@@ -9,13 +9,9 @@ namespace HandyWork.Model.Query
     public class BaseQuery
     {
         private string _sortColumn;
-        protected Dictionary<string, string> _sortColumnDic = new Dictionary<string, string>();
+        protected Dictionary<string, string> PropertyWithColumnDic { get; } = new Dictionary<string, string>();
 
         public BaseQuery()
-        {
-            GenerateSortColumnDic();
-        }
-        protected virtual void GenerateSortColumnDic()
         {
 
         }
@@ -41,9 +37,9 @@ namespace HandyWork.Model.Query
                 }
                 else
                 {
-                    if (_sortColumnDic.ContainsKey(value))
+                    if (PropertyWithColumnDic.ContainsKey(value))
                     {
-                        _sortColumn = _sortColumnDic[value];
+                        _sortColumn = PropertyWithColumnDic[value];
                     }
                     else
                     {

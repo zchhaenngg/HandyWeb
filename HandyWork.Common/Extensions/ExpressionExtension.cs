@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Ext
+namespace HandyWork.Common.Extensions
 {
     /// <summary>
     /// 参考http://www.cnblogs.com/FlyEdward/archive/2010/12/06/Linq_ExpressionTree7.html
@@ -29,7 +29,7 @@ namespace HandyWork.Common.Ext
             return ParameterExpression;
         }
     }
-    public static class ExpressionEx
+    public static class ExpressionExtension
     {
         /// <summary>
         /// left为null,直接返回right

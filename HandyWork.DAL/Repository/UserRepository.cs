@@ -80,7 +80,7 @@ namespace HandyWork.DAL.Repository
             }
             if (string.IsNullOrWhiteSpace(entity.UserName))
             {
-                UnitOfWork.ErrorInfos.Add(Errors.InvalidUserName);
+                UnitOfWork.Errors.Add(Errors.InvalidUserName);
             }
             else
             {
@@ -88,7 +88,7 @@ namespace HandyWork.DAL.Repository
                 if (owner != null &&
                     !string.Equals(entity.Id, owner.Id))
                 {
-                    UnitOfWork.ErrorInfos.Add(Errors.DuplicateUserName);
+                    UnitOfWork.Errors.Add(Errors.DuplicateUserName);
                 }
             }
             base.Validate(entity);

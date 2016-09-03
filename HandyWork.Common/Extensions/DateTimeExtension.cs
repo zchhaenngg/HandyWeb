@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Ext
+namespace HandyWork.Common.Extensions
 {
-    public static class DateTimeEx
+    public static class DateTimeExtension
     {
         public static DateTime ToDay(this DateTime dt)
         {
@@ -26,7 +26,7 @@ namespace HandyWork.Common.Ext
         }
         public static string ToDayString(this DateTime dt)
         {
-            return dt.ToString(DateTimeFormat.ToDay);
+            return dt.ToString(Formats.ToDay);
         }
         public static string ToDayString(this Nullable<DateTime> dt)
         {
@@ -34,7 +34,7 @@ namespace HandyWork.Common.Ext
         }
         public static string ToMinString(this DateTime dt)
         {
-            return dt.ToString(DateTimeFormat.ToMin);
+            return dt.ToString(Formats.ToMin);
         }
         public static string ToMinString(this Nullable<DateTime> dt)
         {
@@ -42,7 +42,7 @@ namespace HandyWork.Common.Ext
         }
         public static string ToSecondString(this DateTime dt)
         {
-            return dt.ToString(DateTimeFormat.ToSecond);
+            return dt.ToString(Formats.ToSecond);
         }
         public static string ToSecondString(this Nullable<DateTime> dt)
         {
@@ -50,7 +50,7 @@ namespace HandyWork.Common.Ext
         }
         public static string ToMillsecondString(this DateTime dt)
         {
-            return dt.ToString(DateTimeFormat.ToMillsecond);
+            return dt.ToString(Formats.ToMillsecond);
         }
         public static string ToMillsecondString(this Nullable<DateTime> dt)
         {

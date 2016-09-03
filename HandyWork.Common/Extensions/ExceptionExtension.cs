@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Ext
+namespace HandyWork.Common.Extensions
 {
-    public static class ExceptionEx
+    public static class ExceptionExtension
     {
         /// <summary>
         /// 从Exception中获取指定类型的Exception如果没有返回null

@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Ext
+namespace HandyWork.Common.Extensions
 {
-    public static class IQueryableEx
+    public static class IQueryableExtension
     {
         public static IQueryable<T> GetPage<T>(this IQueryable<T> query, int pageIndex, int pageSize)
         {

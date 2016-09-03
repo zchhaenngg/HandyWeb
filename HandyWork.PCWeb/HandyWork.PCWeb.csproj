@@ -46,6 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -700,7 +704,9 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_StringResources.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -723,10 +729,6 @@
     <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
       <Project>{91acada0-b3c5-4fc3-82eb-96de7754b730}</Project>
       <Name>HandyWork.UIBusiness</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\log4net-1.2.15\log4net.vs2010.csproj">
-      <Project>{ba28e825-29de-4f84-81e5-9ba40c2d0ced}</Project>
-      <Name>log4net.vs2010</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

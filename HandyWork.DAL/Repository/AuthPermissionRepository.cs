@@ -1,16 +1,9 @@
-﻿using Handy.Shared;
-using HandyWork.Common.Model;
-using HandyWork.DAL.Repository.Abstracts;
+﻿using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository
 {
@@ -90,16 +83,15 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.Name == name).FirstOrDefault();
         }
-        public override void Validate([NotNull]AuthPermission entity)
+        public override void Validate(AuthPermission entity)
         {
-            //if (entity == null)
-            //{
-            //    throw new ArgumentNullException(nameof(entity));
-            //}
-            Check.NotNull(entity, nameof(entity));
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (string.IsNullOrWhiteSpace(entity.Name))
             {
-                UnitOfWork.ErrorInfos.Add(Errors.InvalidPermission);
+                UnitOfWork.Errors.Add(Errors.InvalidPermission);
             }
             else
             {
@@ -107,7 +99,7 @@ namespace HandyWork.DAL.Repository
                 if (owner != null &&
                     !string.Equals(entity.Id, owner.Id))
                 {
-                    UnitOfWork.ErrorInfos.Add(Errors.DuplicatePermission);
+                    UnitOfWork.Errors.Add(Errors.DuplicatePermission);
                 }
                 else
                 {
@@ -115,7 +107,7 @@ namespace HandyWork.DAL.Repository
                     if (owner2 != null &&
                         !string.Equals(entity.Id, owner2.Id))
                     {
-                        UnitOfWork.ErrorInfos.Add(Errors.DuplicatePermission);
+                        UnitOfWork.Errors.Add(Errors.DuplicatePermission);
                     }
                 }
             }
