@@ -13,14 +13,14 @@ namespace HandyWork.UIBusiness
     public class CurrentHttpContext
     {
         public HttpRequest Request => HttpContext.Current.Request;
-        private UserCookieData _userCookie;
-        protected UserCookieData UserCookie
+        private UserCookie _userCookie;
+        protected UserCookie UserCookie
         {
             get
             {
                 if (_userCookie == null)
                 {
-                    _userCookie = UserCookieData.Decoder((HttpContext.Current.User.Identity as FormsIdentity)?.Ticket.UserData);
+                    _userCookie = UserCookie.Decoder((HttpContext.Current.User.Identity as FormsIdentity)?.Ticket.UserData);
                 }
                 return _userCookie;
             }

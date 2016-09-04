@@ -74,7 +74,7 @@ namespace HandyWork.UIBusiness.Manager
                     else
                     {
                         #region 写入Cookie
-                        UserCookieData cookieData = new UserCookieData()
+                        UserCookie cookieData = new UserCookie()
                         {
                             Id = user.Id,
                             Name = user.UserName,

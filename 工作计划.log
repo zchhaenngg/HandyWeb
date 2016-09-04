@@ -1,13 +1,11 @@
 任务一：
 1.ExpressionEx中And和Or的优化
-2.引入EPPlus操作Excel 
 3.Query对象  IsEqual、Like、Contain等
-4.删除Shared
 5.Word导出
 7.PDF导出
 7.报表
 8.权限根据业务进行大类分组。
-
+9.AOP拦截器
 
 计划.表达式智能构建。
 a.Equal表达式
