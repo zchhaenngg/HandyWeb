@@ -730,6 +730,10 @@
       <Project>{91acada0-b3c5-4fc3-82eb-96de7754b730}</Project>
       <Name>HandyWork.UIBusiness</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
+      <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
+      <Name>HandyWork.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

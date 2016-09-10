@@ -5,11 +5,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using HandyWork.UIBusiness.ViewModel.PCWeb;
 using HandyWork.UIBusiness.Enums;
 using System.Web.Security;
 using System.Collections.Generic;
 using HandyWork.UIBusiness.Manager.Utility;
+using HandyWork.ViewModel.PCWeb;
 
 namespace HandyWork.PCWeb.Controllers
 {

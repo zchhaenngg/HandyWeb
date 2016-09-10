@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.UIBusiness
 {
-    public class GatherPrincipal : IPrincipal
+    public class HandyPrincipal : IPrincipal
     {
         protected CurrentHttpContext _CurrentHttpContext;
         protected CurrentHttpContext CurrentHttpContext
@@ -25,7 +25,7 @@ namespace HandyWork.UIBusiness
             }
         }
         public IIdentity Identity { get; private set; }
-        public GatherPrincipal(IIdentity identity)
+        public HandyPrincipal(IIdentity identity)
         {
             Identity = identity;
         }

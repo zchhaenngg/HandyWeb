@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.ViewModel.PCWeb
+namespace HandyWork.ViewModel.PCWeb
 {
     public class CombotreeViewModel
     {
@@ -13,7 +14,7 @@ namespace HandyWork.UIBusiness.ViewModel.PCWeb
         /// <summary>
         /// 是否展开
         /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public bool IsOpen { get; set; }
         public string state { get { return IsOpen ? "open" : "closed"; } }
         public bool @checked { get; set; }

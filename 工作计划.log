@@ -13,3 +13,7 @@ a.Equal表达式
 b.Like表达式
 c.大小表达式
 注意表达式需要支持所有基本类型。int、short、float、double、bool、long、decimal、string(char应该不需要，其他object类型也不需要)
+
+BUG.
+D:\MyGitHub\HandyWeb\HandyWork.Common\Helper\EnumHelper.cs,LookupResource方法。
+本地资源文件中的CultureInfo应该获取当前线程中的CultureInfo

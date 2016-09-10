@@ -3,7 +3,6 @@ using HandyWork.Common.Extensions;
 using HandyWork.UIBusiness.Enums;
 using HandyWork.UIBusiness.Query;
 using HandyWork.UIBusiness.Utility;
-using HandyWork.UIBusiness.ViewModel.PCWeb;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +15,7 @@ using System.Web.Security;
 using System.Web;
 using HandyWork.DAL;
 using HandyWork.UIBusiness.Manager.Interfaces;
+using HandyWork.ViewModel.PCWeb;
 
 namespace HandyWork.UIBusiness.Manager
 {

@@ -1,5 +1,5 @@
 ﻿using HandyWork.Localization;
-using HandyWork.UIBusiness.ViewModel.PCWeb;
+using HandyWork.ViewModel.PCWeb;
 using System;
 using System.Collections.Generic;
 using System.Linq;

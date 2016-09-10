@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.ViewModel.PCWeb
+namespace HandyWork.ViewModel.PCWeb
 {
     public class LoginViewModel
     {

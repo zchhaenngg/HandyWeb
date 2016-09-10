@@ -38,10 +38,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -60,8 +56,8 @@
   <ItemGroup>
     <Compile Include="CurrentHttpContext.cs" />
     <Compile Include="Enums\SignInResult.cs" />
-    <Compile Include="Ext\IPrincipalExt.cs" />
-    <Compile Include="GatherPrincipal.cs" />
+    <Compile Include="Extensions\IPrincipalExtension.cs" />
+    <Compile Include="HandyPrincipal.cs" />
     <Compile Include="Manager\Interfaces\IAccountManager.cs" />
     <Compile Include="Manager\Interfaces\IManager.cs" />
     <Compile Include="Program.cs" />
@@ -75,13 +71,8 @@
     <Compile Include="UnitOfManager.cs" />
     <Compile Include="Utility\AlgorithmUtility.cs" />
     <Compile Include="Utility\EasyuiUtility.cs" />
-    <Compile Include="ViewModel\PCWeb\AccountViewModel.cs" />
-    <Compile Include="ViewModel\PCWeb\EasyuiViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\Mobile\" />
-    <Folder Include="ViewModel\WeChat\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
       <Project>{50655857-124c-4647-a652-10a5e88e0963}</Project>
@@ -98,6 +89,10 @@
     <ProjectReference Include="..\HandyWork.Model\HandyWork.Model.csproj">
       <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
       <Name>HandyWork.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
+      <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
+      <Name>HandyWork.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
