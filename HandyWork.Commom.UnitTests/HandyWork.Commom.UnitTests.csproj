@@ -69,11 +69,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ContainLambdaTest.cs" />
     <Compile Include="EPPlusUtilityTest.cs" />
+    <Compile Include="LikeLambdaTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExpressionUtilityTest.cs" />
     <Compile Include="IsEmptyTest.cs" />
     <Compile Include="EqualLambdaTest.cs" />
+    <Compile Include="NotEqualLambdaTest.cs" />
+    <Compile Include="GreaterThanLambdaTest.cs" />
+    <Compile Include="GreaterThanOrEqualLambdaTest.cs" />
+    <Compile Include="LessThanLambdaTest.cs" />
+    <Compile Include="LessThanOrEqualLambdaTest.cs" />
     <Compile Include="WordUtilityTest.cs" />
   </ItemGroup>
   <ItemGroup>

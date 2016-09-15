@@ -8,23 +8,18 @@ using HandyWork.DAL;
 namespace HandyWork.Commom.UnitTests
 {
     [TestClass]
-    public class EqualLambdaTest
+    public class LikeLambdaTest
     {
         private UnitOfWork _unitOfWork;
         protected UnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = new UnitOfWork());
 
         [TestMethod]
-        public void EqualLambda_Build()
+        public void LikeLambda_Build()
         {
-            var equalLambda = new EqualLambda<User, string>(o => o.UserName, "cheng.zhang");
-            var expression = equalLambda.Build();
+            var lambda = new LikeLambda<User>(o => o.UserName, "cheng");
+            var expression = lambda.Build();
             var page = UnitOfWork.UserRepository.GetPage(new UserQuery(), expression);
             Assert.AreEqual(page.Item2, 1);
-
-            var equalLambda2 = new EqualLambda<User, DateTime?>(o => o.LastLoginFailedTime, null);
-            expression = equalLambda2.Build();
-            page = UnitOfWork.UserRepository.GetPage(new UserQuery(), expression);
-            Assert.IsTrue(page.Item2 > 0);
         }
     }
 }

@@ -10,6 +10,9 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
     public abstract class BaseLambda<TEntity, TProperty>
     {
         protected object Value { get; set; }
+
+        protected ExpressionType ExpressionType { get; set; }
+
         protected Expression<Func<TEntity, TProperty>> PropertyExpression { get; set; }
 
         public BaseLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
@@ -18,6 +21,13 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
             Value = entityValue;
         }
 
-        public abstract Expression<Func<TEntity, bool>> Build();
+        public virtual Expression<Func<TEntity, bool>> Build()
+        {
+            var parameter = Expression.Parameter(typeof(TEntity), "o");
+            var propertyName = (PropertyExpression.Body as MemberExpression).Member.Name;
+            var member = Expression.Property(parameter, propertyName);
+            var binary = Expression.MakeBinary(ExpressionType, member, Expression.Constant(Value));
+            return Expression.Lambda<Func<TEntity, bool>>(binary, parameter);
+        }
     }
 }

@@ -1,6 +1,7 @@
 任务一：
-3.Query对象  IsEqual、Like、Contain等
-D:\MyGitHub\HandyWeb\HandyWork.Common\Consts\QueryMethod.cs
+3.智能构建表达式  完成
+4.智能构建查询条件的判断  完成
+5.合并查询条件形成如Expression.BuildBy(BaseTag condition, params BaseLambda[] lambdas);
 5.Word导出。
 D:\MyGitHub\HandyWeb\HandyWork.Common\ExternLibs\OpenXml\WordUtility.cs
 7.PDF导出。
