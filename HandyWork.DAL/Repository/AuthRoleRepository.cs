@@ -9,6 +9,8 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HandyWork.Model.Query;
+using System.Linq.Expressions;
 
 namespace HandyWork.DAL.Repository
 {
@@ -93,8 +95,8 @@ namespace HandyWork.DAL.Repository
             }
             base.Validate(entity);
         }
-
-        protected override string[] OnBeforeRecordHistory(AuthRole entity, DataHistory history)
+        
+        public override Expression<Func<AuthRole, bool>> GetExpression(BaseQuery baseQuery)
         {
             throw new NotImplementedException();
         }

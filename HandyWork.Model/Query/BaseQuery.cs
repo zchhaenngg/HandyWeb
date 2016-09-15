@@ -25,17 +25,13 @@ namespace HandyWork.Model.Query
                 PageIndex = value < 0 ? -1 : value - 1;
             }
         }
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = 10000;
 
         public string SortColumn
         {
             set
             {
-                if (value == null)
-                {
-                    _sortColumn = "LastModifiedById";
-                }
-                else
+                if (value != null)
                 {
                     if (PropertyWithColumnDic.ContainsKey(value))
                     {
@@ -43,11 +39,14 @@ namespace HandyWork.Model.Query
                     }
                     else
                     {
-                        _sortColumn = value.ToLower();
+                        _sortColumn = value;
                     }
                 }
             }
-            get { return _sortColumn; }
+            get
+            {
+                return _sortColumn ?? "LastModifiedById";
+            }
         }
     }
 }

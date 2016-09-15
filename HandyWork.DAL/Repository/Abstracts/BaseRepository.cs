@@ -62,6 +62,8 @@ namespace HandyWork.DAL.Repository.Abstracts
 
         public abstract T Find(T entity);
 
+        public abstract Expression<Func<T, bool>> GetExpression(BaseQuery baseQuery);
+
         /// <summary>
         /// 返回该页所有数据和所有页总数据量
         /// </summary>

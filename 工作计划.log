@@ -1,19 +1,20 @@
 任务一：
-1.ExpressionEx中And和Or的优化
 3.Query对象  IsEqual、Like、Contain等
-5.Word导出
-7.PDF导出
-7.报表
+D:\MyGitHub\HandyWeb\HandyWork.Common\Consts\QueryMethod.cs
+5.Word导出。
+D:\MyGitHub\HandyWeb\HandyWork.Common\ExternLibs\OpenXml\WordUtility.cs
+7.PDF导出。
+7.报表。
 8.权限根据业务进行大类分组。
-9.AOP拦截器
-10.Web聊天
-
-计划.表达式智能构建。
-a.Equal表达式
-b.Like表达式
-c.大小表达式
-注意表达式需要支持所有基本类型。int、short、float、double、bool、long、decimal、string(char应该不需要，其他object类型也不需要)
+9.AOP拦截器。
+10.Web聊天。
+11.将GetExpression函数从UIBusiness层转移到DAL层中。
+12.耗费时间的查询应当支持异步查询。
+13.未来必然是大数据时代，数据分析，报表必然前途无量。
+14.DbFirst->CodeFirst
 
 BUG.
 D:\MyGitHub\HandyWeb\HandyWork.Common\Helper\EnumHelper.cs,LookupResource方法。
 本地资源文件中的CultureInfo应该获取当前线程中的CultureInfo
+
+

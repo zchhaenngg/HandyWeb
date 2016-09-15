@@ -4,6 +4,8 @@ using HandyWork.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HandyWork.Model.Query;
+using System.Linq.Expressions;
 
 namespace HandyWork.DAL.Repository
 {
@@ -111,6 +113,11 @@ namespace HandyWork.DAL.Repository
                     }
                 }
             }
+        }
+
+        public override Expression<Func<AuthPermission, bool>> GetExpression(BaseQuery baseQuery)
+        {
+            throw new NotImplementedException();
         }
     }
 }

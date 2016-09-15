@@ -14,6 +14,7 @@ using HandyWork.Model.Query;
 using System.Linq.Expressions;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.DAL.Repository.Abstracts;
+using HandyWork.Common.Extensions;
 
 namespace HandyWork.DAL.Repository
 {
@@ -134,6 +135,19 @@ namespace HandyWork.DAL.Repository
          //   history.Keep1  = 统计数据
             return new string[] { nameof(User.Id), nameof(User.Password) };
         }
-        
+
+        public override Expression<Func<User, bool>> GetExpression(BaseQuery baseQuery)
+        {
+            Expression<Func<User, bool>> expression = o => true;
+            UserQuery query = baseQuery as UserQuery;
+            if (query != null)
+            {
+                if (!string.IsNullOrWhiteSpace(query.UserNameLike))
+                {
+                    expression = expression.And(o => o.UserName.Contains(query.UserNameLike));
+                }
+            }
+            return expression;
+        }
     }
 }
