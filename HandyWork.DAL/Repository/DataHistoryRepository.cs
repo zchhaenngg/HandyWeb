@@ -108,5 +108,10 @@ namespace HandyWork.DAL.Repository
         {
 
         }
+
+        public List<DataHistory> FindAllByQuery(BaseQuery query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

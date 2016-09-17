@@ -149,5 +149,10 @@ namespace HandyWork.DAL.Repository
             }
             return expression;
         }
+
+        public List<User> FindAllByQuery(BaseQuery query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

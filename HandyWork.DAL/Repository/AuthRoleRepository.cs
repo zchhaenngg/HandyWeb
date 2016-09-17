@@ -100,5 +100,10 @@ namespace HandyWork.DAL.Repository
         {
             throw new NotImplementedException();
         }
+
+        public List<AuthRole> FindAllByQuery(BaseQuery query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

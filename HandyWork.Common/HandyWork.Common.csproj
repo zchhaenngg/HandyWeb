@@ -42,8 +42,9 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,6 +70,8 @@
     <Compile Include="EntityFramwork\Lambdas\LessThanOrEqualLambda.cs" />
     <Compile Include="EntityFramwork\Lambdas\LikeLambda.cs" />
     <Compile Include="EntityFramwork\Lambdas\NotEqualLambda.cs" />
+    <Compile Include="Exceptions\ErrorException.cs" />
+    <Compile Include="Exceptions\LogException.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
@@ -80,7 +83,6 @@
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Model\ErrorInfo.cs" />
-    <Compile Include="Model\LogException.cs" />
     <Compile Include="Model\UserCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

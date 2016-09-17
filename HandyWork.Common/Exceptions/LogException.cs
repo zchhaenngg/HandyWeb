@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Model
+namespace HandyWork.Common.Exceptions
 {
     [Serializable]
     public class LogException : Exception
@@ -13,7 +12,7 @@ namespace HandyWork.Common.Model
         public bool ShouldWriteLog { get; set; }
 
         public LogException(string message, bool shouldWriteLog = true)
-            :base(message)
+            : base(message)
         {
             this.ShouldWriteLog = shouldWriteLog;
         }

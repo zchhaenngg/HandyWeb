@@ -25,7 +25,7 @@ namespace HandyWork.Model.Query
                 PageIndex = value < 0 ? -1 : value - 1;
             }
         }
-        public int PageSize { get; set; } = 10000;
+        public int PageSize { get; set; } = 50;
 
         public string SortColumn
         {

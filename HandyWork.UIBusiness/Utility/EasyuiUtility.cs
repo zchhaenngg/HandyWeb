@@ -1,4 +1,6 @@
-﻿using HandyWork.Model.Query;
+﻿using HandyWork.Common.Exceptions;
+using HandyWork.Common.Helper;
+using HandyWork.Model.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,15 @@ namespace HandyWork.UIBusiness.Utility
     {
         public static void FillPageQueryFromRequest(HttpRequest req, BaseQuery query)
         {
-            string rowsStr = req["rows"]; //每页行数
-            query.PageSize = string.IsNullOrEmpty(rowsStr) ? 10 : int.Parse(rowsStr);
+            int size = int.Parse(req["rows"]);
+            if (size < query.PageSize)
+            {
+                query.PageSize = size;
+            }
+            else
+            {
+                throw new ErrorException(string.Format("客户端在尝试一次获取 {0} 条数据，当前实际限制为 {1}。", size, query.PageSize));
+            }
 
             string pageStr = req["page"]; //当前页数
             query.PageNumber = string.IsNullOrEmpty(pageStr) ? 1 : int.Parse(pageStr);
