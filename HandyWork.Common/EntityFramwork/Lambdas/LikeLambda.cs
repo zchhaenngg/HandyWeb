@@ -15,6 +15,11 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
         {
         }
 
+        public static LikeLambda<TEntity> For(Expression<Func<TEntity, string>> entityProperty, string entityValue)
+        {
+            return new LikeLambda<TEntity>(entityProperty, entityValue);
+        }
+
         public override Expression<Func<TEntity, bool>> Build()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");

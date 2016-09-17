@@ -83,18 +83,15 @@ namespace HandyWork.DAL.Repository
         {
             return Source.Remove(entity);
         }
-
-        public Tuple<List<DataHistory>, int> GetPage(BaseQuery query, Expression<Func<DataHistory, bool>> where = null)
+        public Expression<Func<DataHistory, bool>> GetExpression(BaseQuery baseQuery)
         {
-            IQueryable<DataHistory> queryable = Source;
-            if (where == null)
-            {
+            return null;
+        }
 
-            }
-            else
-            {
-                queryable = Source.Where(where);
-            }
+        public Tuple<List<DataHistory>, int> GetPage(BaseQuery query)
+        {
+            Expression<Func<DataHistory, bool>> where = GetExpression(query);
+            IQueryable<DataHistory> queryable = where == null ? Source : Source.Where(where);
             int count = queryable.Count();
             if (!string.IsNullOrWhiteSpace(query.SortColumn))
             {

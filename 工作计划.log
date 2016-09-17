@@ -14,8 +14,6 @@ D:\MyGitHub\HandyWeb\HandyWork.Common\ExternLibs\OpenXml\WordUtility.cs
 13.未来必然是大数据时代，数据分析，报表必然前途无量。
 14.DbFirst->CodeFirst
 12.提供api->FindAllByQuery
-13.对api(GetPageByQuery)进行限制，每页数据应当最大默认50的限制。当然各个Query可以修改该设置。
-原因为GetPageByQuery是由页面提供的查询应当做好限制。
 
 BUG.
 D:\MyGitHub\HandyWeb\HandyWork.Common\Helper\EnumHelper.cs,LookupResource方法。

@@ -1,11 +1,10 @@
-﻿using HandyWork.Model.Query;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Query
+namespace HandyWork.Model.Query
 {
     public class AuthRoleQuery : BaseQuery
     {

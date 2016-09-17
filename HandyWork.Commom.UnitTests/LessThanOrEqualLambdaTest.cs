@@ -18,8 +18,6 @@ namespace HandyWork.Commom.UnitTests
         {
             var equalLambda = new LessThanOrEqualLambda<User, int>(o => o.LoginFailedCount, 1);
             var expression = equalLambda.Build();
-            var page = UnitOfWork.UserRepository.GetPage(new UserQuery(), expression);
-            Assert.IsTrue(true);
         }
     }
 }

@@ -15,6 +15,9 @@ namespace HandyWork.Common.EntityFramwork.Elements
 
         public object Value { get; set; }
 
-        public abstract bool IsCondition();
+        /// <summary>
+        /// 通过表达式构建前验证
+        /// </summary>
+        public abstract bool IsPassed();
     }
 }

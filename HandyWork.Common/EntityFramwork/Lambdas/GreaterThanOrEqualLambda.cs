@@ -13,5 +13,9 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
         {
             ExpressionType = ExpressionType.GreaterThanOrEqual;
         }
+        public GreaterThanOrEqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
+        {
+            return new GreaterThanOrEqualLambda<TEntity, TProperty>(entityProperty, entityValue);
+        }
     }
 }

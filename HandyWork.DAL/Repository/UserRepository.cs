@@ -15,6 +15,8 @@ using System.Linq.Expressions;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.Common.Extensions;
+using HandyWork.Common.EntityFramwork.Elements;
+using HandyWork.Common.EntityFramwork.Lambdas;
 
 namespace HandyWork.DAL.Repository
 {
@@ -138,21 +140,20 @@ namespace HandyWork.DAL.Repository
 
         public override Expression<Func<User, bool>> GetExpression(BaseQuery baseQuery)
         {
-            Expression<Func<User, bool>> expression = o => true;
+            Expression<Func<User, bool>> expression = null;
             UserQuery query = baseQuery as UserQuery;
             if (query != null)
             {
-                if (!string.IsNullOrWhiteSpace(query.UserNameLike))
-                {
-                    expression = expression.And(o => o.UserName.Contains(query.UserNameLike));
-                }
+                expression = expression
+                    .And(IsNotEmpty.For(query.UserNameLike), LikeLambda<User>.For(o => o.UserName, query.UserNameLike))
+                    .And(IsNotEmpty.For(query.UserNameEqual), EqualLambda<User, string>.For(o => o.UserName, query.UserNameEqual))
+                    .And(IsNotEmpty.For(query.RealNameLike), LikeLambda<User>.For(o => o.RealName, query.RealNameLike))
+                    .And(IsNotNull.For(query.IsValid), EqualLambda<User, bool>.For(o => o.IsValid, query.IsValid))
+                    .And(IsNotNull.For(query.IsLocked), EqualLambda<User, bool>.For(o => o.IsLocked, query.IsLocked));
+                    
             }
             return expression;
         }
-
-        public List<User> FindAllByQuery(BaseQuery query)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

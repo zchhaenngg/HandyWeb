@@ -19,6 +19,7 @@ namespace HandyWork.DAL.Repository.Interfaces
         T Remove(T entity);
         T Find(T entity);
         List<T> FindAllByQuery(BaseQuery query);
-        Tuple<List<T>, int> GetPage(BaseQuery query, Expression<Func<T, bool>> where = null);
+        Tuple<List<T>, int> GetPage(BaseQuery query);
+        Expression<Func<T, bool>> GetExpression(BaseQuery baseQuery);
     }
 }

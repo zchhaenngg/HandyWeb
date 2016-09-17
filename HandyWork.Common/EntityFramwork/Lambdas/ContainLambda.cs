@@ -20,6 +20,11 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
         {
         }
 
+        public static ContainLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
+        {
+            return new ContainLambda<TEntity, TProperty>(entityProperty, entityValue);
+        }
+
         public override Expression<Func<TEntity, bool>> Build()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");

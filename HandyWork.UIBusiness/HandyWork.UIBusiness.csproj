@@ -62,9 +62,6 @@
     <Compile Include="Manager\Interfaces\IManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\AuthPermissionQuery.cs" />
-    <Compile Include="Query\AuthRoleQuery.cs" />
-    <Compile Include="Query\UserQuery.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Manager\BaseManager.cs" />
     <Compile Include="Utility\SelectListUtility.cs" />

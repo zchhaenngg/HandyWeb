@@ -67,17 +67,10 @@ namespace HandyWork.DAL.Repository.Abstracts
         /// <summary>
         /// 返回该页所有数据和所有页总数据量
         /// </summary>
-        public virtual Tuple<List<T>, int> GetPage(BaseQuery query, Expression<Func<T, bool>> where = null)
+        public virtual Tuple<List<T>, int> GetPage(BaseQuery query)
         {
-            IQueryable<T> queryable = Source;
-            if (where == null)
-            {
-
-            }
-            else
-            {
-                queryable = Source.Where(where);
-            }
+            Expression<Func<T, bool>> where = GetExpression(query);
+            IQueryable<T> queryable = where == null ? Source : Source.Where(where);
             int count = queryable.Count();
             if (!string.IsNullOrWhiteSpace(query.SortColumn))
             {
@@ -90,6 +83,13 @@ namespace HandyWork.DAL.Repository.Abstracts
         public virtual void Validate(T entity)
         {
 
+        }
+
+        public virtual List<T> FindAllByQuery(BaseQuery query)
+        {
+            var expression = GetExpression(query);
+            var queryable = expression == null ? Source : Source.Where(expression);
+            return queryable.ToList();
         }
     }
 }

@@ -13,5 +13,10 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
         {
             ExpressionType = ExpressionType.Equal;
         }
+        
+        public static EqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
+        {
+            return new EqualLambda<TEntity, TProperty>(entityProperty, entityValue);
+        }
     }
 }

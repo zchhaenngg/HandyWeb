@@ -18,13 +18,9 @@ namespace HandyWork.Commom.UnitTests
         {
             var lambda = new NotEqualLambda<User, string>(o => o.UserName, "cheng.zhang");
             var expression = lambda.Build();
-            var page = UnitOfWork.UserRepository.GetPage(new UserQuery(), expression);
-            Assert.IsTrue(page.Item1.TrueForAll(u => u.UserName != "cheng.zhang"));
 
             var lambda2 = new NotEqualLambda<User, DateTime?>(o => o.LastLoginFailedTime, null);
             expression = lambda2.Build();
-            page = UnitOfWork.UserRepository.GetPage(new UserQuery(), expression);
-            Assert.IsTrue(page.Item1.TrueForAll(u => u.LastLoginFailedTime!=null));
         }
     }
 }

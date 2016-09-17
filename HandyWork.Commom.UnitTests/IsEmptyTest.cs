@@ -18,29 +18,29 @@ namespace HandyWork.Commom.UnitTests
             string str = "abcd";
 
             var isEmpty = new IsEmpty(intArr);
-            var testResult = isEmpty.IsCondition();
+            var testResult = isEmpty.IsPassed();
             Assert.IsFalse(testResult);
 
             var isEmpty2 = new IsEmpty(list);
-            testResult = isEmpty2.IsCondition();
+            testResult = isEmpty2.IsPassed();
             Assert.IsFalse(testResult);
 
             var isEmpty3 = new IsEmpty(now);
-            testResult = isEmpty3.IsCondition();
+            testResult = isEmpty3.IsPassed();
             Assert.IsFalse(testResult);
 
             var isEmpty4 = new IsEmpty(str);
-            testResult = isEmpty4.IsCondition();
+            testResult = isEmpty4.IsPassed();
             Assert.IsFalse(testResult);
 
             var isEmpty5 = new IsEmpty(null);
-            testResult = isEmpty5.IsCondition();
+            testResult = isEmpty5.IsPassed();
             Assert.IsTrue(testResult);
 
             var isEmpty6 = new IsEmpty(new object());
             try
             {
-                isEmpty6.IsCondition();
+                isEmpty6.IsPassed();
                 Assert.IsTrue(false);
             }
             catch (NotSupportedException)

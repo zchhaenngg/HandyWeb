@@ -18,8 +18,6 @@ namespace HandyWork.Commom.UnitTests
         {
             var lambda = new LikeLambda<User>(o => o.UserName, "cheng");
             var expression = lambda.Build();
-            var page = UnitOfWork.UserRepository.GetPage(new UserQuery(), expression);
-            Assert.AreEqual(page.Item2, 1);
         }
     }
 }

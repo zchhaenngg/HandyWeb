@@ -13,5 +13,10 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
         {
             ExpressionType = ExpressionType.LessThan;
         }
+
+        public LessThanLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
+        {
+            return new LessThanLambda<TEntity, TProperty>(entityProperty, entityValue);
+        }
     }
 }

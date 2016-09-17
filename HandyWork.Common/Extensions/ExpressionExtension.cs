@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HandyWork.Common.EntityFramwork.Elements;
+using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -41,11 +44,22 @@ namespace HandyWork.Common.Extensions
             {
                 return right;
             }
+            if (right == null)
+            {
+                return left;
+            }
             var parameterExpression = Expression.Parameter(typeof(T), "o");
             var replacer = new ExpressionVisitorReplacer(parameterExpression);
             
             var newBody = Expression.OrElse(replacer.Replace(left.Body), replacer.Replace(right.Body));
             return Expression.Lambda<Func<T, bool>>(newBody, parameterExpression);
+        }
+
+        public static Expression<Func<TEntity, bool>> Or<TEntity, TProperty>(this Expression<Func<TEntity, bool>> left,
+                                              BaseTag condition, params BaseLambda<TEntity, TProperty>[] lambdas)
+        {
+            var right = ExpressionUtility.Build(condition, lambdas);
+            return left.Or(right);
         }
 
         /// <summary>
@@ -58,6 +72,10 @@ namespace HandyWork.Common.Extensions
             {
                 return right;
             }
+            if (right == null)
+            {
+                return left;
+            }
             //此参数不会与left和right表达式中自定义的参数弄混淆，所以名字任意。因为所有表达式中的参数已被正确解释
             var parameterExpression = Expression.Parameter(typeof(T), "o");
             var replacer = new ExpressionVisitorReplacer(parameterExpression);
@@ -65,6 +83,11 @@ namespace HandyWork.Common.Extensions
             var binary = Expression.AndAlso(replacer.Replace(left.Body), replacer.Replace(right.Body));
             return Expression.Lambda<Func<T, bool>>(binary, parameterExpression);
         }
-        
+        public static Expression<Func<TEntity, bool>> And<TEntity, TProperty>(this Expression<Func<TEntity, bool>> left,
+                                                       BaseTag condition, params BaseLambda<TEntity, TProperty>[] lambdas)
+        {
+            var right = ExpressionUtility.Build(condition, lambdas);
+            return left.And(right);
+        }
     }
 }

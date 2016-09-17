@@ -9,7 +9,6 @@ namespace HandyWork.Model.Query
     public class UserQuery : BaseQuery
     {
         public UserQuery()
-            : base()
         {
             PropertyWithColumnDic.Add("IsValidStr", "IsValid");
         }

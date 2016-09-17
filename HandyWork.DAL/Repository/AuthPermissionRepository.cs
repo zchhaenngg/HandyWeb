@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using HandyWork.Model.Query;
 using System.Linq.Expressions;
+using HandyWork.Common.EntityFramwork.Elements;
+using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.Extensions;
 
 namespace HandyWork.DAL.Repository
 {
@@ -117,12 +120,17 @@ namespace HandyWork.DAL.Repository
 
         public override Expression<Func<AuthPermission, bool>> GetExpression(BaseQuery baseQuery)
         {
-            throw new NotImplementedException();
-        }
+            Expression<Func<AuthPermission, bool>> expression = null;
+            var query = baseQuery as AuthPermissionQuery;
+            if (query != null)
+            {
+                expression = expression
+                    .And(IsNotEmpty.For(query.NameLike), LikeLambda<AuthPermission>.For(o => o.Name, query.NameLike))
+                    .And(IsNotEmpty.For(query.CodeLike), EqualLambda<AuthPermission, string>.For(o => o.Code, query.CodeLike));
 
-        public List<AuthPermission> FindAllByQuery(BaseQuery query)
-        {
-            throw new NotImplementedException();
+            }
+            return expression;
         }
+        
     }
 }

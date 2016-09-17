@@ -10,12 +10,7 @@ namespace HandyWork.Model.Query
     {
         private string _sortColumn;
         protected Dictionary<string, string> PropertyWithColumnDic { get; } = new Dictionary<string, string>();
-
-        public BaseQuery()
-        {
-
-        }
-
+        
         public bool IsAsc { get; set; }//默认降序
         public int PageIndex { get; set; }
         public int PageNumber

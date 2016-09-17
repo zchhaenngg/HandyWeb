@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Commom.UnitTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.ViewModel", "HandyWork.ViewModel\HandyWork.ViewModel.csproj", "{0B711B17-8BF5-4AC4-9F19-EC21952940C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.DAL.UnitTests", "HandyWork.DAL.UnitTests\HandyWork.DAL.UnitTests.csproj", "{A858724F-0E26-4E75-B0C6-3C70C8542828}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,11 +66,16 @@ Global
 		{0B711B17-8BF5-4AC4-9F19-EC21952940C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B711B17-8BF5-4AC4-9F19-EC21952940C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B711B17-8BF5-4AC4-9F19-EC21952940C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
+		{A858724F-0E26-4E75-B0C6-3C70C8542828} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
 	EndGlobalSection
 EndGlobal

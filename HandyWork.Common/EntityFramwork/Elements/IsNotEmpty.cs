@@ -16,7 +16,12 @@ namespace HandyWork.Common.EntityFramwork.Elements
         {
         }
 
-        public override bool IsCondition()
+        public static IsNotEmpty For(object property)
+        {
+            return new IsNotEmpty(property);
+        }
+
+        public override bool IsPassed()
         {
             if (Value == null)
             {

@@ -1,7 +1,6 @@
 ﻿using HandyWork.Model;
 using HandyWork.Common.Extensions;
 using HandyWork.UIBusiness.Enums;
-using HandyWork.UIBusiness.Query;
 using HandyWork.UIBusiness.Utility;
 using System;
 using System.Collections.Generic;
@@ -16,6 +15,7 @@ using System.Web;
 using HandyWork.DAL;
 using HandyWork.UIBusiness.Manager.Interfaces;
 using HandyWork.ViewModel.PCWeb;
+using HandyWork.Model.Query;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -280,39 +280,11 @@ namespace HandyWork.UIBusiness.Manager
             }
             return query;
         }
-        internal Expression<Func<User, bool>> GetExpression4User(UserQuery query)
-        {
-            Expression<Func<User, bool>> expression = null;
-            if (!string.IsNullOrWhiteSpace(query.UserNameLike))
-            {
-                expression = expression.And(o => o.UserName.Contains(query.UserNameLike));
-            }
-            if (!string.IsNullOrWhiteSpace(query.RealNameLike))
-            {
-                expression = expression.And(o => o.RealName.Contains(query.RealNameLike));
-            }
-            if (query.IsValid != null)
-            {
-                //Expression<Func<User, bool>> e2 = o => o.IsValid == bool.Parse(query.IsValid.ToString());
-                //if (e2.CanReduce)
-                //{
-
-                //}
-                //e2 = e2.ReduceAndCheck() as Expression<Func<User, bool>>;
-                //expression = expression.And(o => o.IsValid == (bool.Parse(query.IsValid.ToString())));
-                expression = expression.And(o => o.IsValid == query.IsValid);
-            }
-            if (query.IsLocked != null)
-            {
-                expression = expression.And(o => o.IsLocked == query.IsLocked);
-            }
-            return expression;
-        }
         internal Tuple<List<User>, int> GetPage4User()
         {
-            UserQuery query = GetUserQuery();
-            Expression<Func<User, bool>> expression = GetExpression4User(query);
-            return UnitOfWork.UserRepository.GetPage(query, expression);
+            var query = GetUserQuery();
+            return UnitOfWork.UserRepository.GetPage(query);
+
         }
         public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
         {
@@ -419,30 +391,16 @@ namespace HandyWork.UIBusiness.Manager
         #region Permission
         internal AuthPermissionQuery GetAuthPermissionQuery()
         {
-            AuthPermissionQuery query = new AuthPermissionQuery();
+            var query = new AuthPermissionQuery();
             EasyuiUtility.FillPageQueryFromRequest(Request, query);
             query.NameLike = string.IsNullOrWhiteSpace(Request["NameLike"]) ? null : Request["NameLike"].Trim();
             query.CodeLike = string.IsNullOrWhiteSpace(Request["CodeLike"]) ? null : Request["CodeLike"].Trim();
             return query;
         }
-        internal Expression<Func<AuthPermission, bool>> GetExpression4User(AuthPermissionQuery query)
-        {
-            Expression<Func<AuthPermission, bool>> expression = null;
-            if (!string.IsNullOrWhiteSpace(query.NameLike))
-            {
-                expression = expression.And(o => o.Name.Contains(query.NameLike));
-            }
-            if (!string.IsNullOrWhiteSpace(query.CodeLike))
-            {
-                expression = expression.And(o => o.Code.Contains(query.CodeLike));
-            }
-            return expression;
-        }
         internal Tuple<List<AuthPermission>, int> GetPage4AuthPermission()
         {
-            AuthPermissionQuery query = GetAuthPermissionQuery();
-            Expression<Func<AuthPermission, bool>> expression = GetExpression4User(query);
-            return UnitOfWork.AuthPermissionRepository.GetPage(query, expression);
+            var query = GetAuthPermissionQuery();
+            return UnitOfWork.AuthPermissionRepository.GetPage(query);
         }
 
         public Tuple<List<PermissionViewModel>, int> GetPage4PermissionViewModel()
@@ -468,20 +426,11 @@ namespace HandyWork.UIBusiness.Manager
             query.NameLike = string.IsNullOrWhiteSpace(Request["NameLike"]) ? null : Request["NameLike"].Trim();
             return query;
         }
-        internal Expression<Func<AuthRole, bool>> GetExpression4AuthRole(AuthRoleQuery query)
-        {
-            Expression<Func<AuthRole, bool>> expression = null;
-            if (!string.IsNullOrWhiteSpace(query.NameLike))
-            {
-                expression = expression.And(o => o.Name.Contains(query.NameLike));
-            }
-            return expression;
-        }
+
         internal Tuple<List<AuthRole>, int> GetPage4AuthRole()
         {
-            AuthRoleQuery query = GetAuthRoleQuery();
-            Expression<Func<AuthRole, bool>> expression = GetExpression4AuthRole(query);
-            return UnitOfWork.AuthRoleRepository.GetPage(query, expression);
+            var query = GetAuthRoleQuery();
+            return UnitOfWork.AuthRoleRepository.GetPage(query);
         }
         public Tuple<List<RoleViewModel>, int> GetPage4RoleViewModel()
         {

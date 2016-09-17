@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using HandyWork.Model.Query;
 using System.Linq.Expressions;
+using HandyWork.Common.EntityFramwork.Elements;
+using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.Extensions;
 
 namespace HandyWork.DAL.Repository
 {
@@ -98,12 +101,15 @@ namespace HandyWork.DAL.Repository
         
         public override Expression<Func<AuthRole, bool>> GetExpression(BaseQuery baseQuery)
         {
-            throw new NotImplementedException();
-        }
+            Expression<Func<AuthRole, bool>> expression = null;
+            AuthRoleQuery query = baseQuery as AuthRoleQuery;
+            if (query != null)
+            {
+                expression = expression
+                    .And(IsNotEmpty.For(query.NameLike), LikeLambda<AuthRole>.For(o => o.Name, query.NameLike));
 
-        public List<AuthRole> FindAllByQuery(BaseQuery query)
-        {
-            throw new NotImplementedException();
+            }
+            return expression;
         }
     }
 }
