@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using HandyWork.Model.Query;
 using System.Linq.Expressions;
-using HandyWork.Common.EntityFramwork.Elements;
-using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.EntityFramework.Elements;
+using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Extensions;
 
 namespace HandyWork.DAL.Repository

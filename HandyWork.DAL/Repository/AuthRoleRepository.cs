@@ -11,8 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using HandyWork.Model.Query;
 using System.Linq.Expressions;
-using HandyWork.Common.EntityFramwork.Elements;
-using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.EntityFramework.Elements;
+using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Extensions;
 
 namespace HandyWork.DAL.Repository

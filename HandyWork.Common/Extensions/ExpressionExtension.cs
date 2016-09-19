@@ -1,5 +1,5 @@
-﻿using HandyWork.Common.EntityFramwork.Elements;
-using HandyWork.Common.EntityFramwork.Lambdas;
+﻿using HandyWork.Common.EntityFramework.Elements;
+using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Utility;
 using System;
 using System.Collections.Generic;

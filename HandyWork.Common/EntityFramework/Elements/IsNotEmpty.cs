@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.EntityFramwork.Elements
+namespace HandyWork.Common.EntityFramework.Elements
 {
     /// <summary>
     /// 数组、集合、值类型、string

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HandyWork.DAL;
-using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Model;
 using HandyWork.Model.Query;
 

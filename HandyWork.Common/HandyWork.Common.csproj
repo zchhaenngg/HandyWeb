@@ -56,20 +56,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts\Formats.cs" />
-    <Compile Include="EntityFramwork\Elements\BaseTag.cs" />
-    <Compile Include="EntityFramwork\Elements\IsEmpty.cs" />
-    <Compile Include="EntityFramwork\Elements\IsNotEmpty.cs" />
-    <Compile Include="EntityFramwork\Elements\IsNotNull.cs" />
-    <Compile Include="EntityFramwork\Elements\IsNull.cs" />
-    <Compile Include="EntityFramwork\Lambdas\BaseLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\ContainLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\EqualLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\GreaterThanLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\GreaterThanOrEqualLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\LessThanLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\LessThanOrEqualLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\LikeLambda.cs" />
-    <Compile Include="EntityFramwork\Lambdas\NotEqualLambda.cs" />
+    <Compile Include="EntityFramework\Elements\BaseTag.cs" />
+    <Compile Include="EntityFramework\Elements\IsEmpty.cs" />
+    <Compile Include="EntityFramework\Elements\IsNotEmpty.cs" />
+    <Compile Include="EntityFramework\Elements\IsNotNull.cs" />
+    <Compile Include="EntityFramework\Elements\IsNull.cs" />
+    <Compile Include="EntityFramework\Lambdas\BaseLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\ContainLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\EqualLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\GreaterThanLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\GreaterThanOrEqualLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\LessThanLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\LessThanOrEqualLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\LikeLambda.cs" />
+    <Compile Include="EntityFramework\Lambdas\NotEqualLambda.cs" />
     <Compile Include="Exceptions\ErrorException.cs" />
     <Compile Include="Exceptions\LogException.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
@@ -77,6 +77,7 @@
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Extensions\ExpressionExtension.cs" />
     <Compile Include="Extensions\IQueryableExtension.cs" />
+    <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="ExternLibs\EPPlus\EPPlusUtility.cs" />
     <Compile Include="ExternLibs\OpenXml\Extensions\OpenXmlElementExtension.cs" />
     <Compile Include="ExternLibs\OpenXml\WordUtility.cs" />

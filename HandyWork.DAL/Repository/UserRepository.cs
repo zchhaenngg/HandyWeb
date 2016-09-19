@@ -15,8 +15,8 @@ using System.Linq.Expressions;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.Common.Extensions;
-using HandyWork.Common.EntityFramwork.Elements;
-using HandyWork.Common.EntityFramwork.Lambdas;
+using HandyWork.Common.EntityFramework.Elements;
+using HandyWork.Common.EntityFramework.Lambdas;
 
 namespace HandyWork.DAL.Repository
 {

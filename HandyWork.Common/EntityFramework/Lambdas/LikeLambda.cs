@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.EntityFramwork.Lambdas
+namespace HandyWork.Common.EntityFramework.Lambdas
 {
     public class LikeLambda<TEntity> : BaseLambda<TEntity, string>
     {

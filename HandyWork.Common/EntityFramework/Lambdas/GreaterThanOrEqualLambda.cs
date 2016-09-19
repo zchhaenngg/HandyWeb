@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.EntityFramwork.Lambdas
+namespace HandyWork.Common.EntityFramework.Lambdas
 {
     public class GreaterThanOrEqualLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
     {
@@ -13,7 +13,7 @@ namespace HandyWork.Common.EntityFramwork.Lambdas
         {
             ExpressionType = ExpressionType.GreaterThanOrEqual;
         }
-        public GreaterThanOrEqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
+        public static GreaterThanOrEqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
         {
             return new GreaterThanOrEqualLambda<TEntity, TProperty>(entityProperty, entityValue);
         }
