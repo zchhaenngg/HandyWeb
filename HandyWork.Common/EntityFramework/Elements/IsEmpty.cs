@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HandyWork.Common.Extensions;
 
 namespace HandyWork.Common.EntityFramework.Elements
 {
@@ -27,25 +28,15 @@ namespace HandyWork.Common.EntityFramework.Elements
             {
                 return true;
             }
-            if (Value is ValueType)
-            {
-                return Value == null;
-            }
-            else if (Value is string)
-            {
-                return string.IsNullOrWhiteSpace(Value as string);
-            }
-            else if (Value is Array)
-            {
-                return (Value as Array).Length == 0;
-            }
             else if (Value is ICollection)
             {
                 return (Value as ICollection).Count == 0;
             }
             else
             {
-                throw new NotSupportedException(string.Format("isEmpty不支持类型 {0}", Value.GetType().Name));
+                var defaultValue = Value.GetType().GetDefaultValue();
+                //数字、时间、其他非空对象
+                return Value.Equals(defaultValue);
             }
         }
     }

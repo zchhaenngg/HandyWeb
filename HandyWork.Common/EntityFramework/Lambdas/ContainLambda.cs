@@ -19,53 +19,6 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     {
         public ContainLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
         {
-            if ((entityValue as List<TProperty>) == null)
-            {//类型自动转换
-                List<TProperty> list = new List<TProperty>();
-                #region 设置list
-                ICollection coll = Value as ICollection;
-                var entityType = typeof(TProperty);
-                foreach (var item in coll)
-                {
-                    if (item == null)
-                    {
-                        list.Add(default(TProperty));
-                    }
-                    else
-                    {
-                        var valueType = item.GetType();
-                        if (valueType == entityType)
-                        {
-                            list.Add((TProperty)item);
-                        }
-                        else
-                        {
-                            if (entityType.IsShortOrNullable())
-                            {
-                                list.Add((TProperty)(Convert.ToInt16(item) as object));
-                            }
-                            else if (entityType.IsFloatOrNullable())
-                            {
-                                list.Add((TProperty)(Convert.ToSingle(item) as object));
-                            }
-                            else if (entityType.IsDoubleOrNullable())
-                            {
-                                list.Add((TProperty)(Convert.ToDouble(item) as object));
-                            }
-                            else if (entityType.IsString())
-                            {
-                                list.Add((TProperty)(item.ToString() as object));
-                            }
-                            else
-                            {
-                                throw new NotSupportedException("ContainLambda 构建表达式，不支持转换成类型" + entityType.Name);
-                            }
-                        }
-                    }
-                }
-                #endregion
-                Value = list;
-            }
         }
 
         public static ContainLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)

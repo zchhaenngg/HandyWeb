@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.EntityFramework.Lambdas
 {
+    /// <summary>
+    /// 只支持string
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public class LikeLambda<TEntity> : BaseLambda<TEntity, string>
     {
         public string ValueStr => Value as string;

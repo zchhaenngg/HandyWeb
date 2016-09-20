@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.EntityFramework.Lambdas
 {
+    /// <summary>
+    /// 支持所有类型
+    /// </summary>
     public class NotEqualLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
     {
         public NotEqualLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)

@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.EntityFramework.Lambdas
 {
+    /// <summary>
+    /// 所有类型
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TProperty"></typeparam>
     public class EqualLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
     {
         public EqualLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
