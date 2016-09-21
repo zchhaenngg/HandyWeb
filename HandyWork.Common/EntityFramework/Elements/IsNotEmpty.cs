@@ -22,21 +22,24 @@ namespace HandyWork.Common.EntityFramework.Elements
             return new IsNotEmpty(property);
         }
 
-        public override bool IsPassed()
+        public override bool IsPassed
         {
-            if (Value == null)
+            get
             {
-                return false;
-            }
-            else if (Value is ICollection)
-            {
-                return (Value as ICollection).Count > 0;
-            }
-            else
-            {
-                var defaultValue = Value.GetType().GetDefaultValue();
-                //数字、时间、其他非空对象
-                return Value.Equals(defaultValue);
+                if (Value == null)
+                {
+                    return false;
+                }
+                else if (Value is ICollection)
+                {
+                    return (Value as ICollection).Count > 0;
+                }
+                else
+                {
+                    var defaultValue = Value.GetType().GetDefaultValue();
+                    //数字、时间、其他非空对象
+                    return !Value.Equals(defaultValue);
+                }
             }
         }
     }

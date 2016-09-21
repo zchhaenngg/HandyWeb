@@ -18,7 +18,7 @@ namespace HandyWork.Common.Utility
         public static Expression<Func<TEntity, bool>> Build<TEntity, TProperty>(BaseTag condition, params BaseLambda<TEntity, TProperty>[] lambdas)
         {
             Expression<Func<TEntity, bool>> expression = null;
-            if (condition.IsPassed())
+            if (condition.IsPassed)
             {
                 foreach (var lambda in lambdas)
                 {

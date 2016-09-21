@@ -17,9 +17,12 @@ namespace HandyWork.Common.EntityFramework.Elements
             return new IsNull(property);
         }
 
-        public override bool IsPassed()
+        public override bool IsPassed
         {
-            return Value == null;
+            get
+            {
+                return Value == null;
+            }
         }
     }
 }

@@ -13,11 +13,11 @@ namespace HandyWork.Common.EntityFramework.Elements
             Value = property;
         }
 
-        public object Value { get; set; }
+        public object Value { get; }
 
         /// <summary>
         /// 通过表达式构建前验证
         /// </summary>
-        public abstract bool IsPassed();
+        public abstract bool IsPassed { get; }
     }
 }
