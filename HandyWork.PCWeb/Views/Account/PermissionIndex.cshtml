@@ -1,5 +1,5 @@
 ﻿@using HandyWork.Localization
-@using HandyWork.UIBusiness.Query
+@using HandyWork.ViewModel.PCWeb.Query
 @model AuthPermissionQuery
 @{
     ViewBag.Title = LocalizedResource.PERMISSION;
@@ -74,12 +74,8 @@
     $(document).ready(function () {
         initDataGrid();
     });
-
-    var toolbar = getToolBar([
-        indexButtons.Create(),
-        indexButtons.Edit()
-    ]);
-
+    
+    var toolbar = toolbarEx.getAll(indexButtons.Create(), indexButtons.Edit());
     function initDataGrid() {
         $('#permission_list').datagrid({
             loadMsg: CommonResources.STR_LOADING,

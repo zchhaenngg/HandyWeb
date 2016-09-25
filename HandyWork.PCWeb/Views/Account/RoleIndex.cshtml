@@ -1,5 +1,5 @@
 ﻿@using HandyWork.Localization
-@using HandyWork.UIBusiness.Query
+@using HandyWork.ViewModel.PCWeb.Query
 @model AuthRoleQuery
 @{
     ViewBag.Title = "角色";
@@ -94,13 +94,7 @@
         }
     }
 
-    var toolbar = getToolBar([
-        indexButtons.Create(),
-        indexButtons.Edit(),
-        indexButtons.GrantPermission(),
-        indexButtons.Delete()
-    ]);
-
+    var toolbar = toolbarEx.getAll(indexButtons.Create(), indexButtons.Edit(), indexButtons.GrantPermission(), indexButtons.Delete());
     $(document).ready(function () {
         initDataGrid();
     });

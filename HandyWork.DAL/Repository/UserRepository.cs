@@ -1,22 +1,15 @@
-﻿using HandyWork.Common.Model;
-using HandyWork.DAL.Cache;
-using HandyWork.DAL.Repository;
-using HandyWork.Model;
+﻿using HandyWork.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HandyWork.Model.Query;
 using System.Linq.Expressions;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.DAL.Repository.Abstracts;
 using HandyWork.Common.Extensions;
 using HandyWork.Common.EntityFramework.Elements;
 using HandyWork.Common.EntityFramework.Lambdas;
+using HandyWork.ViewModel.PCWeb.Query;
 
 namespace HandyWork.DAL.Repository
 {

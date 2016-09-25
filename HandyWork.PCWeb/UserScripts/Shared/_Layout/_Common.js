@@ -140,7 +140,7 @@ var toolbarEx = {
             }
         });
     },
-    allButtons: function (btns) {
+    getAll: function (btns) {
         function addbutton(button) {
             if (lastButton) {
                 toolbar.push('-');

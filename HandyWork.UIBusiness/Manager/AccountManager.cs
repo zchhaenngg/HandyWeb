@@ -5,17 +5,13 @@ using HandyWork.UIBusiness.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using HandyWork.Common;
 using HandyWork.Common.Model;
 using System.Web.Security;
 using System.Web;
 using HandyWork.DAL;
 using HandyWork.UIBusiness.Manager.Interfaces;
 using HandyWork.ViewModel.PCWeb;
-using HandyWork.Model.Query;
+using HandyWork.ViewModel.PCWeb.Query;
 
 namespace HandyWork.UIBusiness.Manager
 {

@@ -115,6 +115,10 @@
       <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
       <Name>HandyWork.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
+      <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
+      <Name>HandyWork.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

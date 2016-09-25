@@ -1,7 +1,5 @@
-﻿using System;
+﻿using HandyWork.ViewModel.PCWeb.Query;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HandyWork.DAL;
-using HandyWork.Model.Query;
 
 namespace HandyWork.DAL.UnitTests
 {

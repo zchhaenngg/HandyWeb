@@ -2,11 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HandyWork.Model;
 using HandyWork.Common.EntityFramework.Lambdas;
-using HandyWork.Model.Query;
 using HandyWork.DAL;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using HandyWork.Common.Extensions;
 
 namespace HandyWork.Commom.UnitTests.EntityFramework
 {

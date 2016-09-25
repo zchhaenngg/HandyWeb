@@ -1,11 +1,6 @@
 ﻿using HandyWork.Common.Exceptions;
-using HandyWork.Common.Helper;
-using HandyWork.Model.Query;
+using HandyWork.ViewModel.PCWeb.Query;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace HandyWork.UIBusiness.Utility

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Model.Query
+namespace HandyWork.ViewModel.PCWeb.Query
 {
     public class BaseQuery
     {

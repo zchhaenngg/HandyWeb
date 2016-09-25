@@ -4,7 +4,7 @@ using HandyWork.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HandyWork.Model.Query;
+using HandyWork.ViewModel.PCWeb.Query;
 using System.Linq.Expressions;
 using HandyWork.Common.EntityFramework.Elements;
 using HandyWork.Common.EntityFramework.Lambdas;

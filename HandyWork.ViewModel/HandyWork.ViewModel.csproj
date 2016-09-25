@@ -47,6 +47,10 @@
   <ItemGroup>
     <Compile Include="PCWeb\AccountViewModel.cs" />
     <Compile Include="PCWeb\EasyuiViewModel.cs" />
+    <Compile Include="PCWeb\Query\AuthPermissionQuery.cs" />
+    <Compile Include="PCWeb\Query\AuthRoleQuery.cs" />
+    <Compile Include="PCWeb\Query\BaseQuery.cs" />
+    <Compile Include="PCWeb\Query\UserQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

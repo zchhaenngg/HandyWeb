@@ -76,6 +76,10 @@
       <Project>{3793238C-2A91-4838-A7F0-1C221B4644DF}</Project>
       <Name>HandyWork.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
+      <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
+      <Name>HandyWork.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

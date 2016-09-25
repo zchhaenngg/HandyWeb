@@ -1,5 +1,5 @@
 ﻿@using HandyWork.Localization
-@using HandyWork.Model.Query
+@using HandyWork.ViewModel.PCWeb.Query
 @model UserQuery
 @{
     ViewBag.Title = "用户";
@@ -105,7 +105,7 @@
         });
 
         function initDataGrid() {
-            var toolbar = toolbarEx.allButtons([buttons.create(), buttons.edit(), buttons.permission(), buttons.role(), buttons.valid(), buttons.Unlocked()]);
+            var toolbar = toolbarEx.getAll([buttons.create(), buttons.edit(), buttons.permission(), buttons.role(), buttons.valid(), buttons.Unlocked()]);
             $('#user_list').datagrid({
                 loadMsg: CommonResources.STR_LOADING,
                 url: '@Url.Content(@"~/Account/JsonGetUsers")',
