@@ -1,4 +1,5 @@
-﻿using HandyWork.Model.SQL;
+﻿using HandyWork.Model;
+using HandyWork.Model.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace HandyWork.DAL.Cache
 
         static SysColumnsCache()
         {
-            using (UserEntities context = new UserEntities())
+            using (EntityContext context = new EntityContext())
             {
                 SqlRepository sqlRepository = new SqlRepository(context);
                 List<SysColumns> sysColumns = sqlRepository.GetList<SysColumns>(SQL.ColumnDescription);

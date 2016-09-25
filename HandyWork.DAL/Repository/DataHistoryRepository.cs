@@ -13,13 +13,12 @@ namespace HandyWork.DAL.Repository
     internal sealed class DataHistoryRepository : IDataHistoryRepository
     {
         private UnitOfWork _unitOfWork;
-
-        public DbSet<DataHistory> Source { get; }
+        public DbSet<DataHistory> Source { get; set; }
 
         public DataHistoryRepository(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            Source = unitOfWork.HistoryEntities.Set<DataHistory>();
+            Source = unitOfWork.EntityContext.Set<DataHistory>();
         }
         private void OnBeforeAdd(DataHistory entity, string operatorId)
         {
@@ -68,7 +67,7 @@ namespace HandyWork.DAL.Repository
         public DataHistory Update(DataHistory entity, string operatorId)
         {
             Validate(entity);
-            if (EntityState.Modified == _unitOfWork.HistoryEntities.Entry(entity).State)
+            if (EntityState.Modified == _unitOfWork.EntityContext.Entry(entity).State)
             {
                 OnBeforeUpdate(entity, operatorId);
             }

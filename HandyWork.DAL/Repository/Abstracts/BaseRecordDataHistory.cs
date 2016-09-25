@@ -15,14 +15,12 @@ namespace HandyWork.DAL.Repository.Abstracts
         where T : class
     {
         private bool _isRecordDataChange;
-        protected DbContext Context { get; }
-        private IDataHistoryRepository _dataRepository;
+        protected UnitOfWork UnitOfWork { get; set; }
 
-        public BaseRecordDataHistory(IDataHistoryRepository repository, DbContext context, bool isRecordDataChange)
+        public BaseRecordDataHistory(UnitOfWork unitOfWork, bool isRecordDataChange)
         {
-            this._dataRepository = repository;
-            this.Context = context;
-            this._isRecordDataChange = isRecordDataChange;
+            UnitOfWork = unitOfWork;
+            _isRecordDataChange = isRecordDataChange;
         }
 
         protected virtual void RecordData(T entity, string operatorId)
@@ -42,8 +40,8 @@ namespace HandyWork.DAL.Repository.Abstracts
                 //Keep1 = 统计数据
             };
             string[] ignorePropertyNames = OnBeforeRecordHistory(entity, history);
-
-            var entry = Context.Entry(entity);
+            
+            var entry = UnitOfWork.EntityContext.Entry(entity);
             string description = SysColumnsCache.CompareObject(typeof(T).Name, entity, (propName) =>
             {
                 if (ignorePropertyNames != null)
@@ -63,7 +61,7 @@ namespace HandyWork.DAL.Repository.Abstracts
                 }
             });
             history.Description = description;
-            _dataRepository.Add(history, operatorId);
+            UnitOfWork.DataHistoryRepository.Add(history, operatorId);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace HandyWork.DAL.Repository
     public class AuthPermissionRepository : BaseRepository<AuthPermission>, IAuthPermissionRepository
     {
         public AuthPermissionRepository(UnitOfWork unitOfWork)
-           : base(unitOfWork, unitOfWork.UserEntities, false)
+           : base(unitOfWork, false)
         {
         }
         protected override void OnBeforeAdd(AuthPermission entity, string operatorId)
@@ -34,8 +34,8 @@ namespace HandyWork.DAL.Repository
         
         public override AuthPermission Remove(AuthPermission entity)
         {
-            entity.AuthRole.Clear();
-            entity.User.Clear();
+            UnitOfWork.RemoveAndClear(entity.AuthRoles);
+            UnitOfWork.RemoveAndClear(entity.Users);
             return base.Remove(entity);
         }
 

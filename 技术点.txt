@@ -1,0 +1,3 @@
+1.研究CodeFirst
+a.CodeFirst工程新建
+b.表结构修改和数据迁移：https://msdn.microsoft.com/zh-cn/data/jj591621

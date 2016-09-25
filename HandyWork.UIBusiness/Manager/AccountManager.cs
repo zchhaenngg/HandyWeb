@@ -303,8 +303,8 @@ namespace HandyWork.UIBusiness.Manager
         public List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike)
         {
             User user = UnitOfWork.UserRepository.Find(userId);
-            var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? user.AuthPermission :
-                user.AuthPermission.Where(o => o.Name.Contains(permissionNameLike));
+            var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? user.AuthPermissions :
+                user.AuthPermissions.Where(o => o.Name.Contains(permissionNameLike));
             return whereResult.ToList().Select(o => new PermissionViewModel
             {
                 Id = o.Id,
@@ -316,7 +316,7 @@ namespace HandyWork.UIBusiness.Manager
         public List<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike)
         {
             var allPermissions = UnitOfWork.AuthPermissionRepository.GetAll();
-            var userPermissions = UnitOfWork.UserRepository.Find(userId).AuthPermission.ToList();
+            var userPermissions = UnitOfWork.UserRepository.Find(userId).AuthPermissions.ToList();
             var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? allPermissions.Where(o => !userPermissions.Contains(o)) :
                allPermissions.Where(o => !userPermissions.Contains(o) && o.Name.Contains(permissionNameLike));
             var list = whereResult.Select(o => new PermissionViewModel
@@ -332,14 +332,14 @@ namespace HandyWork.UIBusiness.Manager
         {
             User user = UnitOfWork.UserRepository.Find(userId);
             var permission = UnitOfWork.AuthPermissionRepository.Find(permissionId);
-            user.AuthPermission.Add(permission);
+            user.AuthPermissions.Add(permission);
             UnitOfWork.SaveChanges();
         }
         public void RemoveUserPermission(string userId, string permissionId)
         {
             User user = UnitOfWork.UserRepository.Find(userId);
             var permission = UnitOfWork.AuthPermissionRepository.Find(permissionId);
-            user.AuthPermission.Remove(permission);
+            user.AuthPermissions.Remove(permission);
             UnitOfWork.SaveChanges();
         }
 
@@ -347,7 +347,7 @@ namespace HandyWork.UIBusiness.Manager
         {
             User user = UnitOfWork.UserRepository.Find(userId);
 
-            List<RoleViewModel> list = user.AuthRole.ToList().Select(o => new RoleViewModel
+            List<RoleViewModel> list = user.AuthRoles.ToList().Select(o => new RoleViewModel
             {
                 Id = o.Id,
                 Name = o.Name,
@@ -359,7 +359,7 @@ namespace HandyWork.UIBusiness.Manager
         public List<RoleViewModel> GetRoleViewModels4AddByUserId(string userId)
         {
             var allRoles = UnitOfWork.AuthRoleRepository.GetAll();
-            var userRoles = UnitOfWork.UserRepository.Find(userId).AuthRole.ToList();
+            var userRoles = UnitOfWork.UserRepository.Find(userId).AuthRoles.ToList();
             List<RoleViewModel> list = allRoles.Where(o => !userRoles.Contains(o)).Select(o => new RoleViewModel
             {
                 Id = o.Id,
@@ -372,14 +372,14 @@ namespace HandyWork.UIBusiness.Manager
         {
             User user = UnitOfWork.UserRepository.Find(userId);
             var role = UnitOfWork.AuthRoleRepository.Find(roleId);
-            user.AuthRole.Add(role);
+            user.AuthRoles.Add(role);
             UnitOfWork.SaveChanges();
         }
         public void RemoveUserRole(string userId, string roleId)
         {
             User user = UnitOfWork.UserRepository.Find(userId);
             var role = UnitOfWork.AuthRoleRepository.Find(roleId);
-            user.AuthRole.Remove(role);
+            user.AuthRoles.Remove(role);
             UnitOfWork.SaveChanges();
         }
         #endregion
@@ -444,8 +444,8 @@ namespace HandyWork.UIBusiness.Manager
         public List<PermissionViewModel> GetPermissionViewModelsByRoleId(string roleId, string permissionNameLike)
         {
             AuthRole role = UnitOfWork.AuthRoleRepository.Find(roleId);
-            var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? role.AuthPermission
-                : role.AuthPermission.Where(o => o.Name.Contains(permissionNameLike));
+            var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? role.AuthPermissions
+                : role.AuthPermissions.Where(o => o.Name.Contains(permissionNameLike));
 
             return whereResult.ToList().Select(o => new PermissionViewModel
             {
@@ -458,7 +458,7 @@ namespace HandyWork.UIBusiness.Manager
         public List<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike)
         {
             var allPermissions = UnitOfWork.AuthPermissionRepository.GetAll();
-            var rolePermissions = UnitOfWork.AuthRoleRepository.Find(roleId).AuthPermission.ToList();
+            var rolePermissions = UnitOfWork.AuthRoleRepository.Find(roleId).AuthPermissions.ToList();
             var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? allPermissions.Where(o => !rolePermissions.Contains(o)) :
                 allPermissions.Where(o => !rolePermissions.Contains(o) && o.Name.Contains(permissionNameLike));
 
@@ -475,14 +475,14 @@ namespace HandyWork.UIBusiness.Manager
         {
             var role = UnitOfWork.AuthRoleRepository.Find(roleId);
             var permission = UnitOfWork.AuthPermissionRepository.Find(permissionId);
-            role.AuthPermission.Add(permission);
+            role.AuthPermissions.Add(permission);
             UnitOfWork.SaveChanges();
         }
         public void RemoveRolePermission(string roleId, string permissionId)
         {
             var role = UnitOfWork.AuthRoleRepository.Find(roleId);
             var permission = UnitOfWork.AuthPermissionRepository.Find(permissionId);
-            role.AuthPermission.Remove(permission);
+            role.AuthPermissions.Remove(permission);
             UnitOfWork.SaveChanges();
         }
         #endregion

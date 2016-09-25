@@ -1,6 +1,7 @@
 ﻿using HandyWork.Common.Model;
 using HandyWork.DAL.Repository;
 using HandyWork.DAL.Repository.Interfaces;
+using HandyWork.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -15,23 +16,25 @@ namespace HandyWork.DAL
     /// </summary>
     public class UnitOfWork : IDisposable
     {
-        
-
-        private UserEntities _userEntities;
-        private HistoryEntities _historyEntities;
+        private EntityContext _entityContext;
         private IUserRepository _userRepository;
         private IAuthPermissionRepository _authPermissionRepository;
         private IAuthRoleRepository _authRoleRepository;
         private IDataHistoryRepository _dataHistoryRepository;
-        
-        internal UserEntities UserEntities => _userEntities ?? (_userEntities = new UserEntities());
-        internal HistoryEntities HistoryEntities => _historyEntities ?? (_historyEntities = new HistoryEntities());
+
+        internal EntityContext EntityContext => _entityContext ?? (_entityContext = new EntityContext());
         public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(this));
         public IAuthPermissionRepository AuthPermissionRepository => _authPermissionRepository ?? (_authPermissionRepository = new AuthPermissionRepository(this));
         public IAuthRoleRepository AuthRoleRepository => _authRoleRepository ?? (_authRoleRepository = new AuthRoleRepository(this));
         internal IDataHistoryRepository DataHistoryRepository => _dataHistoryRepository ?? (_dataHistoryRepository = new DataHistoryRepository(this));
 
         public List<ErrorInfo> Errors { get; } = new List<ErrorInfo>();
+        public void RemoveAndClear<TEntity>(ICollection<TEntity> entities)
+            where TEntity : class
+        {
+            EntityContext.Set<TEntity>().RemoveRange(entities);
+            entities.Clear();
+        }
         public void SaveChanges()
         {
             if (Errors.Count > 0)
@@ -40,13 +43,9 @@ namespace HandyWork.DAL
             }
             try
             {
-                if (this._userEntities != null)
+                if (this._entityContext != null)
                 {
-                    this._userEntities.SaveChanges();
-                }
-                if (this._historyEntities != null)
-                {
-                    this._historyEntities.SaveChanges();
+                    this._entityContext.SaveChanges();
                 }
             }
             catch (DbEntityValidationException ex)
@@ -54,16 +53,11 @@ namespace HandyWork.DAL
                 Errors.Add(new ErrorInfo("", ex.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage));
             }
         }
-
         public void Dispose()
         {
-            if (this._userEntities != null)
+            if (this._entityContext != null)
             {
-                this._userEntities.Dispose();
-            }
-            if (this._historyEntities != null)
-            {
-                this._historyEntities.Dispose();
+                this._entityContext.Dispose();
             }
         }
     }

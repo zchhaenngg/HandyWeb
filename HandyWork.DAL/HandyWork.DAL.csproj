@@ -81,26 +81,6 @@
     <Compile Include="SqlRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
-    <Compile Include="用户及权限\HandyWork.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HandyWork.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="用户及权限\HandyWork.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HandyWork.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="配置历史等\HandyWork.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HandyWork.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="配置历史等\HandyWork.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HandyWork.edmx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
@@ -125,34 +105,10 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="配置历史等\HandyWork.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HandyWork.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <EntityDeploy Include="用户及权限\HandyWork.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HandyWork.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="用户及权限\HandyWork.edmx.diagram">
-      <DependentUpon>HandyWork.edmx</DependentUpon>
-    </None>
-    <None Include="配置历史等\HandyWork.edmx.diagram">
-      <DependentUpon>HandyWork.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="ReadMe.txt" />
-    <Content Include="用户及权限\HandyWork.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HandyWork.edmx</DependentUpon>
-      <LastGenOutput>HandyWork.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="配置历史等\HandyWork.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HandyWork.edmx</DependentUpon>
-      <LastGenOutput>HandyWork.Context.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

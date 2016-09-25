@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.PCWeb", "HandyWork.PCWeb\HandyWork.PCWeb.csproj", "{B8361658-9B4F-4934-9210-15B5E89A3453}"
 EndProject
@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B84D186E-A4F0-4910-9B6A-AFBFE5758099}"
 	ProjectSection(SolutionItems) = preProject
 		工作计划.log = 工作计划.log
+		技术点.txt = 技术点.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{65C0D029-F6A5-49AB-8C6A-3845C78D1347}"
@@ -27,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.ViewModel", "HandyWork.ViewModel\HandyWork.ViewModel.csproj", "{0B711B17-8BF5-4AC4-9F19-EC21952940C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.DAL.UnitTests", "HandyWork.DAL.UnitTests\HandyWork.DAL.UnitTests.csproj", "{A858724F-0E26-4E75-B0C6-3C70C8542828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Model.UnitTest", "HandyWork.Model.UnitTest\HandyWork.Model.UnitTest.csproj", "{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +73,10 @@ Global
 		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +84,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
 		{A858724F-0E26-4E75-B0C6-3C70C8542828} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
+		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
 	EndGlobalSection
 EndGlobal

@@ -30,58 +30,64 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfiguration.cs">
-      <DependentUpon>配置历史等.tt</DependentUpon>
+    <Compile Include="AppConfiguration.cs" />
+    <Compile Include="AuthPermission.cs" />
+    <Compile Include="AuthRole.cs" />
+    <Compile Include="DataHistory.cs" />
+    <Compile Include="EntityContext.cs" />
+    <Compile Include="Migrations\201609250948385_InitialCreate.cs" />
+    <Compile Include="Migrations\201609250948385_InitialCreate.Designer.cs">
+      <DependentUpon>201609250948385_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="AuthPermission.cs">
-      <DependentUpon>用户及权限.tt</DependentUpon>
+    <Compile Include="Migrations\201609251023175_RemoveAppValue.cs" />
+    <Compile Include="Migrations\201609251023175_RemoveAppValue.Designer.cs">
+      <DependentUpon>201609251023175_RemoveAppValue.cs</DependentUpon>
     </Compile>
-    <Compile Include="AuthRole.cs">
-      <DependentUpon>用户及权限.tt</DependentUpon>
+    <Compile Include="Migrations\201609251038290_varchar2nvarchar.cs" />
+    <Compile Include="Migrations\201609251038290_varchar2nvarchar.Designer.cs">
+      <DependentUpon>201609251038290_varchar2nvarchar.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataHistory.cs">
-      <DependentUpon>配置历史等.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>配置历史等.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQL\SysColumns.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>用户及权限.tt</DependentUpon>
-    </Compile>
-    <Compile Include="用户及权限.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>用户及权限.tt</DependentUpon>
-    </Compile>
-    <Compile Include="配置历史等.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>配置历史等.tt</DependentUpon>
-    </Compile>
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ReadMe.txt" />
-    <Content Include="用户及权限.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>用户及权限.cs</LastGenOutput>
-    </Content>
-    <Content Include="配置历史等.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>配置历史等.cs</LastGenOutput>
-    </Content>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609250948385_InitialCreate.resx">
+      <DependentUpon>201609250948385_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609251023175_RemoveAppValue.resx">
+      <DependentUpon>201609251023175_RemoveAppValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609251038290_varchar2nvarchar.resx">
+      <DependentUpon>201609251038290_varchar2nvarchar.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

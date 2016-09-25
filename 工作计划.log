@@ -1,22 +1,17 @@
-ÈÎÎñÒ»£º
-3.ÖÇÄÜ¹¹½¨±í´ïÊ½  Íê³É
-4.ÖÇÄÜ¹¹½¨²éÑ¯Ìõ¼şµÄÅĞ¶Ï  Íê³É
-5.ºÏ²¢²éÑ¯Ìõ¼şĞÎ³ÉÈçExpression.BuildBy(BaseTag condition, params BaseLambda[] lambdas);
-5.Wordµ¼³ö¡£
+ï»¿ä»»åŠ¡ä¸€ï¼š
+1.DbFirst->CodeFirst å®Œæˆ
+5.Wordå¯¼å‡ºã€‚
 D:\MyGitHub\HandyWeb\HandyWork.Common\ExternLibs\OpenXml\WordUtility.cs
-7.PDFµ¼³ö¡£
-7.±¨±í¡£
-8.È¨ÏŞ¸ù¾İÒµÎñ½øĞĞ´óÀà·Ö×é¡£
-9.AOPÀ¹½ØÆ÷¡£
-10.WebÁÄÌì¡£
-11.½«GetExpressionº¯Êı´ÓUIBusiness²ã×ªÒÆµ½DAL²ãÖĞ¡£
-12.ºÄ·ÑÊ±¼äµÄ²éÑ¯Ó¦µ±Ö§³ÖÒì²½²éÑ¯¡£
-13.Î´À´±ØÈ»ÊÇ´óÊı¾İÊ±´ú£¬Êı¾İ·ÖÎö£¬±¨±í±ØÈ»Ç°Í¾ÎŞÁ¿¡£
-14.DbFirst->CodeFirst
-12.Ìá¹©api->FindAllByQuery
-
+7.PDFå¯¼å‡ºã€‚
+7.æŠ¥è¡¨ã€‚
+8.æƒé™æ ¹æ®ä¸šåŠ¡è¿›è¡Œå¤§ç±»åˆ†ç»„ã€‚
+9.AOPæ‹¦æˆªå™¨ã€‚
+10.WebèŠå¤©ã€‚ç ”ç©¶signalrã€‚åšå‡ºWebèŠå¤©ç¨‹åºã€‚
+12.è€—è´¹æ—¶é—´çš„æŸ¥è¯¢åº”å½“æ”¯æŒå¼‚æ­¥æŸ¥è¯¢ã€‚
+13.æœªæ¥å¿…ç„¶æ˜¯å¤§æ•°æ®æ—¶ä»£ï¼Œæ•°æ®åˆ†æï¼ŒæŠ¥è¡¨å¿…ç„¶å‰é€”æ— é‡ã€‚
+14.åé¦ˆ
 BUG.
-D:\MyGitHub\HandyWeb\HandyWork.Common\Helper\EnumHelper.cs,LookupResource·½·¨¡£
-±¾µØ×ÊÔ´ÎÄ¼şÖĞµÄCultureInfoÓ¦¸Ã»ñÈ¡µ±Ç°Ïß³ÌÖĞµÄCultureInfo
+D:\MyGitHub\HandyWeb\HandyWork.Common\Helper\EnumHelper.cs,LookupResourceæ–¹æ³•ã€‚
+æœ¬åœ°èµ„æºæ–‡ä»¶ä¸­çš„CultureInfoåº”è¯¥è·å–å½“å‰çº¿ç¨‹ä¸­çš„CultureInfo
 
 

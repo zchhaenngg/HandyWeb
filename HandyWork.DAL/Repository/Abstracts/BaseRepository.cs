@@ -11,14 +11,12 @@ namespace HandyWork.DAL.Repository.Abstracts
     public abstract class BaseRepository<T> : BaseRecordDataHistory<T>
         where T : class
     {
-        protected UnitOfWork UnitOfWork { get; set; }
-        public DbSet<T> Source { get; }//在其他repository中做联合查询时需要,所以限定修饰符为public
-        
-        public BaseRepository(UnitOfWork unitOfWork, DbContext context, bool isRecordDataChange)
-            :base(unitOfWork.DataHistoryRepository, context, isRecordDataChange)
+        private DbSet<T> _source; 
+        public DbSet<T> Source => _source ?? (_source = UnitOfWork.EntityContext.Set<T>());
+
+        public BaseRepository(UnitOfWork unitOfWork, bool isRecordDataChange)
+            :base(unitOfWork, isRecordDataChange)
         {
-            this.Source = context.Set<T>();
-            this.UnitOfWork = unitOfWork;
         }
         
         protected abstract void OnBeforeAdd(T entity, string operatorId);
@@ -39,7 +37,7 @@ namespace HandyWork.DAL.Repository.Abstracts
         public virtual T Update(T entity, string operatorId)
         {
             Validate(entity);
-            if (EntityState.Modified == Context.Entry(entity).State)
+            if (EntityState.Modified == UnitOfWork.EntityContext.Entry(entity).State)
             {
                 OnBeforeUpdate(entity, operatorId);
                 RecordData(entity, operatorId);
@@ -83,5 +81,6 @@ namespace HandyWork.DAL.Repository.Abstracts
             var queryable = expression == null ? Source : Source.Where(expression);
             return queryable.ToList();
         }
+        
     }
 }

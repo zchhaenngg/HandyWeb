@@ -33,15 +33,15 @@ namespace HandyWork.UIBusiness.Manager
             {
                 return false;
             }
-            User usr = permission.User.FirstOrDefault(o => o.Id == userId);
+            User usr = permission.Users.FirstOrDefault(o => o.Id == userId);
             if (usr != null)
             {
                 return true;
             }
             //permission.AuthRole  和
-            foreach (AuthRole item in permission.AuthRole.ToList())
+            foreach (AuthRole item in permission.AuthRoles.ToList())
             {
-                User ur = item.User.FirstOrDefault(o => o.Id == userId);
+                User ur = item.Users.FirstOrDefault(o => o.Id == userId);
                 if (ur != null)
                 {
                     return true;

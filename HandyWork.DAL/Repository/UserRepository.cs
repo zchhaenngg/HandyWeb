@@ -16,7 +16,7 @@ namespace HandyWork.DAL.Repository
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(UnitOfWork unitOfWork)
-            :base(unitOfWork, unitOfWork.UserEntities, true)
+            :base(unitOfWork, true)
         {
         }
 
@@ -36,8 +36,8 @@ namespace HandyWork.DAL.Repository
         
         public override User Remove(User entity)
         {
-            entity.AuthPermission.Clear();
-            entity.AuthRole.Clear();
+            UnitOfWork.RemoveAndClear(entity.AuthPermissions);
+            UnitOfWork.RemoveAndClear(entity.AuthRoles);
             return base.Remove(entity);
         }
 
@@ -97,7 +97,7 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             User user = Find(userId);
-            return user.AuthPermission.ToList();
+            return user.AuthPermissions.ToList();
         }
 
         public List<AuthPermission> GetPermissionByRoleGrant(string userId)
@@ -107,11 +107,11 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
 
-            var roles = UnitOfWork.AuthRoleRepository.Source.Where(o => o.User.Any(u => u.Id == userId)).Include(r => r.AuthPermission).ToList();
+            var roles = UnitOfWork.AuthRoleRepository.Source.Where(o => o.Users.Any(u => u.Id == userId)).Include(r => r.AuthPermissions).ToList();
             var list = new List<AuthPermission>();
             roles.ForEach(r => 
             {
-                list.AddRange(r.AuthPermission);
+                list.AddRange(r.AuthPermissions);
             });
             return list;
         }
