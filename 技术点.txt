@@ -1,3 +1,10 @@
+1.源码路径
+https://github.com/zchhaenngg/HandyWeb
 1.研究CodeFirst
 a.CodeFirst工程新建
 b.表结构修改和数据迁移：https://msdn.microsoft.com/zh-cn/data/jj591621
+==Enable-Migrations==
+==Add-Migration xxx==
+==Update-Database==
+==Update-Database –TargetMigration: AddBlogUrl 
+==等
