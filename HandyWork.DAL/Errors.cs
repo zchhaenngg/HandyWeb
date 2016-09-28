@@ -1,4 +1,4 @@
-﻿using HandyWork.Common.Model;
+﻿using HandyWork.Common.Authority;
 using HandyWork.Localization;
 using System;
 using System.Collections.Generic;
@@ -10,12 +10,12 @@ namespace HandyWork.DAL
 {
     public static class Errors
     {
-        public static ErrorInfo InvalidUserName => new ErrorInfo("User", ValidatorResource.InvalidUserName);
-        public static ErrorInfo DuplicateUserName => new ErrorInfo("User", ValidatorResource.DuplicateUserName);
-        public static ErrorInfo InvalidPassword => new ErrorInfo("User", ValidatorResource.InvalidPassword);
-        public static ErrorInfo InvalidRole => new ErrorInfo("Role", ValidatorResource.InvalidRole);
-        public static ErrorInfo DuplicateRole => new ErrorInfo("Role", ValidatorResource.DuplicateRole);
-        public static ErrorInfo InvalidPermission => new ErrorInfo("Permission", ValidatorResource.InvalidPermission);
-        public static ErrorInfo DuplicatePermission => new ErrorInfo("Permission", ValidatorResource.DuplicatePermission);
+        public static Error InvalidUserName => new Error("User", ValidatorResource.InvalidUserName);
+        public static Error DuplicateUserName => new Error("User", ValidatorResource.DuplicateUserName);
+        public static Error InvalidPassword => new Error("User", ValidatorResource.InvalidPassword);
+        public static Error InvalidRole => new Error("Role", ValidatorResource.InvalidRole);
+        public static Error DuplicateRole => new Error("Role", ValidatorResource.DuplicateRole);
+        public static Error InvalidPermission => new Error("Permission", ValidatorResource.InvalidPermission);
+        public static Error DuplicatePermission => new Error("Permission", ValidatorResource.DuplicatePermission);
     }
 }

@@ -1,4 +1,4 @@
-﻿using HandyWork.Common.Model;
+﻿using HandyWork.Common.Authority;
 using HandyWork.DAL.Repository;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
@@ -28,7 +28,7 @@ namespace HandyWork.DAL
         public IAuthRoleRepository AuthRoleRepository => _authRoleRepository ?? (_authRoleRepository = new AuthRoleRepository(this));
         internal IDataHistoryRepository DataHistoryRepository => _dataHistoryRepository ?? (_dataHistoryRepository = new DataHistoryRepository(this));
 
-        public List<ErrorInfo> Errors { get; } = new List<ErrorInfo>();
+        public List<Error> Errors { get; } = new List<Error>();
         public void RemoveAndClear<TEntity>(ICollection<TEntity> entities)
             where TEntity : class
         {
@@ -50,7 +50,7 @@ namespace HandyWork.DAL
             }
             catch (DbEntityValidationException ex)
             {
-                Errors.Add(new ErrorInfo("", ex.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage));
+                Errors.Add(new Error("", ex.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage));
             }
         }
         public void Dispose()

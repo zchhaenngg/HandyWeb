@@ -7,10 +7,10 @@
     using System.Data.Entity.Spatial;
 
     [Table("User")]
-    public partial class User
+    public partial class AuthUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public AuthUser()
         {
             AuthPermissions = new HashSet<AuthPermission>();
             AuthRoles = new HashSet<AuthRole>();

@@ -5,7 +5,7 @@ using HandyWork.UIBusiness.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HandyWork.Common.Model;
+using HandyWork.Common.Authority;
 using System.Web.Security;
 using System.Web;
 using HandyWork.DAL;
@@ -23,9 +23,9 @@ namespace HandyWork.UIBusiness.Manager
         }
 
         #region 业务-用户
-        public SignInResult SignIn(string userName, string password)
+        public SignInResult SignIn(string userName, string password, int timezoneOffsetInMinute)
         {
-            User user = UnitOfWork.UserRepository.FindByUserName(userName);
+            AuthUser user = UnitOfWork.UserRepository.FindByUserName(userName);
             if (user == null)
             {
                 return SignInResult.UserNameError;
@@ -70,12 +70,12 @@ namespace HandyWork.UIBusiness.Manager
                     else
                     {
                         #region 写入Cookie
-                        UserCookie cookieData = new UserCookie()
+                        Cookie cookieData = new Cookie()
                         {
                             Id = user.Id,
                             Name = user.UserName,
                             RealName = user.RealName,
-                            Roles = null
+                            TimezoneOffsetInMinute = timezoneOffsetInMinute
                         };
                         FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, cookieData.Name, DateTime.Now, DateTime.Now.AddDays(365), false, cookieData.Encoder());
                         HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
@@ -97,7 +97,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public void Register(RegisterViewModel model)
         {
-            User user = new User
+            AuthUser user = new AuthUser
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = model.UserName,
@@ -115,7 +115,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public void UpdateUser(UpdateUserViewModel model)
         {
-            User user = UnitOfWork.UserRepository.Find(model.Id);
+            AuthUser user = UnitOfWork.UserRepository.Find(model.Id);
             user.UserName = model.UserName;
             user.RealName = model.RealName;
             user.Phone = model.Phone;
@@ -127,7 +127,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public void ResetPassword(ResetPasswordViewModel model)
         {
-            User user = UnitOfWork.UserRepository.FindByUserName(model.UserName);
+            AuthUser user = UnitOfWork.UserRepository.FindByUserName(model.UserName);
             if (user == null)
             {
                 UnitOfWork.Errors.Add(Errors.InvalidUserName);
@@ -142,7 +142,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public UpdateUserViewModel GetUpdateUserViewModel(string userId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             UpdateUserViewModel model = new UpdateUserViewModel
             {
                 UserName = user.UserName,
@@ -157,7 +157,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public string SetUserValid(string userId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             user.IsValid = !user.IsValid;
             UnitOfWork.UserRepository.Update(user, LoginId);
             UnitOfWork.SaveChanges();
@@ -173,7 +173,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public void SetUnlocked4User(string userId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             if (!user.IsLocked)
             {
                 throw new Exception("该用户已处于非锁定状态");
@@ -181,6 +181,11 @@ namespace HandyWork.UIBusiness.Manager
             user.IsLocked = false;
             UnitOfWork.UserRepository.Update(user, LoginId);
             UnitOfWork.SaveChanges();
+        }
+
+        public string[] GetAllPermissions4Code(string userId)
+        {
+            return UnitOfWork.UserRepository.GetAllPermissions(userId).Select(o=>o.Code).ToArray();
         }
         #endregion
 
@@ -276,7 +281,7 @@ namespace HandyWork.UIBusiness.Manager
             }
             return query;
         }
-        internal Tuple<List<User>, int> GetPage4User()
+        internal Tuple<List<AuthUser>, int> GetPage4User()
         {
             var query = GetUserQuery();
             return UnitOfWork.UserRepository.GetPage(query);
@@ -284,7 +289,7 @@ namespace HandyWork.UIBusiness.Manager
         }
         public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
         {
-            Tuple<List<User>, int> tuple = GetPage4User();
+            Tuple<List<AuthUser>, int> tuple = GetPage4User();
 
             var list = tuple.Item1.Select(o => new UserViewModel
             {
@@ -302,7 +307,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? user.AuthPermissions :
                 user.AuthPermissions.Where(o => o.Name.Contains(permissionNameLike));
             return whereResult.ToList().Select(o => new PermissionViewModel
@@ -330,14 +335,14 @@ namespace HandyWork.UIBusiness.Manager
         }
         public void AddUserPermission(string userId, string permissionId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             var permission = UnitOfWork.AuthPermissionRepository.Find(permissionId);
             user.AuthPermissions.Add(permission);
             UnitOfWork.SaveChanges();
         }
         public void RemoveUserPermission(string userId, string permissionId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             var permission = UnitOfWork.AuthPermissionRepository.Find(permissionId);
             user.AuthPermissions.Remove(permission);
             UnitOfWork.SaveChanges();
@@ -345,7 +350,7 @@ namespace HandyWork.UIBusiness.Manager
 
         public List<RoleViewModel> GetRoleViewModelsByUserId(string userId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
 
             List<RoleViewModel> list = user.AuthRoles.ToList().Select(o => new RoleViewModel
             {
@@ -370,14 +375,14 @@ namespace HandyWork.UIBusiness.Manager
         }
         public void AddUserRole(string userId, string roleId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             var role = UnitOfWork.AuthRoleRepository.Find(roleId);
             user.AuthRoles.Add(role);
             UnitOfWork.SaveChanges();
         }
         public void RemoveUserRole(string userId, string roleId)
         {
-            User user = UnitOfWork.UserRepository.Find(userId);
+            AuthUser user = UnitOfWork.UserRepository.Find(userId);
             var role = UnitOfWork.AuthRoleRepository.Find(roleId);
             user.AuthRoles.Remove(role);
             UnitOfWork.SaveChanges();

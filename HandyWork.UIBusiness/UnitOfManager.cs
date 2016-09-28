@@ -1,4 +1,4 @@
-﻿using HandyWork.Common.Model;
+﻿using HandyWork.Common.Authority;
 using HandyWork.DAL;
 using HandyWork.UIBusiness.Manager;
 using HandyWork.UIBusiness.Manager.Interfaces;
@@ -19,7 +19,7 @@ namespace HandyWork.UIBusiness
         public IAccountManager AccountManager => _accountManager ?? (_accountManager = new AccountManager(this));
         
         //直接只返回表达式结果的属性或方法使用 => 来定义
-        public List<ErrorInfo> Errors => _unitOfWork == null ? null : _unitOfWork.Errors;
+        public List<Error> Errors => _unitOfWork == null ? null : _unitOfWork.Errors;
 
         public void Dispose()
         {

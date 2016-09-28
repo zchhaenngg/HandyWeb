@@ -148,7 +148,6 @@ namespace HandyWork.PCWeb
                 FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(encryptedTicket);
                 //创建用户标识
                 FormsIdentity identity = new FormsIdentity(ticket);
-                //var oldUser = app.Context.User;
                 app.Context.User = new HandyPrincipal(identity);
             }
         }

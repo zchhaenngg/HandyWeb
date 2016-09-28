@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.Model
+namespace HandyWork.Common.Authority
 {
-    public class ErrorInfo
+    public class Error
     {
         public string Code { get; set; }
         public string Description { get; set; }
 
-        public ErrorInfo() { }
-        public ErrorInfo(string code, string description)
+        public Error() { }
+        public Error(string code, string description)
         {
             Code = code;
             Description = description;
@@ -26,7 +26,7 @@ namespace HandyWork.Common.Model
             }
             else
             {
-                return string.Format("[{0}],{1}", Code, Description);
+                return string.Format("相关模块-{0},描述-{1}", Code, Description);
             }
         }
     }

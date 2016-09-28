@@ -7,13 +7,13 @@ namespace HandyWork.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class varchar2nvarchar : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(varchar2nvarchar));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609251038290_varchar2nvarchar"; }
+            get { return "201609281717260_init"; }
         }
         
         string IMigrationMetadata.Source

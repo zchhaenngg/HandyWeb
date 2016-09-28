@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrentHttpContext.cs" />
     <Compile Include="Enums\SignInResult.cs" />
     <Compile Include="Extensions\IPrincipalExtension.cs" />
     <Compile Include="HandyPrincipal.cs" />

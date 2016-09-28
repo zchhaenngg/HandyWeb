@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HandyWork.Common.UTC;
+using HandyWork.Common.Time;
 
 namespace HandyWork.Commom.UnitTests.UTC
 {
@@ -29,7 +29,7 @@ namespace HandyWork.Commom.UnitTests.UTC
                 UTCTime t2 = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 Assert.IsTrue(false);
             }
-            catch (InvalidCastException ex)
+            catch (InvalidCastException)
             {
                 Assert.IsTrue(true);
             }
@@ -38,11 +38,18 @@ namespace HandyWork.Commom.UnitTests.UTC
             Assert.IsTrue(ut.Value.Kind == DateTimeKind.Utc);
         }
 
-        //[TestMethod]
-        //public void test()
-        //{
-        //    var zones = TimeZoneInfo.GetSystemTimeZones();
-        //}
+        [TestMethod]
+        public void UTCTime_Test2()
+        {
+            string s = "2016-09-27";
+            DateTime t;
+            if (DateTime.TryParse(s,out t))
+            {
+                string tstr = t.ToString(Formats.ToDayMax);
+                DateTime t2 = Convert.ToDateTime(tstr);
+                
+            }
+        }
     }
     
 }

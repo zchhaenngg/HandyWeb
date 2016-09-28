@@ -1,4 +1,4 @@
-﻿namespace HandyWork.Model.Migrations
+namespace HandyWork.Model.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "HandyWork.Model.EntityContext";
         }
 
         protected override void Seed(HandyWork.Model.EntityContext context)

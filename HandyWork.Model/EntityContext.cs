@@ -16,7 +16,7 @@ namespace HandyWork.Model
         public virtual DbSet<AuthPermission> AuthPermissions { get; set; }
         public virtual DbSet<AuthRole> AuthRoles { get; set; }
         public virtual DbSet<DataHistory> DataHistories { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<AuthUser> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -12,7 +12,7 @@
     {
         @Html.ValidationSummary(true)
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(m => m.TimezoneOffsetInMinute)
         <div class="login">
             <img src="/Images/login/user.png" alt="Username" />
             @Html.TextBoxFor(m => m.UserName)
@@ -28,3 +28,10 @@
         <div align="center"><input id="loginBtn" type="submit" value="登录" /></div>
     }
 </div>
+@section scripts
+{
+<script type="text/javascript">
+    var tzos = new Date().getTimezoneOffset();
+    $('#TimezoneOffsetInMinute').val(tzos);
+</script>
+}

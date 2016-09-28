@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.Common.UTC
+namespace HandyWork.Common.Time
 {
     public struct UTCTime
     {

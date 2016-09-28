@@ -1,4 +1,4 @@
-﻿using HandyWork.Common.Model;
+﻿using HandyWork.Common.Authority;
 using HandyWork.Localization;
 using HandyWork.UIBusiness;
 using System;
@@ -60,7 +60,7 @@ namespace HandyWork.PCWeb.Controllers
                 if (HasErrorInfo)
                 {
                     StringBuilder builder = new StringBuilder();
-                    foreach (ErrorInfo item in UnitOfManager.Errors)
+                    foreach (Error item in UnitOfManager.Errors)
                     {
                         builder.Append(item.ToString());
                     }

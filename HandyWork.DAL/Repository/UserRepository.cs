@@ -13,14 +13,14 @@ using HandyWork.ViewModel.PCWeb.Query;
 
 namespace HandyWork.DAL.Repository
 {
-    public class UserRepository : BaseRepository<User>, IUserRepository
+    public class UserRepository : BaseRepository<AuthUser>, IUserRepository
     {
         public UserRepository(UnitOfWork unitOfWork)
             :base(unitOfWork, true)
         {
         }
 
-        protected override void OnBeforeAdd(User entity, string operatorId)
+        protected override void OnBeforeAdd(AuthUser entity, string operatorId)
         {
             entity.CreatedById = operatorId;
             entity.CreatedTime = DateTime.Now;
@@ -28,20 +28,20 @@ namespace HandyWork.DAL.Repository
             entity.LastModifiedTime = DateTime.Now;
         }
 
-        protected override void OnBeforeUpdate(User entity, string operatorId)
+        protected override void OnBeforeUpdate(AuthUser entity, string operatorId)
         {
             entity.LastModifiedById = operatorId;
             entity.LastModifiedTime = DateTime.Now;
         }
         
-        public override User Remove(User entity)
+        public override AuthUser Remove(AuthUser entity)
         {
             UnitOfWork.RemoveAndClear(entity.AuthPermissions);
             UnitOfWork.RemoveAndClear(entity.AuthRoles);
             return base.Remove(entity);
         }
 
-        public User Find(string id)
+        public AuthUser Find(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -50,7 +50,7 @@ namespace HandyWork.DAL.Repository
             return Source.Find(id);
         }
 
-        public override User Find(User entity)
+        public override AuthUser Find(AuthUser entity)
         {
             if (entity == null || string.IsNullOrWhiteSpace(entity.Id))
             {
@@ -59,7 +59,7 @@ namespace HandyWork.DAL.Repository
             return Find(entity.Id);
         }
 
-        public User FindByUserName(string userName)
+        public AuthUser FindByUserName(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
             {
@@ -68,11 +68,11 @@ namespace HandyWork.DAL.Repository
             return Source.Where(o => o.UserName == userName).FirstOrDefault();
         }
 
-        public override void Validate(User entity)
+        public override void Validate(AuthUser entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(User));
+                throw new ArgumentNullException(nameof(AuthUser));
             }
             if (string.IsNullOrWhiteSpace(entity.UserName))
             {
@@ -96,7 +96,7 @@ namespace HandyWork.DAL.Repository
             {
                 return null;
             }
-            User user = Find(userId);
+            AuthUser user = Find(userId);
             return user.AuthPermissions.ToList();
         }
 
@@ -124,25 +124,25 @@ namespace HandyWork.DAL.Repository
             return userPermissions;
         }
 
-        protected override string[] OnBeforeRecordHistory(User entity, DataHistory history)
+        protected override string[] OnBeforeRecordHistory(AuthUser entity, DataHistory history)
         {
             history.ForeignId = entity.Id;
          //   history.Keep1  = 统计数据
-            return new string[] { nameof(User.Id), nameof(User.Password) };
+            return new string[] { nameof(AuthUser.Id), nameof(AuthUser.Password) };
         }
 
-        public override Expression<Func<User, bool>> GetExpression(BaseQuery baseQuery)
+        public override Expression<Func<AuthUser, bool>> GetExpression(BaseQuery baseQuery)
         {
-            Expression<Func<User, bool>> expression = null;
+            Expression<Func<AuthUser, bool>> expression = null;
             UserQuery query = baseQuery as UserQuery;
             if (query != null)
             {
                 expression = expression
-                    .And(IsNotEmpty.For(query.UserNameLike), LikeLambda<User>.For(o => o.UserName, query.UserNameLike))
-                    .And(IsNotEmpty.For(query.UserNameEqual), EqualLambda<User, string>.For(o => o.UserName, query.UserNameEqual))
-                    .And(IsNotEmpty.For(query.RealNameLike), LikeLambda<User>.For(o => o.RealName, query.RealNameLike))
-                    .And(IsNotNull.For(query.IsValid), EqualLambda<User, bool>.For(o => o.IsValid, query.IsValid))
-                    .And(IsNotNull.For(query.IsLocked), EqualLambda<User, bool>.For(o => o.IsLocked, query.IsLocked));
+                    .And(IsNotEmpty.For(query.UserNameLike), LikeLambda<AuthUser>.For(o => o.UserName, query.UserNameLike))
+                    .And(IsNotEmpty.For(query.UserNameEqual), EqualLambda<AuthUser, string>.For(o => o.UserName, query.UserNameEqual))
+                    .And(IsNotEmpty.For(query.RealNameLike), LikeLambda<AuthUser>.For(o => o.RealName, query.RealNameLike))
+                    .And(IsNotNull.For(query.IsValid), EqualLambda<AuthUser, bool>.For(o => o.IsValid, query.IsValid))
+                    .And(IsNotNull.For(query.IsLocked), EqualLambda<AuthUser, bool>.For(o => o.IsLocked, query.IsLocked));
                     
             }
             return expression;

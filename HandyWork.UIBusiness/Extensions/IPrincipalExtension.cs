@@ -1,9 +1,12 @@
-﻿using System;
+﻿using HandyWork.Common.Authority;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
 
 namespace HandyWork.UIBusiness.Extensions
 {
@@ -11,30 +14,23 @@ namespace HandyWork.UIBusiness.Extensions
     {
         public static string GetLoginId(this IPrincipal principal)
         {
-            HandyPrincipal u = principal as HandyPrincipal;
-            return u == null ? null : u.LoginId;
+            return principal.GetCookie()?.Id;
         }
         public static string GetLoginName(this IPrincipal principal)
         {
-            HandyPrincipal u = principal as HandyPrincipal;
-            return u == null ? null : u.LoginName;
+            return principal.GetCookie()?.Name;
         }
         public static string GetLoginRealName(this IPrincipal principal)
         {
-            HandyPrincipal u = principal as HandyPrincipal;
-            return u == null ? null : u.LoginRealName;
+            return principal.GetCookie()?.RealName;
         }
-        public static bool IsInPermission(this IPrincipal principal, string permissionCode)
+        public static int TimezoneOffsetInMinute(this IPrincipal principal)
         {
-            HandyPrincipal u = principal as HandyPrincipal;
-            if (u == null)
-            {
-                return false;
-            }
-            else
-            {
-                return u.IsInPermission(permissionCode);
-            }
+            return principal.GetCookie()?.TimezoneOffsetInMinute ?? 0;
+        }
+        public static Cookie GetCookie(this IPrincipal principal)
+        {
+            return (principal as HandyPrincipal)?.Cookie;
         }
     }
 }

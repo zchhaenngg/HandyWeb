@@ -18,6 +18,7 @@ namespace HandyWork.ViewModel.PCWeb
         /// 密码
         /// </summary>
         public string Password { get; set; }
+        public int TimezoneOffsetInMinute { set; get; }
     }
 
     public class UpdateUserViewModel

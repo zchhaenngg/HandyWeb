@@ -13,7 +13,7 @@
         public AuthRole()
         {
             AuthPermissions = new HashSet<AuthPermission>();
-            Users = new HashSet<User>();
+            Users = new HashSet<AuthUser>();
         }
 
         [StringLength(40)]
@@ -40,6 +40,6 @@
         public virtual ICollection<AuthPermission> AuthPermissions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<AuthUser> Users { get; set; }
     }
 }

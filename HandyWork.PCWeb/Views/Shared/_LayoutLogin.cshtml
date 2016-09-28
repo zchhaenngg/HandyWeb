@@ -21,7 +21,12 @@
         </section>
     </div>
    
-    <script type="text/javascript">
+    
+ </body>
+</html>
+<script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+@RenderSection("scripts", required: false)
+<script type="text/javascript">
         $(document).ready(function () {
             var footwidth = $("#footer").width();
             var marginleftval = -footwidth / 2 + "px";
@@ -33,10 +38,5 @@
                 "width": function () { return $("#footer").css('width'); },
                 "margin-left": function () { return marginleftval; },
             });
-
-    })
-    </script>
-    @RenderSection("scripts", required: false)
- </body>
-</html>
-<script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+         })
+</script>

@@ -1,65 +1,40 @@
-﻿using HandyWork.DAL;
-using HandyWork.DAL.Repository;
-using HandyWork.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+using HandyWork.Common.Authority;
+using System.Web.Security;
 
 namespace HandyWork.UIBusiness
 {
     public class HandyPrincipal : IPrincipal
     {
-        protected CurrentHttpContext _CurrentHttpContext;
-        protected CurrentHttpContext CurrentHttpContext
-        {
-            get
-            {
-                if (_CurrentHttpContext == null)
-                {
-                    _CurrentHttpContext = new CurrentHttpContext();
-                }
-                return _CurrentHttpContext;
-            }
-        }
-        public IIdentity Identity { get; private set; }
+        private string[] _roles;
+        private Cookie _cookie;
+        public IIdentity Identity { get; }
         public HandyPrincipal(IIdentity identity)
         {
             Identity = identity;
         }
 
-        private List<AuthPermission> _permissions;
+        public Cookie Cookie  => _cookie ?? (_cookie = Cookie.Decoder((Identity as FormsIdentity)?.Ticket.UserData));
 
-        protected List<AuthPermission> Permissions
+        /// <summary>
+        /// 必须先登录授权。
+        /// </summary>
+        public string[] Roles
         {
             get
             {
-                if (_permissions == null)
+                if (_roles == null)
                 {
-                    using (UnitOfWork unitOfWork = new UnitOfWork())
+                    using (var manager = new UnitOfManager())
                     {
-                        UserRepository userRepository = new UserRepository(unitOfWork);
-                        _permissions = userRepository.GetAllPermissions(LoginId);
+                        _roles = manager.AccountManager.GetAllPermissions4Code(Cookie.Id);
                     }
                 }
-                return _permissions;
+                return _roles;
             }
         }
-
-        public bool IsInPermission(string permissionCode)
-        {
-            return Permissions.Exists(o => o.Code == permissionCode);
-        }
-
-        public bool IsInRole(string role)
-        {
-            return CurrentHttpContext.IsInRole(role);
-        }
-
-        public string LoginId { get { return CurrentHttpContext.LoginId; } }
-        public string LoginName { get { return CurrentHttpContext.LoginName; } }
-        public string LoginRealName { get { return CurrentHttpContext.LoginRealName; } }
+        
+        public bool IsInRole(string role) => Roles?.FirstOrDefault(r => string.Equals(role, r)) != null;
     }
 }

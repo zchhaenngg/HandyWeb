@@ -10,7 +10,7 @@ namespace HandyWork.UIBusiness.Manager.Interfaces
 {
     public interface IAccountManager: IManager
     {
-        SignInResult SignIn(string userName, string password);
+        SignInResult SignIn(string userName, string password, int timezoneOffsetInMinute);
         void Register(RegisterViewModel model);
         void UpdateUser(UpdateUserViewModel model);
         void ResetPassword(ResetPasswordViewModel model);
@@ -39,5 +39,6 @@ namespace HandyWork.UIBusiness.Manager.Interfaces
         List<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike);
         void AddRolePermission(string roleId, string permissionId);
         void RemoveRolePermission(string roleId, string permissionId);
+        string[] GetAllPermissions4Code(string userId);
     }
 }

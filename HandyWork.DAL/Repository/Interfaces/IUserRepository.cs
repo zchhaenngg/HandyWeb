@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IUserRepository : IBaseRepository<AuthUser>
     {
-        User Find(string id);
-        User FindByUserName(string userName);
+        AuthUser Find(string id);
+        AuthUser FindByUserName(string userName);
         List<AuthPermission> GetPermissionsByUserGrant(string userId);
         List<AuthPermission> GetPermissionByRoleGrant(string userId);
         List<AuthPermission> GetAllPermissions(string userId);

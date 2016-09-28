@@ -1,4 +1,4 @@
-﻿using HandyWork.Common.Model;
+﻿using HandyWork.Common.Authority;
 using System;
 using System.Collections.Generic;
 using System.Linq;
