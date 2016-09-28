@@ -9,7 +9,7 @@ using HandyWork.Common.Extensions;
 namespace HandyWork.Common.EntityFramework.Elements
 {
     /// <summary>
-    /// 数组、集合、值类型、string
+    /// 非null，非空数组、非空集合、非0
     /// </summary>
     public class IsNotEmpty : BaseTag
     {
@@ -36,9 +36,20 @@ namespace HandyWork.Common.EntityFramework.Elements
                 }
                 else
                 {
-                    var defaultValue = Value.GetType().GetDefaultValue();
-                    //数字、时间、其他非空对象
-                    return !Value.Equals(defaultValue);
+                    if (Value.GetType().IsBool())
+                    {
+                        return true;
+                    }
+                    else if (Value.GetType().IsString())
+                    {
+                        return !string.IsNullOrWhiteSpace(Value as string);
+                    }
+                    else
+                    {
+                        var defaultValue = Value.GetType().GetDefaultValue();
+                        //数字、时间、其他非空对象
+                        return !Value.Equals(defaultValue);
+                    }
                 }
             }
         }
