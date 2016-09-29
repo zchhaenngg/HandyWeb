@@ -1,10 +1,13 @@
-﻿任务一：
+﻿Q1:DAL层中各个Repository应当返回如IQueryable等接口，由Business层决定具体实现？
+A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
+Q2：
+任务一：
 1.DbFirst->CodeFirst
 是否支持视图
 
 2.DateTime->系统存UTC时间
 a.UTCTime  完成
-b.获取本地时区和UTC时间差值
+b.获取本地时区和UTC时间差值  完成
 c.UTCTime显示到天、到分、到秒
 d.存入服务的所有时间必须是UTCTime.
 e.显示在界面上的所有时间必须是LogicTime

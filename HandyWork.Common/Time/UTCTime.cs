@@ -35,5 +35,7 @@ namespace HandyWork.Common.Time
         {
             return new UTCTime { Value = utctime };
         }
+
+        public static UTCTime Now => new UTCTime(DateTime.UtcNow);
     }
 }

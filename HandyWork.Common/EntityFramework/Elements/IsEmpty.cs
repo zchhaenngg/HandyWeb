@@ -9,7 +9,7 @@ using HandyWork.Common.Extensions;
 namespace HandyWork.Common.EntityFramework.Elements
 {
     /// <summary>
-    /// null，空数组、空集合、0
+    /// 空对象，空数组、空集合、空值、空格
     /// </summary>
     public class IsEmpty : BaseTag
     {
@@ -34,21 +34,23 @@ namespace HandyWork.Common.EntityFramework.Elements
                 {
                     return (Value as ICollection).Count == 0;
                 }
-                else
+                else if (Value.GetType().Name.Equals(typeof(HashSet<>).Name))
                 {
-                    if (Value.GetType().IsBool())
+                    foreach (var item in Value as IEnumerable)
                     {
                         return false;
                     }
-                    else if (Value.GetType().IsString())
+                    return true;
+                }
+                else
+                {
+                    if (Value.GetType().IsString())
                     {
                         return string.IsNullOrWhiteSpace(Value as string);
                     }
                     else
                     {
-                        var defaultValue = Value.GetType().GetDefaultValue();
-                        //数字、时间、其他非空对象
-                        return Value.Equals(defaultValue);
+                        return false;
                     }
                 }
             }
