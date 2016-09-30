@@ -26,7 +26,7 @@ namespace HandyWork.UIBusiness.Extensions
         }
         public static int TimezoneOffsetInMinute(this IPrincipal principal)
         {
-            return principal.GetCookie()?.TimezoneOffsetInMinute ?? 0;
+            return principal.GetCookie()?.GreaterThanUTCInMinute ?? 0;
         }
         public static Cookie GetCookie(this IPrincipal principal)
         {

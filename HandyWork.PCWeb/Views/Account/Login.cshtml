@@ -12,7 +12,7 @@
     {
         @Html.ValidationSummary(true)
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.TimezoneOffsetInMinute)
+        @Html.HiddenFor(m => m.GreaterThanUTCInMinute)
         <div class="login">
             <img src="/Images/login/user.png" alt="Username" />
             @Html.TextBoxFor(m => m.UserName)
@@ -32,6 +32,6 @@
 {
 <script type="text/javascript">
     var tzos = new Date().getTimezoneOffset();
-    $('#TimezoneOffsetInMinute').val(tzos);
+    $('#GreaterThanUTCInMinute').val(-tzos);
 </script>
 }

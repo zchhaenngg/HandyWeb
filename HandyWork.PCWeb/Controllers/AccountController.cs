@@ -33,7 +33,7 @@ namespace HandyWork.PCWeb.Controllers
                 return View(model);
             }
             
-            SignInResult result = UnitOfManager.AccountManager.SignIn(model.UserName, model.Password, model.TimezoneOffsetInMinute);
+            SignInResult result = UnitOfManager.AccountManager.SignIn(model.UserName, model.Password, model.GreaterThanUTCInMinute);
             switch (result)
             {
                 case SignInResult.Success:

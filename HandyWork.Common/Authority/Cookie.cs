@@ -9,7 +9,7 @@ namespace HandyWork.Common.Authority
 {
     public class Cookie
     {
-        public int TimezoneOffsetInMinute { set; get; }
+        public int GreaterThanUTCInMinute { set; get; }
         public string Name { set; get; }
         public string Id { set; get; }
         public string RealName { get; set; }

@@ -23,7 +23,7 @@ namespace HandyWork.UIBusiness.Manager
         }
 
         #region 业务-用户
-        public SignInResult SignIn(string userName, string password, int timezoneOffsetInMinute)
+        public SignInResult SignIn(string userName, string password, int GreaterThanUTCInMinute)
         {
             AuthUser user = UnitOfWork.UserRepository.FindByUserName(userName);
             if (user == null)
@@ -75,7 +75,7 @@ namespace HandyWork.UIBusiness.Manager
                             Id = user.Id,
                             Name = user.UserName,
                             RealName = user.RealName,
-                            TimezoneOffsetInMinute = timezoneOffsetInMinute
+                            GreaterThanUTCInMinute = GreaterThanUTCInMinute
                         };
                         FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, cookieData.Name, DateTime.Now, DateTime.Now.AddDays(365), false, cookieData.Encoder());
                         HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName)

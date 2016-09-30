@@ -10,14 +10,14 @@ namespace HandyWork.Common.Extensions
     public static class DateTimeExtension
     {
         /// <summary>
-        /// 获取此实例的日期部分如2016-09-30 00:00:00
+        /// yyyy-MM-dd 00:00:00
         /// </summary>
         public static DateTime ToDay(this DateTime dt)
         {
             return dt.Date;
         }
         /// <summary>
-        /// 获取此实例的日期部分如2016-09-30 00:00:00
+        /// yyyy-MM-dd 00:00:00
         /// </summary>
         public static DateTime? ToDay(this DateTime? dt)
         {
@@ -28,6 +28,28 @@ namespace HandyWork.Common.Extensions
             else
             {
                 return dt.Value.Date;
+            }
+        }
+        /// <summary>
+        /// yyyy-MM-dd 23:59:59.999999
+        /// </summary>
+        public static DateTime ToDayMax(this DateTime dt)
+        {
+            string max = dt.ToString(Formats.ToDayMax);
+            return DateTime.SpecifyKind(Convert.ToDateTime(max), dt.Kind);
+        }
+        /// <summary>
+        /// yyyy-MM-dd 23:59:59.999999
+        /// </summary>
+        public static DateTime? ToDayMax(this DateTime? dt)
+        {
+            if (dt == null)
+            {
+                return null;
+            }
+            else
+            {
+                return dt.Value.ToDayMax();
             }
         }
         /// <summary>
@@ -110,7 +132,7 @@ namespace HandyWork.Common.Extensions
             return dt == null ? false : dt.Value.IsToday();
         }
         /// <summary>
-        /// null返回0,返回0-23
+        /// 0-23
         /// </summary>
         public static int Hour(this DateTime? dt)
         {
@@ -119,6 +141,58 @@ namespace HandyWork.Common.Extensions
                 return 0;
             }
             return dt.Value.Hour;
+        }
+        /// <summary>
+        /// logic - greaterThanUTCInMinute
+        /// </summary>
+        public static DateTime ToUTC(this DateTime logic, int greaterThanUTCInMinute)
+        {
+            if (greaterThanUTCInMinute > 720 || greaterThanUTCInMinute < -720)
+            {
+                throw new Exception("用户跑到火星登陆了吧，和UTC时间相差都超过12小时了");
+            }
+            var time2 = logic.AddMinutes(-greaterThanUTCInMinute);
+            return DateTime.SpecifyKind(time2, DateTimeKind.Utc);
+        }
+        /// <summary>
+        /// logic - greaterThanUTCInMinute
+        /// </summary>
+        public static DateTime? ToUTC(this DateTime? logic, int greaterThanUTCInMinute)
+        {
+            if (logic == null)
+            {
+                return null;
+            }
+            else
+            {  
+                return logic.Value.ToUTC(greaterThanUTCInMinute);
+            }
+        }
+        /// <summary>
+        /// time + greaterThanUTCInMinute
+        /// </summary>
+        public static DateTime ToLogic(this DateTime utc, int greaterThanUTCInMinute)
+        {
+            if (greaterThanUTCInMinute > 720 || greaterThanUTCInMinute < -720)
+            {
+                throw new Exception("用户跑到火星登陆了吧，和UTC时间相差都超过12小时了");
+            }
+            var time2 = utc.AddMinutes(greaterThanUTCInMinute);
+            return DateTime.SpecifyKind(time2, DateTimeKind.Unspecified);
+        }
+        /// <summary>
+        /// time + greaterThanUTCInMinute
+        /// </summary>
+        public static DateTime? ToLogic(this DateTime? utc, int greaterThanUTCInMinute)
+        {
+            if (utc == null)
+            {
+                return null;
+            }
+            else
+            {
+                return utc.Value.ToLogic(greaterThanUTCInMinute);
+            }
         }
     }
 }

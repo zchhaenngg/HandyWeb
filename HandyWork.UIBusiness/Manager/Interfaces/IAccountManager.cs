@@ -10,7 +10,7 @@ namespace HandyWork.UIBusiness.Manager.Interfaces
 {
     public interface IAccountManager: IManager
     {
-        SignInResult SignIn(string userName, string password, int timezoneOffsetInMinute);
+        SignInResult SignIn(string userName, string password, int GreaterThanUTCInMinute);
         void Register(RegisterViewModel model);
         void UpdateUser(UpdateUserViewModel model);
         void ResetPassword(ResetPasswordViewModel model);
