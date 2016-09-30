@@ -73,6 +73,7 @@
     <Compile Include="EntityFramework\LambdasTest.cs" />
     <Compile Include="EPPlusUtilityTest.cs" />
     <Compile Include="Extensions\TypeTest.cs" />
+    <Compile Include="Extensions\DateTimeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Time\UTCTimeTest.cs" />
     <Compile Include="WordUtilityTest.cs" />
