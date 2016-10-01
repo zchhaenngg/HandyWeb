@@ -147,6 +147,9 @@
   <data name="NO" xml:space="preserve">
     <value>NO</value>
   </data>
+  <data name="NOTEXIST_USERNAME" xml:space="preserve">
+    <value>NOTEXIST_USERNAME</value>
+  </data>
   <data name="PERMISSION" xml:space="preserve">
     <value>PERMISSION</value>
   </data>

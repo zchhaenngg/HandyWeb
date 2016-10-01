@@ -3,6 +3,7 @@ using HandyWork.Localization;
 using HandyWork.UIBusiness;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -36,40 +37,7 @@ namespace HandyWork.PCWeb.Controllers
             }
             base.Dispose(disposing);
         }
-
-        protected void AddModelError()
-        {
-            foreach (var item in UnitOfManager.Errors)
-            {
-                ModelState.AddModelError("", item.ToString());
-            }
-        }
-
-        protected bool HasErrorInfo
-        {
-            get
-            {
-                return UnitOfManager.Errors.Count > 0;
-            }
-        }
-
-        protected string ErrorMessage
-        {
-            get
-            {
-                if (HasErrorInfo)
-                {
-                    StringBuilder builder = new StringBuilder();
-                    foreach (Error item in UnitOfManager.Errors)
-                    {
-                        builder.Append(item.ToString());
-                    }
-                    return builder.ToString();
-                }
-                return string.Empty;
-            }
-        }
-
+        
         protected ActionResult RedirectToLocal(string returnUrl = null)
         {
             if (returnUrl != null)
@@ -82,7 +50,7 @@ namespace HandyWork.PCWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        protected JsonResult GetJsonResult(bool isSuccess, string message)
+        protected JsonResult GetJsonResult(string message, bool isSuccess = true)
         {
             return new JsonResult()
             {
@@ -94,20 +62,7 @@ namespace HandyWork.PCWeb.Controllers
                 }
             };
         }
-
-        protected JsonResult GetJsonResultByErrorInfos(string succeedMessage = null)
-        {
-            succeedMessage = string.IsNullOrWhiteSpace(succeedMessage) ? LocalizedResource.SUCCEED : succeedMessage;
-            if (HasErrorInfo)
-            {
-                return GetJsonResult(false, ErrorMessage);
-            }
-            else
-            {
-                return GetJsonResult(true, succeedMessage);
-            }
-        }
-
+        
         protected JsonResult JsonResult4ModelState
         {
             get
@@ -125,7 +80,7 @@ namespace HandyWork.PCWeb.Controllers
                     }
                 }
                 string errorMsg = builder.ToString();
-                return GetJsonResult(false, errorMsg);
+                return GetJsonResult(errorMsg, false);
             }
         }
 
@@ -147,6 +102,58 @@ namespace HandyWork.PCWeb.Controllers
         {
             return HasPermission(permissionCode, userId);
         }
-        
+
+        public ActionResult RedirectToLocal<T>(Action<T> action, T model, string returnUrl = null)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    action(model);
+                    return RedirectToLocal();
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return View(model);
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        public ActionResult GetJsonResult<T>(Action<T> action, T model, string message)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    action(model);
+                    return GetJsonResult(message);
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
+        }
     }
 }

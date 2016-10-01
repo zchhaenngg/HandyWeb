@@ -151,6 +151,15 @@ namespace HandyWork.Localization {
         }
         
         /// <summary>
+        ///   查找类似 NOTEXIST_USERNAME 的本地化字符串。
+        /// </summary>
+        public static string NOTEXIST_USERNAME {
+            get {
+                return ResourceManager.GetString("NOTEXIST_USERNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 PERMISSION 的本地化字符串。
         /// </summary>
         public static string PERMISSION {

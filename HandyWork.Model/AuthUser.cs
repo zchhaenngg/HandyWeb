@@ -18,11 +18,12 @@
 
         [StringLength(40)]
         public string Id { get; set; }
-
+        
         [Required]
         [StringLength(50)]
         public string RealName { get; set; }
 
+        [Index("UserNameIndex", IsUnique = true)]
         [Required]
         [StringLength(50)]
         public string UserName { get; set; }

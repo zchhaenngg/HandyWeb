@@ -74,24 +74,7 @@ namespace HandyWork.DAL.Repository
 
         public override void Validate(AuthRole entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("role");
-            }
-            if (string.IsNullOrWhiteSpace(entity.Name))
-            {
-                UnitOfWork.Errors.Add(Errors.InvalidUserName);
-            }
-            else
-            {
-                var owner = FindByName(entity.Name);
-                if (owner != null &&
-                    !string.Equals(entity.Id, owner.Id))
-                {
-                    UnitOfWork.Errors.Add(Errors.DuplicateRole);
-                }
-            }
-            base.Validate(entity);
+
         }
         
         public override Expression<Func<AuthRole, bool>> GetExpression(BaseQuery baseQuery)

@@ -83,8 +83,6 @@ namespace HandyWork.DAL
 
         //待删除
         internal EntityContext EntityContext => _entityContext ?? (_entityContext = new EntityContext());
-        //待删除
-        public List<Error> Errors { get; } = new List<Error>();
         
         public void Dispose()
         {

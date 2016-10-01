@@ -70,24 +70,7 @@ namespace HandyWork.DAL.Repository
 
         public override void Validate(AuthUser entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(AuthUser));
-            }
-            if (string.IsNullOrWhiteSpace(entity.UserName))
-            {
-                UnitOfWork.Errors.Add(Errors.InvalidUserName);
-            }
-            else
-            {
-                var owner = FindByUserName(entity.UserName);
-                if (owner != null &&
-                    !string.Equals(entity.Id, owner.Id))
-                {
-                    UnitOfWork.Errors.Add(Errors.DuplicateUserName);
-                }
-            }
-            base.Validate(entity);
+
         }
         
         public List<AuthPermission> GetPermissionsByUserGrant(string userId)

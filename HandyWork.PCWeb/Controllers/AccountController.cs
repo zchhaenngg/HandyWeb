@@ -10,6 +10,7 @@ using System.Web.Security;
 using System.Collections.Generic;
 using HandyWork.UIBusiness.Manager.Utility;
 using HandyWork.ViewModel.PCWeb;
+using System.Data.Entity.Validation;
 
 namespace HandyWork.PCWeb.Controllers
 {
@@ -72,20 +73,7 @@ namespace HandyWork.PCWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                UnitOfManager.AccountManager.Register(model);
-                if (HasErrorInfo)
-                {
-                    AddModelError();
-                    return View(model);
-                }
-                else
-                {
-                    return RedirectToLocal();
-                }
-            }
-            return View(model);
+            return RedirectToLocal(UnitOfManager.AccountManager.Register, model);
         }
         public ActionResult ResetPassword(string code)
         {
@@ -97,20 +85,7 @@ namespace HandyWork.PCWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            UnitOfManager.AccountManager.ResetPassword(model);
-            if (HasErrorInfo)
-            {
-                AddModelError();
-            }
-            else
-            {
-                return RedirectToLocal();
-            }
-            return View(model);
+            return RedirectToLocal(UnitOfManager.AccountManager.ResetPassword, model);
         }
 
         public ActionResult Index()
@@ -132,7 +107,7 @@ namespace HandyWork.PCWeb.Controllers
             if (ModelState.IsValid)
             {
                 UnitOfManager.AccountManager.Register(model);
-                return base.GetJsonResultByErrorInfos();
+                return base.GetJsonResult("注册成功!");
             }
             return base.JsonResult4ModelState;
         }
@@ -151,7 +126,7 @@ namespace HandyWork.PCWeb.Controllers
             if (ModelState.IsValid)
             {
                 UnitOfManager.AccountManager.UpdateUser(model);
-                return base.GetJsonResultByErrorInfos();
+                return base.GetJsonResult("更新成功");
             }
             return base.JsonResult4ModelState;
         }
@@ -175,12 +150,7 @@ namespace HandyWork.PCWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreatePermission(PermissionViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                UnitOfManager.AccountManager.CreatePermission(model);
-                return base.GetJsonResultByErrorInfos();
-            }
-            return base.JsonResult4ModelState;
+            return GetJsonResult(UnitOfManager.AccountManager.CreatePermission, model, "操作成功");
         }
 
         public ActionResult EditPermission(string id)
@@ -193,12 +163,7 @@ namespace HandyWork.PCWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPermission(PermissionViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                UnitOfManager.AccountManager.EditPermission(model);
-                return base.GetJsonResultByErrorInfos();
-            }
-            return base.JsonResult4ModelState;
+            return GetJsonResult(UnitOfManager.AccountManager.EditPermission, model, "操作成功");
         }
 
         public ActionResult CreateRole()
@@ -210,12 +175,7 @@ namespace HandyWork.PCWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateRole(RoleViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                UnitOfManager.AccountManager.CreateRole(model);
-                return base.GetJsonResultByErrorInfos();
-            }
-            return base.JsonResult4ModelState;
+            return GetJsonResult(UnitOfManager.AccountManager.CreateRole, model, "操作成功");
         }
         public ActionResult EditRole(string id)
         {
@@ -227,12 +187,7 @@ namespace HandyWork.PCWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditRole(RoleViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                UnitOfManager.AccountManager.EditRole(model);
-                return base.GetJsonResultByErrorInfos();
-            }
-            return base.JsonResult4ModelState;
+            return GetJsonResult(UnitOfManager.AccountManager.EditRole, model, "操作成功");
         }
 
         public ActionResult RolePermissions(string id)
@@ -254,7 +209,7 @@ namespace HandyWork.PCWeb.Controllers
         public ActionResult JsonDeleteRole(string id)
         {
             var tuple = UnitOfManager.AccountManager.DeleteRole(id);
-            return base.GetJsonResult(tuple.Item1, tuple.Item2);
+            return base.GetJsonResult(tuple.Item2, tuple.Item1);
         }
         public ActionResult JsonGetUsers()
         {
@@ -285,15 +240,53 @@ namespace HandyWork.PCWeb.Controllers
         }
         public ActionResult JsonAddRolePermission(string roleId)
         {
-            string permissionId = Request["permissionId"];
-            UnitOfManager.AccountManager.AddRolePermission(roleId, permissionId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string permissionId = Request["permissionId"];
+                    UnitOfManager.AccountManager.AddRolePermission(roleId, permissionId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
         public ActionResult JsonRemoveRolePermission(string roleId)
         {
-            string permissionId = Request["permissionId"];
-            UnitOfManager.AccountManager.RemoveRolePermission(roleId, permissionId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string permissionId = Request["permissionId"];
+                    UnitOfManager.AccountManager.RemoveRolePermission(roleId, permissionId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
 
         public ActionResult JsonGetPermissionsByUserId(string userId)
@@ -310,20 +303,57 @@ namespace HandyWork.PCWeb.Controllers
         }
         public ActionResult JsonAddUserPermission(string userId)
         {
-            string permissionId = Request["permissionId"];
-            UnitOfManager.AccountManager.AddUserPermission(userId, permissionId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string permissionId = Request["permissionId"];
+                    UnitOfManager.AccountManager.AddUserPermission(userId, permissionId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
         public ActionResult JsonRemoveUserPermission(string userId)
         {
-            string permissionId = Request["permissionId"];
-            UnitOfManager.AccountManager.RemoveUserPermission(userId, permissionId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string permissionId = Request["permissionId"];
+                    UnitOfManager.AccountManager.RemoveUserPermission(userId, permissionId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
 
         public ActionResult JsonGetRolesByUserId(string userId)
         {
-
             List<RoleViewModel> list = UnitOfManager.AccountManager.GetRoleViewModelsByUserId(userId);
             return base.GetJsonResult(list, list.Count);
         }
@@ -334,23 +364,99 @@ namespace HandyWork.PCWeb.Controllers
         }
         public ActionResult JsonAddUserRole(string userId, string roleId)
         {
-            UnitOfManager.AccountManager.AddUserRole(userId, roleId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    UnitOfManager.AccountManager.AddUserRole(userId, roleId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
         public ActionResult JsonRemoveUserRole(string userId, string roleId)
         {
-            UnitOfManager.AccountManager.RemoveUserRole(userId, roleId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    UnitOfManager.AccountManager.RemoveUserRole(userId, roleId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
         public ActionResult JsonSetUserValid(string userId)
         {
-            string succeedMessage = UnitOfManager.AccountManager.SetUserValid(userId);
-            return base.GetJsonResultByErrorInfos(succeedMessage);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string succeedMessage = UnitOfManager.AccountManager.SetUserValid(userId);
+                    return GetJsonResult(succeedMessage);
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
         public ActionResult JsonUnlockedById(string userId)
         {
-            UnitOfManager.AccountManager.SetUnlocked4User(userId);
-            return base.GetJsonResultByErrorInfos();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    UnitOfManager.AccountManager.SetUnlocked4User(userId);
+                    return GetJsonResult("操作成功");
+                }
+                catch (DbEntityValidationException dbex)
+                {
+                    foreach (var error in dbex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, string.Format("Entity Property: {0}, Error: {1}", error.PropertyName, error.ErrorMessage));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                return JsonResult4ModelState;
+            }
+            return JsonResult4ModelState;
         }
     }
 }

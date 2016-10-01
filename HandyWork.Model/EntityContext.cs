@@ -7,6 +7,7 @@ namespace HandyWork.Model
     using System.Data.Entity.Infrastructure;
     using System.Collections.Generic;
     using System.Data.Entity.Validation;
+    using Localization;
 
     public partial class EntityContext : DbContext
     {
@@ -16,9 +17,9 @@ namespace HandyWork.Model
         }
 
         public virtual DbSet<AppConfiguration> AppConfigurations { get; set; }
-        public virtual DbSet<AuthPermission> AuthPermissions { get; set; }
-        public virtual DbSet<AuthRole> AuthRoles { get; set; }
-        public virtual DbSet<DataHistory> DataHistories { get; set; }
+        public virtual DbSet<AuthPermission> Permissions { get; set; }
+        public virtual DbSet<AuthRole> Roles { get; set; }
+        public virtual DbSet<DataHistory> Histories { get; set; }
         public virtual DbSet<AuthUser> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -45,21 +46,54 @@ namespace HandyWork.Model
             var result = base.ValidateEntity(entityEntry, items);
             if (result.IsValid)
             {
-                if (entityEntry.Entity is AuthUser && entityEntry.State == EntityState.Added)
+                if (entityEntry.Entity is AuthUser)
                 {
                     ValidateUser(entityEntry, ref result);
+                }
+                else if (entityEntry.Entity is AuthPermission)
+                {
+                    ValidatePermission(entityEntry, ref result);
+                }
+                else if (entityEntry.Entity is AuthRole)
+                {
+                    ValidateRole(entityEntry, ref result);
                 }
             }
             return result;
         }
 
-        private void ValidateUser(DbEntityEntry entityEntry, ref DbEntityValidationResult result)
+        private void ValidateRole(DbEntityEntry entityEntry, ref DbEntityValidationResult result)
         {
-            AuthUser user = entityEntry.Entity as AuthUser;
-            if (Users.Any(p => p.UserName == user.UserName))
+            var role = entityEntry.Entity as AuthRole;
+            if (Roles.Any(p => p.Name == role.Name && p.Id != role.Id))
             {
                 result.ValidationErrors.Add(
-                        new DbValidationError("UserName", "UserName must be unique."));
+                        new DbValidationError(nameof(AuthRole.Name), ValidatorResource.Role_Duplicate_Name));
+            }
+        }
+
+        private void ValidatePermission(DbEntityEntry entityEntry, ref DbEntityValidationResult result)
+        {
+            var permission = entityEntry.Entity as AuthPermission;
+            if (Permissions.Any(p => p.Code == permission.Code && p.Id != permission.Id))
+            {
+                result.ValidationErrors.Add(
+                        new DbValidationError(nameof(AuthPermission.Code), ValidatorResource.Permission_Duplicate_Code));
+            }
+            else if (Permissions.Any(p => p.Name == permission.Name && p.Id != permission.Id))
+            {
+                result.ValidationErrors.Add(
+                      new DbValidationError(nameof(AuthPermission.Name), ValidatorResource.Permission_Duplicate_Name));
+            }
+        }
+
+        private void ValidateUser(DbEntityEntry entityEntry, ref DbEntityValidationResult result)
+        {
+            var user = entityEntry.Entity as AuthUser;
+            if (Users.Any(p => p.UserName == user.UserName && p.Id!=user.Id))
+            {
+                result.ValidationErrors.Add(
+                        new DbValidationError(nameof(AuthUser.UserName), ValidatorResource.User_Duplicate_UserName));
             }
         }
     }

@@ -61,65 +61,56 @@ namespace HandyWork.Localization {
         }
         
         /// <summary>
-        ///   查找类似 DuplicatePermission 的本地化字符串。
+        ///   查找类似 Permission_Duplicate_Code 的本地化字符串。
         /// </summary>
-        public static string DuplicatePermission {
+        public static string Permission_Duplicate_Code {
             get {
-                return ResourceManager.GetString("DuplicatePermission", resourceCulture);
+                return ResourceManager.GetString("Permission_Duplicate_Code", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 DuplicateRole 的本地化字符串。
+        ///   查找类似 Permission_Duplicate_Name 的本地化字符串。
         /// </summary>
-        public static string DuplicateRole {
+        public static string Permission_Duplicate_Name {
             get {
-                return ResourceManager.GetString("DuplicateRole", resourceCulture);
+                return ResourceManager.GetString("Permission_Duplicate_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 DuplicateUserName 的本地化字符串。
+        ///   查找类似 Role_Duplicate_Name 的本地化字符串。
         /// </summary>
-        public static string DuplicateUserName {
+        public static string Role_Duplicate_Name {
             get {
-                return ResourceManager.GetString("DuplicateUserName", resourceCulture);
+                return ResourceManager.GetString("Role_Duplicate_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 InvalidPassword 的本地化字符串。
+        ///   查找类似 User_Duplicate_UserName 的本地化字符串。
         /// </summary>
-        public static string InvalidPassword {
+        public static string User_Duplicate_UserName {
             get {
-                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+                return ResourceManager.GetString("User_Duplicate_UserName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 InvalidPermission 的本地化字符串。
+        ///   查找类似 User_Invalid_Password 的本地化字符串。
         /// </summary>
-        public static string InvalidPermission {
+        public static string User_Invalid_Password {
             get {
-                return ResourceManager.GetString("InvalidPermission", resourceCulture);
+                return ResourceManager.GetString("User_Invalid_Password", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 InvalidRole 的本地化字符串。
+        ///   查找类似 User_Invalid_UserName 的本地化字符串。
         /// </summary>
-        public static string InvalidRole {
+        public static string User_Invalid_UserName {
             get {
-                return ResourceManager.GetString("InvalidRole", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 InvalidUserName 的本地化字符串。
-        /// </summary>
-        public static string InvalidUserName {
-            get {
-                return ResourceManager.GetString("InvalidUserName", resourceCulture);
+                return ResourceManager.GetString("User_Invalid_UserName", resourceCulture);
             }
         }
     }

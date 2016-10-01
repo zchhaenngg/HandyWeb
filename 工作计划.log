@@ -8,7 +8,7 @@ Q2：
 https://msdn.microsoft.com/en-us/data/gg193959.aspx
 a.重构UnitOfWork.SaveChanges();  完成
 返回int 表示成功，否则抛出异常。
-b.删除Error类，在EntityFramework中DBContext已经有类似功能了。
+b.删除Error类，在EntityFramework中DBContext已经有类似功能了。  完成
 c.UnitOfWork为EntityContext的包装类，针对Validation应当有自己的实现。同时屏蔽外面对EntityContext的直接操作。
 
 2.重构记录操作历史

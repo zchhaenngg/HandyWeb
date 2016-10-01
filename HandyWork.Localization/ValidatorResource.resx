@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DuplicatePermission" xml:space="preserve">
-    <value>DuplicatePermission</value>
+  <data name="Permission_Duplicate_Code" xml:space="preserve">
+    <value>Permission_Duplicate_Code</value>
   </data>
-  <data name="DuplicateRole" xml:space="preserve">
-    <value>DuplicateRole</value>
+  <data name="Permission_Duplicate_Name" xml:space="preserve">
+    <value>Permission_Duplicate_Name</value>
   </data>
-  <data name="DuplicateUserName" xml:space="preserve">
-    <value>DuplicateUserName</value>
+  <data name="Role_Duplicate_Name" xml:space="preserve">
+    <value>Role_Duplicate_Name</value>
   </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>InvalidPassword</value>
+  <data name="User_Duplicate_UserName" xml:space="preserve">
+    <value>User_Duplicate_UserName</value>
   </data>
-  <data name="InvalidPermission" xml:space="preserve">
-    <value>InvalidPermission</value>
+  <data name="User_Invalid_Password" xml:space="preserve">
+    <value>User_Invalid_Password</value>
   </data>
-  <data name="InvalidRole" xml:space="preserve">
-    <value>InvalidRole</value>
-  </data>
-  <data name="InvalidUserName" xml:space="preserve">
-    <value>InvalidUserName</value>
+  <data name="User_Invalid_UserName" xml:space="preserve">
+    <value>User_Invalid_UserName</value>
   </data>
 </root>

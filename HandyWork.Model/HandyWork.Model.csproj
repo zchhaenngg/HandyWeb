@@ -75,6 +75,12 @@
       <DependentUpon>201609281717260_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HandyWork.Localization\HandyWork.Localization.csproj">
+      <Project>{035C1853-1818-4E92-8257-DD18931DEC22}</Project>
+      <Name>HandyWork.Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

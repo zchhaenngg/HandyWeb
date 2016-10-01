@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DuplicatePermission" xml:space="preserve">
+  <data name="Permission_Duplicate_Code" xml:space="preserve">
+    <value>权限代码已存在</value>
+  </data>
+  <data name="Permission_Duplicate_Name" xml:space="preserve">
     <value>权限名已存在</value>
   </data>
-  <data name="DuplicateRole" xml:space="preserve">
+  <data name="Role_Duplicate_Name" xml:space="preserve">
     <value>角色名已存在</value>
   </data>
-  <data name="DuplicateUserName" xml:space="preserve">
+  <data name="User_Duplicate_UserName" xml:space="preserve">
     <value>用户名已存在</value>
   </data>
-  <data name="InvalidPassword" xml:space="preserve">
+  <data name="User_Invalid_Password" xml:space="preserve">
     <value>密码不正确</value>
   </data>
-  <data name="InvalidPermission" xml:space="preserve">
-    <value>权限代码、权限名不可为空，权限代码、权限名必须唯一</value>
-  </data>
-  <data name="InvalidRole" xml:space="preserve">
-    <value>角色名不可为空,角色名必须唯一</value>
-  </data>
-  <data name="InvalidUserName" xml:space="preserve">
+  <data name="User_Invalid_UserName" xml:space="preserve">
     <value>用户名必须以字母开头，不区分大小写</value>
   </data>
 </root>

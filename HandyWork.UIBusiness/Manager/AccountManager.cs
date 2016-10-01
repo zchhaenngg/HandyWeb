@@ -12,6 +12,8 @@ using HandyWork.DAL;
 using HandyWork.UIBusiness.Manager.Interfaces;
 using HandyWork.ViewModel.PCWeb;
 using HandyWork.ViewModel.PCWeb.Query;
+using HandyWork.Common.Exceptions;
+using HandyWork.Localization;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -130,7 +132,7 @@ namespace HandyWork.UIBusiness.Manager
             AuthUser user = UnitOfWork.UserRepository.FindByUserName(model.UserName);
             if (user == null)
             {
-                UnitOfWork.Errors.Add(Errors.InvalidUserName);
+                throw new ErrorException(LocalizedResource.NOTEXIST_USERNAME);
             }
             else
             {

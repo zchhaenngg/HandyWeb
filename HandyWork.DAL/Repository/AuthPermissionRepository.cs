@@ -90,32 +90,7 @@ namespace HandyWork.DAL.Repository
         }
         public override void Validate(AuthPermission entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-            if (string.IsNullOrWhiteSpace(entity.Name))
-            {
-                UnitOfWork.Errors.Add(Errors.InvalidPermission);
-            }
-            else
-            {
-                var owner = FindByCode(entity.Code);
-                if (owner != null &&
-                    !string.Equals(entity.Id, owner.Id))
-                {
-                    UnitOfWork.Errors.Add(Errors.DuplicatePermission);
-                }
-                else
-                {
-                    var owner2 = FindByName(entity.Name);
-                    if (owner2 != null &&
-                        !string.Equals(entity.Id, owner2.Id))
-                    {
-                        UnitOfWork.Errors.Add(Errors.DuplicatePermission);
-                    }
-                }
-            }
+            
         }
 
         public override Expression<Func<AuthPermission, bool>> GetExpression(BaseQuery baseQuery)

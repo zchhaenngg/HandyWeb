@@ -147,6 +147,9 @@
   <data name="NO" xml:space="preserve">
     <value>否</value>
   </data>
+  <data name="NOTEXIST_USERNAME" xml:space="preserve">
+    <value>用户名不存在</value>
+  </data>
   <data name="PERMISSION" xml:space="preserve">
     <value>权限</value>
   </data>
