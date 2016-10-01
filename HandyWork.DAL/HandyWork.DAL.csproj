@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repository\Abstracts\BaseRecordDataHistory.cs" />
     <Compile Include="Repository\Interfaces\IAuthPermissionRepository.cs" />
     <Compile Include="Repository\Interfaces\IAuthRoleRepository.cs" />
     <Compile Include="Repository\Interfaces\IBaseRepository.cs" />

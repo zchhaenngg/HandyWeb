@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using HandyWork.UIBusiness.Extensions;
 
 namespace HandyWork.PCWeb.Controllers
 {
@@ -20,7 +21,7 @@ namespace HandyWork.PCWeb.Controllers
             {
                 if (_unitOfManager == null)
                 {
-                    _unitOfManager = new UnitOfManager();
+                    _unitOfManager = new UnitOfManager(User.GetLoginId());
                 }
                 return _unitOfManager;
             }

@@ -9,7 +9,6 @@ namespace HandyWork.DAL.Repository.Interfaces
 {
     public interface IAuthRoleRepository : IBaseRepository<AuthRole>
     {
-        void Remove(string id);
         AuthRole Find(string id);
         AuthRole FindByName(string name);
         List<AuthRole> GetAll();

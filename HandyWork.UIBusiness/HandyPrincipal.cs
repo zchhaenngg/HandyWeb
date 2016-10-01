@@ -26,7 +26,7 @@ namespace HandyWork.UIBusiness
             {
                 if (_roles == null)
                 {
-                    using (var manager = new UnitOfManager())
+                    using (var manager = new UnitOfManager(Cookie.Id))
                     {
                         _roles = manager.AccountManager.GetAllPermissions4Code(Cookie.Id);
                     }

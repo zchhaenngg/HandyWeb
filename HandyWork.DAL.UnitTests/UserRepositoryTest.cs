@@ -26,7 +26,7 @@ namespace HandyWork.DAL.UnitTests
                 Password = "123456",
                 RealName = "测试1号"
             };
-            UnitOfWork.UserRepository.Add(entity, null);
+            UnitOfWork.Add(entity);
             try
             {
                 int cnt = UnitOfWork.SaveChanges();
@@ -65,7 +65,7 @@ namespace HandyWork.DAL.UnitTests
                 Password = "123456",
                 RealName = "测试1号"
             };
-            UnitOfWork.UserRepository.Add(entity, null);
+            UnitOfWork.Add(entity);
             try
             {
                 int cnt = UnitOfWork.SaveChanges();

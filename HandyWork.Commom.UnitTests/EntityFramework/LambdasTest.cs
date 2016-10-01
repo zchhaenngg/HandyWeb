@@ -15,7 +15,7 @@ namespace HandyWork.Commom.UnitTests.EntityFramework
     public class LambdasTest
     {
         private UnitOfWork _unitOfWork;
-        protected UnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = new UnitOfWork());
+        protected UnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = new UnitOfWork("-1"));
 
         [TestMethod]
         public void Lambda_Contain()

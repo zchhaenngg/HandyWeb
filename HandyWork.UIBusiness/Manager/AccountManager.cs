@@ -65,7 +65,6 @@ namespace HandyWork.UIBusiness.Manager
                             user.LoginFailedCount = 1;
                             user.LastLoginFailedTime = DateTime.Now;
                         }
-                        UnitOfWork.UserRepository.Update(user, LoginId);
                         UnitOfWork.SaveChanges();//此处需要将由密码输入错误记录到数据库。
                         return SignInResult.PasswordError;
                     }
@@ -89,7 +88,6 @@ namespace HandyWork.UIBusiness.Manager
                         #endregion
 
                         user.LoginFailedCount = 0;
-                        UnitOfWork.UserRepository.Update(user, LoginId);
                         UnitOfWork.SaveChanges();//密码正确，清空错误次数.
                         return SignInResult.Success;
                     }
@@ -111,7 +109,7 @@ namespace HandyWork.UIBusiness.Manager
                 IsValid = true,
                 IsLocked = false,
             };
-            UnitOfWork.UserRepository.Add(user, LoginId);
+            UnitOfWork.Add(user);
             UnitOfWork.SaveChanges();
         }
 
@@ -123,7 +121,6 @@ namespace HandyWork.UIBusiness.Manager
             user.Phone = model.Phone;
             user.Email = model.Email;
             user.IsDomain = model.IsDomain;
-            UnitOfWork.UserRepository.Update(user, LoginId);
             UnitOfWork.SaveChanges();
         }
 
@@ -137,7 +134,6 @@ namespace HandyWork.UIBusiness.Manager
             else
             {
                 user.Password = AlgorithmUtility.EncryptPassword(model.Password);
-                UnitOfWork.UserRepository.Update(user, LoginId);
                 UnitOfWork.SaveChanges();
             }
         }
@@ -161,7 +157,6 @@ namespace HandyWork.UIBusiness.Manager
         {
             AuthUser user = UnitOfWork.UserRepository.Find(userId);
             user.IsValid = !user.IsValid;
-            UnitOfWork.UserRepository.Update(user, LoginId);
             UnitOfWork.SaveChanges();
             if (user.IsValid)
             {
@@ -181,7 +176,6 @@ namespace HandyWork.UIBusiness.Manager
                 throw new Exception("该用户已处于非锁定状态");
             }
             user.IsLocked = false;
-            UnitOfWork.UserRepository.Update(user, LoginId);
             UnitOfWork.SaveChanges();
         }
 
@@ -201,7 +195,7 @@ namespace HandyWork.UIBusiness.Manager
                 Code = model.Code.Trim(),
                 Description = model.Description,
             };
-            UnitOfWork.PermissionRepository.Add(permission, LoginId);
+            UnitOfWork.Add(permission);
             UnitOfWork.SaveChanges();
         }
         public void EditPermission(PermissionViewModel model)
@@ -210,7 +204,6 @@ namespace HandyWork.UIBusiness.Manager
             permission.Code = model.Code.Trim();
             permission.Name = model.Name.Trim();
             permission.Description = model.Description.Trim();
-            UnitOfWork.PermissionRepository.Update(permission, LoginId);
             UnitOfWork.SaveChanges();
         }
         public PermissionViewModel GetPermissionViewModel(string id)
@@ -236,7 +229,7 @@ namespace HandyWork.UIBusiness.Manager
                 Name = model.Name.Trim(),
                 Description = model.Description,
             };
-            UnitOfWork.RoleRepository.Add(role, LoginId);
+            UnitOfWork.Add(role);
             UnitOfWork.SaveChanges();
         }
         public void EditRole(RoleViewModel model)
@@ -244,12 +237,12 @@ namespace HandyWork.UIBusiness.Manager
             AuthRole role = UnitOfWork.RoleRepository.Find(model.Id);
             role.Name = model.Name.Trim();
             role.Description = model.Description.Trim();
-            UnitOfWork.RoleRepository.Update(role, LoginId);
             UnitOfWork.SaveChanges();
         }
         public Tuple<bool, string> DeleteRole(string id)
         {
-            UnitOfWork.RoleRepository.Remove(id);
+            var entity = UnitOfWork.RoleRepository.Find(id);
+            UnitOfWork.Remove(entity);
             return new Tuple<bool, string>(true, "角色删除成功");
         }
         public RoleViewModel GetRoleViewModel(string id)

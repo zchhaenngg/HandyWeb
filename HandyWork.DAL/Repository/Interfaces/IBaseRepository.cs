@@ -10,10 +10,6 @@ namespace HandyWork.DAL.Repository.Interfaces
         where T : class
     {
         DbSet<T> Source { get; }
-        T Add(T entity, string operatorId);
-        T Update(T entity, string operatorId);
-        T Remove(T entity);
-        T Find(T entity);
         List<T> FindAllByQuery(BaseQuery query);
         Tuple<List<T>, int> GetPage(BaseQuery query);
         Expression<Func<T, bool>> GetExpression(BaseQuery baseQuery);

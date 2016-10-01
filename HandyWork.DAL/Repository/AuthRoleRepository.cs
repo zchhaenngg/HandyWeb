@@ -9,35 +9,15 @@ using HandyWork.Common.EntityFramework.Elements;
 using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Extensions;
 using HandyWork.ViewModel.PCWeb.Query;
+using System.Data.Entity;
 
 namespace HandyWork.DAL.Repository
 {
     public class AuthRoleRepository : BaseRepository<AuthRole>, IAuthRoleRepository
     {
-        public AuthRoleRepository(UnitOfWork unitOfWork)
-            : base(unitOfWork, false)
+        public AuthRoleRepository(UnitOfWork unitOfWork, DbSet<AuthRole> source)
+            : base(unitOfWork, source)
         {
-        }
-        protected override void OnBeforeAdd(AuthRole entity, string operatorId)
-        {
-            entity.CreatedById = operatorId;
-            entity.CreatedTime = DateTime.Now;
-            entity.LastModifiedById = operatorId;
-            entity.LastModifiedTime = DateTime.Now;
-        }
-
-        protected override void OnBeforeUpdate(AuthRole entity, string operatorId)
-        {
-            entity.LastModifiedById = operatorId;
-            entity.LastModifiedTime = DateTime.Now;
-        }
-        
-        public void Remove(string id)
-        {
-            var entity = Find(id);
-            UnitOfWork.RemoveAndClear(entity.AuthPermissions);
-            UnitOfWork.RemoveAndClear(entity.Users);
-            Remove(entity);
         }
 
         public AuthRole Find(string id)
@@ -48,16 +28,7 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Find(id);
         }
-
-        public override AuthRole Find(AuthRole entity)
-        {
-            if (entity == null)
-            {
-                return null;
-            }
-            return Find(entity.Id);
-        }
-
+        
         public AuthRole FindByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -70,11 +41,6 @@ namespace HandyWork.DAL.Repository
         public List<AuthRole> GetAll()
         {
             return Source.ToList();
-        }
-
-        public override void Validate(AuthRole entity)
-        {
-
         }
         
         public override Expression<Func<AuthRole, bool>> GetExpression(BaseQuery baseQuery)

@@ -15,32 +15,11 @@ namespace HandyWork.DAL.Repository
 {
     public class UserRepository : BaseRepository<AuthUser>, IUserRepository
     {
-        public UserRepository(UnitOfWork unitOfWork)
-            :base(unitOfWork, true)
+        public UserRepository(UnitOfWork unitOfWork, DbSet<AuthUser> source)
+            :base(unitOfWork, source)
         {
-        }
-
-        protected override void OnBeforeAdd(AuthUser entity, string operatorId)
-        {
-            entity.CreatedById = operatorId;
-            entity.CreatedTime = DateTime.Now;
-            entity.LastModifiedById = operatorId;
-            entity.LastModifiedTime = DateTime.Now;
-        }
-
-        protected override void OnBeforeUpdate(AuthUser entity, string operatorId)
-        {
-            entity.LastModifiedById = operatorId;
-            entity.LastModifiedTime = DateTime.Now;
         }
         
-        public override AuthUser Remove(AuthUser entity)
-        {
-            UnitOfWork.RemoveAndClear(entity.AuthPermissions);
-            UnitOfWork.RemoveAndClear(entity.AuthRoles);
-            return base.Remove(entity);
-        }
-
         public AuthUser Find(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -49,16 +28,7 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Find(id);
         }
-
-        public override AuthUser Find(AuthUser entity)
-        {
-            if (entity == null || string.IsNullOrWhiteSpace(entity.Id))
-            {
-                return null;
-            }
-            return Find(entity.Id);
-        }
-
+        
         public AuthUser FindByUserName(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
@@ -66,11 +36,6 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             return Source.Where(o => o.UserName == userName).FirstOrDefault();
-        }
-
-        public override void Validate(AuthUser entity)
-        {
-
         }
         
         public List<AuthPermission> GetPermissionsByUserGrant(string userId)
@@ -106,14 +71,7 @@ namespace HandyWork.DAL.Repository
             userPermissions.AddRange(rolePermissions);
             return userPermissions;
         }
-
-        protected override string[] OnBeforeRecordHistory(AuthUser entity, DataHistory history)
-        {
-            history.ForeignId = entity.Id;
-         //   history.Keep1  = 统计数据
-            return new string[] { nameof(AuthUser.Id), nameof(AuthUser.Password) };
-        }
-
+        
         public override Expression<Func<AuthUser, bool>> GetExpression(BaseQuery baseQuery)
         {
             Expression<Func<AuthUser, bool>> expression = null;

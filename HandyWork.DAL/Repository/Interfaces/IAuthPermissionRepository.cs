@@ -9,7 +9,6 @@ namespace HandyWork.DAL.Repository.Interfaces
 {
     public interface IAuthPermissionRepository: IBaseRepository<AuthPermission>
     {
-        AuthPermission Remove(string id);
         AuthPermission Find(string id);
         AuthPermission FindByCode(string code);
         AuthPermission FindByName(string name);

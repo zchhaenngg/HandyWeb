@@ -10,6 +10,6 @@ namespace HandyWork.DAL.UnitTests
     public class BaseTest
     {
         private UnitOfWork _unitOfWork;
-        protected UnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = new UnitOfWork());
+        protected UnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = new UnitOfWork("-1"));
     }
 }
