@@ -32,7 +32,7 @@ namespace HandyWork.UIBusiness.Manager
             {
                 userId = LoginId;
             }
-            AuthPermission permission = UnitOfWork.AuthPermissionRepository.FindByCode(permissionCode);
+            AuthPermission permission = UnitOfWork.PermissionRepository.FindByCode(permissionCode);
             if (permission == null)
             {
                 return false;

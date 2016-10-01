@@ -107,7 +107,7 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
 
-            var roles = UnitOfWork.AuthRoleRepository.Source.Where(o => o.Users.Any(u => u.Id == userId)).Include(r => r.AuthPermissions).ToList();
+            var roles = UnitOfWork.RoleRepository.Source.Where(o => o.Users.Any(u => u.Id == userId)).Include(r => r.AuthPermissions).ToList();
             var list = new List<AuthPermission>();
             roles.ForEach(r => 
             {

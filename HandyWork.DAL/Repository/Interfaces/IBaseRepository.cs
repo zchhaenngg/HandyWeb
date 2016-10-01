@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace HandyWork.DAL.Repository.Interfaces
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T> : IRepository
         where T : class
     {
         DbSet<T> Source { get; }

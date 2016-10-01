@@ -4,6 +4,9 @@ namespace HandyWork.Model
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Data.Entity.Infrastructure;
+    using System.Collections.Generic;
+    using System.Data.Entity.Validation;
 
     public partial class EntityContext : DbContext
     {
@@ -35,6 +38,29 @@ namespace HandyWork.Model
                 .WithMany(e => e.AuthRoles)
                 .Map(m => m.ToTable("AuthUserRole").MapLeftKey("RoleId").MapRightKey("UserId"));
             
+        }
+
+        protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
+        {
+            var result = base.ValidateEntity(entityEntry, items);
+            if (result.IsValid)
+            {
+                if (entityEntry.Entity is AuthUser && entityEntry.State == EntityState.Added)
+                {
+                    ValidateUser(entityEntry, ref result);
+                }
+            }
+            return result;
+        }
+
+        private void ValidateUser(DbEntityEntry entityEntry, ref DbEntityValidationResult result)
+        {
+            AuthUser user = entityEntry.Entity as AuthUser;
+            if (Users.Any(p => p.UserName == user.UserName))
+            {
+                result.ValidationErrors.Add(
+                        new DbValidationError("UserName", "UserName must be unique."));
+            }
         }
     }
 }
