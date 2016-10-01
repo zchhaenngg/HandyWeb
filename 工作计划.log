@@ -11,12 +11,9 @@ a.重构UnitOfWork.SaveChanges();  完成
 b.删除Error类，在EntityFramework中DBContext已经有类似功能了。  完成
 c.UnitOfWork为EntityContext的包装类，针对Validation应当有自己的实现。同时屏蔽外面对EntityContext的直接操作。
 
-2.重构记录操作历史
-a.查询EntityFramework是否提供了现成方案
-b.可以将所有Entity的记录操作历史的写入到一个辅助方法，然后由EntityFramework在SaveChanges前统一调用。
+2.重构记录操作历史  完成
 
-3.重构OnBeforeAdd和OnBeforeUpdate
-a.使用类似校验或重构记录操作历史一样
+3.重构OnBeforeAdd和OnBeforeUpdate 完成
 
 4.各个Entity的Repository中提供各种各样的IQueryable结果，由调用层决定使用合适的序列化对象，不再必须统一先查询出Entity了。
 

@@ -25,43 +25,7 @@ namespace HandyWork.DAL.Repository.Abstracts
 
         protected virtual void RecordData(T entity, string operatorId)
         {
-            if (!_isRecordDataChange)
-            {
-                return;
-            }
-            var history = new DataHistory()
-            {
-                Id = Guid.NewGuid().ToString(),
-                CreatedById = operatorId,
-                LastModifiedById = operatorId,
-                CreatedTime = DateTime.Now,
-                LastModifiedTime = DateTime.Now,
-                Category = typeof(T).Name
-                //Keep1 = 统计数据
-            };
-            string[] ignorePropertyNames = OnBeforeRecordHistory(entity, history);
-            
-            var entry = UnitOfWork.EntityContext.Entry(entity);
-            string description = SysColumnsCache.CompareObject(typeof(T).Name, entity, (propName) =>
-            {
-                if (ignorePropertyNames != null)
-                {
-                    if (ignorePropertyNames.Contains(propName))
-                    {
-                        return null;
-                    }
-                }
-                if (entry.State == EntityState.Added)
-                {
-                    return new Tuple<string, string>("", (entry.CurrentValues[propName] ?? "").ToString());
-                }
-                else
-                {
-                    return new Tuple<string, string>((entry.OriginalValues[propName] ?? "").ToString(), (entry.CurrentValues[propName] ?? "").ToString());
-                }
-            });
-            history.Description = description;
-            UnitOfWork.DataHistoryRepository.Add(history, operatorId);
+
         }
 
         /// <summary>
