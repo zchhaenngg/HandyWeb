@@ -16,6 +16,7 @@ namespace HandyWork.DAL.Repository.Abstracts
 
         public BaseRepository(UnitOfWork unitOfWork, DbSet<T> source)
         {
+            UnitOfWork = unitOfWork;
             Source = source;
         }
 

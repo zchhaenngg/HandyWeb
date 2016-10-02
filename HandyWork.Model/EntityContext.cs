@@ -31,12 +31,12 @@ namespace HandyWork.Model
 
             modelBuilder.Entity<AuthPermission>()
                 .HasMany(e => e.Users)
-                .WithMany(e => e.AuthPermissions)
+                .WithMany(e => e.Permissions)
                 .Map(m => m.ToTable("AuthUserPermission").MapLeftKey("PermissionId").MapRightKey("UserId"));
             
             modelBuilder.Entity<AuthRole>()
                 .HasMany(e => e.Users)
-                .WithMany(e => e.AuthRoles)
+                .WithMany(e => e.Roles)
                 .Map(m => m.ToTable("AuthUserRole").MapLeftKey("RoleId").MapRightKey("UserId"));
             
         }

@@ -12,8 +12,8 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AuthUser()
         {
-            AuthPermissions = new HashSet<AuthPermission>();
-            AuthRoles = new HashSet<AuthRole>();
+            Permissions = new HashSet<AuthPermission>();
+            Roles = new HashSet<AuthRole>();
         }
 
         [StringLength(40)]
@@ -58,9 +58,9 @@
         public DateTime? LastModifiedTime { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuthPermission> AuthPermissions { get; set; }
+        public virtual ICollection<AuthPermission> Permissions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuthRole> AuthRoles { get; set; }
+        public virtual ICollection<AuthRole> Roles { get; set; }
     }
 }

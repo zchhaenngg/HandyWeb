@@ -19,6 +19,6 @@ namespace HandyWork.DAL
   FROM dbo.AuthPermission permission
   INNER JOIN dbo.AuthRolePermission rolePermission on permission.Id=rolePermission.PermissionId
   Left OUTER JOIN dbo.AuthUserRole userRole on rolePermission.RoleId=userRole.RoleId
-  where userRole.UserId=@UserId";
+  where userRole.UserId=@p0";
     }
 }

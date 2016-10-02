@@ -10,16 +10,13 @@ using HandyWork.Common.Extensions;
 using HandyWork.Common.EntityFramework.Elements;
 using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.ViewModel.PCWeb.Query;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace HandyWork.DAL.Repository
 {
-    public class UserRepository : BaseRepository<AuthUser>, IUserRepository
+    public partial class UserRepository
     {
-        public UserRepository(UnitOfWork unitOfWork, DbSet<AuthUser> source)
-            :base(unitOfWork, source)
-        {
-        }
-        
         public AuthUser Find(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -28,7 +25,7 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Find(id);
         }
-        
+
         public AuthUser FindByUserName(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
@@ -37,39 +34,41 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.UserName == userName).FirstOrDefault();
         }
-        
-        public List<AuthPermission> GetPermissionsByUserGrant(string userId)
+
+        public ICollection<AuthPermission> GetPermissionsByUserGrant(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
                 return null;
             }
-            AuthUser user = Find(userId);
-            return user.AuthPermissions.ToList();
+            return Source.Find(userId).Permissions;
         }
 
-        public List<AuthPermission> GetPermissionByRoleGrant(string userId)
+        public DbSqlQuery<AuthPermission> GetPermissionByRoleGrant(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
                 return null;
             }
 
-            var roles = UnitOfWork.RoleRepository.Source.Where(o => o.Users.Any(u => u.Id == userId)).Include(r => r.AuthPermissions).ToList();
-            var list = new List<AuthPermission>();
-            roles.ForEach(r => 
-            {
-                list.AddRange(r.AuthPermissions);
-            });
-            return list;
+            return UnitOfWork.PermissionRepository.Source.SqlQuery(SQL.Permission4RoleUser, userId);
         }
 
-        public List<AuthPermission> GetAllPermissions(string userId)
+        public IEnumerable<AuthPermission> GetAllPermissions(string userId)
         {
-            List<AuthPermission> userPermissions = GetPermissionsByUserGrant(userId);
-            List<AuthPermission> rolePermissions = GetPermissionByRoleGrant(userId);
-            userPermissions.AddRange(rolePermissions);
-            return userPermissions;
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return null;
+            }
+            return GetPermissionByRoleGrant(userId).Union(GetPermissionsByUserGrant(userId));
+        }
+    }
+
+    public partial class UserRepository : BaseRepository<AuthUser>, IUserRepository
+    {
+        public UserRepository(UnitOfWork unitOfWork, DbSet<AuthUser> source)
+            :base(unitOfWork, source)
+        {
         }
         
         public override Expression<Func<AuthUser, bool>> GetExpression(BaseQuery baseQuery)
@@ -88,6 +87,5 @@ namespace HandyWork.DAL.Repository
             }
             return expression;
         }
-        
     }
 }

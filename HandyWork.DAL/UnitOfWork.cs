@@ -17,6 +17,7 @@ namespace HandyWork.DAL
 {
     /// <summary>
     /// 添加表之后需要在这里做一些配置
+    /// EntityContext的包装类.历史变更等
     /// </summary>
     public partial class UnitOfWork
     {
@@ -82,8 +83,8 @@ namespace HandyWork.DAL
             }
             else if (EntityState.Deleted == state)
             {
-                RemoveAndClear(entity.AuthPermissions);
-                RemoveAndClear(entity.AuthRoles);
+                RemoveAndClear(entity.Permissions);
+                RemoveAndClear(entity.Roles);
             }
         }
 
@@ -168,22 +169,23 @@ namespace HandyWork.DAL
 
        
     }
-    /// <summary>
-    /// EntityContext的包装类.历史变更等
-    /// </summary>
     public partial class UnitOfWork : IDisposable
     {
-        //private
         private EntityContext _context;
-        //私有该属性
         private EntityContext Context => _context ?? (_context = new EntityContext());
+        
         //所有操作应当都有操作人员，默认已有系统管理员id为-1
-        //待将该参数置入构造函数中
         public string LoginId { get; set; }
         public UnitOfWork(string loginId)
         {
             LoginId = loginId;
         }
+
+        public EntityState GetEntityState<TEntity>(TEntity entity) where TEntity : class
+        {
+            return Context.Entry(entity).State;
+        }
+
         // 1.Add
         public TEntity Add<TEntity>(TEntity entity)
             where TEntity : class
@@ -222,7 +224,7 @@ namespace HandyWork.DAL
                 return _context.GetValidationErrors();
             }
         }
-
+        
         private DataHistory GetHistory<T>(T entity, params string[] ignoreProperties)
              where T : class
         {
