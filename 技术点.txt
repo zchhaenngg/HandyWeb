@@ -8,3 +8,6 @@ https://msdn.microsoft.com/zh-cn/data/jj591621
 ==Update-Database –TargetMigration: AddBlogUrl 
 3.EntityFramework关于Entity的校验
 https://msdn.microsoft.com/en-us/data/gg193959.aspx
+4.MiniProfiler
+http://miniprofiler.com/
+https://github.com/MiniProfiler/dotnet

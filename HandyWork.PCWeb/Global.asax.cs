@@ -1,4 +1,5 @@
-﻿using HandyWork.Common.Exceptions;
+﻿using StackExchange.Profiling;
+using HandyWork.Common.Exceptions;
 using HandyWork.Common.Helper;
 using HandyWork.PCWeb.Controllers;
 using HandyWork.UIBusiness;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using StackExchange.Profiling.EntityFramework6;
 
 namespace HandyWork.PCWeb
 {
@@ -30,12 +32,29 @@ namespace HandyWork.PCWeb
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            MiniProfilerHandler.RegisterRoutes();
+            MiniProfilerEF6.Initialize();
+        }
+
+        protected void Application_BeginRequest()
+        {
+            if (Request.IsLocal)
+            {
+                MiniProfiler.Start();
+            }
+        }
+        protected void Application_EndRequest()
+        {
+            if (Request.IsLocal)
+            {
+                MiniProfiler.Stop();
+            }
         }
 
         void Application_AuthorizeRequest(object sender, EventArgs e)
         {
             HttpApplication app = (HttpApplication)sender;
-
             if (app.Context.User is GenericPrincipal)
             {
                 return;
