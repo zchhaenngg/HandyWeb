@@ -2,21 +2,8 @@
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
 任务一：
-1.重构校验  
-当前校验方式：各个Entity的Repository中提供的校验方法，抛出校验的错误信息。
-重构方案：不使用当前在BaseRepository中Validate的方法，参考下方文档，利用EntityFramework提供几种校验方式
-https://msdn.microsoft.com/en-us/data/gg193959.aspx
-a.重构UnitOfWork.SaveChanges();  完成
-返回int 表示成功，否则抛出异常。
-b.删除Error类，在EntityFramework中DBContext已经有类似功能了。  完成
-c.UnitOfWork为EntityContext的包装类，针对Validation应当有自己的实现。同时屏蔽外面对EntityContext的直接操作。 完成
-最基本的增删改由UnitOfWork完成，Repository中不再操作EntityContext 完成
-2.重构记录操作历史  完成
-
-3.重构OnBeforeAdd和OnBeforeUpdate 完成
 
 4.各个Entity的Repository中提供各种各样的IQueryable结果，由调用层决定使用合适的序列化对象，不再必须统一先查询出Entity了。
-
 5.在DAL层上UIBusiness中增加Service层。
 a.UIBusiness可以调用Service层也可以直接调用DAL层;Service层可以调用DAL层。
 由Web层输出，UIBusiness接收输入参数，DAL层或Service层执行。
