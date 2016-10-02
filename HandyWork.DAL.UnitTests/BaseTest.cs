@@ -22,26 +22,5 @@ namespace HandyWork.DAL.UnitTests
             MiniProfiler.Settings.ProfilerProvider = new SingletonProfilerProvider();
             MiniProfilerEF6.Initialize();
         }
-        
-        /// <summary>
-        /// produce a profiling report.
-        /// </summary>
-        public static CustomTimingsJson ReportSqls()
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<CustomTimingsJson>(MiniProfiler.Current.Root.CustomTimingsJson);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            
-        }
-        public static string ReportPlainText()
-        {
-            return MiniProfiler.Current.RenderPlainText();
-        }
-        
     }
 }

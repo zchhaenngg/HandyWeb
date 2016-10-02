@@ -11,3 +11,5 @@ https://msdn.microsoft.com/en-us/data/gg193959.aspx
 4.MiniProfiler
 http://miniprofiler.com/
 https://github.com/MiniProfiler/dotnet
+Web.config，system.webServer内节点modules的runAllManagedModulesForAllRequests必须设置为true
+单元测试中查看执行的sql信息 a.必须 调试运行b.选择 视图-输出，在弹出的窗口中选择输出来源：调试。
