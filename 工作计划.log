@@ -5,6 +5,7 @@ Q2：
 
 1.研究MiniProfile
 MiniProfile for MVC 完成
+MiniProfile for UnitTest 完成
 
 4.各个Entity的Repository中提供各种各样的IQueryable结果，由调用层决定使用合适的序列化对象，不再必须统一先查询出Entity了。
 GetAll 这种查询毫无意义，删除之。可以通过Source.ToList()
