@@ -2,11 +2,24 @@
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
 任务一：
+1.不再由Repository提供的方法
+   a.XXRepository.FindAllByQuery
+       通过TEntity获取相应的Repository，进而通过query获取Where表达式
+       ->UnitOfWork.AsNoTracking<TEntity>().FindAllByQuery<TEntity>(Query query);
+	   ->UnitOfWork.Tracking<TEntity>().FindAllByQuery<TEntity>(Query query);
+   b.UnitOfWork.XXRepository.Source
+       ->UnitOfWork.AsNoTracking<TEntity>()
+	   ->UnitOfWork.Tracking<TEntity>()
+   c.XXRepository.GetPage
+	   ->UnitOfWork.AsNoTracking<TEntity>().GetPage
+	   ->UnitOfWork.Tracking<TEntity>().GetPage
 
-4.各个Entity的Repository中提供各种各样的IQueryable结果，由调用层决定使用合适的序列化对象，不再必须统一先查询出Entity了。
-GetAll 这种查询毫无意义，删除之。可以通过Repository.Source
+2.主页模仿桌面
+http://ligerui.com/demos/dialog/win7.htm
 
-5.在DAL层上UIBusiness中增加Service层。
+3.用户列表页
+
+5.在DAL层上UIBusiness中增加Service层。---考虑中---
 a.UIBusiness可以调用Service层也可以直接调用DAL层;Service层可以调用DAL层。
 由Web层输出，UIBusiness接收输入参数，DAL层或Service层执行。
 由Win服务输出、Service层执行
@@ -28,9 +41,6 @@ e.显示在界面上的所有时间必须是LogicTime
 https://localhost/zh-cn/Home/Index
 
 6.界面库 Easyui结合LigerUI使用
-
-7.主页模仿桌面
-http://ligerui.com/demos/dialog/win7.htm
 
 8.Word导出。
 D:\MyGitHub\HandyWeb\HandyWork.Common\ExternLibs\OpenXml\WordUtility.cs
