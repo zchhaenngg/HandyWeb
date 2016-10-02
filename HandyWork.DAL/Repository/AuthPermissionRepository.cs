@@ -29,11 +29,6 @@ namespace HandyWork.DAL.Repository
             return Source.Find(id);
         }
         
-        public List<AuthPermission> GetAll()
-        {
-            return Source.ToList();
-        }
-
         public AuthPermission FindByCode(string code)
         {
             if (string.IsNullOrWhiteSpace(code))

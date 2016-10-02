@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace HandyWork.DAL.Repository.Interfaces
@@ -10,7 +11,7 @@ namespace HandyWork.DAL.Repository.Interfaces
         where T : class
     {
         DbSet<T> Source { get; }
-        List<T> FindAllByQuery(BaseQuery query);
+        IQueryable<T> FindAllByQuery(BaseQuery query);
         Tuple<List<T>, int> GetPage(BaseQuery query);
         Expression<Func<T, bool>> GetExpression(BaseQuery baseQuery);
     }

@@ -21,6 +21,8 @@ namespace HandyWork.DAL.UnitTests
         {
             MiniProfiler.Settings.ProfilerProvider = new SingletonProfilerProvider();
             MiniProfilerEF6.Initialize();
+            //避免第一次运行ReportOutput会输出执行Migration的查询
+            UnitOfWork.SaveChanges();
         }
     }
 }

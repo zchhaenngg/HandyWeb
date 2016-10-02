@@ -315,7 +315,7 @@ namespace HandyWork.UIBusiness.Manager
         }
         public List<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike)
         {
-            var allPermissions = UnitOfWork.PermissionRepository.GetAll();
+            var allPermissions = UnitOfWork.PermissionRepository.Source.ToList();
             var userPermissions = UnitOfWork.UserRepository.Find(userId).Permissions.ToList();
             var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? allPermissions.Where(o => !userPermissions.Contains(o)) :
                allPermissions.Where(o => !userPermissions.Contains(o) && o.Name.Contains(permissionNameLike));
@@ -358,9 +358,8 @@ namespace HandyWork.UIBusiness.Manager
         }
         public List<RoleViewModel> GetRoleViewModels4AddByUserId(string userId)
         {
-            var allRoles = UnitOfWork.RoleRepository.GetAll();
             var userRoles = UnitOfWork.UserRepository.Find(userId).Roles.ToList();
-            List<RoleViewModel> list = allRoles.Where(o => !userRoles.Contains(o)).Select(o => new RoleViewModel
+            var list = UnitOfWork.RoleRepository.Source.Where(o => !userRoles.Contains(o)).Select(o => new RoleViewModel
             {
                 Id = o.Id,
                 Name = o.Name,
@@ -370,7 +369,7 @@ namespace HandyWork.UIBusiness.Manager
         }
         public void AddUserRole(string userId, string roleId)
         {
-            AuthUser user = UnitOfWork.UserRepository.Find(userId);
+            var user = UnitOfWork.UserRepository.Find(userId);
             var role = UnitOfWork.RoleRepository.Find(roleId);
             user.Roles.Add(role);
             UnitOfWork.SaveChanges();
@@ -457,7 +456,7 @@ namespace HandyWork.UIBusiness.Manager
         }
         public List<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike)
         {
-            var allPermissions = UnitOfWork.PermissionRepository.GetAll();
+            var allPermissions = UnitOfWork.PermissionRepository.Source.ToList();
             var rolePermissions = UnitOfWork.RoleRepository.Find(roleId).AuthPermissions.ToList();
             var whereResult = string.IsNullOrWhiteSpace(permissionNameLike) ? allPermissions.Where(o => !rolePermissions.Contains(o)) :
                 allPermissions.Where(o => !rolePermissions.Contains(o) && o.Name.Contains(permissionNameLike));

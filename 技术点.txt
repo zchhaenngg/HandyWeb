@@ -8,6 +8,7 @@ https://msdn.microsoft.com/zh-cn/data/jj591621
 ==Update-Database –TargetMigration: AddBlogUrl 
 3.EntityFramework关于Entity的校验
 https://msdn.microsoft.com/en-us/data/gg193959.aspx
+通过导航属性做出的条件查询，不管后方的Select，都会获取查询结果集然后再执行Select方法
 4.MiniProfiler
 http://miniprofiler.com/
 https://github.com/MiniProfiler/dotnet

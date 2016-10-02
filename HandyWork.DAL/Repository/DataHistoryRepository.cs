@@ -48,7 +48,7 @@ namespace HandyWork.DAL.Repository
             return new Tuple<List<DataHistory>, int>(list, count);
         }
         
-        public List<DataHistory> FindAllByQuery(BaseQuery query)
+        public IQueryable<DataHistory> FindAllByQuery(BaseQuery query)
         {
             throw new NotImplementedException();
         }

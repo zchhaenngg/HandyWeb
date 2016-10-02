@@ -34,7 +34,7 @@ namespace HandyWork.DAL.UnitTests
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         private string ReportPlainText()

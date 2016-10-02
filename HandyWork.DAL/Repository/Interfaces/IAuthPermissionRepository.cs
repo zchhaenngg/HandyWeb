@@ -12,6 +12,5 @@ namespace HandyWork.DAL.Repository.Interfaces
         AuthPermission Find(string id);
         AuthPermission FindByCode(string code);
         AuthPermission FindByName(string name);
-        List<AuthPermission> GetAll();
     }
 }

@@ -11,6 +11,5 @@ namespace HandyWork.DAL.Repository.Interfaces
     {
         AuthRole Find(string id);
         AuthRole FindByName(string name);
-        List<AuthRole> GetAll();
     }
 }

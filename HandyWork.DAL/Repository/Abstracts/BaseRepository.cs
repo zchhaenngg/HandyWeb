@@ -38,11 +38,11 @@ namespace HandyWork.DAL.Repository.Abstracts
             return new Tuple<List<T>, int>(list, count);
         }
         
-        public virtual List<T> FindAllByQuery(BaseQuery query)
+        public virtual IQueryable<T> FindAllByQuery(BaseQuery query)
         {
             var expression = GetExpression(query);
             var queryable = expression == null ? Source : Source.Where(expression);
-            return queryable.ToList();
+            return queryable;
         }
         
     }

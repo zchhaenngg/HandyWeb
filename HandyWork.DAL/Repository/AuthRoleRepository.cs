@@ -37,11 +37,6 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.Name == name).FirstOrDefault();
         }
-
-        public List<AuthRole> GetAll()
-        {
-            return Source.ToList();
-        }
         
         public override Expression<Func<AuthRole, bool>> GetExpression(BaseQuery baseQuery)
         {
