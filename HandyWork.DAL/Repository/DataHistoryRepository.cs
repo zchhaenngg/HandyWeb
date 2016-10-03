@@ -10,15 +10,15 @@ using System.Linq.Expressions;
 
 namespace HandyWork.DAL.Repository
 {
-    public sealed class DataHistoryRepository : IDataHistoryRepository
+    public sealed class DataHistoryRepository: IDataHistoryRepository
     {
         private UnitOfWork _unitOfWork;
         public DbSet<DataHistory> Source { get; set; }
 
-        public DataHistoryRepository(UnitOfWork unitOfWork, DbSet<DataHistory> source)
+        public DataHistoryRepository(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            Source = source;
+            Source = unitOfWork.AsTracking<DataHistory>();
         }
         
         public DataHistory Find(string id)
@@ -28,29 +28,6 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             return Source.Find(id);
-        }
-        
-        public Expression<Func<DataHistory, bool>> GetExpression(BaseQuery baseQuery)
-        {
-            return null;
-        }
-
-        public Tuple<List<DataHistory>, int> GetPage(BaseQuery query)
-        {
-            Expression<Func<DataHistory, bool>> where = GetExpression(query);
-            IQueryable<DataHistory> queryable = where == null ? Source : Source.Where(where);
-            int count = queryable.Count();
-            if (!string.IsNullOrWhiteSpace(query.SortColumn))
-            {
-                queryable = queryable.OrderBy(query.SortColumn, query.IsAsc);
-            }
-            List<DataHistory> list = queryable.GetPage(query.PageIndex, query.PageSize).ToList();
-            return new Tuple<List<DataHistory>, int>(list, count);
-        }
-        
-        public IQueryable<DataHistory> FindAllByQuery(BaseQuery query)
-        {
-            throw new NotImplementedException();
         }
     }
 }

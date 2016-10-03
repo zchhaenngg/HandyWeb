@@ -15,8 +15,8 @@ namespace HandyWork.DAL.Repository
 {
     public class AuthRoleRepository : BaseRepository<AuthRole>, IAuthRoleRepository
     {
-        public AuthRoleRepository(UnitOfWork unitOfWork, DbSet<AuthRole> source)
-            : base(unitOfWork, source)
+        public AuthRoleRepository(UnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
 
@@ -36,19 +36,6 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             return Source.Where(o => o.Name == name).FirstOrDefault();
-        }
-        
-        public override Expression<Func<AuthRole, bool>> GetExpression(BaseQuery baseQuery)
-        {
-            Expression<Func<AuthRole, bool>> expression = null;
-            AuthRoleQuery query = baseQuery as AuthRoleQuery;
-            if (query != null)
-            {
-                expression = expression
-                    .And(IsNotEmpty.For(query.NameLike), LikeLambda<AuthRole>.For(o => o.Name, query.NameLike));
-
-            }
-            return expression;
         }
     }
 }

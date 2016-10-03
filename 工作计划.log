@@ -1,21 +1,18 @@
 ﻿Q1:DAL层中各个Repository应当返回如IQueryable等接口，由Business层决定具体实现？
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
-任务一：
-1.不再由Repository提供的方法
-   a.XXRepository.FindAllByQuery
-       通过TEntity获取相应的Repository，进而通过query获取Where表达式
-       ->UnitOfWork.AsNoTracking<TEntity>().FindAllByQuery<TEntity>(Query query);
-	   ->UnitOfWork.Tracking<TEntity>().FindAllByQuery<TEntity>(Query query);
-   b.UnitOfWork.XXRepository.Source  完成
-       ->UnitOfWork.AsNoTracking<TEntity>()  
-	   ->UnitOfWork.Tracking<TEntity>()
-   c.XXRepository.GetPage
-	   ->UnitOfWork.AsNoTracking<TEntity>().GetPage
-	   ->UnitOfWork.Tracking<TEntity>().GetPage
-   
+
+
 2.主页模仿桌面
 http://ligerui.com/demos/dialog/win7.htm
+
+2.暂缓 
+  .And(IsNotEmpty.For(query.UserNameLike), LikeLambda<AuthUser>.For(o => o.UserName, query.UserNameLike))
+      ->AndIf(bool condition, params[] BaseLambda lambda);
+	  ->AndIf(bool condition, Expression expression);
+
+	  ->AndIfThen(bool condition, BaseLambda ifLambda, BaseLambda thenLambda);
+	  ->AndIfThen(bool condition, Expression ifExpression, Expression thenExpression);
 
 3.用户列表页
 

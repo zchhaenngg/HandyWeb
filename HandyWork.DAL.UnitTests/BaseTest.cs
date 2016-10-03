@@ -17,10 +17,13 @@ namespace HandyWork.DAL.UnitTests
         private UnitOfWork _unitOfWork;
         protected UnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = new UnitOfWork("-1"));
 
-        public BaseTest()
+        static BaseTest()
         {
             MiniProfiler.Settings.ProfilerProvider = new SingletonProfilerProvider();
             MiniProfilerEF6.Initialize();
+        }
+        public BaseTest()
+        {
             //避免第一次运行ReportOutput会输出执行Migration的查询
             UnitOfWork.SaveChanges();
         }

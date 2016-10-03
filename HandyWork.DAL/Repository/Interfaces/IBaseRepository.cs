@@ -11,8 +11,5 @@ namespace HandyWork.DAL.Repository.Interfaces
         where T : class
     {
         DbSet<T> Source { get; }
-        IQueryable<T> FindAllByQuery(BaseQuery query);
-        Tuple<List<T>, int> GetPage(BaseQuery query);
-        Expression<Func<T, bool>> GetExpression(BaseQuery baseQuery);
     }
 }

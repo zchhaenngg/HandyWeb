@@ -278,8 +278,10 @@ namespace HandyWork.UIBusiness.Manager
         }
         internal Tuple<List<AuthUser>, int> GetPage4User()
         {
+            int iTotal;
             var query = GetUserQuery();
-            return UnitOfWork.UserRepository.GetPage(query);
+            var list = UnitOfWork.AsNoTracking<AuthUser>().GetPage(query, out iTotal).ToList();
+            return new Tuple<List<AuthUser>, int>(list, iTotal);
 
         }
         public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
@@ -394,8 +396,10 @@ namespace HandyWork.UIBusiness.Manager
         }
         internal Tuple<List<AuthPermission>, int> GetPage4AuthPermission()
         {
+            int iTotal;
             var query = GetAuthPermissionQuery();
-            return UnitOfWork.PermissionRepository.GetPage(query);
+            var list = UnitOfWork.AsNoTracking<AuthPermission>().GetPage(query, out iTotal).ToList();
+            return new Tuple<List<AuthPermission>, int>(list, iTotal);
         }
 
         public Tuple<List<PermissionViewModel>, int> GetPage4PermissionViewModel()
@@ -424,8 +428,10 @@ namespace HandyWork.UIBusiness.Manager
 
         internal Tuple<List<AuthRole>, int> GetPage4AuthRole()
         {
+            int iTotal;
             var query = GetAuthRoleQuery();
-            return UnitOfWork.RoleRepository.GetPage(query);
+            var list = UnitOfWork.AsNoTracking<AuthRole>().GetPage(query, out iTotal).ToList();
+            return new Tuple<List<AuthRole>, int>(list, iTotal);
         }
         public Tuple<List<RoleViewModel>, int> GetPage4RoleViewModel()
         {

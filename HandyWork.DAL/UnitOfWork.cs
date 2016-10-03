@@ -1,9 +1,11 @@
 ﻿using HandyWork.Common.Authority;
 using HandyWork.Common.Utility;
 using HandyWork.DAL.Cache;
+using HandyWork.DAL.Queryable;
 using HandyWork.DAL.Repository;
 using HandyWork.DAL.Repository.Interfaces;
 using HandyWork.Model;
+using HandyWork.ViewModel.PCWeb.Query;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,6 +14,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HandyWork.Common.Extensions;
 
 namespace HandyWork.DAL
 {
@@ -36,19 +39,19 @@ namespace HandyWork.DAL
         {
             if (typeof(TEntity).Equals(typeof(AuthUser)))
             {
-                return _userRepository ?? (_userRepository = new UserRepository(this, Context.Users));
+                return _userRepository ?? (_userRepository = new UserRepository(this));
             }
             else if (typeof(TEntity).Equals(typeof(AuthPermission)))
             {
-                return _authPermissionRepository ?? (_authPermissionRepository = new AuthPermissionRepository(this, Context.Permissions));
+                return _authPermissionRepository ?? (_authPermissionRepository = new AuthPermissionRepository(this));
             }
             else if (typeof(TEntity).Equals(typeof(AuthRole)))
             {
-                return _authRoleRepository ?? (_authRoleRepository = new AuthRoleRepository(this, Context.Roles));
+                return _authRoleRepository ?? (_authRoleRepository = new AuthRoleRepository(this));
             }
             else if (typeof(TEntity).Equals(typeof(DataHistory)))
             {
-                return _dataHistoryRepository ?? (_dataHistoryRepository = new DataHistoryRepository(this, Context.Histories));
+                return _dataHistoryRepository ?? (_dataHistoryRepository = new DataHistoryRepository(this));
             }
             else
             {
@@ -166,12 +169,11 @@ namespace HandyWork.DAL
             }
             return Context.SaveChanges();
         }
-
-       
+        
     }
     public partial class UnitOfWork
     {
-        public DbSet<TEntity> Tracking<TEntity>() where TEntity : class
+        public DbSet<TEntity> AsTracking<TEntity>() where TEntity : class
         {
             return Context.Set<TEntity>();
         }
@@ -272,6 +274,26 @@ namespace HandyWork.DAL
             {
                 this._context.Dispose();
             }
+        }
+    }
+
+    public static class UnitOfWorkExtension
+    {
+        public static IQueryable<TEntity> FindByQuery<TEntity, TQuery>(this IQueryable<TEntity> queryable, TQuery query)
+        {
+            var where = Mapping.GetExpression<TEntity, TQuery>(query);
+            return queryable.Where(where);
+        }
+        public static IQueryable<T> GetPage<T,TQuery>(this IQueryable<T> queryable, TQuery query) where TQuery : BaseQuery
+        {
+            var source = queryable.FindByQuery(query).OrderBy(query.SortColumn, query.IsAsc);
+            return source.GetPage(query.PageIndex, query.PageSize);
+        }
+        public static IQueryable<T> GetPage<T, TQuery>(this IQueryable<T> queryable, TQuery query, out int iTotal) where TQuery : BaseQuery
+        {
+            var source = queryable.FindByQuery(query);
+            iTotal = source.Count();
+            return source.OrderBy(query.SortColumn, query.IsAsc).GetPage(query.PageIndex, query.PageSize);
         }
     }
 }

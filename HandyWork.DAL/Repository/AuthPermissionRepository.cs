@@ -15,8 +15,8 @@ namespace HandyWork.DAL.Repository
 {
     public class AuthPermissionRepository : BaseRepository<AuthPermission>, IAuthPermissionRepository
     {
-        public AuthPermissionRepository(UnitOfWork unitOfWork, DbSet<AuthPermission> source)
-           : base(unitOfWork, source)
+        public AuthPermissionRepository(UnitOfWork unitOfWork)
+           : base(unitOfWork)
         {
         }
         
@@ -45,20 +45,5 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.Name == name).FirstOrDefault();
         }
-
-        public override Expression<Func<AuthPermission, bool>> GetExpression(BaseQuery baseQuery)
-        {
-            Expression<Func<AuthPermission, bool>> expression = null;
-            var query = baseQuery as AuthPermissionQuery;
-            if (query != null)
-            {
-                expression = expression
-                    .And(IsNotEmpty.For(query.NameLike), LikeLambda<AuthPermission>.For(o => o.Name, query.NameLike))
-                    .And(IsNotEmpty.For(query.CodeLike), EqualLambda<AuthPermission, string>.For(o => o.Code, query.CodeLike));
-
-            }
-            return expression;
-        }
-        
     }
 }

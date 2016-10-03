@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
     <Compile Include="CustomTimingsJson.cs" />
+    <Compile Include="Queryable\MappingTest.cs" />
     <Compile Include="ReportOuput.cs" />
     <Compile Include="UnitOfWorkTest.cs" />
     <Compile Include="UserRepositoryTest.cs" />

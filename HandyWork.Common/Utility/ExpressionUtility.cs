@@ -12,6 +12,17 @@ namespace HandyWork.Common.Utility
 {
     public static class ExpressionUtility
     {
+        public static Expression<Func<T, bool>> True<T>()
+        {
+            Expression<Func<T, bool>> expression = o => true;
+            return expression;
+        }
+        public static Expression<Func<T, bool>> False<T>()
+        {
+            Expression<Func<T, bool>> expression = o => false;
+            return expression;
+        }
+
         /// <summary>
         /// lambdas之前使用And相连
         /// </summary>

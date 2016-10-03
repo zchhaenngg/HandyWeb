@@ -32,7 +32,7 @@ namespace HandyWork.Common.Extensions
             return ParameterExpression;
         }
     }
-    public static class ExpressionExtension
+    public static partial class ExpressionExtension
     {
         /// <summary>
         /// left为null,直接返回right
