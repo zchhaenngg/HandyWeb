@@ -9,7 +9,7 @@ namespace HandyWork.Common.Extensions
 {
     public static class IQueryableExtension
     {
-        public static IQueryable<T> GetPage<T>(this IQueryable<T> query, int pageIndex, int pageSize)
+        public static IQueryable<T> GetPage<T>(this IQueryable<T> queryable, int pageIndex, int pageSize)
         {
             if (pageIndex < 0)
             {
@@ -19,14 +19,14 @@ namespace HandyWork.Common.Extensions
             {
                 pageSize = 0;
             }
-            return query.Skip(pageIndex * pageSize).Take(pageSize);
+            return queryable.Skip(pageIndex * pageSize).Take(pageSize);
         }
 
-        public static IQueryable<T> OrderBy<T>(this IQueryable<T> query, string sortColumn, bool isAsc = false)
+        public static IQueryable<T> OrderBy<T>(this IQueryable<T> queryable, string sortColumn, bool isAsc = false)
         {
             string methodName = string.Format("OrderBy{0}", isAsc ? "" : "descending");
             //•Then, we construct the lambda-expression as p => p.Name 
-            ParameterExpression parameter = Expression.Parameter(query.ElementType, "p");
+            ParameterExpression parameter = Expression.Parameter(queryable.ElementType, "p");
             //•So we get a member of the class, which will be sorted. 
             //This code takes into account that a class can be a nested class. 
             //In this case, it's expected that they will be separated by a dot:
@@ -40,11 +40,11 @@ namespace HandyWork.Common.Extensions
             MethodCallExpression result = Expression.Call(
                                   typeof(Queryable),
                                   methodName,
-                                  new[] { query.ElementType, memberAccess.Type },
-                                  query.Expression,
+                                  new[] { queryable.ElementType, memberAccess.Type },
+                                  queryable.Expression,
                                   Expression.Quote(orderByLambda));
             //•Return IQuerable<T>:
-            return query.Provider.CreateQuery<T>(result);
+            return queryable.Provider.CreateQuery<T>(result);
         }
     }
 }

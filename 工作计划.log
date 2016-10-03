@@ -7,13 +7,13 @@ Q2：
        通过TEntity获取相应的Repository，进而通过query获取Where表达式
        ->UnitOfWork.AsNoTracking<TEntity>().FindAllByQuery<TEntity>(Query query);
 	   ->UnitOfWork.Tracking<TEntity>().FindAllByQuery<TEntity>(Query query);
-   b.UnitOfWork.XXRepository.Source
-       ->UnitOfWork.AsNoTracking<TEntity>()
+   b.UnitOfWork.XXRepository.Source  完成
+       ->UnitOfWork.AsNoTracking<TEntity>()  
 	   ->UnitOfWork.Tracking<TEntity>()
    c.XXRepository.GetPage
 	   ->UnitOfWork.AsNoTracking<TEntity>().GetPage
 	   ->UnitOfWork.Tracking<TEntity>().GetPage
-
+   
 2.主页模仿桌面
 http://ligerui.com/demos/dialog/win7.htm
 

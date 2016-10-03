@@ -169,50 +169,54 @@ namespace HandyWork.DAL
 
        
     }
+    public partial class UnitOfWork
+    {
+        public DbSet<TEntity> Tracking<TEntity>() where TEntity : class
+        {
+            return Context.Set<TEntity>();
+        }
+        public DbQuery<TEntity> AsNoTracking<TEntity>() where TEntity : class
+        {
+            return Context.Set<TEntity>().AsNoTracking();
+        }
+    }
     public partial class UnitOfWork : IDisposable
     {
-        private EntityContext _context;
-        private EntityContext Context => _context ?? (_context = new EntityContext());
-        
-        //所有操作应当都有操作人员，默认已有系统管理员id为-1
-        public string LoginId { get; set; }
         public UnitOfWork(string loginId)
         {
             LoginId = loginId;
         }
-
+        private EntityContext _context;
+        private EntityContext Context => _context ?? (_context = new EntityContext());
+        public string LoginId { get; }
+        
         public EntityState GetEntityState<TEntity>(TEntity entity) where TEntity : class
         {
             return Context.Entry(entity).State;
         }
 
-        // 1.Add
-        public TEntity Add<TEntity>(TEntity entity)
-            where TEntity : class
+        public TEntity Add<TEntity>(TEntity entity) where TEntity : class
         {
             return Context.Set<TEntity>().Add(entity);
-
         }
-        public IEnumerable<TEntity> AddRange<TEntity>(IEnumerable<TEntity> entities)
-            where TEntity : class
+        public IEnumerable<TEntity> AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
             return Context.Set<TEntity>().AddRange(entities);
         }
         
-        //2.RemoveAndClear
-        public void RemoveAndClear<TEntity>(ICollection<TEntity> entities)
-            where TEntity : class
+        public void RemoveAndClear<TEntity>(ICollection<TEntity> entities) where TEntity : class
         {
             Context.Set<TEntity>().RemoveRange(entities);
             entities.Clear();
         }
-        public TEntity Remove<TEntity>(TEntity entity)
-            where TEntity : class
+        public TEntity Remove<TEntity>(TEntity entity) where TEntity : class
         {
             return Context.Set<TEntity>().Remove(entity);
         }
-        
-        //3.Validation。call this method for each entity in its cache whose state is not Unchanged
+
+        /// <summary>
+        /// call this method for each entity in its cache whose state is not Unchanged
+        /// </summary>
         public IEnumerable<DbEntityValidationResult> ValidateEntities()
         {
             if (_context == null)
@@ -225,8 +229,7 @@ namespace HandyWork.DAL
             }
         }
         
-        private DataHistory GetHistory<T>(T entity, params string[] ignoreProperties)
-             where T : class
+        private DataHistory GetHistory<T>(T entity, params string[] ignoreProperties) where T : class
         {
             var entry = Context.Entry(entity);
             var history = new DataHistory();

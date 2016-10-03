@@ -17,9 +17,7 @@ namespace HandyWork.DAL.Cache
         {
             using (EntityContext context = new EntityContext())
             {
-                SqlRepository sqlRepository = new SqlRepository(context);
-                List<SysColumns> sysColumns = sqlRepository.GetList<SysColumns>(SQL.ColumnDescription);
-                _sysColumns = sysColumns.Select(o => new SysColumns()
+                _sysColumns = context.Database.SqlQuery<SysColumns>(SQL.ColumnDescription).Select(o => new SysColumns()
                 {
                     TableName = o.TableName,
                     ColumnName = o.ColumnName,

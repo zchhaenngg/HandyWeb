@@ -75,7 +75,6 @@
     <Compile Include="Repository\AuthRoleRepository.cs" />
     <Compile Include="Repository\Abstracts\BaseRepository.cs" />
     <Compile Include="Repository\DataHistoryRepository.cs" />
-    <Compile Include="SqlRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
