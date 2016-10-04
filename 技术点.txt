@@ -14,5 +14,6 @@ http://miniprofiler.com/
 https://github.com/MiniProfiler/dotnet
 Web.config，system.webServer内节点modules的runAllManagedModulesForAllRequests必须设置为true
 单元测试中查看执行的sql信息 a.必须 调试运行b.选择 视图-输出，在弹出的窗口中选择输出来源：调试。
-5.MVC
-授权
+5.MVC5
+owin认证授权
+ 参考http://www.cnblogs.com/jesse2013/p/aspnet-identity-claims-based-authentication-and-owin.html

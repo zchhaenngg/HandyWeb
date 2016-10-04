@@ -21,7 +21,7 @@ namespace HandyWork.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("EntityContext", throwIfV1Schema: false)
         {
         }
 

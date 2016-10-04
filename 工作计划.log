@@ -3,13 +3,12 @@ A:好处如下拉框需要只需要显示name，则不需要返回所有数据�
 Q2：
 
 1.新建Web应用
-UI库不再使用Easyui
+注意：UI库不再使用Easyui
+a.MemberShip研究
 
-2.主页模仿桌面
+2.主页模仿桌面  完成
 http://ligerui.com/demos/dialog/win7.htm
 
-3.Global.asax
-应使用MVC5
 
 2.暂缓 
   .And(IsNotEmpty.For(query.UserNameLike), LikeLambda<AuthUser>.For(o => o.UserName, query.UserNameLike))
