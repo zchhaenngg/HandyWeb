@@ -12,7 +12,7 @@ namespace HandyWork.UIBusiness.Enums
         //     Sign in was successful
         Success = 1,
         /// <summary>
-        /// 账号被锁定*一天内尝试3次登录都失败了
+        /// 账号被锁定*一天内尝试n次登录都失败了
         /// </summary>
         LockedOut = 2,
         /// <summary>
@@ -26,6 +26,10 @@ namespace HandyWork.UIBusiness.Enums
         /// <summary>
         /// 账号已禁用
         /// </summary>
-        Invalid = 5
+        Invalid = 5,
+        /// <summary>
+        ///密码过期
+        /// </summary>
+        SuccessRehashNeeded = 6
     }
 }

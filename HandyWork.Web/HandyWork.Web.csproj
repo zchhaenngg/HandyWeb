@@ -184,7 +184,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,6 +256,24 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
+      <Project>{50655857-124c-4647-a652-10a5e88e0963}</Project>
+      <Name>HandyWork.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.Localization\HandyWork.Localization.csproj">
+      <Project>{035c1853-1818-4e92-8257-dd18931dec22}</Project>
+      <Name>HandyWork.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
+      <Project>{91ACADA0-B3C5-4FC3-82EB-96DE7754B730}</Project>
+      <Name>HandyWork.UIBusiness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
+      <Project>{0b711b17-8bf5-4ac4-9f19-ec21952940c5}</Project>
+      <Name>HandyWork.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

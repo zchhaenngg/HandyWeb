@@ -4,7 +4,13 @@ Q2：
 
 1.新建Web应用
 注意：UI库不再使用Easyui
-a.MemberShip研究
+注册
+登陆
+写入Cookie
+登出
+使用QQ登陆
+权限管理
+角色管理
 
 2.主页模仿桌面  完成
 http://ligerui.com/demos/dialog/win7.htm

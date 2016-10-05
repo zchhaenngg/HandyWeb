@@ -20,7 +20,7 @@ namespace HandyWork.DAL.UnitTests
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserName = "test".PadLeft(51, '1'),
-                    Password = "123456",
+                    //Password = "123456",
                     RealName = "测试1号"
                 };
                 UnitOfWork.Add(entity);
@@ -45,7 +45,7 @@ namespace HandyWork.DAL.UnitTests
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserName = "cheng.zhang",
-                    Password = "123456",
+                    //Password = "123456",
                     RealName = "测试1号"
                 };
                 UnitOfWork.Add(entity);

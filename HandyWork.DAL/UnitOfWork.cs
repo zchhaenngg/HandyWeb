@@ -64,7 +64,7 @@ namespace HandyWork.DAL
         /// </summary>
         private void SaveChangeSet(AuthUser entity)
         {
-            var history = GetHistory(entity, nameof(entity.Id), nameof(entity.Password));
+            var history = GetHistory(entity, nameof(entity.Id), nameof(entity.PasswordHash), nameof(entity.SecurityStamp));
             history.ForeignId = entity.Id;
             Context.Histories.Add(history);
         }

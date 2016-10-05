@@ -24,14 +24,14 @@ namespace HandyWork.Commom.UnitTests.EntityFramework
 
             new ContainLambda<AuthUser, string>(o => o.UserName, new int?[] { 1, null, 2 }).Build();
 
-            var expression = new ContainLambda<AuthUser, int>(o => o.LoginFailedCount, new int?[] { 1, null, 2 }).Build();
+            var expression = new ContainLambda<AuthUser, int>(o => o.AccessFailedCount, new int?[] { 1, null, 2 }).Build();
         }
 
         [TestMethod]
         public void Lambda_Equal()
         {
             new EqualLambda<AuthUser, string>(o => o.UserName, "cheng.zhang").Build();
-            new EqualLambda<AuthUser, DateTime?>(o => o.LastLoginFailedTime, DateTime.Now).Build();
+            new EqualLambda<AuthUser, DateTime?>(o => o.LockoutEndDateUtc, DateTime.Now).Build();
         }
 
         [TestMethod]
@@ -39,28 +39,28 @@ namespace HandyWork.Commom.UnitTests.EntityFramework
         {
             Expression<Func<AuthUser,bool>> expression = o => o.CreatedTime> DateTime.Now;
 
-            new GreaterThanLambda<AuthUser, int>(o => o.LoginFailedCount, 1).Build();
+            new GreaterThanLambda<AuthUser, int>(o => o.AccessFailedCount, 1).Build();
             new GreaterThanLambda<AuthUser, DateTime?>(o => o.CreatedTime, DateTime.Now).Build();
         }
 
         [TestMethod]
         public void Lambda_GreaterThanOrEqual()
         {
-            var equalLambda = new GreaterThanOrEqualLambda<AuthUser, int>(o => o.LoginFailedCount, 1);
+            var equalLambda = new GreaterThanOrEqualLambda<AuthUser, int>(o => o.AccessFailedCount, 1);
             var expression = equalLambda.Build();
         }
 
         [TestMethod]
         public void Lambda_LessThan()
         {
-            var equalLambda = new LessThanLambda<AuthUser, int>(o => o.LoginFailedCount, 1);
+            var equalLambda = new LessThanLambda<AuthUser, int>(o => o.AccessFailedCount, 1);
             var expression = equalLambda.Build();
         }
 
         [TestMethod]
         public void LambdaLessThanOrEqual()
         {
-            var equalLambda = new LessThanOrEqualLambda<AuthUser, int>(o => o.LoginFailedCount, 1);
+            var equalLambda = new LessThanOrEqualLambda<AuthUser, int>(o => o.AccessFailedCount, 1);
             var expression = equalLambda.Build();
         }
 
@@ -77,7 +77,7 @@ namespace HandyWork.Commom.UnitTests.EntityFramework
             var lambda = new NotEqualLambda<AuthUser, string>(o => o.UserName, "cheng.zhang");
             var expression = lambda.Build();
 
-            var lambda2 = new NotEqualLambda<AuthUser, DateTime?>(o => o.LastLoginFailedTime, null);
+            var lambda2 = new NotEqualLambda<AuthUser, DateTime?>(o => o.LockoutEndDateUtc, null);
             expression = lambda2.Build();
         }
     }

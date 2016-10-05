@@ -57,12 +57,12 @@ namespace HandyWork.DAL.Queryable
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
-            var expression =  ExpressionUtility.True<AuthUser>()
+            var expression = ExpressionUtility.True<AuthUser>()
                 .And(IsNotEmpty.For(query.UserNameLike), LikeLambda<AuthUser>.For(o => o.UserName, query.UserNameLike))
                 .And(IsNotEmpty.For(query.UserNameEqual), EqualLambda<AuthUser, string>.For(o => o.UserName, query.UserNameEqual))
                 .And(IsNotEmpty.For(query.RealNameLike), LikeLambda<AuthUser>.For(o => o.RealName, query.RealNameLike))
                 .And(IsNotNull.For(query.IsValid), EqualLambda<AuthUser, bool>.For(o => o.IsValid, query.IsValid))
-                .And(IsNotNull.For(query.IsLocked), EqualLambda<AuthUser, bool>.For(o => o.IsLocked, query.IsLocked));
+                .And(IsNotNull.For(query.IsLocked), EqualLambda<AuthUser, bool>.For(o => o.LockoutEnabled, query.IsLocked));
             return expression;
         }
 

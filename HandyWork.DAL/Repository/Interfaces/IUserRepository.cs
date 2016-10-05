@@ -12,6 +12,7 @@ namespace HandyWork.DAL.Repository.Interfaces
     {
         AuthUser Find(string id);
         AuthUser FindByUserName(string userName);
+        AuthUser FindByEmail(string email);
         ICollection<AuthPermission> GetPermissionsByUserGrant(string userId);
         DbSqlQuery<AuthPermission> GetPermissionByRoleGrant(string userId);
         IEnumerable<AuthPermission> GetAllPermissions(string userId);

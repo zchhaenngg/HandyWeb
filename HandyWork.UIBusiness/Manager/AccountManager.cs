@@ -27,131 +27,132 @@ namespace HandyWork.UIBusiness.Manager
         #region 业务-用户
         public SignInResult SignIn(string userName, string password, int GreaterThanUTCInMinute)
         {
-            AuthUser user = UnitOfWork.UserRepository.FindByUserName(userName);
-            if (user == null)
-            {
-                return SignInResult.UserNameError;
-            }
-            else
-            {
-                if (user.IsLocked)
-                {
-                    return SignInResult.LockedOut;
-                }
-                else if (!user.IsValid)
-                {
-                    return SignInResult.Invalid;
-                }
-                //else if (user.IsDomain)
-                //{
+            throw new NotImplementedException();
+            //AuthUser user = UnitOfWork.UserRepository.FindByUserName(userName);
+            //if (user == null)
+            //{
+            //    return SignInResult.UserNameError;
+            //}
+            //else
+            //{
+            //    if (user.IsLocked)
+            //    {
+            //        return SignInResult.LockedOut;
+            //    }
+            //    else if (!user.IsValid)
+            //    {
+            //        return SignInResult.Invalid;
+            //    }
+            //    //else if (user.IsDomain)
+            //    //{
 
-                //}
-                else
-                {
-                    string encryptPassword = AlgorithmUtility.EncryptPassword(password);
-                    if (!encryptPassword.Equals(user.Password))
-                    {
-                        if (user.LastLoginFailedTime.IsToday())
-                        {
-                            user.LoginFailedCount++;
-                            user.LastLoginFailedTime = DateTime.Now;
-                            if (user.LoginFailedCount == 3)
-                            {
-                                user.IsLocked = true;
-                            }
-                        }
-                        else
-                        {
-                            user.LoginFailedCount = 1;
-                            user.LastLoginFailedTime = DateTime.Now;
-                        }
-                        UnitOfWork.SaveChanges();//此处需要将由密码输入错误记录到数据库。
-                        return SignInResult.PasswordError;
-                    }
-                    else
-                    {
-                        #region 写入Cookie
-                        Cookie cookieData = new Cookie()
-                        {
-                            Id = user.Id,
-                            Name = user.UserName,
-                            RealName = user.RealName,
-                            GreaterThanUTCInMinute = GreaterThanUTCInMinute
-                        };
-                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, cookieData.Name, DateTime.Now, DateTime.Now.AddDays(365), false, cookieData.Encoder());
-                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
-                        {
-                            Value = FormsAuthentication.Encrypt(ticket),
-                            //Expires = DateTime.Now.AddDays(365)
-                        };
-                        HttpContext.Current.Response.Cookies.Add(cookie);
-                        #endregion
+            //    //}
+            //    else
+            //    {
+            //        string encryptPassword = AlgorithmUtility.EncryptPassword(password);
+            //        if (!encryptPassword.Equals(user.Password))
+            //        {
+            //            if (user.LastLoginFailedTime.IsToday())
+            //            {
+            //                user.LoginFailedCount++;
+            //                user.LastLoginFailedTime = DateTime.Now;
+            //                if (user.LoginFailedCount == 3)
+            //                {
+            //                    user.IsLocked = true;
+            //                }
+            //            }
+            //            else
+            //            {
+            //                user.LoginFailedCount = 1;
+            //                user.LastLoginFailedTime = DateTime.Now;
+            //            }
+            //            UnitOfWork.SaveChanges();//此处需要将由密码输入错误记录到数据库。
+            //            return SignInResult.PasswordError;
+            //        }
+            //        else
+            //        {
+            //            #region 写入Cookie
+            //            Cookie cookieData = new Cookie()
+            //            {
+            //                Id = user.Id,
+            //                Name = user.UserName,
+            //                RealName = user.RealName,
+            //                GreaterThanUTCInMinute = GreaterThanUTCInMinute
+            //            };
+            //            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, cookieData.Name, DateTime.Now, DateTime.Now.AddDays(365), false, cookieData.Encoder());
+            //            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+            //            {
+            //                Value = FormsAuthentication.Encrypt(ticket),
+            //                //Expires = DateTime.Now.AddDays(365)
+            //            };
+            //            HttpContext.Current.Response.Cookies.Add(cookie);
+            //            #endregion
 
-                        user.LoginFailedCount = 0;
-                        UnitOfWork.SaveChanges();//密码正确，清空错误次数.
-                        return SignInResult.Success;
-                    }
-                }
-            }
+            //            user.LoginFailedCount = 0;
+            //            UnitOfWork.SaveChanges();//密码正确，清空错误次数.
+            //            return SignInResult.Success;
+            //        }
+            //    }
+            //}
         }
 
-        public void Register(RegisterViewModel model)
-        {
-            AuthUser user = new AuthUser
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = model.UserName,
-                Password = AlgorithmUtility.EncryptPassword(model.Password),
-                RealName = model.RealName,
-                Phone = model.Phone,
-                Email = model.Email,
-                IsDomain = model.IsDomain,
-                IsValid = true,
-                IsLocked = false,
-            };
-            UnitOfWork.Add(user);
-            UnitOfWork.SaveChanges();
-        }
+        //public void Register(RegisterViewModel model)
+        //{
+        //    AuthUser user = new AuthUser
+        //    {
+        //        Id = Guid.NewGuid().ToString(),
+        //        UserName = model.UserName,
+        //        Password = AlgorithmUtility.EncryptPassword(model.Password),
+        //        RealName = model.RealName,
+        //        Phone = model.Phone,
+        //        Email = model.Email,
+        //        IsDomain = model.IsDomain,
+        //        IsValid = true,
+        //        IsLocked = false,
+        //    };
+        //    UnitOfWork.Add(user);
+        //    UnitOfWork.SaveChanges();
+        //}
 
-        public void UpdateUser(UpdateUserViewModel model)
-        {
-            AuthUser user = UnitOfWork.UserRepository.Find(model.Id);
-            user.UserName = model.UserName;
-            user.RealName = model.RealName;
-            user.Phone = model.Phone;
-            user.Email = model.Email;
-            user.IsDomain = model.IsDomain;
-            UnitOfWork.SaveChanges();
-        }
+        //public void UpdateUser(UpdateUserViewModel model)
+        //{
+        //    AuthUser user = UnitOfWork.UserRepository.Find(model.Id);
+        //    user.UserName = model.UserName;
+        //    user.RealName = model.RealName;
+        //    user.Phone = model.Phone;
+        //    user.Email = model.Email;
+        //    user.IsDomain = model.IsDomain;
+        //    UnitOfWork.SaveChanges();
+        //}
 
-        public void ResetPassword(ResetPasswordViewModel model)
-        {
-            AuthUser user = UnitOfWork.UserRepository.FindByUserName(model.UserName);
-            if (user == null)
-            {
-                throw new ErrorException(LocalizedResource.NOTEXIST_USERNAME);
-            }
-            else
-            {
-                user.Password = AlgorithmUtility.EncryptPassword(model.Password);
-                UnitOfWork.SaveChanges();
-            }
-        }
+        //public void ResetPassword(ResetPasswordViewModel model)
+        //{
+        //    AuthUser user = UnitOfWork.UserRepository.FindByUserName(model.UserName);
+        //    if (user == null)
+        //    {
+        //        throw new ErrorException(LocalizedResource.NOTEXIST_USERNAME);
+        //    }
+        //    else
+        //    {
+        //        user.Password = AlgorithmUtility.EncryptPassword(model.Password);
+        //        UnitOfWork.SaveChanges();
+        //    }
+        //}
 
-        public UpdateUserViewModel GetUpdateUserViewModel(string userId)
-        {
-            AuthUser user = UnitOfWork.UserRepository.Find(userId);
-            UpdateUserViewModel model = new UpdateUserViewModel
-            {
-                UserName = user.UserName,
-                RealName = user.RealName,
-                Phone = user.Phone,
-                Email = user.Email,
-                IsDomain = user.IsDomain,
-                Id = userId
-            };
-            return model;
-        }
+        //public UpdateUserViewModel GetUpdateUserViewModel(string userId)
+        //{
+        //    AuthUser user = UnitOfWork.UserRepository.Find(userId);
+        //    UpdateUserViewModel model = new UpdateUserViewModel
+        //    {
+        //        UserName = user.UserName,
+        //        RealName = user.RealName,
+        //        Phone = user.Phone,
+        //        Email = user.Email,
+        //        IsDomain = user.IsDomain,
+        //        Id = userId
+        //    };
+        //    return model;
+        //}
 
         public string SetUserValid(string userId)
         {
@@ -168,16 +169,16 @@ namespace HandyWork.UIBusiness.Manager
             }
         }
 
-        public void SetUnlocked4User(string userId)
-        {
-            AuthUser user = UnitOfWork.UserRepository.Find(userId);
-            if (!user.IsLocked)
-            {
-                throw new Exception("该用户已处于非锁定状态");
-            }
-            user.IsLocked = false;
-            UnitOfWork.SaveChanges();
-        }
+        //public void SetUnlocked4User(string userId)
+        //{
+        //    AuthUser user = UnitOfWork.UserRepository.Find(userId);
+        //    if (!user.IsLocked)
+        //    {
+        //        throw new Exception("该用户已处于非锁定状态");
+        //    }
+        //    user.IsLocked = false;
+        //    UnitOfWork.SaveChanges();
+        //}
 
         public string[] GetAllPermissions4Code(string userId)
         {
@@ -284,23 +285,23 @@ namespace HandyWork.UIBusiness.Manager
             return new Tuple<List<AuthUser>, int>(list, iTotal);
 
         }
-        public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
-        {
-            Tuple<List<AuthUser>, int> tuple = GetPage4User();
+        //public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
+        //{
+        //    Tuple<List<AuthUser>, int> tuple = GetPage4User();
 
-            var list = tuple.Item1.Select(o => new UserViewModel
-            {
-                Id = o.Id,
-                RealName = o.RealName,
-                UserName = o.UserName,
-                Email = o.Email,
-                IsDomain = o.IsDomain,
-                IsValid = o.IsValid,
-                IsLocked = o.IsLocked
-            }).ToList();
+        //    var list = tuple.Item1.Select(o => new UserViewModel
+        //    {
+        //        Id = o.Id,
+        //        RealName = o.RealName,
+        //        UserName = o.UserName,
+        //        Email = o.Email,
+        //        IsDomain = o.IsDomain,
+        //        IsValid = o.IsValid,
+        //        IsLocked = o.IsLocked
+        //    }).ToList();
 
-            return new Tuple<List<UserViewModel>, int>(list, tuple.Item2);
-        }
+        //    return new Tuple<List<UserViewModel>, int>(list, tuple.Item2);
+        //}
 
         public List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike)
         {
@@ -489,6 +490,36 @@ namespace HandyWork.UIBusiness.Manager
             var permission = UnitOfWork.PermissionRepository.Find(permissionId);
             role.AuthPermissions.Remove(permission);
             UnitOfWork.SaveChanges();
+        }
+
+        public void Register(RegisterViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateUser(UpdateUserViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResetPassword(ResetPasswordViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UpdateUserViewModel GetUpdateUserViewModel(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetUnlocked4User(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
+        {
+            throw new NotImplementedException();
         }
         #endregion
         #endregion

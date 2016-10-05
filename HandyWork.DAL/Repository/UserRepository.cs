@@ -39,6 +39,15 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.UserName == userName).FirstOrDefault();
         }
+        
+        public AuthUser FindByEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return null;
+            }
+            return Source.Where(o => o.Email == email).FirstOrDefault();
+        }
 
         public ICollection<AuthPermission> GetPermissionsByUserGrant(string userId)
         {
