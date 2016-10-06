@@ -69,6 +69,16 @@ namespace HandyWork.ViewModel.Web
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
+        [Display(Name = "真实户名")]
+        public string RealName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "电子邮件")]
         public string Email { get; set; }

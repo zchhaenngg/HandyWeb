@@ -20,7 +20,7 @@ namespace HandyWork.UIBusiness.Manager
         {
         }
 
-        public void CreateAsync(OwnViewModel user, string password)
+        public void Create(OwnViewModel user, string password)
         {
             var entity = GetAuthUserFromOwnViewModel(user);
             entity.SecurityStamp = Guid.NewGuid().ToString();

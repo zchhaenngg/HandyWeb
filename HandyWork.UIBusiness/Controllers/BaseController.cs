@@ -56,13 +56,13 @@ namespace HandyWork.UIBusiness.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        public ActionResult RedirectToLocal<T>(Action<T> action, T model, string returnUrl = null)
+        public ActionResult RedirectToLocal<T>(T model, Action action, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    action(model);
+                    action();
                     return RedirectToLocal();
                 }
                 catch (DbEntityValidationException dbex)
