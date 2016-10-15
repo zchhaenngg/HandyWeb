@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace HandyWork.ViewModel.Web
 {
-    public class OwnViewModel : IUser<string>
+    public class OwinViewModel
     {
-        public OwnViewModel() { }
+        public OwinViewModel() { }
 
         public string Id { get; set; }
 

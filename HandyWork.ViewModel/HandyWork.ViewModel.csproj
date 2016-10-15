@@ -85,7 +85,7 @@
     <Compile Include="PCWeb\Query\UserQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\AccountViewModels.cs" />
-    <Compile Include="Web\OwnViewModel.cs" />
+    <Compile Include="Web\OwinViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

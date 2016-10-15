@@ -27,8 +27,8 @@ namespace HandyWork.UIBusiness
         private IAccountManager _accountManager;
         public IAccountManager AccountManager => _accountManager ?? (_accountManager = new AccountManager(this));
 
-        private OwinManager _owinManager;
-        public OwinManager OwinManager => _owinManager ?? (_owinManager = new OwinManager(this));
+        private IOwinManager _owinManager;
+        public IOwinManager OwinManager => _owinManager ?? (_owinManager = new OwinManager(this));
 
         public void Dispose()
         {

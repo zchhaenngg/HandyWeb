@@ -2,12 +2,13 @@
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
 
-1.新建Web应用
+
 注意：UI库不再使用Easyui
-注册 完成
-登出 完成
-测试 Cookie有效时间完成
-测试 记住我？（关闭浏览器之后，下次打开网址是否需要再次登陆。默认需要）
+1.优化OwinManager
+a.ValidateInterval and ExpireTimespan  参考文档如下
+http://www.jamessturtevant.com/posts/ASPNET-Identity-Cookie-Authentication-Timeouts/
+2.密码过期
+
 1.bug  email不是唯一时的提示不明确。即唯一性还要在校验中添加。
 登陆
 登出

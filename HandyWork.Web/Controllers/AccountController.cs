@@ -61,7 +61,7 @@ namespace HandyWork.Web.Controllers
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = UnitOfManager.OwinManager.PasswordSignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = UnitOfManager.OwinManager.SignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInResult.Success:
@@ -146,11 +146,11 @@ namespace HandyWork.Web.Controllers
         {
             return RedirectToLocal(model, () => 
             {
-                var user = new OwnViewModel();
+                var user = new OwinViewModel();
                 user.Email = model.Email;
                 user.UserName = model.UserName;
                 user.RealName = model.RealName;
-                UnitOfManager.OwinManager.Create(user, model.Password);
+                UnitOfManager.OwinManager.Register(user, model.Password);
                 
             },"/Account/Login");
         }
@@ -381,7 +381,6 @@ namespace HandyWork.Web.Controllers
         public ActionResult LogOff()
         {
             UnitOfManager.OwinManager.SignOut();
-            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 

@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using HandyWork.Web.Models;
 using System.Configuration;
+using HandyWork.UIBusiness.Manager;
 
 namespace HandyWork.Web
 {
@@ -20,9 +21,9 @@ namespace HandyWork.Web
             // 配置登录 Cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                AuthenticationType = MyOwinConfig.AuthenticationType,
                 LoginPath = new PathString("/Account/Login"),
-                CookieName = ConfigurationManager.AppSettings["Cookie"],
+                CookieName = MyOwinConfig.CookieName,
                 //Provider = new CookieAuthenticationProvider
                 //{
                 //    // 当用户登录时使应用程序可以验证安全戳。

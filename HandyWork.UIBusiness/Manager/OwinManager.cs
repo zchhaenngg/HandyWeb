@@ -7,16 +7,67 @@ using Microsoft.AspNet.Identity;
 using HandyWork.UIBusiness.Enums;
 using System.Web;
 using Microsoft.Owin.Security;
+using System.Configuration;
+using HandyWork.UIBusiness.Manager.Interfaces;
 
 namespace HandyWork.UIBusiness.Manager
 {
-    public partial class OwinManager : BaseManager
+    public static class MyOwinConfig
+    {
+        public static string CookieName
+        {
+            get
+            {
+                var str = ConfigurationManager.AppSettings["Cookie"];
+                return string.IsNullOrWhiteSpace(str) ? "HandyWork.Cookie" : str;
+            }
+        }
+
+        public static string IdentityProvider
+        {
+            get
+            {
+                var str = ConfigurationManager.AppSettings["IdentityProvider"];
+                return string.IsNullOrWhiteSpace(str) ? "HandyWork.IdentityProvider" : str;
+            }
+        }
+
+        public static string AuthenticationType
+        {
+            get
+            {
+                var str = ConfigurationManager.AppSettings["AuthenticationType"];
+                return string.IsNullOrWhiteSpace(str) ? "HandyWork.AuthenticationType" : str;
+            }
+        }
+
+        public static string ApplicationVersion
+        {
+            get
+            {
+                var str = ConfigurationManager.AppSettings["ApplicationVersion"];
+                return string.IsNullOrWhiteSpace(str) ? "1.0" : str;
+            }
+        }
+
+        /// <summary>
+        /// 用户密码输错账号锁定后，下次可以尝试登陆时间，默认5分钟
+        /// </summary>
+        public static TimeSpan LockoutTimeSpan
+        {
+            get
+            {
+                return TimeSpan.FromMinutes(5);
+            }
+        }
+    }
+    public partial class OwinManager : BaseManager, IOwinManager
     {
         public OwinManager(UnitOfManager unitOfManager) : base(unitOfManager)
         {
         }
 
-        public void Create(OwnViewModel user, string password)
+        public void Register(OwinViewModel user, string password)
         {
             var entity = GetAuthUserFromOwnViewModel(user);
             entity.SecurityStamp = Guid.NewGuid().ToString();
@@ -25,19 +76,30 @@ namespace HandyWork.UIBusiness.Manager
             UnitOfWork.SaveChanges();
         }
 
+        public IList<Claim> GetClaims(AuthUser entity)
+        {
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, entity.Id));
+            claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", MyOwinConfig.IdentityProvider));
+            claims.Add(new Claim(ClaimTypes.Name, entity.UserName));
+            //登陆状态需要检查Claim版本信息，如果版本号不正确则强制用户重新登陆
+            claims.Add(new Claim(ClaimTypes.Version, MyOwinConfig.ApplicationVersion));
+            return claims;
+        }
+
         /// <summary>
         /// Attempts to sign in the specified <paramref name="userName"/> and <paramref name="password"/>
         /// </summary>
-        /// <param name="email">The user name to sign in.</param>
+        /// <param name="usernameOrEmail">The email to sign in.</param>
         /// <param name="password">The password to attempt to sign in with.</param>
         /// <param name="isPersistent">Flag indicating whether the sign-in cookie should persist after the browser is closed.</param>
         /// <param name="lockoutOnFailure">Flag indicating if the user account should be locked if the sign in fails.</param>
         /// <returns>The task object representing  the <see name="SignInResult"/>
         /// for the sign-in attempt.</returns>
-        public SignInResult PasswordSignIn(string email, string password,
-            bool isPersistent, bool shouldLockout=true)
+        public SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, bool shouldLockout=true)
         {
-            var entity = UnitOfWork.UserRepository.FindByEmail(email);
+            var entity = UnitOfWork.UserRepository.FindByUserName(usernameOrEmail) ??
+                UnitOfWork.UserRepository.FindByEmail(usernameOrEmail);
             if (entity == null)
             {
                 return SignInResult.UserNameError;
@@ -58,7 +120,7 @@ namespace HandyWork.UIBusiness.Manager
                     case PasswordVerificationResult.Failed:
                         if (shouldLockout)
                         {
-                            entity.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(5);
+                            entity.LockoutEndDateUtc = DateTime.UtcNow.Add(MyOwinConfig.LockoutTimeSpan);
                             entity.AccessFailedCount++;
                             UnitOfWork.SaveChanges();
                         }
@@ -67,18 +129,7 @@ namespace HandyWork.UIBusiness.Manager
                         entity.LockoutEndDateUtc = null;
                         entity.AccessFailedCount = 0;
                         UnitOfWork.SaveChanges();
-                        var claims = new List<Claim>();
-                        claims.Add(new Claim(ClaimTypes.NameIdentifier, "-1"));
-                        claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "HandyWork"));
-                        claims.Add(new Claim(ClaimTypes.Name, "cheng.zhang"));
-                        //claims.Add(new Claim(ClaimTypes.Role, "op"));
-                        //claims.Add(new Claim(ClaimTypes.Role, "pse"));
-                        var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                        var authenticationProperties = new AuthenticationProperties { IsPersistent = isPersistent };
-                        Request.GetOwinContext().Authentication.SignIn(authenticationProperties, identity);
-                        
-                        var u = HttpContext.Current.User;
-                        var s = u.Identity.Name;
+                        SignIn(entity, isPersistent);
                         return SignInResult.Success;
                     case PasswordVerificationResult.SuccessRehashNeeded:
                         entity.LockoutEndDateUtc = null;
@@ -91,9 +142,17 @@ namespace HandyWork.UIBusiness.Manager
             }
         }
 
+        public void SignIn(AuthUser entity, bool isPersistent)
+        {
+            var claims = GetClaims(entity);
+            var identity = new ClaimsIdentity(claims, MyOwinConfig.AuthenticationType);
+            var authenticationProperties = new AuthenticationProperties { IsPersistent = isPersistent };
+            Request.GetOwinContext().Authentication.SignIn(authenticationProperties, identity);
+        }
+
         public void SignOut()
         {
-            Request.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Request.GetOwinContext().Authentication.SignOut(MyOwinConfig.AuthenticationType);
         }
     }
 
@@ -118,7 +177,7 @@ namespace HandyWork.UIBusiness.Manager
             }
         }
 
-        private AuthUser GetAuthUserFromOwnViewModel(OwnViewModel user)
+        private AuthUser GetAuthUserFromOwnViewModel(OwinViewModel user)
         {
             var entity = new AuthUser
             {
@@ -139,9 +198,9 @@ namespace HandyWork.UIBusiness.Manager
             return entity;
         }
 
-        private OwnViewModel GetOwnViewModelFromAuthUser(AuthUser entity)
+        private OwinViewModel GetOwnViewModelFromAuthUser(AuthUser entity)
         {
-            return new OwnViewModel
+            return new OwinViewModel
             {
                 Id = entity.Id,
                 AccessFailedCount = entity.AccessFailedCount,
