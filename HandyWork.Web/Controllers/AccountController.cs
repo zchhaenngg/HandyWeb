@@ -12,6 +12,8 @@ using HandyWork.Web.Models;
 using HandyWork.UIBusiness.Controllers;
 using HandyWork.UIBusiness.Manager;
 using HandyWork.ViewModel.Web;
+using HandyWork.UIBusiness.Enums;
+using System.Collections.Generic;
 
 namespace HandyWork.Web.Controllers
 {
@@ -59,23 +61,24 @@ namespace HandyWork.Web.Controllers
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = UnitOfManager.OwinManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = UnitOfManager.OwinManager.PasswordSignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
-                case UIBusiness.Enums.SignInResult.Success:
+                case SignInResult.Success:
+                   
                     return RedirectToLocal(returnUrl);
-                case UIBusiness.Enums.SignInResult.LockedOut:
+                case SignInResult.LockedOut:
                     return View("Lockout");
-                case UIBusiness.Enums.SignInResult.UserNameError:
+                case SignInResult.UserNameError:
                     ModelState.AddModelError("", Localization.LocalizedResource.NOTEXIST_USERNAME);
                     return View(model);
-                case UIBusiness.Enums.SignInResult.PasswordError:
+                case SignInResult.PasswordError:
                     ModelState.AddModelError("", "密码不正确");
                     return View(model);
-                case UIBusiness.Enums.SignInResult.Invalid:
+                case SignInResult.Invalid:
                     ModelState.AddModelError("", "账号已禁用");
                     return View(model);
-                case UIBusiness.Enums.SignInResult.SuccessRehashNeeded:
+                case SignInResult.SuccessRehashNeeded:
                     return View("ResetPassword");
                 default:
                     return View(model);
@@ -377,6 +380,7 @@ namespace HandyWork.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            UnitOfManager.OwinManager.SignOut();
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

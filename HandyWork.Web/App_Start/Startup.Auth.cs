@@ -22,7 +22,7 @@ namespace HandyWork.Web
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
-                CookieName = ConfigurationManager.AppSettings["Cookie"]
+                CookieName = ConfigurationManager.AppSettings["Cookie"],
                 //Provider = new CookieAuthenticationProvider
                 //{
                 //    // 当用户登录时使应用程序可以验证安全戳。
@@ -31,8 +31,11 @@ namespace HandyWork.Web
                 //        validateInterval: TimeSpan.FromMinutes(30),
                 //        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 //}
+                CookieSecure = CookieSecureOption.SameAsRequest,
+                //tested
+                ExpireTimeSpan = TimeSpan.FromHours(4)
             });            
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // 使应用程序可以在双重身份验证过程中验证第二因素时暂时存储用户信息。
             //app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));

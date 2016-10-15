@@ -1,16 +1,12 @@
-﻿using HandyWork.UIBusiness.Manager.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HandyWork.Model;
 using System.Security.Claims;
 using HandyWork.ViewModel.Web;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using HandyWork.UIBusiness.Enums;
+using System.Web;
+using Microsoft.Owin.Security;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -30,19 +26,18 @@ namespace HandyWork.UIBusiness.Manager
         }
 
         /// <summary>
-        /// Attempts to sign in the specified <paramref name="userName"/> and <paramref name="password"/> combination
-        /// as an asynchronous operation.
+        /// Attempts to sign in the specified <paramref name="userName"/> and <paramref name="password"/>
         /// </summary>
-        /// <param name="userName">The user name to sign in.</param>
+        /// <param name="email">The user name to sign in.</param>
         /// <param name="password">The password to attempt to sign in with.</param>
         /// <param name="isPersistent">Flag indicating whether the sign-in cookie should persist after the browser is closed.</param>
         /// <param name="lockoutOnFailure">Flag indicating if the user account should be locked if the sign in fails.</param>
-        /// <returns>The task object representing the asynchronous operation containing the <see name="SignInResult"/>
+        /// <returns>The task object representing  the <see name="SignInResult"/>
         /// for the sign-in attempt.</returns>
-        public SignInResult PasswordSignInAsync(string userName, string password,
+        public SignInResult PasswordSignIn(string email, string password,
             bool isPersistent, bool shouldLockout=true)
         {
-            var entity = UnitOfWork.UserRepository.FindByUserName(userName);
+            var entity = UnitOfWork.UserRepository.FindByEmail(email);
             if (entity == null)
             {
                 return SignInResult.UserNameError;
@@ -72,6 +67,18 @@ namespace HandyWork.UIBusiness.Manager
                         entity.LockoutEndDateUtc = null;
                         entity.AccessFailedCount = 0;
                         UnitOfWork.SaveChanges();
+                        var claims = new List<Claim>();
+                        claims.Add(new Claim(ClaimTypes.NameIdentifier, "-1"));
+                        claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "HandyWork"));
+                        claims.Add(new Claim(ClaimTypes.Name, "cheng.zhang"));
+                        //claims.Add(new Claim(ClaimTypes.Role, "op"));
+                        //claims.Add(new Claim(ClaimTypes.Role, "pse"));
+                        var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                        var authenticationProperties = new AuthenticationProperties { IsPersistent = isPersistent };
+                        Request.GetOwinContext().Authentication.SignIn(authenticationProperties, identity);
+                        
+                        var u = HttpContext.Current.User;
+                        var s = u.Identity.Name;
                         return SignInResult.Success;
                     case PasswordVerificationResult.SuccessRehashNeeded:
                         entity.LockoutEndDateUtc = null;
@@ -82,6 +89,11 @@ namespace HandyWork.UIBusiness.Manager
                         throw new NotImplementedException();
                 }
             }
+        }
+
+        public void SignOut()
+        {
+            Request.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
     }
 
