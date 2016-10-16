@@ -8,6 +8,7 @@ using Owin;
 using HandyWork.Web.Models;
 using System.Configuration;
 using HandyWork.UIBusiness.Manager;
+using HandyWork.UIBusiness.Authentication.QQ;
 
 namespace HandyWork.Web
 {
@@ -35,8 +36,14 @@ namespace HandyWork.Web
                 CookieSecure = CookieSecureOption.SameAsRequest,
                 //tested
                 ExpireTimeSpan = TimeSpan.FromHours(4)
-            });            
+            });
             //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.UseQQConnectAuthentication(new QQAuthenticationOptions
+            {
+                AppId = "",
+                AppSecret = ""
+            });
 
             // 使应用程序可以在双重身份验证过程中验证第二因素时暂时存储用户信息。
             //app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));

@@ -17,3 +17,10 @@ Web.config£¬system.webServerÄÚ½ÚµãmodulesµÄrunAllManagedModulesForAllRequests±ØĞ
 5.MVC5
 owinÈÏÖ¤ÊÚÈ¨
  ²Î¿¼http://www.cnblogs.com/jesse2013/p/aspnet-identity-claims-based-authentication-and-owin.html
+6.QQµÇÂ½
+https://connect.qq.com/
+https://connect.qq.com/manage.html#/
+Àı×Ó£º
+https://github.com/JaylanLiang/Microsoft.Owin.Security.ExternalLogin
+ÏÖ³É¼¼Êõ
+http://wiki.connect.qq.com/js_sdk%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E

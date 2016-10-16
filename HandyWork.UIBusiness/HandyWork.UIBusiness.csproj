@@ -78,6 +78,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,6 +92,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\QQ\Provider\IQQAuthenticationProvider.cs" />
+    <Compile Include="Authentication\QQ\Provider\QQAuthenticatedContext.cs" />
+    <Compile Include="Authentication\QQ\Provider\QQAuthenticationProvider.cs" />
+    <Compile Include="Authentication\QQ\Provider\QQReturnEndpointContext.cs" />
+    <Compile Include="Authentication\QQ\QQAuthenticationExtensions.cs" />
+    <Compile Include="Authentication\QQ\QQAuthenticationMiddleware.cs" />
+    <Compile Include="Authentication\QQ\QQAuthenticationHandler.cs" />
+    <Compile Include="Authentication\QQ\QQAuthenticationOptions.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Enums\SignInResult.cs" />
     <Compile Include="Extensions\IPrincipalExtension.cs" />
@@ -107,7 +116,10 @@
     <Compile Include="Utility\AlgorithmUtility.cs" />
     <Compile Include="Utility\EasyuiUtility.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Authentication\WeChat\" />
+    <Folder Include="Authentication\Weibo\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
       <Project>{50655857-124c-4647-a652-10a5e88e0963}</Project>
