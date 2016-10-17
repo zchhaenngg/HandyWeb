@@ -20,7 +20,7 @@
             <div id="socialLoginList">
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="使用你的 @p.Caption 帐户登录">@p.AuthenticationType</button>
+                        <span id="@p.AuthenticationType"></span>
                     }
                 </p>
             </div>
@@ -29,12 +29,13 @@
 
     <div>
         <span id="qqLoginBtn"></span>
-        见的卡了房间的卡
     </div>
 }
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="APPID" data-redirecturi="REDIRECTURI" charset="utf-8"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="1105762452" data-redirecturi="http://1065866.nat123.net:33217/home/index" charset="utf-8">
+
+</script>
 <script type="text/javascript">
     QC.Login({
-        btnId:"qqLoginBtn"    //插入按钮的节点id
+        btnId: "QQ.AuthenticationType"    //插入按钮的节点id
     });
 </script>

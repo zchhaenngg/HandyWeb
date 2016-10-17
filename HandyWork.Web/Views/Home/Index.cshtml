@@ -101,6 +101,7 @@
 @section Scripts {
 <script type="text/javascript">
     var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
+    var TopContainerHeight = $(".topcontainer").outerHeight();
     var winlinksul = $("#winlinks ul");
     function f_open(url, title, icon) {
         //var win = $.ligerDialog.open(
@@ -142,7 +143,7 @@
         for (var i = 0, l = links.length; i < l; i++) {
             var link = links[i];
             var jlink = $("li[linkindex=" + i + "]", winlinks);
-            var top = (i % colMaxNumber) * LINKHEIGHT, left = parseInt(i / colMaxNumber) * LINKWIDTH;
+            var top = (i % colMaxNumber) * LINKHEIGHT + TopContainerHeight, left = parseInt(i / colMaxNumber) * LINKWIDTH;
             if (isNaN(top) || isNaN(left)) continue;
             jlink.css({ top: top, left: left });
         }

@@ -13,7 +13,7 @@ namespace HandyWork.UIBusiness.Authentication.QQ
     {
         public QQAuthenticationOptions() : base("QQ.AuthenticationType")
         {
-            Caption = "QQUser";
+            Caption = "QQ";
             CallbackPath = "/signin-qq";
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string> { "get_user_info" };
