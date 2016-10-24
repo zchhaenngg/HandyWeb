@@ -123,4 +123,40 @@ namespace HandyWork.ViewModel.Web
         [Display(Name = "电子邮件")]
         public string Email { get; set; }
     }
+
+    public class AuthUserViewModel
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "尝试失败次数")]
+        public int AccessFailedCount { get; set; }
+
+        [Display(Name = "检查账号解锁时间")]
+        public bool LockoutEnabled { get; set; }
+
+        [Display(Name = "账号解锁时间")]
+        public DateTime? LockoutEndDateUtc { get; set; }
+
+        [Display(Name = "联系电话")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "联系电话确认")]
+
+        public bool PhoneNumberConfirmed { get; set; }
+
+        [Display(Name = "启用其他登陆方式")]
+        public bool TwoFactorEnabled { get; set; }
+
+        [Display(Name = "确认用户邮箱")]
+        public bool EmailConfirmed { get; set; }
+
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
+
+        [Display(Name = "真实姓名")]
+        public string RealName { get; set; }
+
+        [Display(Name = "邮箱")]
+        public string Email { get; set; }
+    }
 }

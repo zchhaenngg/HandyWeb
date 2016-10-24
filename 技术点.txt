@@ -24,3 +24,5 @@ https://connect.qq.com/manage.html#/
 https://github.com/JaylanLiang/Microsoft.Owin.Security.ExternalLogin
 现成技术
 http://wiki.connect.qq.com/js_sdk%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E
+7.bootstrap.js
+8.angularJS

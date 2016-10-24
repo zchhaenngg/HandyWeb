@@ -200,7 +200,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\3DSMAX.png" />
     <Content Include="Images\applebg.jpg" />
+    <Content Include="Images\applebg2.jpg" />
+    <Content Include="Images\qq_Connect_logo_1.png" />
+    <Content Include="Images\qq_Connect_logo_5.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\handywork.pubxml" />
@@ -250,6 +254,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\UserIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -270,6 +275,10 @@
     <ProjectReference Include="..\HandyWork.Localization\HandyWork.Localization.csproj">
       <Project>{035c1853-1818-4e92-8257-dd18931dec22}</Project>
       <Name>HandyWork.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.Model\HandyWork.Model.csproj">
+      <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
+      <Name>HandyWork.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
       <Project>{91ACADA0-B3C5-4FC3-82EB-96DE7754B730}</Project>

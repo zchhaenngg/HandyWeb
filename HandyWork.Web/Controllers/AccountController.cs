@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using HandyWork.Web.Models;
 using HandyWork.UIBusiness.Controllers;
 using HandyWork.UIBusiness.Manager;
 using HandyWork.ViewModel.Web;
@@ -23,7 +22,14 @@ namespace HandyWork.Web.Controllers
         public AccountController()
         {
         }
-        
+
+        public ActionResult UserIndex()
+        {
+            var page = UnitOfManager.AccountManager.GetPage4UserViewModel();
+            ViewBag.Count = page.Item2;
+            return View(page.Item1);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]

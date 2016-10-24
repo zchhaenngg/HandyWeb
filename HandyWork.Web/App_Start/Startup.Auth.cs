@@ -5,7 +5,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using HandyWork.Web.Models;
 using System.Configuration;
 using HandyWork.UIBusiness.Manager;
 using HandyWork.UIBusiness.Authentication.QQ;

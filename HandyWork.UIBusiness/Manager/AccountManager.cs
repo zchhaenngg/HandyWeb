@@ -14,6 +14,7 @@ using HandyWork.ViewModel.PCWeb;
 using HandyWork.ViewModel.PCWeb.Query;
 using HandyWork.Common.Exceptions;
 using HandyWork.Localization;
+using HandyWork.ViewModel.Web;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -517,9 +518,23 @@ namespace HandyWork.UIBusiness.Manager
             throw new NotImplementedException();
         }
 
-        public Tuple<List<UserViewModel>, int> GetPage4UserViewModel()
+        public Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel()
         {
-            throw new NotImplementedException();
+            var list = UnitOfWork.AsNoTracking<AuthUser>().OrderBy(o => o.Id).GetPage(0, 10).Select(o => new AuthUserViewModel
+            {
+                Id = o.Id,
+                AccessFailedCount = o.AccessFailedCount,
+                LockoutEnabled = o.LockoutEnabled,
+                LockoutEndDateUtc = o.LockoutEndDateUtc,
+                PhoneNumber = o.PhoneNumber,
+                PhoneNumberConfirmed = o.PhoneNumberConfirmed,
+                TwoFactorEnabled = o.TwoFactorEnabled,
+                EmailConfirmed = o.EmailConfirmed,
+                UserName = o.UserName,
+                RealName = o.RealName,
+                Email = o.Email
+            }).ToList();
+            return new Tuple<List<AuthUserViewModel>, int>(list, UnitOfWork.AsNoTracking<AuthUser>().Count());
         }
         #endregion
         #endregion

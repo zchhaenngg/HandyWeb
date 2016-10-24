@@ -92,7 +92,7 @@
         }
     </style>
 </head>
-<body style="overflow: hidden; background: url(../../Images/applebg.jpg) no-repeat  center center;">
+<body style="overflow: hidden; background: url(../../Images/applebg2.jpg) no-repeat  center center;">
     <div id="winlinks">
         <ul></ul>
     </div>
@@ -104,24 +104,10 @@
     var TopContainerHeight = $(".topcontainer").outerHeight();
     var winlinksul = $("#winlinks ul");
     function f_open(url, title, icon) {
-        //var win = $.ligerDialog.open(
-        //{
-        //    height: 500, url: url, width: 600, showMax: true, showToggle: true, showMin: true, isResize: true, modal: false, title: title, slide: false, buttons: [
-        //      {
-        //          text: '确定', onclick: function (item, Dialog, index) {
-        //              win.hide();
-        //          }
-        //      }
-        //    ]
-        //});
-        //var task = jQuery.ligerui.win.tasks[win.id];
-        //if (task) {
-        //    $(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
-        //}
-        //return win;
+        window.location.href = url;
     }
     var links = [
-            { icon: '../../Images/3DSMAX.png', title: '填写周报', url: '../case/week.htm' },
+            { icon: '../../Images/3DSMAX.png', title: '用户列表', url: '/Account/UserIndex' },
             { icon: '../../Images/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
             { icon: '../../Images/3DSMAX.png', title: '多表头', url: '../grid/mulheader/grid2.htm' },
             { icon: '../../Images/3DSMAX.png', title: '固定列', url: '../grid/frozen/frozengrid.htm' },
