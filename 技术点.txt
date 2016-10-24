@@ -20,6 +20,7 @@ owin认证授权
 6.QQ登陆
 https://connect.qq.com/
 https://connect.qq.com/manage.html#/
+http://op.open.qq.com/manage_centerv2/pc?owner=1076968967&uin=1076968967
 例子：
 https://github.com/JaylanLiang/Microsoft.Owin.Security.ExternalLogin
 现成技术
