@@ -1,6 +1,18 @@
 ﻿Q1:DAL层中各个Repository应当返回如IQueryable等接口，由Business层决定具体实现？
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
+1.用户列表查询
+a.使用Angular和bootstrap校验查询条件,以UserName为例。
+
+b.根据UserName查询出结果。
+
+c.如TFS ERP等查询可配置。
+
+d.根据配置进行查询。
+
+e.直接使用Entity进行查询
+
+1.合并3个测试项目
 
 1.每个对外提供的API应当都有权限控制。
 

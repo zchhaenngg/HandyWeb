@@ -78,6 +78,7 @@
     <Compile Include="CustomTimingsJson.cs" />
     <Compile Include="Queryable\MappingTest.cs" />
     <Compile Include="ReportOuput.cs" />
+    <Compile Include="Common\Utility\MyUrlUtilityTest.cs" />
     <Compile Include="UnitOfWorkTest.cs" />
     <Compile Include="UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +90,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
+      <Project>{50655857-124c-4647-a652-10a5e88e0963}</Project>
+      <Name>HandyWork.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HandyWork.DAL\HandyWork.DAL.csproj">
       <Project>{D29A0B16-B824-4044-B0D6-DDCEB0CF11AC}</Project>
       <Name>HandyWork.DAL</Name>
@@ -97,10 +102,21 @@
       <Project>{3793238C-2A91-4838-A7F0-1C221B4644DF}</Project>
       <Name>HandyWork.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
+      <Project>{91acada0-b3c5-4fc3-82eb-96de7754b730}</Project>
+      <Name>HandyWork.UIBusiness</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
       <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
       <Name>HandyWork.ViewModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HandyWork.Web\HandyWork.Web.csproj">
+      <Project>{6c27af8c-d5f1-4570-918d-14729a41a195}</Project>
+      <Name>HandyWork.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UIBusiness\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

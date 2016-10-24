@@ -1,25 +1,10 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>web桌面</title>
-    <style type="text/css">
-        .l-case-title {
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        body, html {
-            width: 100%;
-            height: 100%;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        #winlinks {
+﻿@using HandyWork.UIBusiness.Utility
+@{
+    ViewBag.Title = "web桌面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+     #winlinks {
             position: absolute;
             left: 20px;
             top: 20px;
@@ -75,95 +60,62 @@
                     opacity: 0.1;
                     filter: alpha(opacity=10);
                 }
-
-        .l-taskbar-task-icon {
-            top: 3px;
-            left: 6px;
-            background-image: none;
+</style>
+<div id="winlinks">
+    <ul>
+    @{
+        var links = UrlUtility.GetLinks4HomeIndex();
+        for (int i = 0; i < links.Count; i++)
+        {
+            var link = links[i];
+            @Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName, link.RouteValues, link.HtmlAttributes)
+        <li>
+            <img src="../../Images/3DSMAX.png">
+            <span>@link.LinkText</span>
+            <div class="bg"></div>
+        </li>
         }
-
-        .l-taskbar-task-content {
-            margin-left: 30px;
-        }
-
-        .l-taskbar-task-icon img {
-            width: 22px;
-            height: 22px;
-        }
-    </style>
-</head>
-<body style="overflow: hidden; background: url(../../Images/applebg2.jpg) no-repeat  center center;">
-    <div id="winlinks">
-        <ul></ul>
-    </div>
-</body>
-</html>
+    }
+    </ul>
+</div>
 @section Scripts {
 <script type="text/javascript">
-    var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
-    var TopContainerHeight = $(".topcontainer").outerHeight();
-    var winlinksul = $("#winlinks ul");
-    function f_open(url, title, icon) {
-        window.location.href = url;
-    }
-    var links = [
-            { icon: '../../Images/3DSMAX.png', title: '用户列表', url: '/Account/UserIndex' },
-            { icon: '../../Images/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
-            { icon: '../../Images/3DSMAX.png', title: '多表头', url: '../grid/mulheader/grid2.htm' },
-            { icon: '../../Images/3DSMAX.png', title: '固定列', url: '../grid/frozen/frozengrid.htm' },
-            { icon: '../../Images/3DSMAX.png', title: '可拖动', url: '../base/drag.htm' },
-            { icon: '../../Images/3DSMAX.png', title: '树', url: '../tree/draggable.htm' },
-            { icon: '../../Images/3DSMAX.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
-            { icon: '../../Images/3DSMAX.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
-            { icon: '../../Images/3DSMAX.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
-             { icon: '../../Images/3DSMAX.png', title: 'menu', url: '../menu/menubar.htm' },
-             { icon: '../../Images/3DSMAX.png', title: 'tab', url: '../tab/tabHtml.htm' },
-             { icon: '../../Images/3DSMAX.png', title: '分组', url: '../grid/groupable/checkbox.htm' }
-    ];
+    $("#winlinks ul li").hover(function () {
+        $(this).addClass("l-over");
+    }, function () {
+        $(this).removeClass("l-over");
+    });
+    $("#winlinks ul li").each(function () {
+        $(this).click(function () {
+            //$(this).prev("a").trigger('click');
+            var href = $(this).prev("a")[0].href;
+            window.open(href);
+        });
+    });
 
-    function onResize() {
-        var linksHeight = $(window).height() - TASKBARHEIGHT;
-        var winlinks = $("#winlinks");
-        winlinks.height(linksHeight);
-        var colMaxNumber = parseInt(linksHeight / LINKHEIGHT);//一列最多显示几个快捷方式
-        for (var i = 0, l = links.length; i < l; i++) {
-            var link = links[i];
-            var jlink = $("li[linkindex=" + i + "]", winlinks);
-            var top = (i % colMaxNumber) * LINKHEIGHT + TopContainerHeight, left = parseInt(i / colMaxNumber) * LINKWIDTH;
-            if (isNaN(top) || isNaN(left)) continue;
-            jlink.css({ top: top, left: left });
-        }
+    (function ($) {
+        function onResize() {
+            var linksHeight = $(window).height() - TASKBARHEIGHT;
+            var winlinks = $("#winlinks");
+            winlinks.height(linksHeight);
 
-    }
-    function linksInit() {
-        for (var i = 0, l = links.length; i < l; i++) {
-            var link = links[i];
-            var jlink;
-            var jlink = $("<li></li>");
-            jlink.attr("linkindex", i);
-            jlink.append("<img src='" + link.icon + "' />");
-            jlink.append("<span>" + link.title + "</span>");
-            jlink.append("<div class='bg'></div>");
-            jlink.hover(function () {
-                $(this).addClass("l-over");
-            }, function () {
-                $(this).removeClass("l-over");
-            }).click(function () {
-                var linkindex = $(this).attr("linkindex");
-                var link = links[linkindex];
-                f_open(link.url, link.title, link.icon);
+            var colMaxNumber = parseInt(linksHeight / LINKHEIGHT);//一列最多显示几个快捷方式
+
+            $("#winlinks ul li").each(function (index, e) {
+                var i = index;
+                var top = (i % colMaxNumber) * LINKHEIGHT + TopContainerHeight, left = parseInt(i / colMaxNumber) * LINKWIDTH;
+                if (isNaN(top) || isNaN(left)) {
+                    return;
+                }
+                $(this).css({ top: top, left: left });
             });
-            jlink.appendTo(winlinksul);
         }
 
-    }
+        var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
+        var TopContainerHeight = $(".topcontainer").outerHeight();
 
-    $(window).resize(onResize);
-    //$.ligerui.win.removeTaskbar = function () { }; //不允许移除
-    //$.ligerui.win.createTaskbar(); //页面加载时创建任务栏
-
-    linksInit();
-    onResize();
-
+        onResize();
+        $(window).resize(onResize);
+    })(jQuery);
 </script>
 }

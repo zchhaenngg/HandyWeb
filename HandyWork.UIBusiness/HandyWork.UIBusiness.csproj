@@ -115,6 +115,7 @@
     <Compile Include="UnitOfManager.cs" />
     <Compile Include="Utility\AlgorithmUtility.cs" />
     <Compile Include="Utility\EasyuiUtility.cs" />
+    <Compile Include="Utility\UrlUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Authentication\WeChat\" />
