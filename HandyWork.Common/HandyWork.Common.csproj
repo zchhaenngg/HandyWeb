@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MyUrlAttribute.cs" />
+    <Compile Include="EntityFramework\Query\QueryItem.cs" />
+    <Compile Include="EntityFramework\Query\QueryMethod.cs" />
     <Compile Include="Exceptions\WelcomeException.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Time\Formats.cs" />

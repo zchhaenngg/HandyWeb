@@ -1,11 +1,15 @@
-﻿@using HandyWork.ViewModel.Web
+﻿@using HandyWork.Model
+@using HandyWork.ViewModel.Web
 @using System.Linq
 @model IEnumerable<AuthUserViewModel>
 
 @{
-    ViewBag.Title = "UserIndex";
+    ViewBag.Title = "用户列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<p>
+    @Html.Partial("_Query", new AuthUser { RealName="xxx" });
+</p>
 
 <h2>创建</h2>
 

@@ -103,6 +103,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\" />
     <Folder Include="Mobile\" />
     <Folder Include="WeChat\" />
   </ItemGroup>
