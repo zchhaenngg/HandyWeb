@@ -5,8 +5,10 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using HandyWork.ViewModel.PCWeb.Query;
 using System.Data.Entity;
+using HandyWork.Common.Extensions;
+using HandyWork.DAL;
 
-namespace HandyWork.DAL.UnitTests
+namespace HandyWork.UnitTests
 {
     [TestClass]
     public class UnitOfWorkTest : BaseTest

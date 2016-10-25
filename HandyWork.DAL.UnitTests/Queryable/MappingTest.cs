@@ -4,7 +4,7 @@ using HandyWork.ViewModel.PCWeb.Query;
 using HandyWork.DAL.Queryable;
 using HandyWork.Model;
 
-namespace HandyWork.DAL.UnitTests.Queryable
+namespace HandyWork.UnitTests.Queryable
 {
     [TestClass]
     public class MappingTest

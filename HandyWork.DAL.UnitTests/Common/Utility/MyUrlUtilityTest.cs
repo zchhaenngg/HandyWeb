@@ -10,7 +10,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
-namespace HandyWork.DAL.UnitTests.Common.Utility
+namespace HandyWork.UnitTests.Common.Utility
 {
     [TestClass]
     public class MyUrlUtilityTest : BaseTest

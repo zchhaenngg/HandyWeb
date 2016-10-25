@@ -1,4 +1,6 @@
-﻿using HandyWork.DAL.Queryable;
+﻿using HandyWork.Common.Extensions;
+using HandyWork.DAL;
+using HandyWork.DAL.Queryable;
 using HandyWork.Model;
 using HandyWork.ViewModel.PCWeb.Query;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,7 +11,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 
-namespace HandyWork.DAL.UnitTests
+namespace HandyWork.UnitTests
 {
     [TestClass]
     public class UserRepositoryTest: BaseTest

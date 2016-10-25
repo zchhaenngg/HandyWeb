@@ -21,17 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{65C0D029-F6A5-49AB-8C6A-3845C78D1347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Commom.UnitTests", "HandyWork.Commom.UnitTests\HandyWork.Commom.UnitTests.csproj", "{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.ViewModel", "HandyWork.ViewModel\HandyWork.ViewModel.csproj", "{0B711B17-8BF5-4AC4-9F19-EC21952940C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.DAL.UnitTests", "HandyWork.DAL.UnitTests\HandyWork.DAL.UnitTests.csproj", "{A858724F-0E26-4E75-B0C6-3C70C8542828}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Model.UnitTest", "HandyWork.Model.UnitTest\HandyWork.Model.UnitTest.csproj", "{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.UnitTests", "HandyWork.DAL.UnitTests\HandyWork.UnitTests.csproj", "{A858724F-0E26-4E75-B0C6-3C70C8542828}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Web", "HandyWork.Web\HandyWork.Web.csproj", "{6C27AF8C-D5F1-4570-918D-14729A41A195}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Web.Tests", "HandyWork.Web.Tests\HandyWork.Web.Tests.csproj", "{2B058F62-BECC-429E-A358-403101F3DA68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +53,6 @@ Global
 		{91ACADA0-B3C5-4FC3-82EB-96DE7754B730}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91ACADA0-B3C5-4FC3-82EB-96DE7754B730}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91ACADA0-B3C5-4FC3-82EB-96DE7754B730}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B711B17-8BF5-4AC4-9F19-EC21952940C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B711B17-8BF5-4AC4-9F19-EC21952940C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B711B17-8BF5-4AC4-9F19-EC21952940C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,25 +61,15 @@ Global
 		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A858724F-0E26-4E75-B0C6-3C70C8542828}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C27AF8C-D5F1-4570-918D-14729A41A195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C27AF8C-D5F1-4570-918D-14729A41A195}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C27AF8C-D5F1-4570-918D-14729A41A195}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C27AF8C-D5F1-4570-918D-14729A41A195}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B058F62-BECC-429E-A358-403101F3DA68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B058F62-BECC-429E-A358-403101F3DA68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B058F62-BECC-429E-A358-403101F3DA68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B058F62-BECC-429E-A358-403101F3DA68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FDEB5EB7-B5AE-47BD-BFDA-2537464C39BC} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
 		{A858724F-0E26-4E75-B0C6-3C70C8542828} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
-		{DE0E79EB-C3AC-48E9-95E2-F06DE449F33D} = {65C0D029-F6A5-49AB-8C6A-3845C78D1347}
 	EndGlobalSection
 EndGlobal

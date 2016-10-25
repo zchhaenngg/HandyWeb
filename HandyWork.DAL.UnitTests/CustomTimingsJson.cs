@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.DAL.UnitTests
+namespace HandyWork.UnitTests
 {
     public class CustomTimingsJson
     {
