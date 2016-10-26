@@ -11,24 +11,18 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// 只支持string
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class LikeLambda<TEntity> : BaseLambda<TEntity, string>
+    public class LikeLambda<TEntity> : BaseLambda<TEntity>
     {
         public string ValueStr => Value as string;
 
-        public LikeLambda(Expression<Func<TEntity, string>> entityProperty, string entityValue) : base(entityProperty, entityValue)
+        public LikeLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
-        }
-
-        public static LikeLambda<TEntity> For(Expression<Func<TEntity, string>> entityProperty, string entityValue)
-        {
-            return new LikeLambda<TEntity>(entityProperty, entityValue);
         }
 
         public override Expression<Func<TEntity, bool>> Build()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");
-            var propertyName = (PropertyExpression.Body as MemberExpression).Member.Name;
-            var member = Expression.Property(parameter, propertyName);
+            var member = Expression.Property(parameter, PropertyName);
 
             var body = Expression.Call(member, typeof(string).GetMethod(nameof(string.Contains)), Expression.Constant(ValueStr));
             return Expression.Lambda<Func<TEntity, bool>>(body, parameter);

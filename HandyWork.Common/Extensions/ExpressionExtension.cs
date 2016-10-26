@@ -55,8 +55,8 @@ namespace HandyWork.Common.Extensions
             return Expression.Lambda<Func<T, bool>>(newBody, parameterExpression);
         }
 
-        public static Expression<Func<TEntity, bool>> Or<TEntity, TProperty>(this Expression<Func<TEntity, bool>> left,
-                                              BaseTag condition, params BaseLambda<TEntity, TProperty>[] lambdas)
+        public static Expression<Func<TEntity, bool>> Or<TEntity>(this Expression<Func<TEntity, bool>> left,
+                                              BaseTag condition, params BaseLambda<TEntity>[] lambdas)
         {
             var right = ExpressionUtility.Build(condition, lambdas);
             return left.Or(right);
@@ -83,8 +83,8 @@ namespace HandyWork.Common.Extensions
             var binary = Expression.AndAlso(replacer.Replace(left.Body), replacer.Replace(right.Body));
             return Expression.Lambda<Func<T, bool>>(binary, parameterExpression);
         }
-        public static Expression<Func<TEntity, bool>> And<TEntity, TProperty>(this Expression<Func<TEntity, bool>> left,
-                                                       BaseTag condition, params BaseLambda<TEntity, TProperty>[] lambdas)
+        public static Expression<Func<TEntity, bool>> And<TEntity>(this Expression<Func<TEntity, bool>> left,
+                                                       BaseTag condition, params BaseLambda<TEntity>[] lambdas)
         {
             var right = ExpressionUtility.Build(condition, lambdas);
             return left.And(right);

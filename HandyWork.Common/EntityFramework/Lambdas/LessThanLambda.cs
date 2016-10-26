@@ -11,17 +11,11 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// 数字、时间
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TProperty"></typeparam>
-    public class LessThanLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
+    public class LessThanLambda<TEntity> : BaseLambda<TEntity>
     {
-        public LessThanLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
+        public LessThanLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
             ExpressionType = ExpressionType.LessThan;
-        }
-
-        public static LessThanLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
-        {
-            return new LessThanLambda<TEntity, TProperty>(entityProperty, entityValue);
         }
     }
 }

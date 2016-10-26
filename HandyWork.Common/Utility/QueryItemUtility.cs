@@ -11,7 +11,7 @@ namespace HandyWork.Common.Utility
 {
     public static class QueryItemUtility
     {
-        public static BaseLambda<TEntity, TProperty> GetLambda<TEntity, TProperty>(QueryItem model, ParameterExpression paramExpression = null)
+        public static BaseLambda<TEntity> GetLambda<TEntity>(QueryItem model, ParameterExpression paramExpression = null)
         {
             ExpressionUtility.GetLambdaExpressionOfProperty<TEntity>(model.Field, paramExpression);
             throw new Exception();

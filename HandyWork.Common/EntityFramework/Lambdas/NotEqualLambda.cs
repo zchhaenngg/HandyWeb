@@ -10,16 +10,11 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// <summary>
     /// 支持所有类型
     /// </summary>
-    public class NotEqualLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
+    public class NotEqualLambda<TEntity> : BaseLambda<TEntity>
     {
-        public NotEqualLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
+        public NotEqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
             ExpressionType = ExpressionType.NotEqual; 
-        }
-
-        public static NotEqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
-        {
-            return new NotEqualLambda<TEntity, TProperty>(entityProperty, entityValue);
         }
     }
 }

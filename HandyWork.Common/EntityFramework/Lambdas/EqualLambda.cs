@@ -11,17 +11,11 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// 所有类型
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TProperty"></typeparam>
-    public class EqualLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
+    public class EqualLambda<TEntity> : BaseLambda<TEntity>
     {
-        public EqualLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
+        public EqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
             ExpressionType = ExpressionType.Equal;
-        }
-        
-        public static EqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
-        {
-            return new EqualLambda<TEntity, TProperty>(entityProperty, entityValue);
         }
     }
 }

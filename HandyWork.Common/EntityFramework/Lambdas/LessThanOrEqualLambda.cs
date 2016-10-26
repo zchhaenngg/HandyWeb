@@ -11,17 +11,11 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// 数字、时间
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TProperty"></typeparam>
-    public class LessThanOrEqualLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
+    public class LessThanOrEqualLambda<TEntity> : BaseLambda<TEntity>
     {
-        public LessThanOrEqualLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
+        public LessThanOrEqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
             ExpressionType = ExpressionType.LessThanOrEqual;
-        }
-
-        public static LessThanOrEqualLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
-        {
-            return new LessThanOrEqualLambda<TEntity, TProperty>(entityProperty, entityValue);
         }
     }
 }

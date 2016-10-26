@@ -9,30 +9,34 @@ using System.Collections;
 
 namespace HandyWork.Common.EntityFramework.Lambdas
 {
-    public abstract class BaseLambda<TEntity, TProperty>
+    public abstract partial class BaseLambda<TEntity>
     {
+        /// <summary>
+        /// TEntity.TProperty's Type
+        /// </summary>
+        protected Type PropertyType { get; set; }
+        protected string PropertyName { get; set; }
         protected object Value { get; set; }
 
         protected ExpressionType ExpressionType { get; set; }
 
-        protected Expression<Func<TEntity, TProperty>> PropertyExpression { get; set; }
+        protected Expression<Func<TEntity, object>> PropertyExpression { get; set; }
 
-        public BaseLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
+        public BaseLambda(Type propertyType, string peopertyName, object entityValue)
         {
-            PropertyExpression = entityProperty;
-
+            PropertyType = propertyType;
+            PropertyName = peopertyName;
             SetValue(entityValue);
         }
         
         public virtual Expression<Func<TEntity, bool>> Build()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");
-            var propertyName = (PropertyExpression.Body as MemberExpression).Member.Name;
-            var member = Expression.Property(parameter, propertyName);
+            var member = Expression.Property(parameter, PropertyName);
 
-            if (typeof(TProperty).IsNullable())
+            if (PropertyType.IsNullable())
             {
-                var binary = Expression.MakeBinary(ExpressionType, member, Expression.Convert(Expression.Constant(Value), typeof(TProperty)));
+                var binary = Expression.MakeBinary(ExpressionType, member, Expression.Convert(Expression.Constant(Value), PropertyType));
                 return Expression.Lambda<Func<TEntity, bool>>(binary, parameter);
             }
             else
@@ -42,53 +46,52 @@ namespace HandyWork.Common.EntityFramework.Lambdas
             }
         }
 
-        protected TProperty ConvertToTProperty(object item)
+        protected object ConvertToTProperty(object item)
         {
             if (item == null)
             {
                 CheckNotNull();
-                return default(TProperty);
+                return PropertyType.GetDefaultValue();
             }
             else
             {
-                var propertyType = typeof(TProperty);
-                if (propertyType.IsShortOrNullable())
+                if (PropertyType.IsShortOrNullable())
                 {
-                    return (TProperty)(Convert.ToInt16(item) as object);
+                    return Convert.ToInt16(item);
                 }
-                else if (propertyType.IsIntOrNullable())
+                else if (PropertyType.IsIntOrNullable())
                 {
-                    return (TProperty)(Convert.ToInt32(item) as object);
+                    return Convert.ToInt32(item);
                 }
-                else if (propertyType.IsLongOrNullable())
+                else if (PropertyType.IsLongOrNullable())
                 {
-                    return (TProperty)(Convert.ToInt64(item) as object);
+                    return Convert.ToInt64(item);
                 }
-                else if (propertyType.IsCharOrNullable())
+                else if (PropertyType.IsCharOrNullable())
                 {
-                    return (TProperty)(Convert.ToChar(item) as object);
+                    return Convert.ToChar(item);
                 }
-                else if (propertyType.IsByteOrNullable())
+                else if (PropertyType.IsByteOrNullable())
                 {
-                    return (TProperty)(Convert.ToByte(item) as object);
+                    return Convert.ToByte(item);
                 }
-                else if (propertyType.IsFloatOrNullable())
+                else if (PropertyType.IsFloatOrNullable())
                 {
-                    return (TProperty)(Convert.ToSingle(item) as object);
+                    return Convert.ToSingle(item);
                 }
-                else if (propertyType.IsDoubleOrNullable())
+                else if (PropertyType.IsDoubleOrNullable())
                 {
-                    return (TProperty)(Convert.ToDouble(item) as object);
+                    return Convert.ToDouble(item);
                 }
-                else if (propertyType.IsDecimalOrNullable())
+                else if (PropertyType.IsDecimalOrNullable())
                 {
-                    return (TProperty)(Convert.ToDecimal(item) as object);
+                    return Convert.ToDecimal(item);
                 }
-                else if (propertyType.IsBoolOrNullable())
+                else if (PropertyType.IsBoolOrNullable())
                 {
-                    return (TProperty)(Convert.ToBoolean(item) as object);
+                    return Convert.ToBoolean(item);
                 }
-                else if (propertyType.IsDateTimeOrNullable())
+                else if (PropertyType.IsDateTimeOrNullable())
                 {
                     if (!item.GetType().IsDateTimeOrNullable())
                     {
@@ -96,23 +99,23 @@ namespace HandyWork.Common.EntityFramework.Lambdas
                     }
                     else
                     {
-                        return (TProperty)(item);
+                        return item;
                     }
                 }
-                else if (propertyType.IsString())
+                else if (PropertyType.IsString())
                 {
-                    return (TProperty)(item.ToString() as object);
+                    return item;
                 }
                 else
                 {
-                    throw new NotSupportedException("ConvertToTProperty，不支持转换成类型" + propertyType.Name);
+                    throw new NotSupportedException("ConvertToTProperty，不支持转换成类型" + PropertyType.Name);
                 }
             }
         }
 
         private void CheckNotNull()
         {
-            if (default(TProperty) != null)
+            if (!PropertyType.IsNullable())
             {
                 throw new ArgumentException("TProperty不可为空，entityValue也不能为空");
             }
@@ -125,8 +128,8 @@ namespace HandyWork.Common.EntityFramework.Lambdas
                 var coll = entityValue as ICollection;
                 if (coll != null)
                 {
-                    List<TProperty> list = new List<TProperty>();
-                    var isPropertyNullable = typeof(TProperty).IsNullable();
+                    List<object> list = new List<object>();
+                    var isPropertyNullable = PropertyType.IsNullable();
                     foreach (var item in coll)
                     {
                         if (isPropertyNullable)

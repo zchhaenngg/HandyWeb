@@ -11,17 +11,11 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// 数字、时间
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TProperty"></typeparam>
-    public class GreaterThanLambda<TEntity, TProperty> : BaseLambda<TEntity, TProperty>
+    public class GreaterThanLambda<TEntity> : BaseLambda<TEntity>
     {
-        public GreaterThanLambda(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue) : base(entityProperty, entityValue)
+        public GreaterThanLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
             ExpressionType = ExpressionType.GreaterThan;
-        }
-
-        public static GreaterThanLambda<TEntity, TProperty> For(Expression<Func<TEntity, TProperty>> entityProperty, object entityValue)
-        {
-            return new GreaterThanLambda<TEntity, TProperty>(entityProperty, entityValue);
         }
     }
 }
