@@ -58,6 +58,7 @@
     <Compile Include="Attributes\MyUrlAttribute.cs" />
     <Compile Include="EntityFramework\Query\QueryItem.cs" />
     <Compile Include="EntityFramework\Query\QueryMethod.cs" />
+    <Compile Include="EntityFramework\Query\QueryModel.cs" />
     <Compile Include="Exceptions\WelcomeException.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Time\Formats.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Time\UTCTime.cs" />
     <Compile Include="Utility\ExpressionUtility.cs" />
     <Compile Include="Utility\MyUrlUtility.cs" />
+    <Compile Include="Utility\QueryItemUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />

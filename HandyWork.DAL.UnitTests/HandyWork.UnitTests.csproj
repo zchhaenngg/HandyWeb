@@ -118,6 +118,7 @@
     <Compile Include="Common\Extensions\StringTest.cs" />
     <Compile Include="Common\Extensions\TypeTest.cs" />
     <Compile Include="Common\Time\UTCTimeTest.cs" />
+    <Compile Include="Common\Utility\ExpressionUtilityTest.cs" />
     <Compile Include="CustomTimingsJson.cs" />
     <Compile Include="Model\EntityContextTest.cs" />
     <Compile Include="Queryable\MappingTest.cs" />

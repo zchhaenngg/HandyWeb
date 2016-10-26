@@ -38,5 +38,25 @@ namespace HandyWork.Common.Utility
             }
             return expression;
         }
+        
+        public static LambdaExpression GetLambdaExpressionOfProperty<T>(string propertyStr, ParameterExpression paramExpression = null)
+        {////获取每级属性如c.Users.Proiles.UserId
+            paramExpression = paramExpression ?? Expression.Parameter(typeof(T), "c");
+            Expression propertyAccess = paramExpression;
+            var props = propertyStr.Split('.');
+            var typeOfProp = typeof(T);
+            foreach (var item in props)
+            {
+                var property = typeOfProp.GetProperty(item);
+                if (property == null)
+                {
+                    throw new Exception(string.Format("实体没有属性 {0}", item));
+                }
+                typeOfProp = property.PropertyType;
+                propertyAccess = Expression.MakeMemberAccess(propertyAccess, property);
+            }
+            return Expression.Lambda(propertyAccess, paramExpression);
+        }
+        
     }
 }

@@ -13,6 +13,8 @@ using HandyWork.UIBusiness.Manager;
 using HandyWork.ViewModel.Web;
 using HandyWork.UIBusiness.Enums;
 using System.Collections.Generic;
+using HandyWork.Model;
+using HandyWork.Common.EntityFramework.Query;
 
 namespace HandyWork.Web.Controllers
 {
@@ -395,6 +397,13 @@ namespace HandyWork.Web.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
+            return View();
+        }
+
+        public ActionResult JsonFindUsers(QueryModel model)
+        {
+            var page = UnitOfManager.AccountManager.GetPage4UserViewModel();
+            ViewBag.Count = page.Item2;
             return View();
         }
     }

@@ -1,4 +1,6 @@
-﻿using HandyWork.Common.Helper;
+﻿using HandyWork.Common.EntityFramework.Query;
+using HandyWork.Common.Helper;
+using HandyWork.Web.App_Start;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,7 @@ namespace HandyWork.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(QueryModel), new QueryModelBinder());
         }
 
         protected void Application_Error(object sender, EventArgs e)

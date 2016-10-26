@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.EntityFramework.Query
 {
-    public class QueryItem
+    public class QueryModel
     {
-        public string Field { get; set; }
-        public string Value { get; set; }
-        public QueryMethod Method { get; set; }
+        public IList<QueryItem> Items { get; set; }
     }
 }
