@@ -94,6 +94,7 @@
     <Compile Include="Authority\Cookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Time\UTCTime.cs" />
+    <Compile Include="Utility\BasicTypeUtility.cs" />
     <Compile Include="Utility\ExpressionUtility.cs" />
     <Compile Include="Utility\MyUrlUtility.cs" />
     <Compile Include="Utility\QueryItemUtility.cs" />

@@ -10,8 +10,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// <summary>
     /// 数字、时间
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    public class LessThanOrEqualLambda<TEntity> : BaseLambda<TEntity>
+    public class LessThanOrEqualLambda : BaseLambda
     {
         public LessThanOrEqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {

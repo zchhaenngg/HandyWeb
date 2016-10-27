@@ -11,7 +11,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// 数字、时间
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class GreaterThanOrEqualLambda<TEntity> : BaseLambda<TEntity>
+    public class GreaterThanOrEqualLambda : BaseLambda
     {
         public GreaterThanOrEqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {

@@ -10,8 +10,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// <summary>
     /// 所有类型
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    public class EqualLambda<TEntity> : BaseLambda<TEntity>
+    public class EqualLambda : BaseLambda
     {
         public EqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {

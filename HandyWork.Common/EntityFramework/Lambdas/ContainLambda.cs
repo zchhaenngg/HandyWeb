@@ -13,25 +13,27 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// <summary>
     /// 数组、集合。  如果是关于string的请使用LikeLambda
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    public class ContainLambda<TEntity> : BaseLambda<TEntity>
+    public class ContainLambda : BaseLambda
     {
         public ContainLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
         }
 
-        public override Expression<Func<TEntity, bool>> Build()
+
+
+        public override Expression<Func<TEntity, bool>> Build<TEntity>()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");
             var member = Expression.Property(parameter, PropertyName);
-
+            
             var body = Expression.Call(Expression.Constant(Value), GetContainMethodInfo(), member);
             return Expression.Lambda<Func<TEntity, bool>>(body, parameter);
         }
 
         public virtual MethodInfo GetContainMethodInfo()
         {
-            return Value.GetType().GetMethod("Contains");
+            var method = typeof(List<>).MakeGenericType(PropertyType).GetMethod("Contains");
+            return method;
         }
     }
 }

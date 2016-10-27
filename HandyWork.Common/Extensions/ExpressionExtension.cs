@@ -56,9 +56,9 @@ namespace HandyWork.Common.Extensions
         }
 
         public static Expression<Func<TEntity, bool>> Or<TEntity>(this Expression<Func<TEntity, bool>> left,
-                                              BaseTag condition, params BaseLambda<TEntity>[] lambdas)
+                                              BaseTag condition, params BaseLambda[] lambdas)
         {
-            var right = ExpressionUtility.Build(condition, lambdas);
+            var right = ExpressionUtility.Build<TEntity>(condition, lambdas);
             return left.Or(right);
         }
 
@@ -84,9 +84,9 @@ namespace HandyWork.Common.Extensions
             return Expression.Lambda<Func<T, bool>>(binary, parameterExpression);
         }
         public static Expression<Func<TEntity, bool>> And<TEntity>(this Expression<Func<TEntity, bool>> left,
-                                                       BaseTag condition, params BaseLambda<TEntity>[] lambdas)
+                                                       BaseTag condition, params BaseLambda[] lambdas)
         {
-            var right = ExpressionUtility.Build(condition, lambdas);
+            var right = ExpressionUtility.Build<TEntity>(condition, lambdas);
             return left.And(right);
         }
     }

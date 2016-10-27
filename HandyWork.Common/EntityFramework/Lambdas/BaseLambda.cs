@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using HandyWork.Common.Extensions;
 using System.Collections;
+using HandyWork.Common.Utility;
 
 namespace HandyWork.Common.EntityFramework.Lambdas
 {
-    public abstract partial class BaseLambda<TEntity>
+    public abstract partial class BaseLambda
     {
         /// <summary>
         /// TEntity.TProperty's Type
@@ -19,9 +20,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
         protected object Value { get; set; }
 
         protected ExpressionType ExpressionType { get; set; }
-
-        protected Expression<Func<TEntity, object>> PropertyExpression { get; set; }
-
+        
         public BaseLambda(Type propertyType, string peopertyName, object entityValue)
         {
             PropertyType = propertyType;
@@ -29,7 +28,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
             SetValue(entityValue);
         }
         
-        public virtual Expression<Func<TEntity, bool>> Build()
+        public virtual Expression<Func<TEntity, bool>> Build<TEntity>()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");
             var member = Expression.Property(parameter, PropertyName);
@@ -45,82 +44,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
                 return Expression.Lambda<Func<TEntity, bool>>(binary, parameter);
             }
         }
-
-        protected object ConvertToTProperty(object item)
-        {
-            if (item == null)
-            {
-                CheckNotNull();
-                return PropertyType.GetDefaultValue();
-            }
-            else
-            {
-                if (PropertyType.IsShortOrNullable())
-                {
-                    return Convert.ToInt16(item);
-                }
-                else if (PropertyType.IsIntOrNullable())
-                {
-                    return Convert.ToInt32(item);
-                }
-                else if (PropertyType.IsLongOrNullable())
-                {
-                    return Convert.ToInt64(item);
-                }
-                else if (PropertyType.IsCharOrNullable())
-                {
-                    return Convert.ToChar(item);
-                }
-                else if (PropertyType.IsByteOrNullable())
-                {
-                    return Convert.ToByte(item);
-                }
-                else if (PropertyType.IsFloatOrNullable())
-                {
-                    return Convert.ToSingle(item);
-                }
-                else if (PropertyType.IsDoubleOrNullable())
-                {
-                    return Convert.ToDouble(item);
-                }
-                else if (PropertyType.IsDecimalOrNullable())
-                {
-                    return Convert.ToDecimal(item);
-                }
-                else if (PropertyType.IsBoolOrNullable())
-                {
-                    return Convert.ToBoolean(item);
-                }
-                else if (PropertyType.IsDateTimeOrNullable())
-                {
-                    if (!item.GetType().IsDateTimeOrNullable())
-                    {
-                        throw new ArgumentException("ConvertToTProperty,不支持转DateTime--需要考虑UTC时间");
-                    }
-                    else
-                    {
-                        return item;
-                    }
-                }
-                else if (PropertyType.IsString())
-                {
-                    return item;
-                }
-                else
-                {
-                    throw new NotSupportedException("ConvertToTProperty，不支持转换成类型" + PropertyType.Name);
-                }
-            }
-        }
-
-        private void CheckNotNull()
-        {
-            if (!PropertyType.IsNullable())
-            {
-                throw new ArgumentException("TProperty不可为空，entityValue也不能为空");
-            }
-        }
-
+        
         private void SetValue(object entityValue)
         {
             if (entityValue != null)
@@ -128,20 +52,20 @@ namespace HandyWork.Common.EntityFramework.Lambdas
                 var coll = entityValue as ICollection;
                 if (coll != null)
                 {
-                    List<object> list = new List<object>();
+                    List<object> list = new List<object>();//不能使用object
                     var isPropertyNullable = PropertyType.IsNullable();
                     foreach (var item in coll)
                     {
                         if (isPropertyNullable)
                         {
-                            var value = ConvertToTProperty(item);
+                            var value = BasicTypeUtility.ConvertTo(item, PropertyType); 
                             list.Add(value);
                         }
                         else
                         {
                             if (item != null)
                             {
-                                var value = ConvertToTProperty(item);
+                                var value = BasicTypeUtility.ConvertTo(item, PropertyType);
                                 if (value != null)
                                 {
                                     list.Add(value);
@@ -153,7 +77,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
                 }
                 else
                 {
-                    Value = ConvertToTProperty(entityValue);
+                    Value = BasicTypeUtility.ConvertTo(entityValue, PropertyType);
                 }
             }
         }

@@ -29,15 +29,15 @@ namespace HandyWork.UnitTests.Common.EntityFramework
 
             var list = new List<AuthUser> { new AuthUser { UserName = "cheng.zhang" } };
 
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new List<string> { "cheng.zhang" }).Build();
+            LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new List<string> { "cheng.zhang" }).Build<AuthUser>();
 
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new int?[] { 1, null, 2 }).Build();
+            LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new int?[] { 1, null, 2 }).Build<AuthUser>();
 
             LambdaUtility<AuthUser>.GetContainLambda(o => o.AccessFailedCount, new int?[] { 1, null, 2 });
 
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.AccessFailedCount, new int?[] { 1, null, 2 }).Build();
+            LambdaUtility<AuthUser>.GetContainLambda(o => o.AccessFailedCount, new int?[] { 1, null, 2 }).Build<AuthUser>();
             {
-                var exp = LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new List<string> { "cheng.zhang" }).Build();
+                var exp = LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new List<string> { "cheng.zhang" }).Build<AuthUser>();
                 var entity = list.Where(exp.Compile()).First();
                 Assert.IsTrue(entity.UserName == "cheng.zhang");
             }
@@ -46,8 +46,8 @@ namespace HandyWork.UnitTests.Common.EntityFramework
         [TestMethod]
         public void Lambda_Equal()
         {
-            LambdaUtility<AuthUser>.GetEqualLambda(o => o.UserName, "cheng.zhang").Build();
-            LambdaUtility<AuthUser>.GetEqualLambda(o => o.LockoutEndDateUtc, DateTime.Now).Build();
+            LambdaUtility<AuthUser>.GetEqualLambda(o => o.UserName, "cheng.zhang").Build<AuthUser>();
+            LambdaUtility<AuthUser>.GetEqualLambda(o => o.LockoutEndDateUtc, DateTime.Now).Build<AuthUser>();
         }
 
         [TestMethod]
@@ -55,8 +55,8 @@ namespace HandyWork.UnitTests.Common.EntityFramework
         {
             Expression<Func<AuthUser, bool>> expression = o => o.CreatedTime > DateTime.Now;
 
-            LambdaUtility<AuthUser>.GetGreaterThanLambda(o => o.AccessFailedCount, 1).Build();
-            LambdaUtility<AuthUser>.GetGreaterThanLambda(o => o.CreatedTime, DateTime.Now).Build();
+            LambdaUtility<AuthUser>.GetGreaterThanLambda(o => o.AccessFailedCount, 1).Build<AuthUser>();
+            LambdaUtility<AuthUser>.GetGreaterThanLambda(o => o.CreatedTime, DateTime.Now).Build<AuthUser>();
         }
 
         [TestMethod]
@@ -64,28 +64,28 @@ namespace HandyWork.UnitTests.Common.EntityFramework
         {
             
             var equalLambda = LambdaUtility<AuthUser>.GetGreaterThanOrEqualLambda(o => o.AccessFailedCount, 1);
-            var expression = equalLambda.Build();
+            var expression = equalLambda.Build<AuthUser>();
         }
 
         [TestMethod]
         public void Lambda_LessThan()
         {
             var equalLambda = LambdaUtility<AuthUser>.GetLessThanLambda(o => o.AccessFailedCount, 1);
-            var expression = equalLambda.Build();
+            var expression = equalLambda.Build<AuthUser>();
         }
 
         [TestMethod]
         public void LambdaLessThanOrEqual()
         {
             var equalLambda = LambdaUtility<AuthUser>.GetLessThanOrEqualLambda(o => o.AccessFailedCount, 1);
-            var expression = equalLambda.Build();
+            var expression = equalLambda.Build<AuthUser>();
         }
 
         [TestMethod]
         public void Lambda_Like()
         {
             var lambda = LambdaUtility<AuthUser>.GetLikeLambda(o => o.UserName, "cheng");
-            var expression = lambda.Build();
+            var expression = lambda.Build<AuthUser>();
         }
 
         [TestMethod]
@@ -93,10 +93,10 @@ namespace HandyWork.UnitTests.Common.EntityFramework
         {
             
             var lambda = LambdaUtility<AuthUser>.GetNotEqualLambda(o => o.UserName, "cheng.zhang");
-            var expression = lambda.Build();
+            var expression = lambda.Build<AuthUser>();
 
             var lambda2 = LambdaUtility<AuthUser>.GetNotEqualLambda(o => o.LockoutEndDateUtc, null);
-            expression = lambda2.Build();
+            expression = lambda2.Build<AuthUser>();
         }
     }
 }

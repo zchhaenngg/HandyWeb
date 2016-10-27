@@ -10,8 +10,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// <summary>
     /// 只支持string
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    public class LikeLambda<TEntity> : BaseLambda<TEntity>
+    public class LikeLambda : BaseLambda
     {
         public string ValueStr => Value as string;
 
@@ -19,7 +18,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
         {
         }
 
-        public override Expression<Func<TEntity, bool>> Build()
+        public override Expression<Func<TEntity, bool>> Build<TEntity>()
         {
             var parameter = Expression.Parameter(typeof(TEntity), "o");
             var member = Expression.Property(parameter, PropertyName);

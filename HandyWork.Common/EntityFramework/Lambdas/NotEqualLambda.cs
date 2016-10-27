@@ -10,7 +10,7 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// <summary>
     /// 支持所有类型
     /// </summary>
-    public class NotEqualLambda<TEntity> : BaseLambda<TEntity>
+    public class NotEqualLambda : BaseLambda
     {
         public NotEqualLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {

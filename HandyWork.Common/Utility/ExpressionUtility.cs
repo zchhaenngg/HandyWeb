@@ -26,14 +26,14 @@ namespace HandyWork.Common.Utility
         /// <summary>
         /// lambdas之前使用And相连
         /// </summary>
-        public static Expression<Func<TEntity, bool>> Build<TEntity>(BaseTag condition, params BaseLambda<TEntity>[] lambdas)
+        public static Expression<Func<TEntity, bool>> Build<TEntity>(BaseTag condition, params BaseLambda[] lambdas)
         {
             Expression<Func<TEntity, bool>> expression = null;
             if (condition.IsPassed)
             {
                 foreach (var lambda in lambdas)
                 {
-                    expression = expression.And(lambda.Build());
+                    expression = expression.And(lambda.Build<TEntity>());
                 }
             }
             return expression;
