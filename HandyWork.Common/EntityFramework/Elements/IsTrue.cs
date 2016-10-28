@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.EntityFramework.Elements
 {
-    public class IsNull : BaseTag
+    public class IsTrue : BaseTag
     {
-        public static IsNull For(object property)
-        {
-            return new IsNull { Value = property };
-        }
+        public static IsTrue Init { get; } = new IsTrue();
 
         public override bool IsPassed
         {
             get
             {
-                return Value == null;
+                return true;
             }
         }
     }

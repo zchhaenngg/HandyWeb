@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HandyWork.Common.Extensions;
+using System.Collections;
 
 namespace HandyWork.Common.Utility
 {
@@ -32,6 +33,10 @@ namespace HandyWork.Common.Utility
             }
             else
             {
+                if (destination.FullName == "System.Object")
+                {
+                    return item;
+                }
                 if (destination.IsShortOrNullable())
                 {
                     return Convert.ToInt16(item);
@@ -72,7 +77,7 @@ namespace HandyWork.Common.Utility
                 {
                     if (!item.GetType().IsDateTimeOrNullable())
                     {
-                        throw new InvalidCastException(string.Format("转换失败，不支持将类型 {0} 转换为 {1}", item.GetType().Name, destination.Name));
+                        throw new InvalidCastException(string.Format("转换失败，不支持将类型 {0} 转换为 {1}", item.GetType().FullName, destination.FullName));
                     }
                     else
                     {
@@ -85,11 +90,39 @@ namespace HandyWork.Common.Utility
                 }
                 else
                 {
-                    throw new InvalidCastException(string.Format("转换失败，不支持将类型 {0} 转换为 {1}", item.GetType().Name, destination.Name));
+                    throw new InvalidCastException(string.Format("转换失败，不支持将类型 {0} 转换为 {1}", item.GetType().FullName, destination.FullName));
                 }
             }
         }
 
-        
+        public static List<TValue> ToList<TValue>(ICollection coll)
+        {
+            if (coll == null)
+            {
+                return null;
+            }
+            else
+            {
+                var list = new List<TValue>();
+                var isPropertyTypeNullable = typeof(TValue).IsNullable();
+                foreach (var item in coll)
+                {
+                    if (item == null)
+                    {
+                        if (isPropertyTypeNullable)
+                        {
+                            list.Add(default(TValue));
+                        }
+                    }
+                    else
+                    {
+                        var t = ConvertTo<TValue>(item);
+                        list.Add(t);
+                    }
+                }
+                return list;
+            }
+        }
+
     }
 }

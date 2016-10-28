@@ -13,13 +13,9 @@ namespace HandyWork.Common.EntityFramework.Elements
     /// </summary>
     public class IsEmpty : BaseTag
     {
-        public IsEmpty(object property) : base(property)
-        {
-        }
-
         public static IsEmpty For(object property)
         {
-            return new IsEmpty(property);
+            return new IsEmpty { Value = property };
         }
 
         public override bool IsPassed

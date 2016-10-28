@@ -16,23 +16,6 @@ namespace HandyWork.UnitTests.Common.Utility
     [TestClass]
     public class ExpressionUtilityTest
     {
-        [TestMethod]
-        public void GetLambdaExpressionOfProperty()
-        {
-            Expression<Func<ExpressionUtilityTest_a, bool>> expression = c => c.b.name == "aaa";
-            var expression2 = ExpressionUtility.GetLambdaExpressionOfProperty<ExpressionUtilityTest_a>("b.name");
-            Assert.IsTrue(true);
-        }
-    }
-
-    public class ExpressionUtilityTest_a
-    {
-        public ExpressionUtilityTest_b b { get; set; }
-
-        public List<ExpressionUtilityTest_b> bs { get; set; }
-    }
-    public class ExpressionUtilityTest_b
-    {
-        public string name { get; set; }
+        
     }
 }

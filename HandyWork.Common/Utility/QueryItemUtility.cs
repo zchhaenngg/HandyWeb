@@ -13,7 +13,6 @@ namespace HandyWork.Common.Utility
     {
         public static BaseLambda GetLambda<TEntity>(QueryItem model, ParameterExpression paramExpression = null)
         {
-            ExpressionUtility.GetLambdaExpressionOfProperty<TEntity>(model.Field, paramExpression);
             throw new Exception();
         }
     }

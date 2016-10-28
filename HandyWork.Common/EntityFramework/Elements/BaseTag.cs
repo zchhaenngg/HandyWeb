@@ -8,12 +8,7 @@ namespace HandyWork.Common.EntityFramework.Elements
 {
     public abstract class BaseTag
     {
-        public BaseTag(object property)
-        {
-            Value = property;
-        }
-
-        public object Value { get; }
+        public object Value { get; set; }
 
         /// <summary>
         /// 通过表达式构建前验证

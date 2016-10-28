@@ -15,71 +15,21 @@ namespace HandyWork.Common.EntityFramework.Lambdas
         /// <summary>
         /// TEntity.TProperty's Type
         /// </summary>
-        protected Type PropertyType { get; set; }
-        protected string PropertyName { get; set; }
-        protected object Value { get; set; }
+        public Type PropertyType { get; set; }
+        public string PropertyName { get; set; }
+        public object Value { get; }
+        public ExpressionType ExpressionType { get; set; }
 
-        protected ExpressionType ExpressionType { get; set; }
-        
-        public BaseLambda(Type propertyType, string peopertyName, object entityValue)
+        protected virtual object ConvertToPropertyType(object value)
+        {
+            return BasicTypeUtility.ConvertTo(value, PropertyType);
+        }
+
+        public BaseLambda(Type propertyType, string peopertyName, object value)
         {
             PropertyType = propertyType;
             PropertyName = peopertyName;
-            SetValue(entityValue);
-        }
-        
-        public virtual Expression<Func<TEntity, bool>> Build<TEntity>()
-        {
-            var parameter = Expression.Parameter(typeof(TEntity), "o");
-            var member = Expression.Property(parameter, PropertyName);
-
-            if (PropertyType.IsNullable())
-            {
-                var binary = Expression.MakeBinary(ExpressionType, member, Expression.Convert(Expression.Constant(Value), PropertyType));
-                return Expression.Lambda<Func<TEntity, bool>>(binary, parameter);
-            }
-            else
-            {
-                var binary = Expression.MakeBinary(ExpressionType, member, Expression.Constant(Value));
-                return Expression.Lambda<Func<TEntity, bool>>(binary, parameter);
-            }
-        }
-        
-        private void SetValue(object entityValue)
-        {
-            if (entityValue != null)
-            {
-                var coll = entityValue as ICollection;
-                if (coll != null)
-                {
-                    List<object> list = new List<object>();//不能使用object
-                    var isPropertyNullable = PropertyType.IsNullable();
-                    foreach (var item in coll)
-                    {
-                        if (isPropertyNullable)
-                        {
-                            var value = BasicTypeUtility.ConvertTo(item, PropertyType); 
-                            list.Add(value);
-                        }
-                        else
-                        {
-                            if (item != null)
-                            {
-                                var value = BasicTypeUtility.ConvertTo(item, PropertyType);
-                                if (value != null)
-                                {
-                                    list.Add(value);
-                                }
-                            }
-                        }
-                    }
-                    Value = list;
-                }
-                else
-                {
-                    Value = BasicTypeUtility.ConvertTo(entityValue, PropertyType);
-                }
-            }
+            Value = ConvertToPropertyType(value);
         }
     }
 }

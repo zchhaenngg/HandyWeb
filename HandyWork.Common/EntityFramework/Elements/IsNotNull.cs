@@ -8,13 +8,9 @@ namespace HandyWork.Common.EntityFramework.Elements
 {
     public class IsNotNull : BaseTag
     {
-        public IsNotNull(object property) : base(property)
-        {
-        }
-
         public static IsNotNull For(object property)
         {
-            return new IsNotNull(property);
+            return new IsNotNull { Value = property };
         }
 
         public override bool IsPassed

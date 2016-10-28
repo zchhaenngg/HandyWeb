@@ -6,6 +6,8 @@ using HandyWork.DAL;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
+using HandyWork.Common.EntityFramework.Query;
+using HandyWork.Common.EntityFramework.Elements;
 
 namespace HandyWork.UnitTests.Common.EntityFramework
 {
@@ -21,82 +23,95 @@ namespace HandyWork.UnitTests.Common.EntityFramework
         [TestMethod]
         public void Lambda_Contain()
         {
-            var parameter = Expression.Parameter(typeof(AuthUser), "o");
-            var member = Expression.Property(parameter, "AccessFailedCount");
-            List<int> list1 = new List<int> { 1, 2 };
-            var body = Expression.Call(Expression.Constant(list1), list1.GetType().GetMethod("Contains"), member);
-            var xx = Expression.Lambda<Func<AuthUser, bool>>(body, parameter);
-
-            var list = new List<AuthUser> { new AuthUser { UserName = "cheng.zhang" } };
-
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new List<string> { "cheng.zhang" }).Build<AuthUser>();
-
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new int?[] { 1, null, 2 }).Build<AuthUser>();
-
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.AccessFailedCount, new int?[] { 1, null, 2 });
-
-            LambdaUtility<AuthUser>.GetContainLambda(o => o.AccessFailedCount, new int?[] { 1, null, 2 }).Build<AuthUser>();
+         
             {
-                var exp = LambdaUtility<AuthUser>.GetContainLambda(o => o.UserName, new List<string> { "cheng.zhang" }).Build<AuthUser>();
-                var entity = list.Where(exp.Compile()).First();
-                Assert.IsTrue(entity.UserName == "cheng.zhang");
+                var factory = new LambdaFactory<AuthUser>().IfContain(IsTrue.Init, o => o.UserName, new List<string> { "cheng.zhang" });
+                var exp = factory.ToExpression();
+
+            }
+            {
+                var factory = new LambdaFactory<AuthUser>().IfContain(IsTrue.Init, o => o.UserName, new int?[] { 1, null, 2 });
+                var exp = factory.ToExpression();
+            }
+            {
+                var factory = new LambdaFactory<AuthUser>().IfContain(IsTrue.Init, o => o.AccessFailedCount, new int?[] { 1, null, 2 });
+                var exp = factory.ToExpression();
             }
         }
 
         [TestMethod]
         public void Lambda_Equal()
         {
-            LambdaUtility<AuthUser>.GetEqualLambda(o => o.UserName, "cheng.zhang").Build<AuthUser>();
-            LambdaUtility<AuthUser>.GetEqualLambda(o => o.LockoutEndDateUtc, DateTime.Now).Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfEqual(IsTrue.Init, o => o.UserName, "cheng.zhang");
+                var exp = factory.ToExpression();
+            }
+            {
+                var factory = new LambdaFactory<AuthUser>().IfEqual(IsTrue.Init, o => o.LockoutEndDateUtc, DateTime.Now);
+                var exp = factory.ToExpression();
+            }
+            {
+                var factory = new LambdaFactory<AuthUser>().IfEqual(IsTrue.Init, o => o.LockoutEndDateUtc, null);
+                var exp = factory.ToExpression();
+            }
         }
 
         [TestMethod]
         public void Lambda_GreaterThan()
         {
-            Expression<Func<AuthUser, bool>> expression = o => o.CreatedTime > DateTime.Now;
-
-            LambdaUtility<AuthUser>.GetGreaterThanLambda(o => o.AccessFailedCount, 1).Build<AuthUser>();
-            LambdaUtility<AuthUser>.GetGreaterThanLambda(o => o.CreatedTime, DateTime.Now).Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfGreaterThan(IsTrue.Init, o => o.AccessFailedCount, 1);
+                var exp = factory.ToExpression();
+            }
+            {
+                var factory = new LambdaFactory<AuthUser>().IfGreaterThan(IsTrue.Init, o => o.CreatedTime, DateTime.Now);
+                var exp = factory.ToExpression();
+            }
         }
 
         [TestMethod]
         public void Lambda_GreaterThanOrEqual()
         {
-            
-            var equalLambda = LambdaUtility<AuthUser>.GetGreaterThanOrEqualLambda(o => o.AccessFailedCount, 1);
-            var expression = equalLambda.Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfGreaterThanOrEqual(IsTrue.Init, o => o.AccessFailedCount, 1);
+                var exp = factory.ToExpression();
+            }
         }
 
         [TestMethod]
         public void Lambda_LessThan()
         {
-            var equalLambda = LambdaUtility<AuthUser>.GetLessThanLambda(o => o.AccessFailedCount, 1);
-            var expression = equalLambda.Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfLessThan(IsTrue.Init, o => o.AccessFailedCount, 1);
+                var exp = factory.ToExpression();
+            }
         }
 
         [TestMethod]
         public void LambdaLessThanOrEqual()
         {
-            var equalLambda = LambdaUtility<AuthUser>.GetLessThanOrEqualLambda(o => o.AccessFailedCount, 1);
-            var expression = equalLambda.Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfLessThanOrEqual(IsTrue.Init, o => o.AccessFailedCount, 1);
+                var exp = factory.ToExpression();
+            }
         }
 
         [TestMethod]
         public void Lambda_Like()
         {
-            var lambda = LambdaUtility<AuthUser>.GetLikeLambda(o => o.UserName, "cheng");
-            var expression = lambda.Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfLike(IsTrue.Init, o => o.UserName, "cheng");
+                var exp = factory.ToExpression();
+            }
         }
 
         [TestMethod]
         public void Lambda_NotEqual()
         {
-            
-            var lambda = LambdaUtility<AuthUser>.GetNotEqualLambda(o => o.UserName, "cheng.zhang");
-            var expression = lambda.Build<AuthUser>();
-
-            var lambda2 = LambdaUtility<AuthUser>.GetNotEqualLambda(o => o.LockoutEndDateUtc, null);
-            expression = lambda2.Build<AuthUser>();
+            {
+                var factory = new LambdaFactory<AuthUser>().IfEqual(IsTrue.Init, o => o.UserName, "cheng");
+                var exp = factory.ToExpression();
+            }
         }
     }
 }

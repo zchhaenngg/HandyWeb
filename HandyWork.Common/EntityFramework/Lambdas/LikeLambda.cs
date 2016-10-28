@@ -12,19 +12,8 @@ namespace HandyWork.Common.EntityFramework.Lambdas
     /// </summary>
     public class LikeLambda : BaseLambda
     {
-        public string ValueStr => Value as string;
-
         public LikeLambda(Type propertyType, string peopertyName, object entityValue) : base(propertyType, peopertyName, entityValue)
         {
-        }
-
-        public override Expression<Func<TEntity, bool>> Build<TEntity>()
-        {
-            var parameter = Expression.Parameter(typeof(TEntity), "o");
-            var member = Expression.Property(parameter, PropertyName);
-
-            var body = Expression.Call(member, typeof(string).GetMethod(nameof(string.Contains)), Expression.Constant(ValueStr));
-            return Expression.Lambda<Func<TEntity, bool>>(body, parameter);
         }
     }
 }

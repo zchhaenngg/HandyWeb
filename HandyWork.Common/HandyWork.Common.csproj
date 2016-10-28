@@ -56,8 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MyUrlAttribute.cs" />
+    <Compile Include="EntityFramework\Elements\IsTrue.cs" />
     <Compile Include="EntityFramework\Lambdas\LambdaFactory.cs" />
     <Compile Include="EntityFramework\Lambdas\LambdaUtility.cs" />
+    <Compile Include="EntityFramework\Query\QueryIf.cs" />
     <Compile Include="EntityFramework\Query\QueryItem.cs" />
     <Compile Include="EntityFramework\Query\QueryMethod.cs" />
     <Compile Include="EntityFramework\Query\QueryModel.cs" />

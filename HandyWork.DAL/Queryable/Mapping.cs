@@ -57,13 +57,13 @@ namespace HandyWork.DAL.Queryable
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
-            var expression = ExpressionUtility.True<AuthUser>()
-                .And(IsNotEmpty.For(query.UserNameLike), LambdaUtility<AuthUser>.GetLikeLambda(o => o.UserName, query.UserNameLike))
-                .And(IsNotEmpty.For(query.UserNameEqual), LambdaUtility<AuthUser>.GetEqualLambda(o => o.UserName, query.UserNameEqual))
-                .And(IsNotEmpty.For(query.RealNameLike), LambdaUtility<AuthUser>.GetLikeLambda(o => o.RealName, query.RealNameLike))
-                .And(IsNotNull.For(query.IsValid), LambdaUtility<AuthUser>.GetEqualLambda(o => o.IsValid, query.IsValid))
-                .And(IsNotNull.For(query.IsLocked), LambdaUtility<AuthUser>.GetEqualLambda(o => o.LockoutEnabled, query.IsLocked));
-            return expression;
+
+            var factory = new LambdaFactory<AuthUser>().IfLike(IsNotEmpty.For(query.UserNameLike), o => o.UserName, query.UserNameLike)
+                .IfEqual(IsNotEmpty.For(query.UserNameEqual), o => o.UserName, query.UserNameEqual)
+                .IfLike(IsNotEmpty.For(query.RealNameLike), o => o.RealName, query.RealNameLike)
+                .IfEqual(IsNotEmpty.For(query.IsValid), o => o.IsValid, query.IsValid)
+                .IfEqual(IsNotEmpty.For(query.IsLocked), o => o.LockoutEnabled, query.IsLocked);
+            return factory.ToExpression();
         }
 
         private static Expression<Func<AuthRole, bool>> Build4AuthRole(AuthRoleQuery query)
@@ -72,10 +72,8 @@ namespace HandyWork.DAL.Queryable
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
-            
-            var expression = ExpressionUtility.True<AuthRole>()
-                .And(IsNotEmpty.For(query.NameLike), LambdaUtility<AuthRole>.GetLikeLambda(o => o.Name, query.NameLike));
-            return expression; 
+            var factory = new LambdaFactory<AuthRole>().IfLike(IsNotEmpty.For(query.NameLike), o => o.Name, query.NameLike);
+            return factory.ToExpression();
         }
 
         private static Expression<Func<AuthPermission, bool>> Build4AuthPermission(AuthPermissionQuery query)
@@ -84,10 +82,10 @@ namespace HandyWork.DAL.Queryable
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
-            var expression = ExpressionUtility.True<AuthPermission>()
-                .And(IsNotEmpty.For(query.NameLike), LambdaUtility<AuthPermission>.GetLikeLambda(o => o.Name, query.NameLike))
-                .And(IsNotEmpty.For(query.CodeLike), LambdaUtility<AuthPermission>.GetLikeLambda(o => o.Code, query.CodeLike));
-            return expression;
+            var factory = new LambdaFactory<AuthPermission>()
+                .IfLike(IsNotEmpty.For(query.NameLike), o => o.Name, query.NameLike)
+                .IfLike(IsNotEmpty.For(query.CodeLike), o => o.Code, query.CodeLike);
+            return factory.ToExpression();
         }
     }
 }
