@@ -11,47 +11,7 @@ using HandyWork.Common.EntityFramework.Elements;
 namespace HandyWork.Common.EntityFramework.Lambdas
 {
     public static class LambdaUtility
-    {
-        public static BaseLambda GetContainLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.Contain, entityProperty, value);
-        }
-
-        public static BaseLambda GetEqualLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.Equal, entityProperty, value);
-        }
-
-        public static BaseLambda GetGreaterThanLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.GreaterThan, entityProperty, value);
-        }
-
-        public static BaseLambda GetGreaterThanOrEqualLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.GreaterThanOrEqual, entityProperty, value);
-        }
-
-        public static BaseLambda GetLessThanLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.LessThan, entityProperty, value);
-        }
-
-        public static BaseLambda GetLessThanOrEqualLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.LessThanOrEqual, entityProperty, value);
-        }
-
-        public static BaseLambda GetLikeLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.Like, entityProperty, value);
-        }
-
-        public static BaseLambda GetNotEqualLambda<TEntity, TValue>(Expression<Func<TEntity, TValue>> entityProperty, object value)
-        {
-            return GetLambda(QueryMethod.NotEqual, entityProperty, value);
-        }
-
+    {   
         public static BaseLambda GetLambda<TEntity, TValue>(QueryMethod method, Expression<Func<TEntity, TValue>> entityProperty, object value)
         {
             var propertyName = (entityProperty.Body as MemberExpression).Member.Name;
