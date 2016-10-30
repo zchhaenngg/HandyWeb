@@ -2,6 +2,8 @@
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
 1.用户列表查询
+所有列表页等查询功能使用同一个静态UnitOfWork.AsNoTrack()完成
+
 a.通过bootstrap.js建立一个可以通用的分部视图，
     以支持对数据库的如Equal,In,Like,Greater,Less  查询
 	注意：当前1.只支持所有组合And查询2.不支持跨表查询3.暂时直接使用Entity，不使用ViewModel

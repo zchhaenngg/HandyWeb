@@ -120,11 +120,13 @@ namespace HandyWork.UnitTests
                 Method = QueryMethod.Like
             };
             model.Items = new List<QueryItem> { queryItem };
-
-            var factory = new LambdaFactory<AuthUser>().AddLambdas(model);
-            var expression = factory.ToExpression();
-            var entities = UnitOfWork.AsNoTracking<AuthUser>().Where(expression).ToList();
-            Assert.IsTrue(true);
+            using (ReportOuput output = new ReportOuput())
+            {
+                var factory = new LambdaFactory<AuthUser>().AddLambdas(model);
+                var expression = factory.ToExpression();
+                var entities = UnitOfWork.AsNoTracking<AuthUser>().Where(expression).ToList();
+                Assert.IsTrue(true);
+            }
         }
     }
 }
