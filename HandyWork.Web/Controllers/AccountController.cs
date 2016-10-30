@@ -27,7 +27,7 @@ namespace HandyWork.Web.Controllers
 
         public ActionResult UserIndex()
         {
-            var page = UnitOfManager.AccountManager.GetPage4UserViewModel();
+            var page = UnitOfManager.AccountManager.GetPage4UserViewModel(null);
             ViewBag.Count = page.Item2;
             return View(page.Item1);
         }
@@ -402,7 +402,7 @@ namespace HandyWork.Web.Controllers
 
         public ActionResult JsonFindUsers(QueryModel model)
         {
-            var page = UnitOfManager.AccountManager.GetPage4UserViewModel();
+            var page = UnitOfManager.AccountManager.GetPage4UserViewModel(model);
             ViewBag.Count = page.Item2;
             return View();
         }

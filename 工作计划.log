@@ -9,7 +9,11 @@ a.通过bootstrap.js建立一个可以通用的分部视图，
 	          Property=>type,propertyName,Value
 			  1.有property的name生成MemberExpression  完成
 			  2.由MemberExpression和Value以及QueryMethod生成相应的Lambda实体
-			      =>优化BaseLambda<TEntity, TProperty> -> BaseLambda<TEntity>
+			      =>优化BaseLambda<TEntity, TProperty> -> BaseLambda<TEntity>  完成
+			  3.Source和QueryModel 完成
+			  4.优化所有GetPage4User等。
+			    =>UnitOfManager.UserSouce.Where(QueryModel model).Select(new UserViewModel{}).ToList();  完成
+			  5.分页功能
 
 a.使用Angular和bootstrap校验查询条件,以UserName为例。
 

@@ -7,6 +7,10 @@ using HandyWork.ViewModel.PCWeb.Query;
 using System.Data.Entity;
 using HandyWork.Common.Extensions;
 using HandyWork.DAL;
+using HandyWork.Common.EntityFramework.Query;
+using System.Collections.Generic;
+using HandyWork.Common.EntityFramework.Lambdas;
+using HandyWork.Common.EntityFramework.Elements;
 
 namespace HandyWork.UnitTests
 {
@@ -102,6 +106,24 @@ namespace HandyWork.UnitTests
                 UnitOfWork.AsNoTracking<AuthUser>().GetPage(query, out iTotal).Select(o => new { o.RealName, o.UserName }).ToList();
                 UnitOfWork.AsTracking<AuthUser>().GetPage(query, out iTotal).Select(o => new { o.RealName, o.UserName }).ToList();
             }
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void UnitOfWork_FindByQueryModel()
+        {
+            var model = new QueryModel();
+            var queryItem = new QueryItem
+            {
+                Field = "UserName",
+                Value = "cheng",
+                Method = QueryMethod.Like
+            };
+            model.Items = new List<QueryItem> { queryItem };
+
+            var factory = new LambdaFactory<AuthUser>().AddLambdas(model);
+            var expression = factory.ToExpression();
+            var entities = UnitOfWork.AsNoTracking<AuthUser>().Where(expression).ToList();
             Assert.IsTrue(true);
         }
     }

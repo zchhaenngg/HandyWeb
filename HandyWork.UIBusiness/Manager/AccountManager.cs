@@ -15,6 +15,8 @@ using HandyWork.ViewModel.PCWeb.Query;
 using HandyWork.Common.Exceptions;
 using HandyWork.Localization;
 using HandyWork.ViewModel.Web;
+using HandyWork.Common.EntityFramework.Query;
+using HandyWork.Common.EntityFramework.Lambdas;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -518,9 +520,15 @@ namespace HandyWork.UIBusiness.Manager
             throw new NotImplementedException();
         }
 
-        public Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel()
+        public Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel(QueryModel model)
         {
-            var list = UnitOfWork.AsNoTracking<AuthUser>().OrderBy(o => o.Id).GetPage(0, 10).Select(o => new AuthUserViewModel
+            var factory = new LambdaFactory<AuthUser>().AddLambdas(model);
+            var expression = factory.ToExpression();
+            if (expression == null)
+            {
+                expression = o => true;
+            }
+            var list = UnitOfWork.AsNoTracking<AuthUser>().Where(expression).OrderBy(o => o.Id).GetPage(0, 10).Select(o => new AuthUserViewModel
             {
                 Id = o.Id,
                 AccessFailedCount = o.AccessFailedCount,

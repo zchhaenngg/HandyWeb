@@ -1,4 +1,5 @@
-﻿using HandyWork.UIBusiness.Enums;
+﻿using HandyWork.Common.EntityFramework.Query;
+using HandyWork.UIBusiness.Enums;
 using HandyWork.ViewModel.PCWeb;
 using HandyWork.ViewModel.Web;
 using System;
@@ -25,7 +26,7 @@ namespace HandyWork.UIBusiness.Manager.Interfaces
         void EditRole(RoleViewModel model);
         Tuple<bool, string> DeleteRole(string id);
         RoleViewModel GetRoleViewModel(string id);
-        Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel();
+        Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel(QueryModel model);
         List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike);
         List<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike);
         void AddUserPermission(string userId, string permissionId);

@@ -81,6 +81,26 @@ namespace HandyWork.Common.EntityFramework.Lambdas
             return If(ifCondition, QueryMethod.NotEqual, entityProperty, value);
         }
 
+        public LambdaFactory<TEntity> AddLambda(QueryItem item)
+        {
+            var lambda = LambdaUtility.GetLambda<TEntity>(item);
+            Lambdas.Add(lambda);
+            return this;
+        }
+        public LambdaFactory<TEntity> AddLambdas(IEnumerable<QueryItem> items)
+        {
+            if (items != null)
+            {
+                foreach (var item in items.ToList())
+                {
+                    AddLambda(item);
+                }
+            }
+            return this;
+        }
+        public LambdaFactory<TEntity> AddLambdas(QueryModel model) => model == null ? this: AddLambdas(model.Items);
+
+
         public Expression<Func<TEntity, bool>> ToExpression()
         {
             if (Lambdas == null || !Lambdas.Any())
