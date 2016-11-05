@@ -1,9 +1,53 @@
-﻿<ul class="pagination">
-    <li><a href="#">&laquo;</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">&raquo;</a></li>
-</ul>
+﻿@*在第1页 到 第33页*@
+@using HandyWork.ViewModel.Web
+@model BootstrapPagination
+<div ng-app="@Model.app" ng-controller="@Model.controller">
+    <ul class="pagination">
+        <li><a href="javascript:void(0)" ng-click="getPage(1)">首页</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(current_page_number-1)">上一页</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(start_index+1)">{{ start_index+1 }}</a></li>
+        <li><a href="javascript:void(0)" ng-class="{true: 'active', false: 'inactive'}[is_active]" ng-click="getPage(start_index+2)">{{ start_index+2 }}</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(start_index+3)">{{ start_index+3 }}</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(start_index+4)">{{ start_index+4 }}</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(start_index+5)">{{ start_index+5 }}</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(start_index+6)">{{ start_index+6 }}</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(start_index+7)">{{ start_index+7 }}</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(current_page_number+1)">下一页</a></li>
+        <li><a href="javascript:void(0)" ng-click="getPage(max_page_number)">末页</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var app = angular.module('@Model.app', []);
+    app.controller('@Model.controller', function ($scope) {
+        //起始页序号
+        $scope.start_index = 0;
+        $scope.current_page_number = 1;
+        $scope.page_size = 10;
+        $scope.total_count = 326;
+        $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size),
+        $scope.is_active = function () {
+
+        },
+        $scope.getPage = function (page_number) {
+            debugger
+            if (page_number < 1) {
+                page_number = 1;
+            }
+            if (page_number > $scope.max_page_number) {
+                page_number = $scope.max_page_number;
+            }
+            $scope.current_page_number = page_number;
+            if (page_number >= 4) {
+                page_number = page_number - 3;
+            } else {
+                page_number = 1
+            }
+            var start_index = page_number - 1;
+            if (start_index + 7 > $scope.max_page_number)
+            {
+                start_index = $scope.max_page_number - 7;
+            }
+            $scope.start_index = start_index;
+        }
+    });
+</script>
