@@ -1,17 +1,20 @@
-﻿@*在第1页 到 第33页*@
+﻿@*
+    如果查询条件发生变化则查询总数会发生变化,需要重新构建pagination
+*@
 @using HandyWork.ViewModel.Web
 @model BootstrapPagination
 <div ng-app="@Model.app" ng-controller="@Model.controller">
     <ul class="pagination">
         <li><a href="javascript:void(0)" ng-click="getPage(1)">首页</a></li>
         <li><a href="javascript:void(0)" ng-click="getPage(current_page_number-1)">上一页</a></li>
-        <li><a href="javascript:void(0)" ng-click="getPage(start_index+1)">{{ start_index+1 }}</a></li>
-        <li><a href="javascript:void(0)" ng-class="{true: 'active', false: 'inactive'}[is_active]" ng-click="getPage(start_index+2)">{{ start_index+2 }}</a></li>
-        <li><a href="javascript:void(0)" ng-click="getPage(start_index+3)">{{ start_index+3 }}</a></li>
-        <li><a href="javascript:void(0)" ng-click="getPage(start_index+4)">{{ start_index+4 }}</a></li>
-        <li><a href="javascript:void(0)" ng-click="getPage(start_index+5)">{{ start_index+5 }}</a></li>
-        <li><a href="javascript:void(0)" ng-click="getPage(start_index+6)">{{ start_index+6 }}</a></li>
-        <li><a href="javascript:void(0)" ng-click="getPage(start_index+7)">{{ start_index+7 }}</a></li>
+        @for (int num = 1; num <= Model.repeat; num++)
+        {
+            <li><a href="javascript:void(0)" ng-click="getPage(start_index+@num)">{{ start_index+@num }}</a></li>
+            if (num == Model.max_page_number)
+            {
+                break;
+            }
+        }
         <li><a href="javascript:void(0)" ng-click="getPage(current_page_number+1)">下一页</a></li>
         <li><a href="javascript:void(0)" ng-click="getPage(max_page_number)">末页</a></li>
     </ul>
@@ -25,9 +28,6 @@
         $scope.page_size = 10;
         $scope.total_count = 326;
         $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size),
-        $scope.is_active = function () {
-
-        },
         $scope.getPage = function (page_number) {
             debugger
             if (page_number < 1) {
