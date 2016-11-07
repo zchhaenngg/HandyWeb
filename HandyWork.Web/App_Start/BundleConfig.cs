@@ -28,6 +28,7 @@ namespace HandyWork.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/mybootstrap.css",
                       "~/Content/site.css"));
 
         }

@@ -1,53 +1,54 @@
 ﻿@*
     如果查询条件发生变化则查询总数会发生变化,需要重新构建pagination
+    1.$scope.current_page_number
+    2.$scope.page_size
+    3.$scope.total_count
+    控件是被外部调用的，所以此处
 *@
 @using HandyWork.ViewModel.Web
 @model BootstrapPagination
-<div ng-app="@Model.app" ng-controller="@Model.controller">
+<div ng-controller="@Model.controller">
     <ul class="pagination">
         <li><a href="javascript:void(0)" ng-click="getPage(1)">首页</a></li>
         <li><a href="javascript:void(0)" ng-click="getPage(current_page_number-1)">上一页</a></li>
-        @for (int num = 1; num <= Model.repeat; num++)
+        @for (int num = 1; num <= Model.show_page_count; num++)
         {
-            <li><a href="javascript:void(0)" ng-click="getPage(start_index+@num)">{{ start_index+@num }}</a></li>
-            if (num == Model.max_page_number)
-            {
-                break;
-            }
+            <li><a href="javascript:void(0)" ng-if="$scope.total_count > 0 && start_index+@num<=max_page_number" ng-click="getPage(start_index+@num)">{{ start_index+@num }}</a></li>
         }
         <li><a href="javascript:void(0)" ng-click="getPage(current_page_number+1)">下一页</a></li>
         <li><a href="javascript:void(0)" ng-click="getPage(max_page_number)">末页</a></li>
     </ul>
 </div>
 <script type="text/javascript">
-    var app = angular.module('@Model.app', []);
+    var app = angular.module('handyApp', []);
     app.controller('@Model.controller', function ($scope) {
         //起始页序号
         $scope.start_index = 0;
         $scope.current_page_number = 1;
         $scope.page_size = 10;
-        $scope.total_count = 326;
+        $scope.total_count = eval('@Model.total_count');
+        $scope.show_item_count = eval('@Model.show_page_count');
         $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size),
         $scope.getPage = function (page_number) {
             debugger
-            if (page_number < 1) {
-                page_number = 1;
+            //设置current_page_number
+            if ($scope.total_count > 0) {
+                if (page_number < 1) {
+                    page_number = 1;
+                }
+                if (page_number > $scope.max_page_number) {
+                    page_number = $scope.max_page_number;
+                }
+                $scope.current_page_number = page_number;
+                //获取显示多少翻页按钮
+
+                var show_count = $scope.show_item_count;
+                if (show_count > $scope.max_page_number) {
+                    show_count = $scope.max_page_number;
+                }
+
+                $scope.start_index = page_number - 1;
             }
-            if (page_number > $scope.max_page_number) {
-                page_number = $scope.max_page_number;
-            }
-            $scope.current_page_number = page_number;
-            if (page_number >= 4) {
-                page_number = page_number - 3;
-            } else {
-                page_number = 1
-            }
-            var start_index = page_number - 1;
-            if (start_index + 7 > $scope.max_page_number)
-            {
-                start_index = $scope.max_page_number - 7;
-            }
-            $scope.start_index = start_index;
         }
     });
 </script>

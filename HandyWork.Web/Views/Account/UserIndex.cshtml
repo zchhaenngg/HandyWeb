@@ -2,10 +2,10 @@
 @using HandyWork.ViewModel.Web
 @using System.Linq
 @model IEnumerable<AuthUserViewModel>
-
 @{
     ViewBag.Title = "用户列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var pagination = new BootstrapPagination { };
 }
 <p>
     @Html.Partial("_Query", new AuthUser { RealName="xxx" });
@@ -13,10 +13,8 @@
 
 <!--分页模拟-->
 <p>
-    @Html.Partial("_Pagination", new BootstrapPagination { })
+    @Html.Partial("_Pagination", pagination)
 </p>
-<!--分页模拟-->
-
 <h2>创建</h2>
 
 <p>
@@ -91,3 +89,15 @@
     </tr>
 }
 </table>
+
+<script>
+    var app = angular.module('handyApp', []);
+
+    app.controller('@pagination.controller', function ($scope) {
+        debugger//只有此处的被调用了
+        //起始页序号
+        $scope.total_count = 2500;
+        $scope.show_item_count = 20;
+        $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size)
+    });
+</script>

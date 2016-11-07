@@ -21,14 +21,12 @@ namespace HandyWork.ViewModel.Web
     {
         public long Tickets { get; } = DateTime.Now.Ticks;
 
-        private string _app;
-        public string app => _app ?? (_app = "pagination_app_" + Tickets);
-
         private string _controller;
         public string controller => _controller ?? (_controller = "pagination_controller_" + Tickets);
-        
-        public int repeat { get; set; } = 7;
-        
+        /// <summary>
+        ///默认显示9个翻页按钮
+        /// </summary>
+        public int show_page_count { get; set; } = 9;
         public int page_size { get; set; } = 10;
         
         public int max_page_number => total_count / page_size + total_count % page_size > 0 ? 1 : 0;
