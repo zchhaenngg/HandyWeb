@@ -13,7 +13,7 @@
         <li><a href="javascript:void(0)" ng-click="getPage(current_page_number-1)">上一页</a></li>
         @for (int num = 1; num <= Model.show_page_count; num++)
         {
-            <li><a href="javascript:void(0)" ng-if="$scope.total_count > 0 && start_index+@num<=max_page_number" ng-click="getPage(start_index+@num)">{{ start_index+@num }}</a></li>
+            <li><a href="javascript:void(0)" ng-class="{'myselected':current_page_number == start_index+@num }" ng-if="total_count > 0 && start_index+@num<=max_page_number" ng-click="getPage(start_index+@num)">{{ start_index+@num }}</a></li>
         }
         <li><a href="javascript:void(0)" ng-click="getPage(current_page_number+1)">下一页</a></li>
         <li><a href="javascript:void(0)" ng-click="getPage(max_page_number)">末页</a></li>
@@ -22,32 +22,63 @@
 <script type="text/javascript">
     var app = angular.module('handyApp', []);
     app.controller('@Model.controller', function ($scope) {
+        function GetMaxPageNumber() {
+            return Math.ceil($scope.total_count / $scope.page_size);
+        }
         //起始页序号
         $scope.start_index = 0;
         $scope.current_page_number = 1;
-        $scope.page_size = 10;
+        $scope.page_size = eval('@Model.page_size');
         $scope.total_count = eval('@Model.total_count');
-        $scope.show_item_count = eval('@Model.show_page_count');
-        $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size),
-        $scope.getPage = function (page_number) {
-            debugger
+        $scope.show_page_count = eval('@Model.show_page_count');
+        $scope.max_page_number = GetMaxPageNumber(),
+        $scope.getPage = function (pageNumber) {
+            var maxPageNumber = $scope.max_page_number;
+            function IsHitLink(itemNumber) {
+                return $scope.start_index + itemNumber == pageNumber;
+            }
+            function IsHitStartLink() {
+                return IsHitLink(1);
+            }
+            function IsHitEndLink() {
+                return IsHitLink($scope.show_page_count);
+            }
+            function SetStartIndex() {
+                function setStartIndexFromEndPageNumber(endPageNumber) {
+                    var preMinPageNumber = endPageNumber - $scope.show_page_count + 1;
+                    if (preMinPageNumber > 1) {
+                        $scope.start_index = preMinPageNumber - 1;
+                    }
+                    else {
+                        $scope.start_index = 0;
+                    }
+                }
+
+                var newStartIndex = pageNumber -1;
+                if (IsHitStartLink()) {
+                    setStartIndexFromEndPageNumber(pageNumber);
+                }
+                else if (IsHitEndLink()) {
+                    var nextMaxPageNumber = pageNumber + $scope.show_page_count - 1;
+                    if (nextMaxPageNumber > maxPageNumber)
+                    {
+                        nextMaxPageNumber = maxPageNumber;
+                    }
+                    setStartIndexFromEndPageNumber(nextMaxPageNumber);
+                }
+                
+            }
             //设置current_page_number
             if ($scope.total_count > 0) {
-                if (page_number < 1) {
-                    page_number = 1;
+                if (pageNumber < 1) {
+                    pageNumber = 1;
                 }
-                if (page_number > $scope.max_page_number) {
-                    page_number = $scope.max_page_number;
+                if (pageNumber > maxPageNumber) {
+                    pageNumber = maxPageNumber;
                 }
-                $scope.current_page_number = page_number;
-                //获取显示多少翻页按钮
-
-                var show_count = $scope.show_item_count;
-                if (show_count > $scope.max_page_number) {
-                    show_count = $scope.max_page_number;
-                }
-
-                $scope.start_index = page_number - 1;
+                $scope.current_page_number = pageNumber;
+                //获取显示多少翻页按钮--设置样式
+                SetStartIndex();
             }
         }
     });

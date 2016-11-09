@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "用户列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var pagination = new BootstrapPagination { };
+    var pagination = new BootstrapPagination { page_size = 5, show_page_count=9, total_count=120 };
 }
 <p>
     @Html.Partial("_Query", new AuthUser { RealName="xxx" });
@@ -91,7 +91,7 @@
 </table>
 
 <script>
-    var app = angular.module('handyApp', []);
+    @*var app = angular.module('handyApp', []);
 
     app.controller('@pagination.controller', function ($scope) {
         debugger//只有此处的被调用了
@@ -99,5 +99,5 @@
         $scope.total_count = 2500;
         $scope.show_item_count = 20;
         $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size)
-    });
+    });*@
 </script>

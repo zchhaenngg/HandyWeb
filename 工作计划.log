@@ -4,6 +4,13 @@ Q2：
 1.用户列表查询
 所有列表页等查询功能使用同一个静态UnitOfWork.AsNoTrack()完成
 
+a.一个分页控件可以考虑封装成一个指令。
+b.
+    首页：首页方法
+	下一页：下一页方法注意测试翻页
+	上一页：上一页方法注意测试翻页
+	末页：末页方法
+
 a.通过bootstrap.js建立一个可以通用的分部视图，
     以支持对数据库的如Equal,In,Like,Greater,Less  查询
 	注意：当前1.只支持所有组合And查询2.不支持跨表查询3.暂时直接使用Entity，不使用ViewModel
@@ -16,6 +23,9 @@ a.通过bootstrap.js建立一个可以通用的分部视图，
 			  4.优化所有GetPage4User等。
 			    =>UnitOfManager.UserSouce.Where(QueryModel model).Select(new UserViewModel{}).ToList();  完成
 			  5.分页功能
+			  
+
+
 
 a.使用Angular和bootstrap校验查询条件,以UserName为例。
 

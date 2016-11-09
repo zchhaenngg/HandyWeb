@@ -1,6 +1,8 @@
 ﻿.pagination > li > a:hover,
 .pagination > li > span:hover,
-.pagination > li > a:focus,
+/*.pagination > li > a:focus,*/
+.pagination > li > a.myselected,
 .pagination > li > span:focus {
+  color: #2a6496;
   background-color: #0094ff;
 }
