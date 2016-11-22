@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{65C0D029-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.ViewModel", "HandyWork.ViewModel\HandyWork.ViewModel.csproj", "{0B711B17-8BF5-4AC4-9F19-EC21952940C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.UnitTests", "HandyWork.DAL.UnitTests\HandyWork.UnitTests.csproj", "{A858724F-0E26-4E75-B0C6-3C70C8542828}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.UnitTests", "HandyWork.UnitTests\HandyWork.UnitTests.csproj", "{A858724F-0E26-4E75-B0C6-3C70C8542828}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyWork.Web", "HandyWork.Web\HandyWork.Web.csproj", "{6C27AF8C-D5F1-4570-918D-14729A41A195}"
 EndProject
