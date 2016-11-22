@@ -6,3 +6,10 @@
   color: #2a6496;
   background-color: #0094ff;
 }
+
+.pagination > li > a.dot,
+.pagination > li > a.dot:hover,
+.pagination > li > a.dot:focus {
+    cursor: default;
+    background-color:#ffffff;pm
+}

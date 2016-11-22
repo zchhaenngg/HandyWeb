@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "用户列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var pagination = new BootstrapPagination { page_size = 5, show_page_count=9, total_count=120 };
+    var pagination = new BootstrapPagination { page_size = 5, show_page_count=7, total_count=120 };
 }
 <p>
     @Html.Partial("_Query", new AuthUser { RealName="xxx" });
