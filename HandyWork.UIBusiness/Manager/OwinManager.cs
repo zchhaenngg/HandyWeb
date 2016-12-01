@@ -9,6 +9,7 @@ using System.Web;
 using Microsoft.Owin.Security;
 using System.Configuration;
 using HandyWork.UIBusiness.Manager.Interfaces;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -70,18 +71,18 @@ namespace HandyWork.UIBusiness.Manager
         public void Register(OwinViewModel user, string password)
         {
             var entity = GetAuthUserFromOwnViewModel(user);
-            entity.SecurityStamp = Guid.NewGuid().ToString();
-            entity.PasswordHash = new PasswordHasher().HashPassword(password);
+            entity.security_stamp = Guid.NewGuid().ToString();
+            entity.password_hash = new PasswordHasher().HashPassword(password);
             UnitOfWork.Add(entity);
             UnitOfWork.SaveChanges();
         }
 
-        public IList<Claim> GetClaims(AuthUser entity)
+        public IList<Claim> GetClaims(hy_user entity)
         {
             var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, entity.Id));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, entity.id));
             claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", MyOwinConfig.IdentityProvider));
-            claims.Add(new Claim(ClaimTypes.Name, entity.UserName));
+            claims.Add(new Claim(ClaimTypes.Name, entity.user_name));
             //登陆状态需要检查Claim版本信息，如果版本号不正确则强制用户重新登陆
             claims.Add(new Claim(ClaimTypes.Version, MyOwinConfig.ApplicationVersion));
             return claims;
@@ -142,7 +143,7 @@ namespace HandyWork.UIBusiness.Manager
             }
         }
 
-        public void SignIn(AuthUser entity, bool isPersistent)
+        public void SignIn(hy_user entity, bool isPersistent)
         {
             var claims = GetClaims(entity);
             var identity = new ClaimsIdentity(claims, MyOwinConfig.AuthenticationType);
@@ -159,67 +160,67 @@ namespace HandyWork.UIBusiness.Manager
     public partial class OwinManager
     {
         //私有方法
-        private bool IsLockout(AuthUser entity)
+        private bool IsLockout(hy_user entity)
         {
-            return entity.LockoutEnabled
-                     && entity.LockoutEndDateUtc != null
-                     && DateTime.UtcNow < entity.LockoutEndDateUtc.Value;
+            return entity.is_lockout
+                     && entity.lockout_end_time != null
+                     && DateTime.UtcNow < entity.lockout_end_time.Value;
         }
-        private PasswordVerificationResult VerifyHashedPassword(AuthUser entity, string password)
+        private PasswordVerificationResult VerifyHashedPassword(hy_user entity, string password)
         {
-            if (entity.PasswordHash == null)
+            if (entity.password_hash == null)
             {
                 return PasswordVerificationResult.Failed;
             }
             else
             {
-                return new PasswordHasher().VerifyHashedPassword(entity.PasswordHash, password);
+                return new PasswordHasher().VerifyHashedPassword(entity.password_hash, password);
             }
         }
 
-        private AuthUser GetAuthUserFromOwnViewModel(OwinViewModel user)
+        private hy_user GetAuthUserFromOwnViewModel(OwinViewModel user)
         {
-            var entity = new AuthUser
+            var entity = new hy_user
             {
-                Id = Guid.NewGuid().ToString(),
-                AccessFailedCount = 0,
-                LockoutEnabled = true,
-                PasswordHash = user.PasswordHash,
-                SecurityStamp = user.SecurityStamp,
-                PhoneNumber = user.PhoneNumber,
-                PhoneNumberConfirmed = false,
-                TwoFactorEnabled = true,
-                EmailConfirmed = false,
-                UserName = user.UserName,
-                RealName = user.RealName,
-                Email = user.Email,
-                IsValid = true
+                id = Guid.NewGuid().ToString(),
+                access_failed_times = 0,
+                is_lockout = true,
+                password_hash = user.PasswordHash,
+                security_stamp = user.SecurityStamp,
+                phone_number = user.PhoneNumber,
+                phone_number_confirmed = false,
+                two_factor_enabled = true,
+                email_confirmed = false,
+                user_name = user.UserName,
+                nick_name = user.RealName,
+                email = user.Email,
+                is_valid = true
             };
             return entity;
         }
 
-        private OwinViewModel GetOwnViewModelFromAuthUser(AuthUser entity)
+        private OwinViewModel GetOwnViewModelFromAuthUser(hy_user entity)
         {
             return new OwinViewModel
             {
-                Id = entity.Id,
-                AccessFailedCount = entity.AccessFailedCount,
-                LockoutEnabled = entity.LockoutEnabled,
-                LockoutEndDateUtc = entity.LockoutEndDateUtc,
-                PasswordHash = entity.PasswordHash,
-                SecurityStamp = entity.SecurityStamp,
-                PhoneNumber = entity.PhoneNumber,
-                PhoneNumberConfirmed = entity.PhoneNumberConfirmed,
-                TwoFactorEnabled = entity.TwoFactorEnabled,
-                EmailConfirmed = entity.EmailConfirmed,
-                UserName = entity.UserName,
-                RealName = entity.RealName,
-                Email = entity.Email,
-                IsValid = entity.IsValid,
-                CreatedById = entity.CreatedById,
-                LastModifiedById = entity.LastModifiedById,
-                CreatedTime = entity.CreatedTime,
-                LastModifiedTime = entity.LastModifiedTime
+                Id = entity.id,
+                AccessFailedCount = entity.access_failed_times,
+                LockoutEnabled = entity.is_lockout,
+                LockoutEndDateUtc = entity.lockout_end_time,
+                PasswordHash = entity.password_hash,
+                SecurityStamp = entity.security_stamp,
+                PhoneNumber = entity.phone_number,
+                PhoneNumberConfirmed = entity.phone_number_confirmed,
+                TwoFactorEnabled = entity.two_factor_enabled,
+                EmailConfirmed = entity.email_confirmed,
+                UserName = entity.user_name,
+                RealName = entity.nick_name,
+                Email = entity.email,
+                IsValid = entity.is_valid,
+                CreatedById = entity.created_by_id,
+                LastModifiedById = entity.last_modified_by_id,
+                CreatedTime = entity.created_time,
+                LastModifiedTime = entity.last_modified_time
             };
         }
     }

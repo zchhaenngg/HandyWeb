@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HyContext.cs" />
+    <Compile Include="HyContextExtension.cs" />
     <Compile Include="Queryable\Map.cs" />
     <Compile Include="Queryable\Mapping.cs" />
     <Compile Include="Repository\Interfaces\IAuthPermissionRepository.cs" />
@@ -99,6 +101,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

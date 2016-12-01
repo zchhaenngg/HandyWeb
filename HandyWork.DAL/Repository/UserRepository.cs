@@ -15,14 +15,14 @@ using System.Data.SqlClient;
 
 namespace HandyWork.DAL.Repository
 {
-    public partial class UserRepository : BaseRepository<AuthUser>, IUserRepository
+    public partial class UserRepository : BaseRepository<hy_user>, IUserRepository
     {
         public UserRepository(UnitOfWork unitOfWork)
             :base(unitOfWork)
         {
         }
 
-        public AuthUser Find(string id)
+        public hy_user Find(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -31,7 +31,7 @@ namespace HandyWork.DAL.Repository
             return Source.Find(id);
         }
 
-        public AuthUser FindByUserName(string userName)
+        public hy_user FindByUserName(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
             {
@@ -40,7 +40,7 @@ namespace HandyWork.DAL.Repository
             return Source.Where(o => o.UserName == userName).FirstOrDefault();
         }
         
-        public AuthUser FindByEmail(string email)
+        public hy_user FindByEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -49,7 +49,7 @@ namespace HandyWork.DAL.Repository
             return Source.Where(o => o.Email == email).FirstOrDefault();
         }
 
-        public ICollection<AuthPermission> GetPermissionsByUserGrant(string userId)
+        public ICollection<hy_auth_permission> GetPermissionsByUserGrant(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -58,7 +58,7 @@ namespace HandyWork.DAL.Repository
             return Source.Find(userId).Permissions;
         }
 
-        public DbSqlQuery<AuthPermission> GetPermissionByRoleGrant(string userId)
+        public DbSqlQuery<hy_auth_permission> GetPermissionByRoleGrant(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -68,7 +68,7 @@ namespace HandyWork.DAL.Repository
             return UnitOfWork.PermissionRepository.Source.SqlQuery(SQL.Permission4RoleUser, userId);
         }
 
-        public IEnumerable<AuthPermission> GetAllPermissions(string userId)
+        public IEnumerable<hy_auth_permission> GetAllPermissions(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {

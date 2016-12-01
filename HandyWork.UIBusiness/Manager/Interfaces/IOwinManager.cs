@@ -17,14 +17,14 @@ namespace HandyWork.UIBusiness.Manager.Interfaces
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        IList<Claim> GetClaims(AuthUser entity);
+        IList<Claim> GetClaims(hy_user entity);
         
         /// <summary>
         /// 用户登陆
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="isPersistent"></param>
-        void SignIn(AuthUser entity, bool isPersistent);
+        void SignIn(hy_user entity, bool isPersistent);
 
         /// <summary>
         /// 用户登出

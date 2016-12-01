@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository.Interfaces
 {
-    public interface IAuthRoleRepository : IBaseRepository<AuthRole>
+    public interface IAuthRoleRepository : IBaseRepository<hy_auth_role>
     {
-        AuthRole Find(string id);
-        AuthRole FindByName(string name);
+        hy_auth_role Find(string id);
+        hy_auth_role FindByName(string name);
     }
 }

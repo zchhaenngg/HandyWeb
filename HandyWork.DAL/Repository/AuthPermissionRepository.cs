@@ -13,14 +13,14 @@ using System.Data.Entity;
 
 namespace HandyWork.DAL.Repository
 {
-    public class AuthPermissionRepository : BaseRepository<AuthPermission>, IAuthPermissionRepository
+    public class AuthPermissionRepository : BaseRepository<hy_auth_permission>, IAuthPermissionRepository
     {
         public AuthPermissionRepository(UnitOfWork unitOfWork)
            : base(unitOfWork)
         {
         }
         
-        public AuthPermission Find(string id)
+        public hy_auth_permission Find(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -29,7 +29,7 @@ namespace HandyWork.DAL.Repository
             return Source.Find(id);
         }
         
-        public AuthPermission FindByCode(string code)
+        public hy_auth_permission FindByCode(string code)
         {
             if (string.IsNullOrWhiteSpace(code))
             {
@@ -37,7 +37,7 @@ namespace HandyWork.DAL.Repository
             }
             return Source.Where(o => o.Code == code).FirstOrDefault();
         }
-        public AuthPermission FindByName(string name)
+        public hy_auth_permission FindByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {

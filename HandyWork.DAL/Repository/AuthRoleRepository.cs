@@ -13,14 +13,14 @@ using System.Data.Entity;
 
 namespace HandyWork.DAL.Repository
 {
-    public class AuthRoleRepository : BaseRepository<AuthRole>, IAuthRoleRepository
+    public class AuthRoleRepository : BaseRepository<hy_auth_role>, IAuthRoleRepository
     {
         public AuthRoleRepository(UnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }
 
-        public AuthRole Find(string id)
+        public hy_auth_role Find(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -29,13 +29,13 @@ namespace HandyWork.DAL.Repository
             return Source.Find(id);
         }
         
-        public AuthRole FindByName(string name)
+        public hy_auth_role FindByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 return null;
             }
-            return Source.Where(o => o.Name == name).FirstOrDefault();
+            return Source.Where(o => o.name == name).FirstOrDefault();
         }
     }
 }

@@ -10,6 +10,7 @@ using HandyWork.Common.Extensions;
 using HandyWork.Common.EntityFramework.Elements;
 using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Utility;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.DAL.Queryable
 {
@@ -18,9 +19,9 @@ namespace HandyWork.DAL.Queryable
         private static List<Map> Maps = new List<Map>();
         static Mapping()
         {
-            Maps.Add(Map<AuthUser, UserQuery>.CreateMap(Build4AuthUser));
-            Maps.Add(Map<AuthRole, AuthRoleQuery>.CreateMap(Build4AuthRole));
-            Maps.Add(Map<AuthPermission, AuthPermissionQuery>.CreateMap(Build4AuthPermission));
+            Maps.Add(Map<hy_user, UserQuery>.CreateMap(Build4AuthUser));
+            Maps.Add(Map<hy_auth_role, AuthRoleQuery>.CreateMap(Build4AuthRole));
+            Maps.Add(Map<hy_auth_permission, AuthPermissionQuery>.CreateMap(Build4AuthPermission));
         }
 
         public static Map FindMap<TEntity>(object obj)
@@ -51,40 +52,40 @@ namespace HandyWork.DAL.Queryable
             return expression;
         }
 
-        private static Expression<Func<AuthUser, bool>> Build4AuthUser(UserQuery query)
+        private static Expression<Func<hy_user, bool>> Build4AuthUser(UserQuery query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
 
-            var factory = new LambdaFactory<AuthUser>().IfLike(IsNotEmpty.For(query.UserNameLike), o => o.UserName, query.UserNameLike)
-                .IfEqual(IsNotEmpty.For(query.UserNameEqual), o => o.UserName, query.UserNameEqual)
-                .IfLike(IsNotEmpty.For(query.RealNameLike), o => o.RealName, query.RealNameLike)
-                .IfEqual(IsNotEmpty.For(query.IsValid), o => o.IsValid, query.IsValid)
-                .IfEqual(IsNotEmpty.For(query.IsLocked), o => o.LockoutEnabled, query.IsLocked);
+            var factory = new LambdaFactory<hy_user>().IfLike(IsNotEmpty.For(query.UserNameLike), o => o.user_name, query.UserNameLike)
+                .IfEqual(IsNotEmpty.For(query.UserNameEqual), o => o.user_name, query.UserNameEqual)
+                .IfLike(IsNotEmpty.For(query.RealNameLike), o => o.nick_name, query.RealNameLike)
+                .IfEqual(IsNotEmpty.For(query.IsValid), o => o.is_valid, query.IsValid)
+                .IfEqual(IsNotEmpty.For(query.IsLocked), o => o.is_lockout, query.IsLocked);
             return factory.ToExpression();
         }
 
-        private static Expression<Func<AuthRole, bool>> Build4AuthRole(AuthRoleQuery query)
+        private static Expression<Func<hy_auth_role, bool>> Build4AuthRole(AuthRoleQuery query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
-            var factory = new LambdaFactory<AuthRole>().IfLike(IsNotEmpty.For(query.NameLike), o => o.Name, query.NameLike);
+            var factory = new LambdaFactory<hy_auth_role>().IfLike(IsNotEmpty.For(query.NameLike), o => o.name, query.NameLike);
             return factory.ToExpression();
         }
 
-        private static Expression<Func<AuthPermission, bool>> Build4AuthPermission(AuthPermissionQuery query)
+        private static Expression<Func<hy_auth_permission, bool>> Build4AuthPermission(AuthPermissionQuery query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException(string.Format("{0},不能为空", nameof(query)));
             }
-            var factory = new LambdaFactory<AuthPermission>()
-                .IfLike(IsNotEmpty.For(query.NameLike), o => o.Name, query.NameLike)
-                .IfLike(IsNotEmpty.For(query.CodeLike), o => o.Code, query.CodeLike);
+            var factory = new LambdaFactory<hy_auth_permission>()
+                .IfLike(IsNotEmpty.For(query.NameLike), o => o.name, query.NameLike)
+                .IfLike(IsNotEmpty.For(query.CodeLike), o => o.code, query.CodeLike);
             return factory.ToExpression();
         }
     }

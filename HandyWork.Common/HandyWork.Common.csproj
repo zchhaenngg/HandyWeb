@@ -64,6 +64,7 @@
     <Compile Include="EntityFramework\Query\QueryMethod.cs" />
     <Compile Include="EntityFramework\Query\QueryModel.cs" />
     <Compile Include="Exceptions\WelcomeException.cs" />
+    <Compile Include="Extensions\MemberInfoExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Time\Formats.cs" />
     <Compile Include="EntityFramework\Elements\BaseTag.cs" />

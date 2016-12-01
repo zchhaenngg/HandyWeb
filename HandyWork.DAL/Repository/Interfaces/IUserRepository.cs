@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<AuthUser>
+    public interface IUserRepository : IBaseRepository<hy_user>
     {
-        AuthUser Find(string id);
-        AuthUser FindByUserName(string userName);
-        AuthUser FindByEmail(string email);
-        ICollection<AuthPermission> GetPermissionsByUserGrant(string userId);
-        DbSqlQuery<AuthPermission> GetPermissionByRoleGrant(string userId);
-        IEnumerable<AuthPermission> GetAllPermissions(string userId);
+        hy_user Find(string id);
+        hy_user FindByUserName(string userName);
+        hy_user FindByEmail(string email);
+        ICollection<hy_auth_permission> GetPermissionsByUserGrant(string userId);
+        DbSqlQuery<hy_auth_permission> GetPermissionByRoleGrant(string userId);
+        IEnumerable<hy_auth_permission> GetAllPermissions(string userId);
     }
 }

@@ -11,6 +11,7 @@ using HandyWork.Common.EntityFramework.Query;
 using System.Collections.Generic;
 using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.EntityFramework.Elements;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.UnitTests
 {
@@ -22,12 +23,12 @@ namespace HandyWork.UnitTests
         {
             {
                 #region   校验未通过-UserName 长度超了
-                var entity = new AuthUser
+                var entity = new hy_user
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = "test".PadLeft(51, '1'),
+                    id = Guid.NewGuid().ToString(),
+                    user_name = "test".PadLeft(51, '1'),
                     //Password = "123456",
-                    RealName = "测试1号"
+                    nick_name = "测试1号"
                 };
                 UnitOfWork.Add(entity);
                 try
@@ -47,12 +48,12 @@ namespace HandyWork.UnitTests
             }
             {
                 #region 校验未通过-UserName已存在
-                var entity = new AuthUser
+                var entity = new hy_user
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = "cheng.zhang",
+                    id = Guid.NewGuid().ToString(),
+                    user_name = "cheng.zhang",
                     //Password = "123456",
-                    RealName = "测试1号"
+                    nick_name = "测试1号"
                 };
                 UnitOfWork.Add(entity);
                 try
@@ -81,14 +82,14 @@ namespace HandyWork.UnitTests
         {
             using (ReportOuput output = new ReportOuput())
             {//AsTracking,Entity的状态为EntityState.Unchanged
-                var entity = UnitOfWork.AsTracking<AuthUser>().First();
+                var entity = UnitOfWork.AsTracking<hy_user>().First();
                 var state = UnitOfWork.GetEntityState(entity);
                 Assert.IsTrue(state == EntityState.Unchanged);
             }
             
             using (ReportOuput output = new ReportOuput())
             {//AsNoTracking后,Entity的状态为EntityState.Detached
-                var entity = UnitOfWork.AsNoTracking<AuthUser>().First();
+                var entity = UnitOfWork.AsNoTracking<hy_user>().First();
                 var state = UnitOfWork.GetEntityState(entity);
                 Assert.IsTrue(state == EntityState.Detached);
             }
@@ -103,8 +104,8 @@ namespace HandyWork.UnitTests
             using (ReportOuput output = new ReportOuput())
             {
                 int iTotal;
-                UnitOfWork.AsNoTracking<AuthUser>().GetPage(query, out iTotal).Select(o => new { o.RealName, o.UserName }).ToList();
-                UnitOfWork.AsTracking<AuthUser>().GetPage(query, out iTotal).Select(o => new { o.RealName, o.UserName }).ToList();
+                UnitOfWork.AsNoTracking<hy_user>().GetPage(query, out iTotal).Select(o => new { o.nick_name, o.user_name }).ToList();
+                UnitOfWork.AsTracking<hy_user>().GetPage(query, out iTotal).Select(o => new { o.nick_name, o.user_name }).ToList();
             }
             Assert.IsTrue(true);
         }
@@ -122,9 +123,9 @@ namespace HandyWork.UnitTests
             model.Items = new List<QueryItem> { queryItem };
             using (ReportOuput output = new ReportOuput())
             {
-                var factory = new LambdaFactory<AuthUser>().AddLambdas(model);
+                var factory = new LambdaFactory<hy_user>().AddLambdas(model);
                 var expression = factory.ToExpression();
-                var entities = UnitOfWork.AsNoTracking<AuthUser>().Where(expression).ToList();
+                var entities = UnitOfWork.AsNoTracking<hy_user>().Where(expression).ToList();
                 Assert.IsTrue(true);
             }
         }

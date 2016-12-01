@@ -2,6 +2,7 @@
 using HandyWork.DAL;
 using HandyWork.DAL.Queryable;
 using HandyWork.Model;
+using HandyWork.Model.Entity;
 using HandyWork.ViewModel.PCWeb.Query;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StackExchange.Profiling;
@@ -25,8 +26,8 @@ namespace HandyWork.UnitTests
             using (ReportOuput output = new ReportOuput())
             {
                 int iTotal;
-                UnitOfWork.AsNoTracking<AuthUser>().GetPage(query, out iTotal).Select(o => new { o.RealName, o.UserName }).ToList();
-                UnitOfWork.AsTracking<AuthUser>().GetPage(query, out iTotal).Select(o => new { o.RealName, o.UserName }).ToList();
+                UnitOfWork.AsNoTracking<hy_user>().GetPage(query, out iTotal).Select(o => new { o.nick_name, o.user_name }).ToList();
+                UnitOfWork.AsTracking<hy_user>().GetPage(query, out iTotal).Select(o => new { o.nick_name, o.user_name }).ToList();
                 //UnitOfWork.AsNoTracking<AuthUser>().Where(o => true).ToList();//执行的sql语句中没有where查询
                 //UnitOfWork.AsNoTracking<AuthUser>().Where(o => false).ToList();// WHERE 1 = 0
             }   

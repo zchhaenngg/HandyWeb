@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using HandyWork.UIBusiness.Extensions;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.UIBusiness.Manager
 {
@@ -32,20 +33,20 @@ namespace HandyWork.UIBusiness.Manager
             {
                 userId = LoginId;
             }
-            AuthPermission permission = UnitOfWork.PermissionRepository.FindByCode(permissionCode);
+            hy_auth_permission permission = UnitOfWork.PermissionRepository.FindByCode(permissionCode);
             if (permission == null)
             {
                 return false;
             }
-            AuthUser usr = permission.Users.FirstOrDefault(o => o.Id == userId);
+            hy_user usr = permission.Users.FirstOrDefault(o => o.Id == userId);
             if (usr != null)
             {
                 return true;
             }
             //permission.AuthRole  和
-            foreach (AuthRole item in permission.AuthRoles.ToList())
+            foreach (hy_auth_role item in permission.AuthRoles.ToList())
             {
-                AuthUser ur = item.Users.FirstOrDefault(o => o.Id == userId);
+                hy_user ur = item.hy_users.FirstOrDefault(o => o.Id == userId);
                 if (ur != null)
                 {
                     return true;

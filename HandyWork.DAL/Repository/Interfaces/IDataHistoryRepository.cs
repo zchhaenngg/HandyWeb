@@ -1,4 +1,5 @@
 ﻿using HandyWork.Model;
+using HandyWork.Model.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace HandyWork.DAL.Repository.Interfaces
 {
-    public interface IDataHistoryRepository : IBaseRepository<DataHistory>
+    public interface IDataHistoryRepository : IBaseRepository<hy_data_history>
     {
-        DataHistory Find(string id);
+        hy_data_history Find(string id);
     }
 }
