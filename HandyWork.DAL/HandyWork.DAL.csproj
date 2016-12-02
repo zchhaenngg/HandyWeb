@@ -73,7 +73,6 @@
     <Compile Include="Repository\Interfaces\IRepository.cs" />
     <Compile Include="Repository\Interfaces\IUserRepository.cs" />
     <Compile Include="SQL.cs" />
-    <Compile Include="Cache\SysColumnsCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AuthPermissionRepository.cs" />
     <Compile Include="Repository\AuthRoleRepository.cs" />

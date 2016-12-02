@@ -63,7 +63,7 @@ namespace HandyWork.DAL.Queryable
                 .IfEqual(IsNotEmpty.For(query.UserNameEqual), o => o.user_name, query.UserNameEqual)
                 .IfLike(IsNotEmpty.For(query.RealNameLike), o => o.nick_name, query.RealNameLike)
                 .IfEqual(IsNotEmpty.For(query.IsValid), o => o.is_valid, query.IsValid)
-                .IfEqual(IsNotEmpty.For(query.IsLocked), o => o.is_lockout, query.IsLocked);
+                .IfEqual(IsNotEmpty.For(query.IsLocked), o => o.is_lockout_enable, query.IsLocked);
             return factory.ToExpression();
         }
 

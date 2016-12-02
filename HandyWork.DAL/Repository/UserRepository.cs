@@ -12,6 +12,7 @@ using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.ViewModel.PCWeb.Query;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.DAL.Repository
 {
@@ -22,41 +23,6 @@ namespace HandyWork.DAL.Repository
         {
         }
 
-        public hy_user Find(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return null;
-            }
-            return Source.Find(id);
-        }
-
-        public hy_user FindByUserName(string userName)
-        {
-            if (string.IsNullOrWhiteSpace(userName))
-            {
-                return null;
-            }
-            return Source.Where(o => o.UserName == userName).FirstOrDefault();
-        }
-        
-        public hy_user FindByEmail(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return null;
-            }
-            return Source.Where(o => o.Email == email).FirstOrDefault();
-        }
-
-        public ICollection<hy_auth_permission> GetPermissionsByUserGrant(string userId)
-        {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                return null;
-            }
-            return Source.Find(userId).Permissions;
-        }
 
         public DbSqlQuery<hy_auth_permission> GetPermissionByRoleGrant(string userId)
         {
@@ -75,6 +41,26 @@ namespace HandyWork.DAL.Repository
                 return null;
             }
             return GetPermissionByRoleGrant(userId).Union(GetPermissionsByUserGrant(userId));
+        }
+
+        public hy_user Find(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public hy_user FindByUserName(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public hy_user FindByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<hy_auth_permission> GetPermissionsByUserGrant(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

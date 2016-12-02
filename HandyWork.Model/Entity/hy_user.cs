@@ -19,10 +19,13 @@
         [Display(Name = "尝试失败次数")]
         public int access_failed_times { get; set; }
         
-        [Display(Name = "账号被锁定")]
-        public bool is_lockout { get; set; }
+        /// <summary>
+        /// 如Admin等账号是永远不被锁定的
+        /// </summary>
+        [Display(Name = "检查账号锁定")]
+        public bool is_lockout_enable { get; set; }
 
-        [Display(Name = "账号锁定时间")]
+        [Display(Name = "账号解锁时间")]
         public DateTime? lockout_end_time { get; set; }
 
         [Required]

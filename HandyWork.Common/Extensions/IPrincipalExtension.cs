@@ -5,10 +5,8 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Security;
 
-namespace HandyWork.UIBusiness.Extensions
+namespace HandyWork.Common.Extensions
 {
     public static class IPrincipalExtension
     {
@@ -22,7 +20,7 @@ namespace HandyWork.UIBusiness.Extensions
         }
         public static string GetLoginRealName(this IPrincipal principal)
         {
-            return principal.GetCookie()?.RealName;
+            return principal.GetCookie()?.NickName;
         }
         public static int TimezoneOffsetInMinute(this IPrincipal principal)
         {
@@ -30,7 +28,7 @@ namespace HandyWork.UIBusiness.Extensions
         }
         public static Cookie GetCookie(this IPrincipal principal)
         {
-            return (principal as HandyPrincipal)?.Cookie;
+            return (principal as HyPrincipal)?.Cookie;
         }
     }
 }

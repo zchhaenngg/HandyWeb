@@ -192,7 +192,7 @@
                 id = Guid.NewGuid().ToString(),
                 created_by_id = LoginId,
                 created_time = DateTime.UtcNow,
-                unique_key = GetPrimaryKeyValue(),
+                unique_key = GetPrimaryKeyValue(entry),
                 category_name = GetObjectType(entry.Entity.GetType()).Name,
                 entity_name = GetObjectType(entry.Entity.GetType()).Name,
                 description = GetHistoryDescription(entry)
@@ -308,9 +308,18 @@
             var displayAttribute = entity.GetProperty(propertyName).GetCustomerAttribute<DisplayAttribute>();
             return displayAttribute?.Description ?? propertyName;
         }
-        public string GetPrimaryKeyValue()
+        public string GetPrimaryKeyValue(DbEntityEntry entry)
         {
-            throw new NotImplementedException();
+            var objectStateEntry = ((IObjectContextAdapter)this).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
+            var values = objectStateEntry.EntityKey.EntityKeyValues?.Select(kv => kv.Value);
+            if (values == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return string.Join(",", values);
+            }
         }
     }
 }

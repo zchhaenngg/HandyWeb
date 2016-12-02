@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MyUrlAttribute.cs" />
+    <Compile Include="Authority\HyPrincipal.cs" />
     <Compile Include="EntityFramework\Elements\IsTrue.cs" />
     <Compile Include="EntityFramework\Lambdas\LambdaFactory.cs" />
     <Compile Include="EntityFramework\Lambdas\LambdaUtility.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="EntityFramework\Query\QueryMethod.cs" />
     <Compile Include="EntityFramework\Query\QueryModel.cs" />
     <Compile Include="Exceptions\WelcomeException.cs" />
+    <Compile Include="Extensions\IPrincipalExtension.cs" />
     <Compile Include="Extensions\MemberInfoExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Time\Formats.cs" />

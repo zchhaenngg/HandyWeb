@@ -10,6 +10,7 @@ using HandyWork.Common.EntityFramework.Elements;
 using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Extensions;
 using System.Data.Entity;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.DAL.Repository
 {
@@ -35,7 +36,7 @@ namespace HandyWork.DAL.Repository
             {
                 return null;
             }
-            return Source.Where(o => o.Code == code).FirstOrDefault();
+            return Source.Where(o => o.code == code).FirstOrDefault();
         }
         public hy_auth_permission FindByName(string name)
         {
@@ -43,7 +44,7 @@ namespace HandyWork.DAL.Repository
             {
                 return null;
             }
-            return Source.Where(o => o.Name == name).FirstOrDefault();
+            return Source.Where(o => o.name == name).FirstOrDefault();
         }
     }
 }

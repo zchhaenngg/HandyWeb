@@ -1,4 +1,5 @@
 ﻿using HandyWork.Model;
+using HandyWork.Model.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

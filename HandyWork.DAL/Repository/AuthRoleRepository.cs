@@ -10,6 +10,7 @@ using HandyWork.Common.EntityFramework.Lambdas;
 using HandyWork.Common.Extensions;
 using HandyWork.ViewModel.PCWeb.Query;
 using System.Data.Entity;
+using HandyWork.Model.Entity;
 
 namespace HandyWork.DAL.Repository
 {

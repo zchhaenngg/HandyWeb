@@ -1,4 +1,7 @@
-﻿Q1:DAL层中各个Repository应当返回如IQueryable等接口，由Business层决定具体实现？
+﻿应用层（Web）->Service层->Business、DAL即Domain层
+
+
+Q1:DAL层中各个Repository应当返回如IQueryable等接口，由Business层决定具体实现？
 A:好处如下拉框需要只需要显示name，则不需要返回所有数据，另外由具体业务层决定是否跟踪变更记录。
 Q2：
 1.用户列表查询

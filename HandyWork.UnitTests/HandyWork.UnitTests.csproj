@@ -156,10 +156,6 @@
       <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
       <Name>HandyWork.ViewModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HandyWork.Web\HandyWork.Web.csproj">
-      <Project>{6c27af8c-d5f1-4570-918d-14729a41a195}</Project>
-      <Name>HandyWork.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UIBusiness\" />

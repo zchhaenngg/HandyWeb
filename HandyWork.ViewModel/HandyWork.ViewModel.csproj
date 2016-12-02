@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PCWeb\AccountViewModel.cs" />
+    <Compile Include="Common\SignInResult.cs" />
     <Compile Include="PCWeb\EasyuiViewModel.cs" />
     <Compile Include="PCWeb\Query\AuthPermissionQuery.cs" />
     <Compile Include="PCWeb\Query\AuthRoleQuery.cs" />
@@ -104,7 +104,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="Mobile\" />
     <Folder Include="WeChat\" />
   </ItemGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Enums
+namespace HandyWork.ViewModel.Common
 {
     public enum SignInResult
     {
@@ -30,6 +30,10 @@ namespace HandyWork.UIBusiness.Enums
         /// <summary>
         ///密码过期
         /// </summary>
-        SuccessRehashNeeded = 6
+        SuccessRehashNeeded = 6,
+        /// <summary>
+        /// 不支持邮箱登陆
+        /// </summary>
+        IsTwoFactorEnabled
     }
 }

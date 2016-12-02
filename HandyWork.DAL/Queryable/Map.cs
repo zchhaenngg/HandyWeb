@@ -11,8 +11,6 @@ namespace HandyWork.DAL.Queryable
     {
         public Type Souce { get; protected set; }
         public Type Destination { get; protected set; }
-        
-
     }
     /// <summary>
     /// TEntity,TQuery和实际传入的query对象构建表达式

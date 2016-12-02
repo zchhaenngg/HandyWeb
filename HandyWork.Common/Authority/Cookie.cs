@@ -12,7 +12,8 @@ namespace HandyWork.Common.Authority
         public int GreaterThanUTCInMinute { set; get; }
         public string Name { set; get; }
         public string Id { set; get; }
-        public string RealName { get; set; }
+        public string NickName { get; set; }
+        public string[] Roles { get; set; }
         public string Encoder() => JsonConvert.SerializeObject(this);
         public static Cookie Decoder(string userDataStr)
         {

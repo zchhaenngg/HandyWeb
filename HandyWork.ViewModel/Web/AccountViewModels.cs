@@ -49,13 +49,14 @@ namespace HandyWork.ViewModel.Web
         [Display(Name = "电子邮件")]
         public string Email { get; set; }
     }
-
+   
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "电子邮件")]
-        [EmailAddress]
-        public string Email { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +65,33 @@ namespace HandyWork.ViewModel.Web
 
         [Display(Name = "记住我?")]
         public bool RememberMe { get; set; }
+        public int GreaterThanUTCInMinute { set; get; }
+    }
+    public class UpdateUserViewModel
+    {
+        public string Id { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        [Required]
+        [Display(Name = "用户名")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "姓名")]
+        [StringLength(25, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        public string NickName { get; set; }
+
+        [Display(Name = "联系电话")]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Phone { get; set; }
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        [Display(Name = "邮箱")]
+        [StringLength(128, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Email { get; set; }
     }
 
     public class RegisterViewModel
@@ -75,8 +103,8 @@ namespace HandyWork.ViewModel.Web
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
-        [Display(Name = "真实户名")]
-        public string RealName { get; set; }
+        [Display(Name = "昵称")]
+        public string NickName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -97,10 +125,7 @@ namespace HandyWork.ViewModel.Web
 
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "电子邮件")]
-        public string Email { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
@@ -131,7 +156,7 @@ namespace HandyWork.ViewModel.Web
         [Display(Name = "尝试失败次数")]
         public int AccessFailedCount { get; set; }
 
-        [Display(Name = "检查账号解锁时间")]
+        [Display(Name = "账号能被锁")]
         public bool LockoutEnabled { get; set; }
 
         [Display(Name = "账号解锁时间")]
@@ -158,5 +183,33 @@ namespace HandyWork.ViewModel.Web
 
         [Display(Name = "邮箱")]
         public string Email { get; set; }
+    }
+
+    public class PermissionViewModel
+    {
+        public string Id { get; set; }
+        [Required]
+        [Display(Name = "权限代码")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        public string Code { get; set; }
+        [Required]
+        [Display(Name = "权限名称")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        public string Name { get; set; }
+        [Display(Name = "备注")]
+        [StringLength(250, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        public string Description { get; set; }
+    }
+
+    public class RoleViewModel
+    {
+        public string Id { get; set; }
+        [Required]
+        [Display(Name = "角色名称")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
+        public string Name { get; set; }
+        [Display(Name = "备注")]
+        [StringLength(250, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        public string Description { get; set; }
     }
 }

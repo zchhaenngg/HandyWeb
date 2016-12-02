@@ -1,6 +1,4 @@
 ﻿using HandyWork.Common.EntityFramework.Query;
-using HandyWork.UIBusiness.Enums;
-using HandyWork.ViewModel.PCWeb;
 using HandyWork.ViewModel.Web;
 using System;
 using System.Collections.Generic;
@@ -8,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.UIBusiness.Manager.Interfaces
+namespace HandyWork.Services.Service.Interfaces
 {
-    public interface IAccountManager: IManager
+    public interface IAccountService
     {
-        SignInResult SignIn(string userName, string password, int GreaterThanUTCInMinute);
         void Register(RegisterViewModel model);
         void UpdateUser(UpdateUserViewModel model);
         void ResetPassword(ResetPasswordViewModel model);
