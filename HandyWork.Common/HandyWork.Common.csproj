@@ -97,7 +97,7 @@
     <Compile Include="ExternLibs\OpenXml\WordUtility.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />
-    <Compile Include="Authority\Cookie.cs" />
+    <Compile Include="Authority\HyCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Time\UTCTime.cs" />
     <Compile Include="Utility\BasicTypeUtility.cs" />

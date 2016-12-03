@@ -26,7 +26,7 @@ namespace HandyWork.Common.Extensions
         {
             return principal.GetCookie()?.GreaterThanUTCInMinute ?? 0;
         }
-        public static Cookie GetCookie(this IPrincipal principal)
+        public static HyCookie GetCookie(this IPrincipal principal)
         {
             return (principal as HyPrincipal)?.Cookie;
         }

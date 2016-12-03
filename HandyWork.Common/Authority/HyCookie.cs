@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HandyWork.Common.Authority
 {
-    public class Cookie
+    public class HyCookie
     {
         public int GreaterThanUTCInMinute { set; get; }
         public string Name { set; get; }
@@ -15,13 +15,13 @@ namespace HandyWork.Common.Authority
         public string NickName { get; set; }
         public string[] Roles { get; set; }
         public string Encoder() => JsonConvert.SerializeObject(this);
-        public static Cookie Decoder(string userDataStr)
+        public static HyCookie Decoder(string userDataStr)
         {
             if (string.IsNullOrWhiteSpace(userDataStr))
             {
                 return null;
             }
-            Cookie ud = JsonConvert.DeserializeObject<Cookie>(userDataStr);
+            HyCookie ud = JsonConvert.DeserializeObject<HyCookie>(userDataStr);
             return ud;
         }
     }

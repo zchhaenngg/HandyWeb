@@ -18,6 +18,9 @@
     using HandyWork.Common.Extensions;
     using Queryable;
     using ViewModel.PCWeb.Query;
+    using System.Text;
+    using Common.Helper;
+    using Common.Exceptions;
 
     public partial class HyContext : DbContext
     {
@@ -30,7 +33,7 @@
             : base("name=MyConnection")
         {
             LoginId = loginId;
-            ChangedEvent += Changed;
+            ChangedEvent = Changed;
             ChangedEvent += AddDataHistories;
         }
         
@@ -116,18 +119,69 @@
         public override int SaveChanges()
         {
             ChangedEvent?.Invoke();
-            return base.SaveChanges();
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException dbex)
+            {
+                var error = GetValidationExceptionString(dbex);
+                LogHelper.ErrorLog.Error(error);
+                throw new LogException(error, false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
-
         public override Task<int> SaveChangesAsync()
         {
             ChangedEvent?.Invoke();
-            return base.SaveChangesAsync();
+            try
+            {
+                return base.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException dbex)
+            {
+                var error = GetValidationExceptionString(dbex);
+                LogHelper.ErrorLog.Error(error);
+                throw new LogException(error, false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             ChangedEvent?.Invoke();
-            return base.SaveChangesAsync(cancellationToken);
+            try
+            {
+                return base.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbEntityValidationException dbex)
+            {
+                var error = GetValidationExceptionString(dbex);
+                LogHelper.ErrorLog.Error(error);
+                throw new LogException(error, false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private static string GetValidationExceptionString(DbEntityValidationException dbex)
+        {
+            var builder = new StringBuilder();
+            foreach (var item in dbex.EntityValidationErrors)
+            {
+                foreach (var error in item.ValidationErrors)
+                {
+                    builder.Append(error.ErrorMessage);
+                }
+            }
+            return builder.ToString();
         }
     }
     /// <summary>
@@ -165,7 +219,6 @@
     /// </summary>
     public partial class HyContext
     {
-
         private void AddDataHistories()
         {
             if (ChangeTracker.HasChanges())
@@ -180,12 +233,20 @@
                     {
                         continue;
                     }
-                    AddHistory(entry);
+                    WriteHistory(entry);
                 }
             }
         }
-
-        private void AddHistory(DbEntityEntry entry)
+        private void WriteHistory(DbEntityEntry entry)
+        {
+            var history = GetHistory(entry);
+            history.category_name = history.entity_name;
+            if (!string.IsNullOrWhiteSpace(history.description))
+            {
+                hy_data_histories.Add(history);
+            }
+        }
+        private hy_data_history GetHistory(DbEntityEntry entry, params string[] ignores)
         {
             var data = new hy_data_history
             {
@@ -193,9 +254,8 @@
                 created_by_id = LoginId,
                 created_time = DateTime.UtcNow,
                 unique_key = GetPrimaryKeyValue(entry),
-                category_name = GetObjectType(entry.Entity.GetType()).Name,
                 entity_name = GetObjectType(entry.Entity.GetType()).Name,
-                description = GetHistoryDescription(entry)
+                description = GetHistoryDescription(entry, ignores)
             };
             switch (entry.State)
             {
@@ -211,10 +271,7 @@
                 default:
                     break;
             }
-            if (!string.IsNullOrWhiteSpace(data.description))
-            {
-                hy_data_histories.Add(data);
-            }
+            return data;
         }
 
         private string GetHistoryDescription(DbEntityEntry entry, params string[] ignores)

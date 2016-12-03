@@ -10,15 +10,14 @@ namespace HandyWork.Common.Authority
 {
     public class HyPrincipal : IPrincipal
     {
-        private string[] _roles;
-        private Cookie _cookie;
+        private HyCookie _cookie;
         public IIdentity Identity { get; }
         public HyPrincipal(IIdentity identity)
         {
             Identity = identity;
         }
 
-        public Cookie Cookie => _cookie ?? (_cookie = Cookie.Decoder((Identity as FormsIdentity)?.Ticket.UserData));
+        public HyCookie Cookie => _cookie ?? (_cookie = HyCookie.Decoder((Identity as FormsIdentity)?.Ticket.UserData));
 
         /// <summary>
         /// 必须先登录授权。
