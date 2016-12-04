@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using HandyWork.Common.EntityFramework.Query;
 using HandyWork.ViewModel.Web;
+using HandyWork.DAL;
+using HandyWork.Model.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace HandyWork.Services.Service
 {
@@ -17,42 +20,108 @@ namespace HandyWork.Services.Service
 
         public void AddRolePermission(string roleId, string permissionId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_auth_roles.First(o => o.id == roleId);
+                var permission = context.hy_auth_permissions.First(o => o.id == permissionId);
+                if (!entity.hy_auth_permissions.Contains(permission))
+                {
+                    entity.hy_auth_permissions.Add(permission);
+                    context.SaveChanges();
+                }
+            }
         }
 
         public void AddUserPermission(string userId, string permissionId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.First(o => o.id == userId);
+                var permission = context.hy_auth_permissions.First(o => o.id == permissionId);
+                if (!entity.hy_auth_permissions.Contains(permission))
+                {
+                    entity.hy_auth_permissions.Add(permission);
+                    context.SaveChanges();
+                }
+            }
         }
 
         public void AddUserRole(string userId, string roleId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.First(o => o.id == userId);
+                var role = context.hy_auth_roles.First(o => o.id == roleId);
+                if (!entity.hy_auth_roles.Contains(role))
+                {
+                    entity.hy_auth_roles.Add(role);
+                    context.SaveChanges();
+                }
+            }
         }
 
         public void CreatePermission(PermissionViewModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = new hy_auth_permission
+                {
+                    id = Guid.NewGuid().ToString(),
+                    name = model.Name,
+                    code = model.Code,
+                    description = model.Description
+                };
+                context.Add(entity);
+                context.SaveChanges();
+            }
         }
 
         public void CreateRole(RoleViewModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = new hy_auth_role
+                {
+                    id = Guid.NewGuid().ToString(),
+                    name = model.Name,
+                    description = model.Description
+                };
+                context.Add(entity);
+                context.SaveChanges();
+            }
         }
 
-        public Tuple<bool, string> DeleteRole(string id)
+        public void DeleteRole(string roleId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_auth_roles.Find(roleId);
+                context.Remove(entity);
+                context.SaveChanges();
+            }
         }
 
         public void EditPermission(PermissionViewModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_auth_permissions.Find(model.Id);
+                entity.name = model.Name;
+                entity.description = model.Description;
+                entity.code = model.Code;
+                context.SaveChanges();
+            }
         }
 
         public void EditRole(RoleViewModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_auth_roles.Find(model.Id);
+                entity.name = model.Name;
+                entity.description = model.Description;
+                context.SaveChanges();
+            }
         }
 
         public string[] GetAllPermissions4Code(string userId)
@@ -122,37 +191,89 @@ namespace HandyWork.Services.Service
 
         public void Register(RegisterViewModel model)
         {
-            throw new NotImplementedException();
+            var entity = new hy_user
+            {
+                id = Guid.NewGuid().ToString(),
+                access_failed_times = 0,
+                is_locked = false,
+                two_factor_enabled = false,
+                email_confirmed = false,
+                user_name = model.UserName,
+                nick_name = model.NickName,
+                email = model.Email,
+                is_valid = true
+            };
+            entity.security_stamp = Guid.NewGuid().ToString();
+            entity.password_hash = new PasswordHasher().HashPassword(model.Password);
+            using (var context = new HyContext(LoginId))
+            {
+                context.Add(entity);
+                context.SaveChanges();
+            }
         }
 
         public void RemoveRolePermission(string roleId, string permissionId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_auth_roles.Find(roleId);
+                var remove = entity.hy_auth_permissions.First(o => o.id == permissionId);
+                entity.hy_auth_permissions.Remove(remove);
+                context.SaveChanges();
+            }
         }
 
         public void RemoveUserPermission(string userId, string permissionId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.Find(userId);
+                var remove = entity.hy_auth_permissions.First(o => o.id == permissionId);
+                entity.hy_auth_permissions.Remove(remove);
+                context.SaveChanges();
+            }
         }
 
         public void RemoveUserRole(string userId, string roleId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.Find(userId);
+                var remove = entity.hy_auth_roles.First(o => o.id == roleId);
+                entity.hy_auth_roles.Remove(remove);
+                context.SaveChanges();
+            }
         }
 
         public void ResetPassword(ResetPasswordViewModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.First(o => o.user_name == model.UserName);
+                entity.security_stamp = Guid.NewGuid().ToString();
+                entity.password_hash = new PasswordHasher().HashPassword(model.Password);
+                context.SaveChanges();
+            }
         }
 
         public void SetUnlocked4User(string userId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.Find(userId);
+                entity.is_locked = false;
+                context.SaveChanges();
+            }
         }
 
-        public string SetUserValid(string userId)
+        public void SetUserValid(string userId)
         {
-            throw new NotImplementedException();
+            using (var context = new HyContext(LoginId))
+            {
+                var entity = context.hy_users.Find(userId);
+                entity.is_valid = true;
+                context.SaveChanges();
+            }
         }
 
         public void UpdateUser(UpdateUserViewModel model)

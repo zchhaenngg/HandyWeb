@@ -21,7 +21,7 @@ namespace HandyWork.Common.Authority
             {
                 return null;
             }
-            HyCookie ud = JsonConvert.DeserializeObject<HyCookie>(userDataStr);
+            var ud = JsonConvert.DeserializeObject<HyCookie>(userDataStr);
             return ud;
         }
     }

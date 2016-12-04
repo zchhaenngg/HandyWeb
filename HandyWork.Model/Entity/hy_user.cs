@@ -20,13 +20,13 @@
         public int access_failed_times { get; set; }
         
         /// <summary>
-        /// 如Admin等账号是永远不被锁定的
+        /// 密码输错超过3次
         /// </summary>
-        [Display(Name = "检查账号锁定")]
-        public bool is_lockout_enable { get; set; }
+        [Display(Name = "账号锁定")]
+        public bool is_locked { get; set; }
 
         [Display(Name = "账号解锁时间")]
-        public DateTime? lockout_end_time { get; set; }
+        public DateTime? locked_time { get; set; }
 
         [Required]
         public string password_hash { get; set; }

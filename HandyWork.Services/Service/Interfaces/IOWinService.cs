@@ -13,7 +13,7 @@ namespace HandyWork.Services.Service.Interfaces
     /// </summary>
     public interface IOWinService
     {
-        void Register(OwinViewModel user, string password);
+        //void Register(OwinViewModel user, string password);
         SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, bool shouldLockout = true);
         void SignOut();
     }

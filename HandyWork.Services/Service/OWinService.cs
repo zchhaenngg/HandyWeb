@@ -73,32 +73,32 @@ namespace HandyWork.Services.Service
             :base(HttpContext.Current.User.GetLoginId())
         {
         }
-        public void Register(OwinViewModel user, string password)
-        {
-            var entity = new hy_user
-            {
-                id = Guid.NewGuid().ToString(),
-                access_failed_times = 0,
-                is_lockout_enable = true,
-               // password_hash = user.PasswordHash,
-               // security_stamp = user.SecurityStamp,
-                phone_number = user.PhoneNumber,
-                phone_number_confirmed = false,
-                two_factor_enabled = true,
-                email_confirmed = false,
-                user_name = user.UserName,
-                nick_name = user.NickName,
-                email = user.Email,
-                is_valid = true
-            };
-            entity.security_stamp = Guid.NewGuid().ToString();
-            entity.password_hash = new PasswordHasher().HashPassword(password);
-            using (var context = new HyContext(LoginId))
-            {
-                context.Add(entity);
-                context.SaveChanges();
-            }
-        }
+        //public void Register(OwinViewModel user, string password)
+        //{
+        //    var entity = new hy_user
+        //    {
+        //        id = Guid.NewGuid().ToString(),
+        //        access_failed_times = 0,
+        //        is_locked = false,
+        //       // password_hash = user.PasswordHash,
+        //       // security_stamp = user.SecurityStamp,
+        //        phone_number = user.PhoneNumber,
+        //        phone_number_confirmed = false,
+        //        two_factor_enabled = true,
+        //        email_confirmed = false,
+        //        user_name = user.UserName,
+        //        nick_name = user.NickName,
+        //        email = user.Email,
+        //        is_valid = true
+        //    };
+        //    entity.security_stamp = Guid.NewGuid().ToString();
+        //    entity.password_hash = new PasswordHasher().HashPassword(password);
+        //    using (var context = new HyContext(LoginId))
+        //    {
+        //        context.Add(entity);
+        //        context.SaveChanges();
+        //    }
+        //}
 
         /// <summary>
         /// Attempts to sign in the specified <paramref name="userName"/> and <paramref name="password"/>
@@ -142,19 +142,19 @@ namespace HandyWork.Services.Service
                                 entity.access_failed_times++;
                                 if (entity.access_failed_times > 3)
                                 {
-                                    entity.lockout_end_time = DateTime.UtcNow.Add(MyOwinConfig.LockoutTimeSpan);
+                                    entity.locked_time = DateTime.UtcNow.Add(MyOwinConfig.LockoutTimeSpan);
                                 }
                                 context.SaveChanges();
                             }
                             return SignInResult.PasswordError;
                         case PasswordVerificationResult.Success:
-                            entity.lockout_end_time = null;
+                            entity.locked_time = null;
                             entity.access_failed_times = 0;
                             SignIn(entity, isPersistent);
                             context.SaveChanges();
                             return SignInResult.Success;
                         case PasswordVerificationResult.SuccessRehashNeeded:
-                            entity.lockout_end_time = null;
+                            entity.locked_time = null;
                             entity.access_failed_times = 0;
                             context.SaveChanges();
                             return SignInResult.SuccessRehashNeeded;
@@ -176,9 +176,7 @@ namespace HandyWork.Services.Service
 
         private bool IsLockout(hy_user entity)
         {
-            return entity.is_lockout_enable
-                     && entity.lockout_end_time != null
-                     && DateTime.UtcNow < entity.lockout_end_time.Value;
+            return entity.is_locked;
         }
         private PasswordVerificationResult VerifyHashedPassword(hy_user entity, string password)
         {

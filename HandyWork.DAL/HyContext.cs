@@ -28,7 +28,7 @@
         /// 操作人员
         /// </summary>
         public string LoginId { get; }
-
+        
         public HyContext(string loginId)
             : base("name=MyConnection")
         {

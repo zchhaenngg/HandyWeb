@@ -14,14 +14,14 @@ namespace HandyWork.Services.Service.Interfaces
         void UpdateUser(UpdateUserViewModel model);
         void ResetPassword(ResetPasswordViewModel model);
         UpdateUserViewModel GetUpdateUserViewModel(string userId);
-        string SetUserValid(string userId);
+        void SetUserValid(string userId);
         void SetUnlocked4User(string userId);
         void CreatePermission(PermissionViewModel model);
         void EditPermission(PermissionViewModel model);
         PermissionViewModel GetPermissionViewModel(string id);
         void CreateRole(RoleViewModel model);
         void EditRole(RoleViewModel model);
-        Tuple<bool, string> DeleteRole(string id);
+        void DeleteRole(string id);
         RoleViewModel GetRoleViewModel(string id);
         Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel(QueryModel model);
         List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike);

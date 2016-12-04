@@ -66,19 +66,8 @@
     <Compile Include="HyContextExtension.cs" />
     <Compile Include="Queryable\Map.cs" />
     <Compile Include="Queryable\Mapping.cs" />
-    <Compile Include="Repository\Interfaces\IAuthPermissionRepository.cs" />
-    <Compile Include="Repository\Interfaces\IAuthRoleRepository.cs" />
-    <Compile Include="Repository\Interfaces\IBaseRepository.cs" />
-    <Compile Include="Repository\Interfaces\IDataHistoryRepository.cs" />
-    <Compile Include="Repository\Interfaces\IRepository.cs" />
-    <Compile Include="Repository\Interfaces\IUserRepository.cs" />
     <Compile Include="SQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AuthPermissionRepository.cs" />
-    <Compile Include="Repository\AuthRoleRepository.cs" />
-    <Compile Include="Repository\Abstracts\BaseRepository.cs" />
-    <Compile Include="Repository\DataHistoryRepository.cs" />
-    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
