@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.ViewModel.PCWeb
+namespace HandyWork.ViewModel.Common
 {
     public class CombotreeViewModel
     {

@@ -10,34 +10,37 @@ namespace HandyWork.Services.Service.Interfaces
 {
     public interface IAccountService
     {
+        UpdateUserViewModel GetUpdateUserViewModel(string userId);
+        PermissionViewModel GetPermissionViewModel(string id);
+        RoleViewModel GetRoleViewModel(string id);
         void Register(RegisterViewModel model);
         void UpdateUser(UpdateUserViewModel model);
         void ResetPassword(ResetPasswordViewModel model);
-        UpdateUserViewModel GetUpdateUserViewModel(string userId);
-        void SetUserValid(string userId);
+        
+        void ReverseUserValid(string userId);
         void SetUnlocked4User(string userId);
         void CreatePermission(PermissionViewModel model);
         void EditPermission(PermissionViewModel model);
-        PermissionViewModel GetPermissionViewModel(string id);
+        
         void CreateRole(RoleViewModel model);
         void EditRole(RoleViewModel model);
         void DeleteRole(string id);
-        RoleViewModel GetRoleViewModel(string id);
-        Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel(QueryModel model);
-        List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike);
-        List<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike);
         void AddUserPermission(string userId, string permissionId);
         void RemoveUserPermission(string userId, string permissionId);
-        List<RoleViewModel> GetRoleViewModelsByUserId(string userId);
-        List<RoleViewModel> GetRoleViewModels4AddByUserId(string userId);
         void AddUserRole(string userId, string roleId);
         void RemoveUserRole(string userId, string roleId);
-        Tuple<List<PermissionViewModel>, int> GetPage4PermissionViewModel();
-        Tuple<List<RoleViewModel>, int> GetPage4RoleViewModel();
-        List<PermissionViewModel> GetPermissionViewModelsByRoleId(string roleId, string permissionNameLike);
-        List<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike);
         void AddRolePermission(string roleId, string permissionId);
         void RemoveRolePermission(string roleId, string permissionId);
         string[] GetAllPermissions4Code(string userId);
+
+        IList<AuthUserViewModel> GetPage4UserViewModel(QueryModel model, out int total);
+        IList<PermissionViewModel> GetPage4PermissionViewModel(out int total);
+        IList<RoleViewModel> GetPage4RoleViewModel(out int total);
+        IList<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike);
+        IList<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike);
+        IList<RoleViewModel> GetRoleViewModelsByUserId(string userId);
+        IList<RoleViewModel> GetRoleViewModels4AddByUserId(string userId);
+        IList<PermissionViewModel> GetPermissionViewModelsByRoleId(string roleId, string permissionNameLike);
+        IList<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike);
     }
 }

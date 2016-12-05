@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.ViewModel.PCWeb.Query
+namespace HandyWork.ViewModel.Query
 {
     public class UserQuery : BaseQuery
     {
         public UserQuery()
         {
-            PropertyWithColumnDic.Add("IsValidStr", "IsValid");
+            ColumnDic.Add("IsValidStr", "IsValid");
         }
 
         public string UserNameEqual { get; set; }

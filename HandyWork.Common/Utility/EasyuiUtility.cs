@@ -1,9 +1,13 @@
 ﻿using HandyWork.Common.Exceptions;
-using HandyWork.ViewModel.PCWeb.Query;
+using HandyWork.ViewModel.Query;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
-namespace HandyWork.UIBusiness.Utility
+namespace HandyWork.Common.Utility
 {
     public static class EasyuiUtility
     {

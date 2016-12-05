@@ -40,7 +40,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\IQueryableExtension.cs" />
+    <Compile Include="HyQuery\MapInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
+      <Project>{50655857-124c-4647-a652-10a5e88e0963}</Project>
+      <Name>HandyWork.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.DAL\HandyWork.DAL.csproj">
+      <Project>{d29a0b16-b824-4044-b0d6-ddceb0cf11ac}</Project>
+      <Name>HandyWork.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.Localization\HandyWork.Localization.csproj">
+      <Project>{035c1853-1818-4e92-8257-dd18931dec22}</Project>
+      <Name>HandyWork.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.Model\HandyWork.Model.csproj">
+      <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
+      <Name>HandyWork.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
+      <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
+      <Name>HandyWork.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

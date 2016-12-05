@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.DAL.Queryable
+namespace HandyWork.Common.EntityFramework.Maps
 {
     public class Map
     {
@@ -17,8 +17,8 @@ namespace HandyWork.DAL.Queryable
     /// </summary>
     public class Map<TEntity, TQuery> : Map
     {
-        public delegate Expression<Func<TEntity, bool>> Expression_TEntity_Bool(TQuery query);
-        public event Expression_TEntity_Bool Handler;
+        public delegate Expression<Func<TEntity, bool>> WhereEventHandler(TQuery query);
+        protected event WhereEventHandler Where;
 
         public Map()
         {
@@ -26,16 +26,16 @@ namespace HandyWork.DAL.Queryable
             Destination = typeof(TQuery);
         }
 
-        public static Map<TEntity, TQuery> CreateMap(Expression_TEntity_Bool handler)
+        public static Map<TEntity, TQuery> CreateMap(WhereEventHandler handler)
         {
             var map = new Map<TEntity, TQuery>();
-            map.Handler += handler;
+            map.Where += handler;
             return map;
         }
 
         public Expression<Func<TEntity, bool>> Invoke(TQuery query)
         {
-            return Handler(query);
+            return Where(query);
         }
     }
 }

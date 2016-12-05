@@ -79,16 +79,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\SignInResult.cs" />
-    <Compile Include="PCWeb\EasyuiViewModel.cs" />
-    <Compile Include="PCWeb\Query\AuthPermissionQuery.cs" />
-    <Compile Include="PCWeb\Query\AuthRoleQuery.cs" />
-    <Compile Include="PCWeb\Query\BaseQuery.cs" />
-    <Compile Include="PCWeb\Query\UserQuery.cs" />
+    <Compile Include="Common\EasyuiViewModel.cs" />
+    <Compile Include="Query\AuthPermissionQuery.cs" />
+    <Compile Include="Query\AuthRoleQuery.cs" />
+    <Compile Include="Query\BaseQuery.cs" />
+    <Compile Include="Query\Interface\Hy_IQuery.cs" />
+    <Compile Include="Query\UserQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\AccountViewModels.cs" />
     <Compile Include="Web\BootstrapViewModel.cs" />
     <Compile Include="Web\HtmlViewModel.cs" />
-    <Compile Include="Web\OwinViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -103,10 +103,7 @@
       <Name>HandyWork.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mobile\" />
-    <Folder Include="WeChat\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -66,13 +66,9 @@ namespace HandyWork.Services.Service
             }
         }
     }
-    public partial class OWinService: BaseService, IOWinService
+    public partial class OWinService: IOWinService
     {
         protected HttpRequest Request => HttpContext.Current.Request;
-        public OWinService()
-            :base(HttpContext.Current.User.GetLoginId())
-        {
-        }
         //public void Register(OwinViewModel user, string password)
         //{
         //    var entity = new hy_user
@@ -111,7 +107,7 @@ namespace HandyWork.Services.Service
         /// for the sign-in attempt.</returns>
         public SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, bool shouldLockout = true)
         {
-            using (var context = new HyContext(LoginId))
+            using (var context = new HyContext(null))
             {
                 var entity = context.hy_users.FirstOrDefault(o => o.user_name == usernameOrEmail)
                     ?? context.hy_users.FirstOrDefault(o => o.email == usernameOrEmail);
@@ -123,7 +119,7 @@ namespace HandyWork.Services.Service
                 {
                     return SignInResult.Invalid;
                 }
-                if (IsLockout(entity))
+                if (entity.is_locked)
                 {
                     return SignInResult.LockedOut;
                 }
@@ -173,11 +169,6 @@ namespace HandyWork.Services.Service
     public partial class OWinService
     {
         //私有方法
-
-        private bool IsLockout(hy_user entity)
-        {
-            return entity.is_locked;
-        }
         private PasswordVerificationResult VerifyHashedPassword(hy_user entity, string password)
         {
             if (entity.password_hash == null)

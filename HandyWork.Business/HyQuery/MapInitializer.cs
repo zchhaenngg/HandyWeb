@@ -1,57 +1,27 @@
-﻿using HandyWork.Model;
-using HandyWork.ViewModel.PCWeb.Query;
+﻿using HandyWork.Common.EntityFramework.Elements;
+using HandyWork.Common.EntityFramework.Lambdas;
+using HandyWork.Common.EntityFramework.Maps;
+using HandyWork.Model.Entity;
+using HandyWork.ViewModel.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using HandyWork.Common.Extensions;
-using HandyWork.Common.EntityFramework.Elements;
-using HandyWork.Common.EntityFramework.Lambdas;
-using HandyWork.Common.Utility;
-using HandyWork.Model.Entity;
 
-namespace HandyWork.DAL.Queryable
+namespace HandyWork.Business.HyQuery
 {
-    public class Mapping
+    public class MapInitializer
     {
-        private static List<Map> Maps = new List<Map>();
-        static Mapping()
+        private static MapContainer _container;
+        public static MapContainer Container => _container ?? (_container = new MapContainer());
+        static MapInitializer()
         {
-            Maps.Add(Map<hy_user, UserQuery>.CreateMap(Build4AuthUser));
-            Maps.Add(Map<hy_auth_role, AuthRoleQuery>.CreateMap(Build4AuthRole));
-            Maps.Add(Map<hy_auth_permission, AuthPermissionQuery>.CreateMap(Build4AuthPermission));
+            Container.Register(Map<hy_user, UserQuery>.CreateMap(Build4AuthUser));
+            Container.Register(Map<hy_auth_role, AuthRoleQuery>.CreateMap(Build4AuthRole));
+            Container.Register(Map<hy_auth_permission, AuthPermissionQuery>.CreateMap(Build4AuthPermission));
         }
-
-        public static Map FindMap<TEntity>(object obj)
-        {
-            var queryType = obj.GetType();
-            return Maps.FirstOrDefault(o => o.Souce == typeof(TEntity) && o.Destination == queryType);
-        }
-        public static Expression<Func<TEntity, bool>> GetExpression<TEntity>(object query)
-        {
-            var map = FindMap<TEntity>(query);
-            if (map == null)
-            {
-                throw new Exception(string.Format("不存在的Map,TEntity：{0}， TQuery：{1}", typeof(TEntity).Name, map.Destination.Name));
-            }
-
-            var expression = map.GetType().GetMethod("Invoke").Invoke(map, new object[] { query }) as Expression<Func<TEntity, bool>>;
-            return expression;
-        }
-
-        public static Expression<Func<TEntity, bool>> GetExpression<TEntity, TQuery>(TQuery query)
-        {
-            var map = Maps.FirstOrDefault(o => o.Souce == typeof(TEntity) && o.Destination == typeof(TQuery)) as Map<TEntity, TQuery>;
-            if (map == null)
-            {
-                throw new Exception(string.Format("不存在的Map,TEntity：{0}， TQuery：{1}", typeof(TEntity).Name,typeof(TQuery).Name));
-            }
-            var expression = map.Invoke(query);
-            return expression;
-        }
-
         private static Expression<Func<hy_user, bool>> Build4AuthUser(UserQuery query)
         {
             if (query == null)

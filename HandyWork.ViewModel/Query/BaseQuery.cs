@@ -1,15 +1,16 @@
-﻿using System;
+﻿using HandyWork.ViewModel.Query.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.ViewModel.PCWeb.Query
+namespace HandyWork.ViewModel.Query
 {
-    public class BaseQuery
+    public class BaseQuery : Hy_IQuery
     {
         private string _sortColumn;
-        protected Dictionary<string, string> PropertyWithColumnDic { get; } = new Dictionary<string, string>();
+        protected Dictionary<string, string> ColumnDic { get; } = new Dictionary<string, string>();
         
         public bool IsAsc { get; set; }//默认降序
         public int PageIndex { get; set; }
@@ -19,8 +20,12 @@ namespace HandyWork.ViewModel.PCWeb.Query
             {
                 PageIndex = value < 0 ? -1 : value - 1;
             }
+            get
+            {
+                return PageIndex + 1;
+            }
         }
-        public int PageSize { get; set; } = 50;
+        public int PageSize { get; set; } = int.MaxValue;
 
         public string SortColumn
         {
@@ -28,9 +33,9 @@ namespace HandyWork.ViewModel.PCWeb.Query
             {
                 if (value != null)
                 {
-                    if (PropertyWithColumnDic.ContainsKey(value))
+                    if (ColumnDic.ContainsKey(value))
                     {
-                        _sortColumn = PropertyWithColumnDic[value];
+                        _sortColumn = ColumnDic[value];
                     }
                     else
                     {
@@ -40,7 +45,7 @@ namespace HandyWork.ViewModel.PCWeb.Query
             }
             get
             {
-                return _sortColumn ?? "LastModifiedById";
+                return _sortColumn ?? "last_modified_by_id";
             }
         }
     }

@@ -16,8 +16,6 @@
     using System.Data.Entity.Core.Objects;
     using System.ComponentModel.DataAnnotations;
     using HandyWork.Common.Extensions;
-    using Queryable;
-    using ViewModel.PCWeb.Query;
     using System.Text;
     using Common.Helper;
     using Common.Exceptions;

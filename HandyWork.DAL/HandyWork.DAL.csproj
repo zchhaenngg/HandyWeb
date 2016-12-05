@@ -63,12 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HyContext.cs" />
-    <Compile Include="HyContextExtension.cs" />
-    <Compile Include="Queryable\Map.cs" />
-    <Compile Include="Queryable\Mapping.cs" />
-    <Compile Include="SQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HandyWork.Common\HandyWork.Common.csproj">
@@ -82,10 +77,6 @@
     <ProjectReference Include="..\HandyWork.Model\HandyWork.Model.csproj">
       <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
       <Name>HandyWork.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
-      <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
-      <Name>HandyWork.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

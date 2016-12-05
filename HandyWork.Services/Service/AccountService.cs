@@ -124,62 +124,12 @@ namespace HandyWork.Services.Service
             }
         }
 
-        public string[] GetAllPermissions4Code(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Tuple<List<PermissionViewModel>, int> GetPage4PermissionViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Tuple<List<RoleViewModel>, int> GetPage4RoleViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Tuple<List<AuthUserViewModel>, int> GetPage4UserViewModel(QueryModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         public PermissionViewModel GetPermissionViewModel(string id)
         {
             throw new NotImplementedException();
         }
 
-        public List<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PermissionViewModel> GetPermissionViewModelsByRoleId(string roleId, string permissionNameLike)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike)
-        {
-            throw new NotImplementedException();
-        }
-
         public RoleViewModel GetRoleViewModel(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RoleViewModel> GetRoleViewModels4AddByUserId(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RoleViewModel> GetRoleViewModelsByUserId(string userId)
         {
             throw new NotImplementedException();
         }
@@ -266,7 +216,7 @@ namespace HandyWork.Services.Service
             }
         }
 
-        public void SetUserValid(string userId)
+        public void ReverseUserValid(string userId)
         {
             using (var context = new HyContext(LoginId))
             {
@@ -277,6 +227,56 @@ namespace HandyWork.Services.Service
         }
 
         public void UpdateUser(UpdateUserViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] GetAllPermissions4Code(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<AuthUserViewModel> GetPage4UserViewModel(QueryModel model, out int total)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<PermissionViewModel> GetPage4PermissionViewModel(out int total)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<RoleViewModel> GetPage4RoleViewModel(out int total)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<PermissionViewModel> GetPermissionViewModelsByUserId(string userId, string permissionNameLike)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<PermissionViewModel> GetPermissionViewModels4AddByUserId(string userId, string permissionNameLike)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<RoleViewModel> GetRoleViewModelsByUserId(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<RoleViewModel> GetRoleViewModels4AddByUserId(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<PermissionViewModel> GetPermissionViewModelsByRoleId(string roleId, string permissionNameLike)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<PermissionViewModel> GetPermissionViewModels4AddByRoleId(string roleId, string permissionNameLike)
         {
             throw new NotImplementedException();
         }

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HandyWork.ViewModel.PCWeb.Query
+namespace HandyWork.ViewModel.Query
 {
-    public class AuthPermissionQuery : BaseQuery
+    public class AuthRoleQuery : BaseQuery
     {
-        public AuthPermissionQuery()
+        public AuthRoleQuery()
             : base()
         {
+
         }
+
         public string NameLike { get; set; }
-        public string CodeLike { get; set; }
     }
 }
