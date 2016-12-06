@@ -103,7 +103,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Manager\AccountManager.cs" />
-    <Compile Include="Utility\SelectListUtility.cs" />
     <Compile Include="Utility\UrlUtility.cs" />
   </ItemGroup>
   <ItemGroup>

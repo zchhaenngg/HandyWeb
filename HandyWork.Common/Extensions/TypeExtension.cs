@@ -159,16 +159,13 @@ namespace HandyWork.Common.Extensions
         /// </summary>
         /// <param name="conversionType"></param>
         /// <returns></returns>
-        public static Type GetUnNullableType(this Type conversionType)
+        public static Type GetUnNullableType(this Type type)
         {
-            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (type.IsNullable())
             {
-                //如果是泛型方法，且泛型类型为Nullable<>则视为可空类型
-                //并使用NullableConverter转换器进行转换
-                var nullableConverter = new System.ComponentModel.NullableConverter(conversionType);
-                conversionType = nullableConverter.UnderlyingType;
+                return Nullable.GetUnderlyingType(type);
             }
-            return conversionType;
+            return type;
         }
     }
 }
