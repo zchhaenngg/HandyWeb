@@ -25,8 +25,10 @@
         /// <summary>
         /// 操作人员
         /// </summary>
-        public string LoginId { get; }
-        
+        public string LoginId { get; set; }
+
+        public HyContext() : base("name=MyConnection") { }
+
         public HyContext(string loginId)
             : base("name=MyConnection")
         {

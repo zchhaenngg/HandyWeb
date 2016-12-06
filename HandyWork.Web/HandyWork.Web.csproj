@@ -222,7 +222,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -289,6 +291,10 @@
     <ProjectReference Include="..\HandyWork.Services\HandyWork.Services.csproj">
       <Project>{e1a9f870-04d0-4d52-bf37-8d78269cd2e8}</Project>
       <Name>HandyWork.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
+      <Project>{91acada0-b3c5-4fc3-82eb-96de7754b730}</Project>
+      <Name>HandyWork.UIBusiness</Name>
     </ProjectReference>
     <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
       <Project>{0b711b17-8bf5-4ac4-9f19-ec21952940c5}</Project>

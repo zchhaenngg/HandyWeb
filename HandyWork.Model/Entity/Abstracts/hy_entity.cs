@@ -10,6 +10,7 @@ namespace HandyWork.Model.Entity.Abstracts
 {
     public abstract class hy_Entity : hy_IEntity
     {
+        [Key]
         [StringLength(40)]
         public string id { get; set; }
 
