@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\JsonViewModel.cs" />
     <Compile Include="Common\SignInResult.cs" />
     <Compile Include="Common\EasyuiViewModel.cs" />
     <Compile Include="Query\AuthPermissionQuery.cs" />

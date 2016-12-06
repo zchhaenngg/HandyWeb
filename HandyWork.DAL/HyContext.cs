@@ -376,6 +376,16 @@
                 return string.Join(",", values);
             }
         }
+        public DbQuery<TEntity> AsNoTracking<TEntity>()
+            where TEntity : class
+        {
+            return Set<TEntity>().AsNoTracking();
+        }
+        public DbSet<TEntity> AsTracking<TEntity>()
+            where TEntity : class
+        {
+            return Set<TEntity>();
+        }
     }
 }
 

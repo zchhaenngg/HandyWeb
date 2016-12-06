@@ -100,7 +100,6 @@
     <Compile Include="Authentication\QQ\QQAuthenticationMiddleware.cs" />
     <Compile Include="Authentication\QQ\QQAuthenticationHandler.cs" />
     <Compile Include="Authentication\QQ\QQAuthenticationOptions.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Utility\UrlUtility.cs" />

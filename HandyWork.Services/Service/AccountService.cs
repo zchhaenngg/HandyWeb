@@ -9,6 +9,8 @@ using HandyWork.ViewModel.Web;
 using HandyWork.DAL;
 using HandyWork.Model.Entity;
 using Microsoft.AspNet.Identity;
+using HandyWork.Common.EntityFramework.Lambdas;
+using HandyWork.Common.Extensions;
 
 namespace HandyWork.Services.Service
 {
@@ -238,7 +240,28 @@ namespace HandyWork.Services.Service
 
         public IList<AuthUserViewModel> GetPage4UserViewModel(QueryModel model, out int total)
         {
-            throw new NotImplementedException();
+            var factory = new LambdaFactory<hy_user>().AddLambdas(model);
+            var expression = factory.ToExpression();
+            if (expression == null)
+            {
+                expression = o => true;
+            }
+            using (var context = new HyContext(LoginId))
+            {
+                total = context.AsNoTracking<hy_user>().Where(expression).Count();
+                var list = context.AsNoTracking<hy_user>().Where(expression).OrderBy(o => o.id).GetPage(0, 10).Select(o => new AuthUserViewModel
+                {
+                    Id = o.id,
+                    IsLocked = o.is_locked,
+                    LockedTime = o.locked_time,
+                    PhoneNumber = o.phone_number,
+                    UserName = o.user_name,
+                    NickName = o.nick_name,
+                    Email = o.email,
+                    EmailConfirmed = o.email_confirmed
+                }).ToList();
+                return list;
+            }   
         }
 
         public IList<PermissionViewModel> GetPage4PermissionViewModel(out int total)

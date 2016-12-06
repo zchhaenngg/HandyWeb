@@ -1,5 +1,4 @@
-﻿@using HandyWork.Common.EntityFramework.Query
-@using HandyWork.Model
+﻿@*@using HandyWork.ViewModel
 @model AuthUser
 @using (Html.BeginForm("JsonFindUsers", "Account", FormMethod.Post, new { @class = "form-inline", role = "form" }))
 {
@@ -16,4 +15,4 @@
 <script>
     $("#@nameof(AuthUser.RealName)").attr("name", "[Like]@nameof(AuthUser.RealName)")
     $("#@nameof(AuthUser.UserName)").attr("name", "[Like]@nameof(AuthUser.UserName)")
-</script>
+</script>*@

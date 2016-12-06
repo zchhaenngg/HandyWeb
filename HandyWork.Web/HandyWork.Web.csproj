@@ -178,12 +178,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\QueryModelBinder.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -286,9 +286,9 @@
       <Project>{3793238c-2a91-4838-a7f0-1c221b4644df}</Project>
       <Name>HandyWork.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
-      <Project>{91ACADA0-B3C5-4FC3-82EB-96DE7754B730}</Project>
-      <Name>HandyWork.UIBusiness</Name>
+    <ProjectReference Include="..\HandyWork.Services\HandyWork.Services.csproj">
+      <Project>{e1a9f870-04d0-4d52-bf37-8d78269cd2e8}</Project>
+      <Name>HandyWork.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
       <Project>{0b711b17-8bf5-4ac4-9f19-ec21952940c5}</Project>

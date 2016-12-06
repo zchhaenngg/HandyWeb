@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using HandyWork.UIBusiness.Controllers;
-using HandyWork.UIBusiness.Manager;
 using HandyWork.ViewModel.Web;
-using HandyWork.UIBusiness.Enums;
 using System.Collections.Generic;
-using HandyWork.Model;
 using HandyWork.Common.EntityFramework.Query;
+using HandyWork.ViewModel.Common;
+using HandyWork.Localization;
 
 namespace HandyWork.Web.Controllers
 {
@@ -24,12 +18,12 @@ namespace HandyWork.Web.Controllers
         public AccountController()
         {
         }
-
+        
         public ActionResult UserIndex()
         {
-            var page = UnitOfManager.AccountManager.GetPage4UserViewModel(null);
-            ViewBag.Count = page.Item2;
-            return View(page.Item1);
+            int iTotal;
+            var list = AccountService.GetPage4UserViewModel(null, out iTotal);
+            return View(list);
         }
 
         //
@@ -66,19 +60,18 @@ namespace HandyWork.Web.Controllers
             {
                 return View(model);
             }
-
+            
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = UnitOfManager.OwinManager.SignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = OwinService.SignIn(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInResult.Success:
-                   
                     return RedirectToLocal(returnUrl);
                 case SignInResult.LockedOut:
                     return View("Lockout");
                 case SignInResult.UserNameError:
-                    ModelState.AddModelError("", Localization.LocalizedResource.NOTEXIST_USERNAME);
+                    ModelState.AddModelError("", LocalizedResource.NOTEXIST_USERNAME);
                     return View(model);
                 case SignInResult.PasswordError:
                     ModelState.AddModelError("", "密码不正确");
@@ -88,6 +81,9 @@ namespace HandyWork.Web.Controllers
                     return View(model);
                 case SignInResult.SuccessRehashNeeded:
                     return View("ResetPassword");
+                case SignInResult.IsTwoFactorEnabled:
+                    ModelState.AddModelError("", "账号不支持邮箱登陆");
+                    return View(model);
                 default:
                     return View(model);
             }
@@ -154,12 +150,7 @@ namespace HandyWork.Web.Controllers
         {
             return RedirectToLocal(model, () => 
             {
-                var user = new OwinViewModel();
-                user.Email = model.Email;
-                user.UserName = model.UserName;
-                user.RealName = model.RealName;
-                UnitOfManager.OwinManager.Register(user, model.Password);
-                
+                AccountService.Register(model);
             },"/Account/Login");
         }
 
@@ -388,7 +379,7 @@ namespace HandyWork.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            UnitOfManager.OwinManager.SignOut();
+            OwinService.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -402,9 +393,9 @@ namespace HandyWork.Web.Controllers
 
         public ActionResult JsonFindUsers(QueryModel model)
         {
-            var page = UnitOfManager.AccountManager.GetPage4UserViewModel(model);
-            ViewBag.Count = page.Item2;
-            return View();
+            int iTotal;
+            var list = AccountService.GetPage4UserViewModel(model, out iTotal);
+            return View(list);
         }
     }
 }

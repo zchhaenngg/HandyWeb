@@ -5,15 +5,15 @@
 @{
     ViewBag.Title = "用户列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var pagination = new BootstrapPagination { page_size = 5, show_page_count=7, total_count=120 };
+    //var pagination = new BootstrapPagination { page_size = 5, show_page_count=7, total_count=120 };
 }
 <p>
-    @Html.Partial("_Query", new AuthUser { RealName="xxx" });
+   @* @Html.Partial("_Query", new AuthUser { RealName="xxx" });*@
 </p>
 
 <!--分页模拟-->
 <p>
-    @Html.Partial("_Pagination", pagination)
+  @*  @Html.Partial("_Pagination", pagination)*@
 </p>
 <h2>创建</h2>
 
@@ -32,19 +32,13 @@
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+            @Html.DisplayNameFor(model => model.IsLocked)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+            @Html.DisplayNameFor(model => model.LockedTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
+            @Html.DisplayNameFor(model => model.NickName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UserName)
@@ -64,19 +58,13 @@
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
+            @Html.DisplayFor(modelItem => item.IsLocked)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
+            @Html.DisplayFor(modelItem => item.LockedTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessFailedCount)
+            @Html.DisplayFor(modelItem => item.NickName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
