@@ -14,7 +14,7 @@ namespace HandyWork.Services.Service.Interfaces
     public interface IOWinService
     {
         //void Register(OwinViewModel user, string password);
-        SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, bool shouldLockout = true);
+        SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, int GreaterThanUTCInMinute, bool shouldLockout = true);
         void SignOut();
     }
 }

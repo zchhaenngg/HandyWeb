@@ -63,7 +63,7 @@ namespace HandyWork.Web.Controllers
             
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = OwinService.SignIn(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = OwinService.SignIn(model.UserName, model.Password, model.RememberMe, model.GreaterThanUTCInMinute, shouldLockout: false);
             switch (result)
             {
                 case SignInResult.Success:

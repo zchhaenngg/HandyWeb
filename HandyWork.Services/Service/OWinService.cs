@@ -102,10 +102,11 @@ namespace HandyWork.Services.Service
         /// <param name="usernameOrEmail">The email to sign in.</param>
         /// <param name="password">The password to attempt to sign in with.</param>
         /// <param name="isPersistent">Flag indicating whether the sign-in cookie should persist after the browser is closed.</param>
+        /// /// <param name="GreaterThanUTCInMinute">utc time to browser time's interval time</param>
         /// <param name="shouldLockout">Flag indicating if the user account should be locked if the sign in fails.</param>
         /// <returns>The task object representing  the <see name="SignInResult"/>
         /// for the sign-in attempt.</returns>
-        public SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, bool shouldLockout = true)
+        public SignInResult SignIn(string usernameOrEmail, string password, bool isPersistent, int GreaterThanUTCInMinute, bool shouldLockout = true)
         {
             using (var context = new HyContext(null))
             {
@@ -146,7 +147,7 @@ namespace HandyWork.Services.Service
                         case PasswordVerificationResult.Success:
                             entity.locked_time = null;
                             entity.access_failed_times = 0;
-                            SignIn(entity, isPersistent);
+                            SignIn(entity, isPersistent, GreaterThanUTCInMinute);
                             context.SaveChanges();
                             return SignInResult.Success;
                         case PasswordVerificationResult.SuccessRehashNeeded:
@@ -180,14 +181,14 @@ namespace HandyWork.Services.Service
                 return new PasswordHasher().VerifyHashedPassword(entity.password_hash, password);
             }
         }
-        private void SignIn(hy_user entity, bool isPersistent)
+        private void SignIn(hy_user entity, bool isPersistent, int GreaterThanUTCInMinute)
         {
-            var claims = GetClaims(entity);
+            var claims = GetClaims(entity, GreaterThanUTCInMinute);
             var identity = new ClaimsIdentity(claims, MyOwinConfig.AuthenticationType);
             var authenticationProperties = new AuthenticationProperties { IsPersistent = isPersistent };
             Request.GetOwinContext().Authentication.SignIn(authenticationProperties, identity);
         }
-        private IList<Claim> GetClaims(hy_user entity)
+        private IList<Claim> GetClaims(hy_user entity, int GreaterThanUTCInMinute)
         {
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, entity.id));
@@ -195,6 +196,8 @@ namespace HandyWork.Services.Service
             claims.Add(new Claim(ClaimTypes.Name, entity.user_name));
             //登陆状态需要检查Claim版本信息，如果版本号不正确则强制用户重新登陆
             claims.Add(new Claim(ClaimTypes.Version, MyOwinConfig.ApplicationVersion));
+            claims.Add(new Claim("NickName", entity.nick_name));
+            claims.Add(new Claim("GreaterThanUTCInMinute", GreaterThanUTCInMinute.ToString(), "int"));
             return claims;
         }
     }

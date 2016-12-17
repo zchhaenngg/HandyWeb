@@ -23,5 +23,15 @@ namespace HandyWork.Common.Extensions
                 return null;
             }
         }
+
+        public static int? ToInt(this string s)
+        {
+            int i;
+            if (int.TryParse(s, out i))
+            {
+                return i;
+            }
+            throw new FormatException(s);
+        }
     }
 }

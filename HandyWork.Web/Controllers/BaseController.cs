@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using HandyWork.Common.Extensions;
 using HandyWork.ViewModel.Common;
+using HandyWork.Services.Extensions;
 
 namespace HandyWork.Web.Controllers
 {

@@ -10,6 +10,7 @@
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+                @Html.HiddenFor(m=>m.GreaterThanUTCInMinute)
                 @Html.AntiForgeryToken()
                 <h4>使用本地帐户登录。</h4>
                 <hr />
@@ -61,3 +62,6 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    $("#GreaterThanUTCInMinute").val(-new Date().getTimezoneOffset())
+</script>
