@@ -8,6 +8,12 @@ namespace HandyWork.Web
         // 有关绑定的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            /******************************************StyleBundle********************************************/
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/mybootstrap.css",
+                      "~/Content/site.css"));
+            /******************************************ScriptBundle********************************************/
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery.form.js",
                         "~/Scripts/jquery-{version}.js"));
@@ -26,12 +32,10 @@ namespace HandyWork.Web
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                       "~/Scripts/angular.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/mybootstrap.css",
-                      "~/Content/site.css"));
-
+            
+            bundles.Add(new ScriptBundle("~/bundles/hy").Include(
+                      "~/Scripts/typescripts/hy-1.0/hy_query.js"
+                      ));
         }
     }
 }

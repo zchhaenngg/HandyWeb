@@ -9,7 +9,8 @@ var HyQueryItem = (function () {
     return HyQueryItem;
 }());
 var HyQuery = (function () {
-    function HyQuery() {
+    function HyQuery(name) {
+        this.name = name;
     }
     return HyQuery;
 }());

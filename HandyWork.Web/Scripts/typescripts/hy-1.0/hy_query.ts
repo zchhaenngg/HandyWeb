@@ -9,5 +9,7 @@ class HyQueryItem {
 class HyQuery {
     //查询名称
     public name: string;
-    //public hyQueryItems: List<HyQueryItem>
+    constructor(name: string) {
+        this.name = name;
+    }
 }

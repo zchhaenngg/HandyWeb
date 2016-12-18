@@ -79,13 +79,6 @@
 </table>
 
 <script>
-    @*var app = angular.module('handyApp', []);
-
-    app.controller('@pagination.controller', function ($scope) {
-        debugger//只有此处的被调用了
-        //起始页序号
-        $scope.total_count = 2500;
-        $scope.show_item_count = 20;
-        $scope.max_page_number = Math.ceil($scope.total_count / $scope.page_size)
-    });*@
+    var query = new HyQuery("aaa");
+    alert(query.name);
 </script>
