@@ -34,8 +34,8 @@ namespace HandyWork.Web
                       "~/Scripts/angular.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/hy").Include(
-                      "~/Scripts/typescripts/hy-1.0/hy_query.js"
-                      ));
+                      "~/Scripts/typescripts/hy-1.0/hy_modal.js",
+                      "~/Scripts/typescripts/hy-1.0/hy_query.js"));
         }
     }
 }

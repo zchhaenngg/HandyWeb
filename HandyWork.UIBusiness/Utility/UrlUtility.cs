@@ -27,7 +27,10 @@ namespace HandyWork.UIBusiness.Utility
     {
         public static IList<ActionLink> GetLinks4HomeIndex()
         {
-            var list = new List<ActionLink>();
+            var list = new List<ActionLink>
+            {
+                new ActionLink("Modal", "Bootstrap", "弹出模态框")
+            };
             for (int i = 0; i < 20; i++)
             {
                 var link = MyUrlUtility.GetActionLink(Urls.UserIndex);
