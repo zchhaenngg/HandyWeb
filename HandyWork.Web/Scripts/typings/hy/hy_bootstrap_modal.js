@@ -19,14 +19,12 @@ class ModalElement {
         this.body.innerHTML = msg;
     }
     getElement() {
-        var modalEl = document.createElement("div");
-        modalEl.className = "modal";
-        if (this.header.innerHTML) {
-            modalEl.appendChild(this.header);
-        }
-        modalEl.appendChild(this.body);
-        modalEl.appendChild(this.footer);
-        return modalEl;
+        var $modal = $("<div class=\"modal fade in\" tabindex= \"- 1\" role= \"dialog\" style=\"display: block;\"><div class=\"modal-dialog\"><div class=\"modal-content\"></div></div></div>");
+        var $modalContent = $modal.find(".modal-content");
+        $modalContent.append(this.header);
+        $modalContent.append(this.body);
+        $modalContent.append(this.footer);
+        return $modal[0];
     }
 }
 class ModalWindow {
@@ -44,7 +42,7 @@ class ModalWindow {
         if (typeof this.message == 'undefined')
             return this;
         this.modalElement.element = this.modalElement.getElement();
-        document.body.appendChild(this.modalElement.element);
+        $(".container.body-content").append(this.modalElement.element);
         this.opened = true;
         console.log("Modal opened", this.message);
         return this;
