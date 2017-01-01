@@ -1,21 +1,36 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
-import * as modals from './hy_bootstrap_modal.d';
-class ModalElement implements modals.IModalElement {
-    element: HTMLDivElement;
+import { IModalElement } from './hy_bootstrap_modal.d';
+import { Ihy_modal } from './hy_bootstrap_modal.d';
+import { bs_modal } from './hy_bootstrap_modal.d';
+class ModalElement implements IModalElement {
+    modal: HTMLDivElement;
+    modal_diag: HTMLDivElement;
+    modal_content: HTMLDivElement;
     header: HTMLDivElement;
     body: HTMLDivElement;
     footer: HTMLDivElement;
     buttons: HTMLButtonElement[];
 
     constructor() {
+        this.modal = document.createElement("div");
+        this.modal_diag = document.createElement("div");
+        this.modal_content = document.createElement("div");
         this.header = document.createElement("div");
         this.body = document.createElement("div");
         this.footer = document.createElement("div");
         this.buttons = [];
 
+        this.modal.className = "modal";
+        this.modal_diag.className = "modal-dialog";
+        this.modal_content.className = "modal-content";
         this.header.className = "modal-header";
         this.body.className = "modal-body";
         this.footer.className = "modal-footer";
+
+        this.modal.appendChild(this.modal_diag);
+        this.modal_diag.appendChild(this.modal_content);
+        this.modal_content.appendChild(this.header);
+        this.modal_content.appendChild(this.body);
+        this.modal_content.appendChild(this.footer);
     }
 
     addBtn(btnText: string) {
@@ -25,65 +40,93 @@ class ModalElement implements modals.IModalElement {
         this.footer.appendChild(newButton);
         return newButton;
     }
-
-    setMessage(msg: string) {
-        this.body.innerHTML = msg;
+    setHeaderHtml(innerHtml: string) {
+        this.header.innerHTML = innerHtml;
     }
-
-    getElement() {
-        var $modal = $("<div class=\"modal fade in\" tabindex= \"- 1\" role= \"dialog\"><div class=\"modal-dialog\"><div class=\"modal-content\"></div></div></div>");
-        var $modalContent = $modal.find(".modal-content");
-        $modalContent.append(this.header);
-        $modalContent.append(this.body);
-        $modalContent.append(this.footer);
-        return $modal[0] as HTMLDivElement;
+    setBodyHtml(innerHtml: string) {
+        this.body.innerHTML = innerHtml;
     }
 }
 
-class ModalWindow implements modals.IModalWindow {
-    opened: boolean;
-    message: string;
-    modalElement: ModalElement;
-
-    constructor() {
-        this.opened = false;
+class hy_modal implements Ihy_modal {
+    private _modalElement: ModalElement;
+    
+    show_bs_modal?: (relatedTarget?: any) => boolean;
+    shown_bs_modal?: (relatedTarget?: any) => void;
+    hide_bs_modal?: (relatedTarget?: any) => boolean
+    hidden_bs_modal?: (relatedTarget?: any) => void;
+    
+    constructor(bodyHtml: string) {
         this.createElement();
+        this._modalElement.setBodyHtml(bodyHtml);
     }
 
-    close() {
-        document.body.removeChild(this.modalElement.element);
-        this.opened = false;
-        console.log("Modal closed");
+    private get $modal(): JQuery {
+        return $(this._modalElement.modal);
+    }
+
+    private get bs_modal(): bs_modal {
+        
+        return this.$modal.data('bs.modal') as bs_modal;
+    }
+    
+    private createElement() {
+        this._modalElement = new ModalElement();
+        $(document.body).append(this.$modal);
+        this.$modal.modal({ show: false });
+        return this;
+    }
+    setHeaderHtml(innerHtml: string): hy_modal {
+        this._modalElement.setHeaderHtml(innerHtml);
+        return this;
+    }
+    setBodyHtml(innerHtml: string): hy_modal {
+        this._modalElement.setBodyHtml(innerHtml);
         return this;
     }
 
-    open() {
-        if (typeof this.message == 'undefined') return this;
-        this.modalElement.element = this.modalElement.getElement();
-        $(".container.body-content").append(this.modalElement.element);
-        this.opened = true;
-        console.log("Modal opened", this.message);
-        return this;
-    }
-
-    setMessage(message: string) {
-        this.message = message;
-        this.modalElement.setMessage(message);
-        return this;
-    }
-
-    addButton(btnMessage: string, action?: Function) {
-        var button = this.modalElement.addBtn(btnMessage),
-            modal = this;
+    addButton(btnMessage: string = '关闭', action?: Function) {
+        var button = this._modalElement.addBtn(btnMessage);
+        var modal = this;
         button.addEventListener('click', function () {
-            if (action) action.call(modal);
-            modal.close();
+            if (action) {
+                action.call(modal, this);
+            } else {
+                modal.hide();//如果没有事件则默认为关闭按钮事件
+            }
         });
         return this;
     }
+    
+    get isShown(): boolean {
+        return this.bs_modal.isShown;
+    }
 
-    createElement() {
-        this.modalElement = new ModalElement();
-        return true;
+    show(relatedTarget?: any): void {
+        var isShow = true;
+        if (this.show_bs_modal) {
+            isShow = this.show_bs_modal(relatedTarget);
+        }
+        if (isShow) {
+            this.bs_modal.show(relatedTarget);
+            
+            if (this.shown_bs_modal) {
+                this.shown_bs_modal(relatedTarget);
+            }
+        }
+    }
+
+    hide(relatedTarget?: any): void {
+        var isHide = true;
+        if (this.hide_bs_modal) {
+            isHide = this.hide_bs_modal(relatedTarget);
+        }
+        if (isHide) {
+            this.bs_modal.hide(relatedTarget);
+            if (this.hidden_bs_modal) {
+                this.hidden_bs_modal(relatedTarget);
+            }
+        }
+        
     }
 }
