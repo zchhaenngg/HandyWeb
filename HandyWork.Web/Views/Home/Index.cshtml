@@ -3,64 +3,6 @@
     ViewBag.Title = "web桌面";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-     #winlinks {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            width: 100%;
-        }
-
-            #winlinks ul {
-                position: relative;
-            }
-
-            #winlinks li {
-                width: 70px;
-                cursor: pointer;
-                height: 80px;
-                position: absolute;
-                z-index: 101;
-                list-style: none;
-                text-align: center;
-            }
-
-                #winlinks li img {
-                    width: 36px;
-                    height: 36px;
-                }
-
-                #winlinks li span {
-                    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
-                    border-radius: 10px 10px 10px 10px;
-                    display: block;
-                    font-size: 12px;
-                    margin-top: 1px;
-                    color: White;
-                    line-height: 18px;
-                    text-align: center;
-                }
-
-                #winlinks li.l-over div.bg {
-                    display: block;
-                }
-
-                #winlinks li div.bg {
-                    display: none;
-                    position: absolute;
-                    top: -2px;
-                    left: -2px;
-                    z-index: 0;
-                    width: 75px;
-                    height: 64px;
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
-                    border-radius: 5px;
-                    background: #000;
-                    opacity: 0.1;
-                    filter: alpha(opacity=10);
-                }
-</style>
 <div id="winlinks">
     <ul>
     @{
@@ -80,42 +22,6 @@
 </div>
 @section Scripts {
 <script type="text/javascript">
-    $("#winlinks ul li").hover(function () {
-        $(this).addClass("l-over");
-    }, function () {
-        $(this).removeClass("l-over");
-    });
-    $("#winlinks ul li").each(function () {
-        $(this).click(function () {
-            //$(this).prev("a").trigger('click');
-            var href = $(this).prev("a")[0].href;
-            window.open(href);
-        });
-    });
-
-    (function ($) {
-        function onResize() {
-            var linksHeight = $(window).height() - TASKBARHEIGHT;
-            var winlinks = $("#winlinks");
-            winlinks.height(linksHeight);
-
-            var colMaxNumber = parseInt(linksHeight / LINKHEIGHT);//一列最多显示几个快捷方式
-
-            $("#winlinks ul li").each(function (index, e) {
-                var i = index;
-                var top = (i % colMaxNumber) * LINKHEIGHT + TopContainerHeight, left = parseInt(i / colMaxNumber) * LINKWIDTH;
-                if (isNaN(top) || isNaN(left)) {
-                    return;
-                }
-                $(this).css({ top: top, left: left });
-            });
-        }
-
-        var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
-        var TopContainerHeight = $(".topcontainer").outerHeight();
-
-        onResize();
-        $(window).resize(onResize);
-    })(jQuery);
+   
 </script>
 }

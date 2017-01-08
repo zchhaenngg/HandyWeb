@@ -9,11 +9,11 @@ namespace HandyWork.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             /******************************************StyleBundle********************************************/
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/site.css"));
-            bundles.Add(new StyleBundle("~/bundles/easyui").Include(
+            bundles.Add(new StyleBundle("~/Content/easyui").Include(
                       "~/Scripts/jquery-easyui-1.5.1/themes/default/easyui.css",
-                      "~/Scripts/jquery-easyui-1.5.1/themes/icon.css",
+                      "~/Scripts/jquery-easyui-1.5.1/themes/icon.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/site.css"));
             /******************************************ScriptBundle********************************************/
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
