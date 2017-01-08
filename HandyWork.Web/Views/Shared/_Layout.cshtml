@@ -4,15 +4,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/easyui")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <div class="easyui-layout" data-options="fit:true">
-        <div data-options="region:'north'" style="height:50px">
+        <div data-options="region:'north'" style="height:50px;" class="noborder">
             <div style="float:left">
-                <div class="easyui-panel" style="padding:5px 100px 5px 5px;">
+                <div class="easyui-panel" style="padding:10px 100px 10px 10px;">
                     <a href="#" class="easyui-linkbutton" data-options="plain:true">Home</a>
                     <a href="#" class="easyui-menubutton" data-options="menu:'#mm1',iconCls:'icon-edit'">Edit</a>
                     <a href="#" class="easyui-menubutton" data-options="menu:'#mm2',iconCls:'icon-help'">Help</a>
@@ -62,6 +63,7 @@
         </div>
     </div>
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/easyui")
     @Scripts.Render("~/bundles/hy")
 
