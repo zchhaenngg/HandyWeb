@@ -1,4 +1,4 @@
 ﻿interface JQuery
 {
-    modal(options: any);
+    //modal(options: any);
 }

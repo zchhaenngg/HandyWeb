@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - web桌面</title>
+    @Styles.Render("~/bundles/easyui")
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
     <style type="text/css">
         .l-case-title {
             font-weight: bold;
@@ -66,11 +68,10 @@
         @RenderBody()
         <hr />
     </div>
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/easyui")
     @Scripts.Render("~/bundles/hy")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
