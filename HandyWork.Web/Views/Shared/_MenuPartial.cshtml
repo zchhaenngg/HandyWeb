@@ -1,0 +1,53 @@
+﻿<div class="easyui-panel" style="padding:10px 100px 10px 10px;">
+    @{
+        var menus = UrlUtility.GetLinks4Menu();
+        for (int i = 0; i < menus.Count; i++)
+        {
+            var menu = menus[i];
+            if (menu.Children == null || menu.Children.Count == 0)
+            {
+                <a href="#" class="easyui-linkbutton" data-options="plain:true" onclick="window.location.href='/@menu.ControllerName/@menu.ActionName'">@menu.LinkText</a>
+            }
+            else
+            {
+                var menuid = menu.ControllerName + "_" + menu.ActionName;
+                <a href="#" class="easyui-menubutton" data-options="menu:'#@menuid',iconCls:'icon-edit'">@menu.LinkText</a>
+                <div id="@menuid" style="width:150px;">
+                    <a href="#" class="easyui-linkbutton" onclick="window.location.href='/@menu.ControllerName/@menu.ActionName'">@menu.LinkText</a>
+                </div>
+            }
+        }
+    }
+    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1',iconCls:'icon-edit'">用户</a>
+    <div id="mm1" style="width:150px;">
+        <div data-options="iconCls:'icon-undo'">Undo</div>
+        <div data-options="iconCls:'icon-redo'">Redo</div>
+        <div class="menu-sep"></div>
+        <div>Cut</div>
+        <div>Copy</div>
+        <div>Paste</div>
+        <div class="menu-sep"></div>
+        <div>
+            <span>Toolbar</span>
+            <div>
+                <div>Address</div>
+                <div>Link</div>
+                <div>Navigation Toolbar</div>
+                <div>Bookmark Toolbar</div>
+                <div class="menu-sep"></div>
+                <div>New Toolbar...</div>
+            </div>
+        </div>
+        <div data-options="iconCls:'icon-remove'">Delete</div>
+        <div>Select All</div>
+    </div>
+
+    <a href="#" class="easyui-menubutton" data-options="menu:'#mm3'">About</a>
+    <div id="mm3" class="menu-content" style="background:#f0f0f0;padding:10px;text-align:left">
+        <img src="http://www.jeasyui.com/images/logo1.png" style="width:150px;height:50px">
+        <p style="font-size:14px;color:#444;">Try jQuery EasyUI to build your modern, interactive, javascript applications.</p>
+    </div>
+</div>
+
+
+

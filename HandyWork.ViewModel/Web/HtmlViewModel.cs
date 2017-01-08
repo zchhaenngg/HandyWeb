@@ -23,4 +23,23 @@ namespace HandyWork.ViewModel.Web
         public object HtmlAttributes { get; set; }
         
     }
+
+    public class MenuLink : ActionLink
+    {
+        
+        public MenuLink(string actionName, string controllerName, string linkText) : base(actionName, controllerName, linkText)
+        {
+        }
+
+        public IList<MenuLink> Children { get; set; }
+
+        public static MenuLink GetByActionLink(ActionLink link)
+        {
+            return new MenuLink(link.ActionName, link.ControllerName, link.LinkText)
+            {
+                RouteValues = link.RouteValues,
+                HtmlAttributes = link.HtmlAttributes
+            };
+        }
+    }
 }

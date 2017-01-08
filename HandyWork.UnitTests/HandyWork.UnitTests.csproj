@@ -148,10 +148,6 @@
       <Project>{3793238C-2A91-4838-A7F0-1C221B4644DF}</Project>
       <Name>HandyWork.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HandyWork.UIBusiness\HandyWork.UIBusiness.csproj">
-      <Project>{91acada0-b3c5-4fc3-82eb-96de7754b730}</Project>
-      <Name>HandyWork.UIBusiness</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HandyWork.ViewModel\HandyWork.ViewModel.csproj">
       <Project>{0B711B17-8BF5-4AC4-9F19-EC21952940C5}</Project>
       <Name>HandyWork.ViewModel</Name>

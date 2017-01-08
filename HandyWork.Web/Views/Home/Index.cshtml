@@ -1,25 +1,7 @@
-﻿@using HandyWork.UIBusiness.Utility
-@{
+﻿@{
     ViewBag.Title = "web桌面";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div id="winlinks">
-    <ul>
-    @{
-        var links = UrlUtility.GetLinks4HomeIndex();
-        for (int i = 0; i < links.Count; i++)
-        {
-            var link = links[i];
-            @Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName, link.RouteValues, link.HtmlAttributes)
-        <li>
-            <img src="../../Images/3DSMAX.png">
-            <span>@link.LinkText</span>
-            <div class="bg"></div>
-        </li>
-        }
-    }
-    </ul>
-</div>
 @section Scripts {
 <script type="text/javascript">
    

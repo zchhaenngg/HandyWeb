@@ -123,6 +123,7 @@
     <Compile Include="Service\Interfaces\IOWinService.cs" />
     <Compile Include="Service\OWinService.cs" />
     <Compile Include="Utility\SelectListUtility.cs" />
+    <Compile Include="Utility\UrlUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HandyWork.Business\HandyWork.Business.csproj">
