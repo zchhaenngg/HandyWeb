@@ -13,7 +13,7 @@ namespace HandyWork.ViewModel.Common
     }
     public class JsonPageViewModel<T>
     {
-        public List<T> rows { get; set; }
+        public IList<T> rows { get; set; }
         public int total { get; set; }
     }
 }

@@ -21,9 +21,7 @@ namespace HandyWork.Web.Controllers
         
         public ActionResult UserIndex()
         {
-            int iTotal;
-            var list = AccountService.GetPage4UserViewModel(null, out iTotal);
-            return View(list);
+            return View();
         }
 
         //
@@ -393,9 +391,16 @@ namespace HandyWork.Web.Controllers
 
         public ActionResult JsonFindUsers(QueryModel model)
         {
-            int iTotal;
-            var list = AccountService.GetPage4UserViewModel(model, out iTotal);
-            return View(list);
+            return Json(() => 
+            {
+                int iTotal;
+                var list = AccountService.GetPage4UserViewModel(model, out iTotal);
+                return new JsonPageViewModel<AuthUserViewModel>
+                {
+                    rows = list,
+                    total = iTotal
+                };
+            });
         }
     }
 }

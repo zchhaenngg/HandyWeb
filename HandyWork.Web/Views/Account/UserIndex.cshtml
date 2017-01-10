@@ -1,75 +1,44 @@
-﻿@using HandyWork.Model
-@using HandyWork.ViewModel.Web
-@using System.Linq
-@model IEnumerable<AuthUserViewModel>
+﻿@using HandyWork.ViewModel.Web
 @{
     ViewBag.Title = "用户列表";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    //var pagination = new BootstrapPagination { page_size = 5, show_page_count=7, total_count=120 };
+    Layout = "~/Views/Shared/_Layout.cshtml";//默认可不写
 }
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsLocked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockedTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NickName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsLocked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockedTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NickName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-</table>
-
+<div>
+    <p>dd</p>
+</div>
+<div class="datagrid-list" style="height:inherit">
+    <div id="userindex_list"></div>
+</div>
+@section scripts {
 <script>
-  //  var query = new HyQuery("aaa");
-   // alert(query.name);
+    $(function () {
+        $("#userindex_list").datagrid({
+            url: "/Account/JsonFindUsers",
+            fitColumns: true,
+            loading: "加载中……",
+            idField: "Id",
+            emptyMsg: "无记录",
+            pagination: true,
+            rownumbers: true,
+            singleSelect: true,
+            pagePosition: "top",
+            pageSize: 10,
+            pageList: [10, 15, 20, 30],
+            remoteSort: true,
+            title:"用户列表",
+            height: "100%",
+            width: "100%",
+            columns: [[
+                { field: 'UserName', title: '用户名', width: 100 },
+                { field: 'NickName', title: '姓名', width: 100 },
+                { field: 'Email', title: '邮箱', width: 100 },
+                { field: 'PhoneNumber', title: '联系电话', width: 100 },
+                { field: 'EmailConfirmed', title: '邮箱确认', width: 100 },
+                { field: 'IsLocked', title: '账号锁定', width: 100 },
+                { field: 'LockedTime', title: '账号锁定时间', width: 100 },
+                { field: 'Id', hidden:true }
+            ]]
+        });
+    });
 </script>
+}
