@@ -744,7 +744,10 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\sweetalert-dev.js" />
+    <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\sweetalert.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -826,6 +829,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\hy\hy.jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\sweetalert\sweetalert.d.ts" />
     <TypeScriptCompile Include="UserScripts\Shared\_Layout.ts" />
   </ItemGroup>
   <PropertyGroup>

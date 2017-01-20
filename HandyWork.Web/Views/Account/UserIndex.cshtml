@@ -3,14 +3,22 @@
     ViewBag.Title = "用户列表";
     Layout = "~/Views/Shared/_Layout.cshtml";//默认可不写
 }
-<div>
+@*<div>
     <p>dd</p>
-</div>
+</div>*@
+<a href="javascript:void(0);" onclick="testAlert()">testAlert</a>
 <div class="datagrid-list" style="height:inherit">
     <div id="userindex_list"></div>
 </div>
 @section scripts {
 <script>
+    function testAlert() {
+        sweetAlert({
+            title: "Oops!",
+            text: "Something went wrong on the page!",
+            type: "error"
+        });
+    }
     $(function () {
         $("#userindex_list").datagrid({
             url: "/Account/JsonFindUsers",
@@ -30,6 +38,13 @@
             width: "100%",
             columns: [[
                 { field: 'UserName', title: '用户名', width: 100 },
+                { field: 'NickName', title: '姓名', width: 100 },
+                { field: 'Email', title: '邮箱', width: 100 },
+                { field: 'PhoneNumber', title: '联系电话', width: 100 },
+                { field: 'EmailConfirmed', title: '邮箱确认', width: 100 },
+                { field: 'IsLocked', title: '账号锁定', width: 100 },
+                { field: 'LockedTime', title: '账号锁定时间', width: 100 },
+                 { field: 'UserName', title: '用户名', width: 100 },
                 { field: 'NickName', title: '姓名', width: 100 },
                 { field: 'Email', title: '邮箱', width: 100 },
                 { field: 'PhoneNumber', title: '联系电话', width: 100 },
