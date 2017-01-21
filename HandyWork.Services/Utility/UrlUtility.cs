@@ -20,12 +20,14 @@ namespace HandyWork.Services.Utility
             UserIndex = 2
         }
 
+        public static MenuLink GetMenuOfHomeIndex()
+        {
+            var homeindex = MyUrlUtility.GetActionLink(Urls.HomeIndex);
+            return MenuLink.GetByActionLink(homeindex);
+        }
         public static IList<MenuLink> GetLinks4Menu()
         {
-            var list = new List<ActionLink>
-            {
-                MyUrlUtility.GetActionLink(Urls.HomeIndex)
-            };
+            var list = new List<ActionLink>();
             var link = MyUrlUtility.GetActionLink(Urls.UserIndex);
             if (link != null)
             {

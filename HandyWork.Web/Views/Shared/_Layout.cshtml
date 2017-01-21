@@ -11,22 +11,8 @@
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
-    <div class="easyui-layout" data-options="fit:true">
-        <div data-options="region:'north'" class="noborder">
-            <div style="float:left">
-                @Html.Partial("_MenuPartial")
-            </div>
-            <div style="float:right" class="login_msg">
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-        <div data-options="region:'south',split:true" style="height:50px;"></div>
-        <div data-options="region:'east',split:true" title="East" style="width:150px;"></div>
-        <div data-options="region:'west',split:true,collapsed:true" title="West" style="width:150px;"></div>
-        <div class="container body-content" data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
-            @RenderBody()
-        </div>
-    </div>
+    @Html.Partial("_NavPartial")
+    @RenderBody()
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/sweetalert")
     @Scripts.Render("~/bundles/bootstrap")

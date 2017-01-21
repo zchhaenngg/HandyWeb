@@ -11,22 +11,3 @@
 *{
     font-family:'Microsoft YaHei'; 
 }
-
-.noborder .easyui-panel {
-    border:none
-}
-
-.login_msg {
-    margin-right:50px;
-}
-.login_msg ul {
-    margin:10px;
-}
-.login_msg ul li{
-    display: inline;
-    margin:0px 10px;
-}
-.login_msg ul li a {
-    font-size:larger;
-    text-align:center;
-}

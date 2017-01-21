@@ -197,6 +197,7 @@ namespace HandyWork.Services.Service
             //登陆状态需要检查Claim版本信息，如果版本号不正确则强制用户重新登陆
             claims.Add(new Claim(ClaimTypes.Version, MyOwinConfig.ApplicationVersion));
             claims.Add(new Claim("NickName", entity.nick_name));
+            claims.Add(new Claim("EmailAddress", entity.email));
             claims.Add(new Claim("GreaterThanUTCInMinute", GreaterThanUTCInMinute.ToString(), "int"));
             return claims;
         }

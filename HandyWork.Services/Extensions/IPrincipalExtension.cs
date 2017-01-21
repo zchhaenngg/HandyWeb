@@ -19,9 +19,19 @@ namespace HandyWork.Services.Extensions
         {
             return (principal as ClaimsPrincipal)?.Claims.FirstOrDefault(o => o.Type == ClaimTypes.Name)?.Value;
         }
-        public static string GetLoginRealName(this IPrincipal principal)
+        public static string GetLoginNickName(this IPrincipal principal)
         {
             return (principal as ClaimsPrincipal)?.Claims.FirstOrDefault(o => o.Type == "NickName")?.Value;
+        }
+
+        /// <summary>
+        /// 登陆时查询出的Email地址
+        /// </summary>
+        /// <param name="principal"></param>
+        /// <returns></returns>
+        public static string GetEmailAddress(this IPrincipal principal)
+        {
+            return (principal as ClaimsPrincipal)?.Claims.FirstOrDefault(o => o.Type == "EmailAddress")?.Value;
         }
         public static int TimezoneOffsetInMinute(this IPrincipal principal)
         {

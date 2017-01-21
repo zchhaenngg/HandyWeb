@@ -1,0 +1,25 @@
+﻿.navbar-hy-account {
+    width:400px;
+    /*padding-left: 15px;*/
+    padding-bottom:0px;
+}
+.navbar-hy-account .row {
+    margin-right:0px;
+    margin-left:0px;
+    margin-top:5px;
+}
+.navbar-hy-account:before, 
+.navbar-hy-account:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.navbar-nav.navbar-right:last-child {
+    margin-right: 15px !important;
+}
+.navbar-hy-footer {
+    background-color:#DDD;
+}
+.navbar-hy-footer-content { 
+    padding:15px 15px 15px 15px; 
+}
