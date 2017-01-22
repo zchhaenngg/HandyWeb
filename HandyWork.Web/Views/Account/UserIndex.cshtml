@@ -20,40 +20,79 @@
         });
     }
     $(function () {
-        $("#userindex_list").datagrid({
-            url: "/Account/JsonFindUsers",
-            fitColumns: true,
-            loading: "加载中……",
-            idField: "Id",
-            emptyMsg: "无记录",
+        $("#userindex_list").bootstrapTable({
+            url: '/Account/JsonFindUsers',
+            columns: [{
+                    field: 'UserName',
+                    title: '用户名'
+                }, {
+                    field: 'NickName',
+                    title: '姓名'
+                }, {
+                    field: 'Email',
+                    title: 'Item 邮箱'
+                }, {
+                    field: 'PhoneNumber',
+                    title: '联系电话'
+                }, {
+                    field: 'EmailConfirmed',
+                    title: '邮箱确认'
+                }, {
+                    field: 'IsLocked',
+                    title: '账号锁定'
+                }, {
+                    field: 'LockedTime',
+                    title: '账号锁定时间'
+                }
+            ],
+            onLoadError: function (status) {
+                return false;
+            },
+            onLoadSuccess: function (data) {
+                return false;
+            },
+            method:"post",
             pagination: true,
-            rownumbers: true,
-            singleSelect: true,
-            pagePosition: "top",
-            pageSize: 10,
-            pageList: [10, 15, 20, 30],
-            remoteSort: true,
-            title:"用户列表",
-            height: "100%",
-            width: "100%",
-            columns: [[
-                { field: 'UserName', title: '用户名', width: 100 },
-                { field: 'NickName', title: '姓名', width: 100 },
-                { field: 'Email', title: '邮箱', width: 100 },
-                { field: 'PhoneNumber', title: '联系电话', width: 100 },
-                { field: 'EmailConfirmed', title: '邮箱确认', width: 100 },
-                { field: 'IsLocked', title: '账号锁定', width: 100 },
-                { field: 'LockedTime', title: '账号锁定时间', width: 100 },
-                 { field: 'UserName', title: '用户名', width: 100 },
-                { field: 'NickName', title: '姓名', width: 100 },
-                { field: 'Email', title: '邮箱', width: 100 },
-                { field: 'PhoneNumber', title: '联系电话', width: 100 },
-                { field: 'EmailConfirmed', title: '邮箱确认', width: 100 },
-                { field: 'IsLocked', title: '账号锁定', width: 100 },
-                { field: 'LockedTime', title: '账号锁定时间', width: 100 },
-                { field: 'Id', hidden:true }
-            ]]
+            sidePagination: "server",
+            search: true,
+            showPaginationSwitch:true
         });
+    });
+    $(function () {
+        //$("#userindex_list").datagrid({
+        //    url: "/Account/JsonFindUsers",
+        //    fitColumns: true,
+        //    loading: "加载中……",
+        //    idField: "Id",
+        //    emptyMsg: "无记录",
+        //    pagination: true,
+        //    rownumbers: true,
+        //    singleSelect: true,
+        //    pagePosition: "top",
+        //    pageSize: 10,
+        //    pageList: [10, 15, 20, 30],
+        //    remoteSort: true,
+        //    title:"用户列表",
+        //    height: "100%",
+        //    width: "100%",
+        //    columns: [[
+        //        { field: 'UserName', title: '用户名', width: 100 },
+        //        { field: 'NickName', title: '姓名', width: 100 },
+        //        { field: 'Email', title: '邮箱', width: 100 },
+        //        { field: 'PhoneNumber', title: '联系电话', width: 100 },
+        //        { field: 'EmailConfirmed', title: '邮箱确认', width: 100 },
+        //        { field: 'IsLocked', title: '账号锁定', width: 100 },
+        //        { field: 'LockedTime', title: '账号锁定时间', width: 100 },
+        //         { field: 'UserName', title: '用户名', width: 100 },
+        //        { field: 'NickName', title: '姓名', width: 100 },
+        //        { field: 'Email', title: '邮箱', width: 100 },
+        //        { field: 'PhoneNumber', title: '联系电话', width: 100 },
+        //        { field: 'EmailConfirmed', title: '邮箱确认', width: 100 },
+        //        { field: 'IsLocked', title: '账号锁定', width: 100 },
+        //        { field: 'LockedTime', title: '账号锁定时间', width: 100 },
+        //        { field: 'Id', hidden:true }
+        //    ]]
+        //});
     });
 </script>
 }
