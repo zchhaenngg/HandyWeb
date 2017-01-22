@@ -13,13 +13,16 @@ namespace HandyWork.Web
                      "~/Styles/sweetalert.css"
                ));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                      "~/Content/bootstrap.css"
+                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-table.css"
                 ));
             bundles.Add(new StyleBundle("~/Content/easyui").Include(
                       "~/Scripts/jquery-easyui-1.5.1/themes/default/easyui.css",
                       "~/Scripts/jquery-easyui-1.5.1/themes/icon.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/site.css"));
+
             /******************************************ScriptBundle********************************************/
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
@@ -31,7 +34,9 @@ namespace HandyWork.Web
                       "~/Scripts/sweetalert-dev.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-table-1.11.0/bootstrap-table.js",
+                      "~/Scripts/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
                    "~/Scripts/jquery-easyui-1.5.1/plugins/jquery.parser.js",

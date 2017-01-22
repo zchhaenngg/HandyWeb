@@ -31,3 +31,10 @@ http://wiki.connect.qq.com/js_sdk%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E
 https://github.com/t4t5/sweetalert
 demo
 http://t4t5.github.io/sweetalert/
+9.bootstrap-table
+ิดย๋
+https://github.com/wenzhixin/bootstrap-table
+Demo
+http://issues.wenzhixin.net.cn/bootstrap-table/index.html
+GettingStart
+http://bootstrap-table.wenzhixin.net.cn/

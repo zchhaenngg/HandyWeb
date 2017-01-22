@@ -1,4 +1,6 @@
-﻿应用层（Web）->Service层->Business、DAL即Domain层
+﻿Table的分页控件
+
+应用层（Web）->Service层->Business、DAL即Domain层
 
 
 Q1:DAL层中各个Repository应当返回如IQueryable等接口，由Business层决定具体实现？
