@@ -139,19 +139,19 @@ namespace HandyWork.Services.Service
                                 entity.access_failed_times++;
                                 if (entity.access_failed_times > 3)
                                 {
-                                    entity.locked_time = DateTime.UtcNow.Add(MyOwinConfig.LockoutTimeSpan);
+                                    entity.unlock_time = DateTime.UtcNow.Add(MyOwinConfig.LockoutTimeSpan);
                                 }
                                 context.SaveChanges();
                             }
                             return SignInResult.PasswordError;
                         case PasswordVerificationResult.Success:
-                            entity.locked_time = null;
+                            entity.unlock_time = null;
                             entity.access_failed_times = 0;
                             SignIn(entity, isPersistent, GreaterThanUTCInMinute);
                             context.SaveChanges();
                             return SignInResult.Success;
                         case PasswordVerificationResult.SuccessRehashNeeded:
-                            entity.locked_time = null;
+                            entity.unlock_time = null;
                             entity.access_failed_times = 0;
                             context.SaveChanges();
                             return SignInResult.SuccessRehashNeeded;

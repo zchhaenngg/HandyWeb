@@ -156,8 +156,8 @@ namespace HandyWork.ViewModel.Web
         [Display(Name = "账号锁定")]
         public bool IsLocked { get; set; }
 
-        [Display(Name = "账号锁定时间")]
-        public DateTime? LockedTime { get; set; }
+        [Display(Name = "账号解锁时间")]
+        public DateTime? UnLockTime { get; set; }
 
         [Display(Name = "联系电话")]
         public string PhoneNumber { get; set; }

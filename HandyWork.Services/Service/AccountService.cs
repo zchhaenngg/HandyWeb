@@ -26,11 +26,8 @@ namespace HandyWork.Services.Service
             {
                 var entity = context.hy_auth_roles.First(o => o.id == roleId);
                 var permission = context.hy_auth_permissions.First(o => o.id == permissionId);
-                if (!entity.hy_auth_permissions.Contains(permission))
-                {
-                    entity.hy_auth_permissions.Add(permission);
-                    context.SaveChanges();
-                }
+                entity.hy_auth_permissions.Add(permission);
+                context.SaveChanges();
             }
         }
 
@@ -40,11 +37,8 @@ namespace HandyWork.Services.Service
             {
                 var entity = context.hy_users.First(o => o.id == userId);
                 var permission = context.hy_auth_permissions.First(o => o.id == permissionId);
-                if (!entity.hy_auth_permissions.Contains(permission))
-                {
-                    entity.hy_auth_permissions.Add(permission);
-                    context.SaveChanges();
-                }
+                entity.hy_auth_permissions.Add(permission);
+                context.SaveChanges();
             }
         }
 
@@ -54,11 +48,8 @@ namespace HandyWork.Services.Service
             {
                 var entity = context.hy_users.First(o => o.id == userId);
                 var role = context.hy_auth_roles.First(o => o.id == roleId);
-                if (!entity.hy_auth_roles.Contains(role))
-                {
-                    entity.hy_auth_roles.Add(role);
-                    context.SaveChanges();
-                }
+                entity.hy_auth_roles.Add(role);
+                context.SaveChanges();
             }
         }
 
@@ -223,7 +214,7 @@ namespace HandyWork.Services.Service
             using (var context = new HyContext(LoginId))
             {
                 var entity = context.hy_users.Find(userId);
-                entity.is_valid = true;
+                entity.is_valid = !entity.is_valid;
                 context.SaveChanges();
             }
         }
@@ -253,7 +244,7 @@ namespace HandyWork.Services.Service
                 {
                     Id = o.id,
                     IsLocked = o.is_locked,
-                    LockedTime = o.locked_time,
+                    UnLockTime = o.unlock_time,
                     PhoneNumber = o.phone_number,
                     UserName = o.user_name,
                     NickName = o.nick_name,

@@ -1,11 +1,11 @@
 ﻿namespace HandyWork.Model.Entity
 {
-    using Abstracts;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using HandyModel.Entity.Abstracts;
 
     [Table("hy_auth_role")]
     public partial class hy_auth_role : hy_Entity

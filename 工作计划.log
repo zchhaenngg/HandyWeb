@@ -1,4 +1,9 @@
-﻿1.HyContext需要封装成一个单独的dll,并拉分支，做成Package包。
+﻿1.提取Common中的一些功能封装成HandyCommon。
+2.Lambda表达式扩展封装成HandyLambdaExpression，拉分支并出包。
+3.关于访问用户权限、角色一套进行封装HandyIdentity，拉分支并出包。 
+  IdentityDbContext<TUser,TRole,TPermission,THistory>：HistoryDbContext<THistory>
+
+1.HyContext需要封装成一个单独的dll,并拉分支，做成Package包。
 2.用户、权限、角色的CodeFirst需要封装成一个单独的dll,并拉分支，做成Package包。
 3.Lambda表达式构建需要封装成一个单独的dll，并拉分支，做成Package包。
 

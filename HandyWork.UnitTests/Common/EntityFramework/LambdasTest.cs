@@ -48,11 +48,11 @@ namespace HandyWork.UnitTests.Common.EntityFramework
                 var exp = factory.ToExpression();
             }
             {
-                var factory = new LambdaFactory<hy_user>().IfEqual(IsTrue.Init, o => o.locked_time, DateTime.Now);
+                var factory = new LambdaFactory<hy_user>().IfEqual(IsTrue.Init, o => o.unlock_time, DateTime.Now);
                 var exp = factory.ToExpression();
             }
             {
-                var factory = new LambdaFactory<hy_user>().IfEqual(IsTrue.Init, o => o.locked_time, null);
+                var factory = new LambdaFactory<hy_user>().IfEqual(IsTrue.Init, o => o.unlock_time, null);
                 var exp = factory.ToExpression();
             }
         }

@@ -1,10 +1,10 @@
 ﻿namespace HandyWork.Model.Entity
 {
-    using Abstracts;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using HandyModel.Entity.Abstracts;
 
     [Table("hy_user")]
     public partial class hy_user : hy_Entity
@@ -26,7 +26,7 @@
         public bool is_locked { get; set; }
 
         [Display(Name = "账号解锁时间")]
-        public DateTime? locked_time { get; set; }
+        public DateTime? unlock_time { get; set; }
 
         [Required]
         public string password_hash { get; set; }
